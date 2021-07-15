@@ -1,0 +1,170 @@
+/* License
+	DuESF - Duduf ExtendScript Framework
+
+	Copyright (c) 2021 Nicolas Dufresne, RxLaboratory
+
+	https://rxlaboratory.org
+
+	This file is part of DuESF.
+
+        This program is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+
+        This program is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
+
+        You should have received a copy of the GNU General Public License
+        along with this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+
+/**
+ * The Duduf ExtendScript Framework.<br />
+ * by {@link https://rxlaboratory.org RxLaboratory} and {@link http://duduf.com Duduf}.
+ * @namespace
+ * @author Nicolas Dufresne and contributors
+ * @copyright 2021 Nicolas Dufresne, RxLaboratory
+ * @version 1.0.0
+ * @license GPL-3.0 <br />
+ * This program is free software: you can redistribute it and/or modify<br />
+ * it under the terms of the GNU General Public License as published by<br />
+ * the Free Software Foundation, either version 3 of the License, or<br />
+ * (at your option) any later version.<br />
+ *<br />
+ * This program is distributed in the hope that it will be useful,<br />
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of<br />
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the<br />
+ * GNU General Public License for more details.<br />
+ *<br />
+ * You should have received a copy of the GNU General Public License<br />
+ * along with this program. If not, see {@link http://www.gnu.org/licenses/}.
+ */
+var DuESF = {};
+
+/**
+ * The Current DuESF Version
+ * @readonly
+ * @memberof DuESF
+ * @type {string}
+ */
+DuESF.version = new DuVersion('1.0.0');
+/**
+ * Set to true and enable debug mode if you're a developper
+ * @memberof DuESF
+ * @type {boolean}
+ */
+DuESF.debug = false;
+/**
+ * The name of the script using this instance of DuESF. Must be set by {@link DuESF.init}.
+ * @memberof DuESF
+ * @type {string}
+ * @readonly
+ */
+DuESF.scriptName = "DuESF_Script";
+/**
+ * The version of the script using this instance of DuESF. Must be set by {@link  DuESF.init}.
+ * @memberof DuESF
+ * @type {DuVersion}
+ * @readonly
+ */
+DuESF.scriptVersion = new DuVersion('0.0.0');
+/**
+ * An icon for this script
+ */
+DuESF.scriptIcon = '';
+/**
+ * The url for the forum about the script
+ */
+DuESF.forumURL = '';
+/**
+ * The url for a chat server about the script
+ */
+DuESF.chatURL = '';
+/**
+ * The url for reporting bugs
+ */
+DuESF.bugReportURL = '';
+/**
+ * The url for requesting features
+ */
+DuESF.featureRequestURL = '';
+/**
+ * The url about the script
+ */
+DuESF.aboutURL = '';
+/**
+ * The url to the documentation of the script
+ */
+DuESF.docURL = '';
+/**
+ * The text about the script
+ */
+DuESF.scriptAbout = '';
+/**
+ * The name of the company/organisation/individual developping this tool
+ */
+DuESF.companyName = 'RxLaboratory';
+/**
+ * The URL to the company's website
+ */
+DuESF.companyURL = 'https://rxlaboratory.org';
+/**
+ * An icon for this company
+ */
+DuESF.companyIcon = '';
+/**
+ * The current DuESF File
+ * @readonly
+ * @memberof DuESF
+ * @type {File}
+ */
+DuESF.file = new File( $.fileName );
+
+//Initializes DuESF
+( function()
+{
+    //detect OS Version
+    var mac = $.os.toLowerCase().indexOf( "mac" ) >= 0;
+    /**
+     * The current OS, true if we're on Mac OS
+     * @memberof DuESF
+     * @readonly
+     * @type {boolean}
+     */
+    DuESF.mac = mac;
+    /**
+     * The current OS, true if we're on Windows
+     * @memberof DuESF
+     * @readonly
+     * @type {boolean}
+     */
+    DuESF.win = !mac;
+} )();
+
+/**
+ * This method has to be called once at the very beginning of the script, just after the inclusion of DuESF <code>#include DuESF.jsxinc</code>
+ * @param {string} [scriptName="DuESF"] - The name of your script, as it has to be displayed in the UI and the filesystem
+ * @param {string} [scriptVersion="0.0.0"] - The version of your script, in the form "XX.XX.XX-Comment", for example "1.0.12-Beta". The "-Comment" part is optional.
+ */
+DuESF.init = function( scriptName, scriptVersion )
+{
+    scriptName = def( scriptName, "DuESF" );
+    scriptVersion = def( scriptVersion, "0.0.0" );
+    DuESF.scriptName = scriptName;
+    DuESF.scriptVersion = new DuVersion(scriptVersion);
+}
+
+/**
+ * Assigns a default value to a var if it's undefined.
+ * @param {object} val - The variable to set
+ * @param {object} defaultVal - The default value
+ * @return {object} The var
+ * @example foo = def( foo, 12 ); // if foo was undefined, it is now 12, else it's unchanged.
+ */
+def = function( val, defaultVal )
+{
+	return typeof val === 'undefined' ? defaultVal : val;
+}
