@@ -84,7 +84,7 @@ Matrix.prototype = {
 	* @returns {Matrix}
 	*/
 	rotate: function(angle) {
-	 angle = DuAEF.DuJS.Math.toRadians(angle);
+	 angle = DuMath.toRadians(angle);
 	 var
 		cos = Math.cos(angle),
 		sin = Math.sin(angle);

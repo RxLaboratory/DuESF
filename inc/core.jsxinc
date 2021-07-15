@@ -63,7 +63,7 @@ DuESF.debug = false;
  * @type {string}
  * @readonly
  */
-DuESF.scriptName = "DuESF_Script";
+DuESF.scriptName = "DuESF";
 /**
  * The version of the script using this instance of DuESF. Must be set by {@link  DuESF.init}.
  * @memberof DuESF
@@ -148,13 +148,18 @@ DuESF.file = new File( $.fileName );
  * This method has to be called once at the very beginning of the script, just after the inclusion of DuESF <code>#include DuESF.jsxinc</code>
  * @param {string} [scriptName="DuESF"] - The name of your script, as it has to be displayed in the UI and the filesystem
  * @param {string} [scriptVersion="0.0.0"] - The version of your script, in the form "XX.XX.XX-Comment", for example "1.0.12-Beta". The "-Comment" part is optional.
+ * @param {string} [companyName="RxLaboratory"] - The name of the company/organisation/individual developping this script.
  */
-DuESF.init = function( scriptName, scriptVersion )
+DuESF.init = function( scriptName, scriptVersion, companyName )
 {
     scriptName = def( scriptName, "DuESF" );
     scriptVersion = def( scriptVersion, "0.0.0" );
     DuESF.scriptName = scriptName;
     DuESF.scriptVersion = new DuVersion(scriptVersion);
+    DuESF.companyName = dev( companyName, "RxLaboratory" );
+
+    // Everything which needs to be initialized once we have our info
+    DuFolder.init();
 }
 
 /**
@@ -164,7 +169,28 @@ DuESF.init = function( scriptName, scriptVersion )
  * @return {object} The var
  * @example foo = def( foo, 12 ); // if foo was undefined, it is now 12, else it's unchanged.
  */
-def = function( val, defaultVal )
+function def( val, defaultVal )
 {
 	return typeof val === 'undefined' ? defaultVal : val;
+}
+
+/**
+ * Improved typeof which returns the type of object instead of 'object'
+ * @param {any} exp - The expression to check.
+ * @return {string} The type. For primitives, in lower case ('string', 'number', 'boolean', 'null', 'undefined'). A function is 'Function'
+*/
+function jstype(value) {
+    var type = typeof value;
+
+    switch(type) {
+        case 'object':
+        return value === null ? 'null' : Object.prototype.toString.call(value).
+            match(/^\[object (.*)\]$/)[1]
+
+        case 'function':
+        return 'Function';
+
+        default:
+        return type;
+    }
 }

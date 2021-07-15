@@ -1,0 +1,215 @@
+﻿/**
+	* JavaScript String related methods
+	* @namespace
+*/
+var DuString = {};
+
+/**
+ * Counts the number of occurences of item in string
+ * @memberof DuString
+ * @param {string} string - The string where to count
+ * @param {string} item - the string to search
+ * @return {int} the number of occurences
+ */
+DuString.occurences = function (string, item)
+{
+	return (string.split(item).length -1);
+}
+
+/**
+	* Parses the string as a boolean.<br />
+	* The following strings are falsy:<br />
+	* 'false', '0', '', 'null', 'undefined', 'NaN'.<br />
+	* Note that any string consisiting only in any number of 0 will be falsy.
+	* @memberof DuString
+	* @param {string} string - The string to parse
+	* @param {boolean} [caseSensitive=true] - When false, 'FALSE', 'nan', 'UNdefined'... for example will be falsy too.
+	* @return {boolean} The resulting boolean
+*/
+DuString.parseBool = function (string, caseSensitive)
+{
+	caseSensitive = def(caseSensitive, true);
+
+	if (!caseSensitive) string = string.toLowerCase();
+	var nan = 'NaN';
+	if (!caseSensitive) nan = 'nan';
+
+	// test if string is only zeroes
+	var reZeroes = /^0+$/g;
+	if (reZeroes.test(string)) return false;
+
+	return string !== 'false' && string !== 'null' && string !== '' && string !== 'undefined' && string !== nan;
+}
+
+/**
+	* Replaces <strong>all</strong> occurences of a substring by another and returns the new string.
+	* @memberof DuString
+	* @param {string}	string			- The original string
+	* @param {string}	find			- The substring to replace
+	* @param {string}	replace			- The new substring to insert
+	* @param {boolean}	[caseSensitive=true]	- Optionnal. Do a case sensitive search of substring.
+	* @return	{string}	The new string
+	*/
+DuString.replace = function (string, find, replace, caseSensitive)
+{
+	if (caseSensitive == undefined) caseSensitive = true;
+	var re = new RegExp(DuRegExp.escape(find),caseSensitive ? 'g' : 'gi');
+	return string.replace(re, replace);
+}
+
+/**
+	* Replaces all occurences of "{#}" in the string by the args. Uses "?" if there are less args than occurences of "{#}".
+	* @memberof DuString
+	* @param {string}	string			- The original string
+	* @param {string[]}	args			- The arguments
+	* @return {string}	The new string
+	*/
+DuString.args = function (string, args)
+{
+    var str = string;
+    while(str.indexOf("{#}") !== -1)
+	{
+		// While there is stuff to format
+		if(args.length < 1)
+		{ // If no more args, replace with "?"
+			str = str.replace("{#}", "?"); // Will replace the first occurence
+		}
+		else
+		{
+			var arg = args.shift(); // Take the first arg and remove it
+			str = str.replace("{#}", arg);
+		}
+	}
+    return str;
+}
+
+/**
+ * Checks if a string ends with a given suffix
+ * @memberof DuString
+ * @param {string}	str 	The string to check
+ * @param {string}	suffix	The suffix
+ * @return {bool}	Wether the string ends with the given suffix or not
+ */
+DuString.endsWith = function (str, suffix)
+{
+	return str.indexOf(suffix, str.length - suffix.length) !== -1;
+}
+
+/**
+ * Generates a new unique string (numbered)
+ * @param {string} newString	- The wanted new string
+ * @param {string[]} stringList 	- The list of strings where the new one must be generateUnique
+ * @param {boolean} [increment=true] - true to automatically increment the new name if it already ends with a digit
+ * @param {boolean} [isFile=false] - when generating name for files, setting this to true will add the increment before the extension
+ * @return {string}	The unique string, with a new number at the end if needed.
+ */
+DuString.generateUnique = function ( newString , stringList , increment )
+{
+	increment = def(increment, true);
+	if (!increment) newString += ' ';
+
+    //detect digits
+    var reg = "( *)(\\d+)([.,]?\\d*)$";
+    //clean input
+    var regexClean = new RegExp(reg);
+    newString = newString.replace(regexClean,"");
+    //go!
+    var regex = new RegExp( DuRegExp.escape(newString) + reg);
+    //The greatest number found
+    var greatestNumber = 0;
+    //The number of digits for the number as string
+    var numDigits = 0;
+    var spaceString = "";
+    for ( var i =0 ; i < stringList.length ; i ++)
+    {
+        var currentNumberMatch = stringList[i].match(regex);
+        if (stringList[i] === newString && greatestNumber == 0) greatestNumber++;
+        else if (currentNumberMatch !== null)
+        {
+            //if its a decimal number, keep only the integer part
+            var numberAsString = currentNumberMatch[2];
+            //convert to int
+            var numberAsInt = parseInt(currentNumberMatch[2],10);
+			if (isNaN(numberAsInt)) continue;
+            if(numberAsInt >= greatestNumber ){
+                greatestNumber = numberAsInt  + 1;
+                spaceString = currentNumberMatch[1];
+            }
+            //check if there are zeroes before the number, count the digits
+            if(numberAsInt.toString().length < numberAsString.length && numDigits < numberAsString.length) numDigits = numberAsString.length;
+        }
+    }
+
+    //add leading 0 if needed
+    if (greatestNumber > 0)
+    {
+            //convert to string with leading zeroes
+            if (greatestNumber == 1) {
+                greatestNumber++;
+                spaceString = " ";
+            }
+            newString += spaceString;
+            greatestNumber = DuNumber.toString(greatestNumber,numDigits);
+            newString += greatestNumber;
+    }
+
+	if (!increment) newString = newString.substr(0,newString.length-1);
+
+    return newString;
+}
+
+/**
+	* Returns a copy of the string without leading and trailing white spaces.
+	* @param {string}	 str	- The string to trim
+	* @return {String} The trimmed string
+*/
+DuString.trim = function(str)
+{
+	return str.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
+}
+
+/**
+	* Returns a copy of the string without leading white spaces.
+	* @param {string}	 str	- The string to trim
+	* @return {String} The trimmed string
+*/
+DuString.leftTrim = function(str)
+{
+	return str.replace(/^[\s\uFEFF\xA0]+/, '');
+}
+
+/**
+	* Returns a copy of the string without trailing white spaces.
+	* @param {string}	 str	- The string to trim
+	* @return {String} The trimmed string
+*/
+DuString.rightTrim = function(str)
+{
+	return str.replace(/[\s\uFEFF\xA0]+$/, '');
+}
+
+/**
+	* Returns a copy of the string without leading and trailing white spaces, and without any new line, leaving only standard spaces.
+	* @param {string}	 str	- The string to trim
+	* @return {String} The trimmed string
+*/
+DuString.fullTrim = function(str)
+{
+	var newStr = str.replace(/[\s\uFEFF\xA0]+/g,' ');
+	return DuString.trim(newStr);
+}
+
+/**
+ * Converts a size in Bytes to a human-readable string with a fitting unit automatically chosen<br />
+ * Note that the conversion uses 1024 Bytes per kB.
+ * @param {int} size The size in Bytes
+ * @return {string} The stringified size
+ */
+DuString.fromSize = function (size)
+{
+	if (size < 1024) return size + "B";
+	if (size < 1048576) return DuPath.sizeFromBytes(size, "kB") + "kB";
+	if (size < 1073741824) return DuPath.sizeFromBytes(size, "MB") + "MB";
+	if (size < 1099511627776) return DuPath.sizeFromBytes(size, "GB") + "GB";
+	else return DuPath.sizeFromBytes(size, "TB") + "TB";
+}
