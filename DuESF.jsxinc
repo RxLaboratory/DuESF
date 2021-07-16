@@ -1,4 +1,5 @@
 #include "inc/core.jsxinc"
+#include "inc/translator.jsxinc"
 #include "inc/third-party/JSON.jsxinc"
 #include "inc/third-party/Matrix.jsxinc"
 #include "inc/third-party/SeedRandom.jsxinc"
