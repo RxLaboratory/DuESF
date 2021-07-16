@@ -1,0 +1,326 @@
+﻿/**
+ * Constructs a new string representation of a binary file
+ * @class DuBinary
+ * @classdesc Represents a binary file as a string and a filename.
+ * @param	{string}	binAsString			- The string representation.
+ * @param	{string}	fileName			- The name of the original file.
+ * @param	{string}	[category='']			- A Category for the file, will be used as a subfolder to extract files. Can have subcategories like "category/subcategory".
+ */
+function DuBinary( binAsString, fileName, category)
+{
+    /**
+        * The string representation of the binary file.
+        * @memberof DuBinary
+        * @type {string}
+        * @name binAsString
+        */
+	this.binAsString = binAsString;
+
+	fileName = DuString.replace(fileName,'%20','_');
+    /**
+        * The name of the original file.
+        * @memberof DuBinary
+        * @type {string}
+        * @name fileName
+        */
+	this.fileName = fileName;
+
+	if (category === undefined) category = '';
+    /**
+        * A Category for the file, will be used as a subfolder to extract files. Can have subcategories like "category/subcategory".
+        * @memberof DuBinary
+        * @type {string}
+        * @name category
+        */
+	this.category = category;
+}
+
+/**
+ * Writes the file.
+ * @param {string}			[outputFileName=DuFolder.duesfData/category/binaryfilename]	- The output filename.
+ * @param {boolean}			[onlyAtFirstRun=true]	- Does not extract the file if it already exists and this is not the first time this version of the script is being used.<br />
+ * The file will be extracted only if the script is new or has just been updated (the version changed).
+ * @return {File|null} The file created, null if the file could not be written.<br />
+ * If the file is not written, check user permissions, and check if the file and network access preference is checked<br />
+ * You can check {@link DuAEF.DuAE.App.hasFilesAndNetworkAccess} and call {@link DuAEF.DuAE.App.askFilesAndNetworkAccess}.
+ * @example
+ * //First, include the text representation of the file (Add a # before the include word)
+ * include executable.exe.jsxinc
+ * // Now, a variable called `executable` (the original file name without extension) is available, it's an instance of DuBinary.
+ * var execFile = executable.extract();
+ * //Now, the file exists in the file system, and execFile is an ExtendScript File object.
+ * // The `DuBinary.extract()` method extracts the file to the Application Data folder by default.
+ * execFile.fsName; // C:\users\duduf\appData\Roaming\RxMaboratory\AdobeScripts\DuESF\icon.png (Example on Windows)
+ * @example
+ * //You can specify the output file name. (Add a # before the include word)
+ * include preset.ffx.jsxinc
+ * var presetFile = preset.extract("C:/test/test_preset.ffx");
+ * presetFile.fsName; // C:\test\test_preset.exe");
+ */
+DuBinary.prototype.extract = function( outputFileName, onlyAtFirstRun )
+{
+    onlyAtFirstRun = def( onlyAtFirstRun, true );
+
+    var rootFolder = DuFolder.duesfData.absoluteURI;
+    outputFileName = def( outputFileName, rootFolder + '/' + this.category + '/' + this.fileName )
+
+    var file = new File(outputFileName);
+
+    // performance
+    // do not extract if the file exists and we're not in the first run (or debug mode)
+    if (file.exists && !DuAEF.scriptFirstRun && !DuESF.debug)
+    {
+        return file;
+    }
+
+	if (!file.exists)
+	{
+		var folder = new Folder(file.path);
+		if (!folder.exists)
+		{
+			folder.create();
+		}
+	}
+
+    try 
+    {
+        file.encoding = 'BINARY';
+        if (file.open('w'))
+        {
+            success = file.write(this.binAsString);
+            file.close();
+        }
+
+        return file;
+    }
+    catch(e)
+    {
+        if (DuESF.debug) alert (e);
+        return null;
+    }
+}
+
+// ============== DEPRECATED ==================
+
+/**
+ * Creates a file from a DuBinary object representation.
+ * @memberof DuAEF.DuBinary
+ * @static
+ * @deprecated
+ * @param {DuBinary}	DuBinary  	- The DuBinary object containing the string representation.<br />
+ * This object will be replaced by the File object created.<br />
+ * If a file object is provided (the file has already been extracted), does nothing.
+ * @param {string}			[outputFileName=DuFolder.duesfData/DuAEF/scriptName/category/binaryfilename]	- The output filename.
+ * @param {boolean}			[onlyAtFirstRun=true]	- Does not extract the file if it already exists and this is not the first time this version of the script is being used.<br />
+ * The file will be extracted only if the script is new or has just been updated (the version changed).
+ * @return {File|null} The file created, null if the file could not be written.<br />
+ * If the file is not written, check user permissions, and check if the file and network access preference is checked<br />
+ * You can check {@link DuAEF.DuAE.App.hasFilesAndNetworkAccess} and call {@link DuAEF.DuAE.App.askFilesAndNetworkAccess}.
+ * @example
+ * //First, include the text representation of the file (Add a # before the include word)
+ * include executable.exe.jsxinc
+ * // Now, a variable called `executable` (the original file name without extension) is available, you can pass this object to the `DuBinary.toFile()` method to extract it and get an ExtendScript File object representation of it.
+ * // Note: This object is an instance of a `DuBinary` class, which contains all information and a string representation of the original binary file
+ * var execFile = DuBinary.toFile(executable);
+ * //Now, the file exists in the file system, and execFile is an ExtendScript File object.
+ * // The `DuBinary.toFile()` method extracts the file to the Application Data folder by default.
+ * execFile.fsName; // C:\users\duduf\appData\Roaming\DuAEF\icon.png (Example on Windows)
+ * @example
+ * //You can specify the output file name. (Add a # before the include word)
+ * include preset.ffx.jsxinc
+ * var presetFile = DuBinary.toFile(preset,"C:/test/test_preset.ffx");
+ * presetFile.fsName; // C:\test\test_preset.exe");
+ */
+DuAEF.DuBinary.toFile = function(DuBinary,outputFileName,onlyAtFirstRun)
+{
+  onlyAtFirstRun = def( onlyAtFirstRun, true );
+	if (!DuAEF.DuAE.App.hasFilesAndNetworkAccess) return null;
+  if (typeof DuBinary === 'undefined') return;
+	if (DuBinary instanceof File) return;
+  var rootFolder = DuFolder.duesfData.absoluteURI;
+  if (DuESF.scriptName != '') rootFolder += '/'  + DuESF.scriptName;
+	if (typeof outputFileName === 'undefined') outputFileName = rootFolder + '/' + DuBinary.category + '/' + DuBinary.fileName;
+	var file = new File(outputFileName);
+
+  // performance
+  // do not extract if the file exists and we're not in the first run (or debug mode)
+  if (file.exists && !DuAEF.scriptFirstRun && !DuESF.debug)
+  {
+    return file;
+  }
+
+	if (!file.exists)
+	{
+		var folder = new Folder(file.path);
+		if (!folder.exists)
+		{
+			folder.create();
+		}
+	}
+
+	file.encoding = 'BINARY';
+	if (file.open('w'))
+	{
+		success = file.write(DuBinary.binAsString);
+		file.close();
+	}
+
+	DuBinary = file;
+
+	return file;
+}
+
+/**
+ * Creates a DuBinary object from a binary file
+ * @memberof DuAEF.DuBinary
+ * @param {File}    file      - The File to convert
+ * @param {string}  [category]  - A Category for the file, will be used as a subfolder to extract files. Can have subcategories like "category/subcategory".
+ * @return {DuBinary} The DuBinary object containing the file as a string
+ */
+DuAEF.DuBinary.toObj = function(binaryFile,category)
+{
+  var content = '';
+
+  binaryFile.encoding = "BINARY";
+  if (binaryFile.open("r"))
+  {
+    content = binaryFile.read().toSource();
+    content = content.substr(content.indexOf("\"")+1, content.length);
+    content = content.substr(0, content.lastIndexOf("\""));
+    binaryFile.close();
+  }
+
+  var obj = new DuBinary(content,binaryFile.name,category);
+
+  return obj;
+}
+
+/**
+ * Converts a binary file to a jsxinc file
+ * @memberof DuAEF.DuBinary
+ * @param {File}    binaryFile      - The binary file to convert
+ * @param {string}  [category]        - A Category for the file, will be used as a subfolder to extract files. Can have subcategories like "category/subcategory". Default: ""
+ * @param {string}  [outputFileName=Same folder, same name with .json extension]  - The file name for the output.
+ * @param {string}	[varName=File name without extension]	- The name of the variable used to store the javascript object.
+ * @return {File} The json file created
+ */
+DuAEF.DuBinary.convertToIncludeFile = function(binaryFile,category,outputFileName,varName)
+{
+	if (typeof  outputFileName === 'undefined') outputFileName = binaryFile.absoluteURI + '.jsxinc';
+	if (typeof varName === 'undefined') varName = binaryFile.name.replace(/\..+/,'');
+	varName = DuString.replace(varName,'%20','_');
+	var duBinary = DuAEF.DuBinary.toObj(binaryFile,category);
+	var jsString = 'var ' + varName + ' = ';
+	jsString += '{"binAsString":"' + duBinary.binAsString + '","fileName":"' + duBinary.fileName + '","category":"' + duBinary.category + '"}'
+	jsString += ';\r\n';
+	jsString += varName + ';\r\n';
+	var outputFile = new File(outputFileName);
+	outputFile.encoding = 'UTF8';
+	if (outputFile.open("w", "TEXT", "????"))
+	{
+		outputFile.write(jsString);
+		outputFile.close();
+	}
+
+    return outputFile;
+}
+
+/**
+ * Converts a JS file to a binary file
+ * @memberof DuAEF.DuBinary
+ * @param {File}    jsFile        - The JS file to convert
+ * @param {string}	[outputFileName=DuFolder.duesfData/category/binaryfilename]	- The output filename.
+ * @return {File} The binary file created, or null if failed
+ * @example
+ * //If you don't want to include the file in the script. (Add a # before the include word)
+ * var stringFile = new File("C:\test\image.jpg.jsxinc");
+ * var jpgFile = DuBinary.convertToBinaryFile(stringFile);
+ * // Warning, this method uses `$.eval()` which is a bad security issue.
+ * //This will be changed in the future, but for now, do not use this method for anything else than debugging and testing.
+ * @todo Do not use $.eval() but parse the file.
+ */
+DuAEF.DuBinary.convertToBinaryFile = function(jsFile,outputFileName)
+{
+	//TODO parse instead of eval
+	var obj = $.eval(jsFile);
+	return this.toFile(obj);
+}
+
+/**
+ *  Extract paths from a given file. Paths are not checked, be sure to check them before using them. (checking if they exist)
+ * Ignore lines starting with "#include".
+ * Also returns the surounding elements "path" or 'path'.
+ * @memberof DuAEF.DuBinary
+ * @param {String}    filePath        - The path to the file
+ * @return {string[]} List of paths.
+ * @return {int} 1 if the file can't be opened
+*/
+DuAEF.DuBinary.parseFilePaths = function(filePath)
+{
+    var paths = [];
+
+    var file = new File(filePath);
+    if(!file.open("r")) return 1; // Unable to open the file
+
+    var folder = file.parent.absoluteURI;
+
+    var indexSimple, indexDouble, indexEnd;
+    var offset = 0;
+    var simple = false;
+    var currentString;
+    var start;
+    // Line by line reading
+    while(!file.eof )
+    {
+          var line = file.readln();
+
+          if (line.indexOf("#include", 0) == 0) continue;
+
+          // Detect strings
+          var strings = [];
+          offset = 0;
+          do{
+              // Start string
+              indexDouble = line.indexOf('"', offset); // "
+              indexSimple = line.indexOf("'", offset); // '
+              if(indexDouble == indexSimple) break; // No match
+              if((indexDouble < indexSimple || indexSimple == -1) && indexDouble != -1)
+              {
+                    simple = false;
+                    offset = indexDouble + 1;
+              }else if(indexSimple != -1)
+              {
+                    simple = true;
+                    offset = indexSimple + 1;
+               }else break;
+                start = offset - 1;
+                // End string
+               do{
+                    if(simple)
+                        indexEnd = line.indexOf("'", offset) + 1; // '
+                    else
+                        indexEnd = line.indexOf('"', offset) + 1; // "
+                    offset = indexEnd + 1;
+                } while (indexEnd != -1 && line.charAt(indexEnd - 1) == '\\'); // Escaped end string
+
+                if(indexEnd == -1) break;
+                // String
+                currentString = line.slice(start, indexEnd);
+
+                // Test if its a file
+                // Dumb check
+                var indexPoint = currentString.lastIndexOf('.');
+                if(indexPoint != -1 && indexPoint != currentString.length - 1)
+                {
+                    paths.push(currentString);
+                }
+
+          }while(indexSimple != indexDouble);
+
+    }
+
+    file.close();
+
+    return paths;
+}
+
