@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Namespace: DuRegExp</title>
+    <title>Namespace: Settings</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -789,7 +789,7 @@
     </ul>
 </div>
     <div class="main">
-        <h1 class="page-title" data-filename="DuRegExp.html">Namespace: DuRegExp</h1>
+        <h1 class="page-title" data-filename="DuTranslator.Settings.html">Namespace: Settings</h1>
         
 
 
@@ -798,7 +798,9 @@
     
 <header>
     <h2>
-    DuRegExp
+        <span class="ancestors"><a href="DuTranslator.html">DuTranslator</a>.</span>
+    
+    Settings
     </h2>
     
 </header>  
@@ -809,7 +811,7 @@
     
     
         
-            <div class="description">JavaScript Regular Expression related methods</div>
+            <div class="description">Some Settings for the translator</div>
         
         
         
@@ -859,7 +861,7 @@
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id=".javascriptSymbols"><span class="type-signature static">static,readonly</span>DuRegExp.javascriptSymbols</h4>
+        <h4 class="name" id=".folder"><span class="type-signature static">static</span>DuTranslator.Settings.folder<span class="type-signature type string">string</span> </h4>
     </div>
     
     
@@ -867,7 +869,7 @@
 <dd>
     
     <div class="description">
-        The set containing javascript symbols ( +, -, [, etc.). Useful when parsing javascript code.
+        The folder containing the translation files
     </div>
     
     
@@ -887,6 +889,9 @@
     
     
     
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy"><li>"thisScriptFile/file/path/"</li></ul></dd>
     
     
     
@@ -904,7 +909,7 @@
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id=".javascriptVarChars"><span class="type-signature static">static,readonly</span>DuRegExp.javascriptVarChars</h4>
+        <h4 class="name" id=".name"><span class="type-signature static">static</span>DuTranslator.Settings.name<span class="type-signature type string">string</span> </h4>
     </div>
     
     
@@ -912,7 +917,7 @@
 <dd>
     
     <div class="description">
-        The set containing authorized characters for javascript variable. Useful when parsing javascript code.
+        The application name (root of the json translations)
     </div>
     
     
@@ -933,6 +938,9 @@
     
     
     
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy"><li>"duesf"</li></ul></dd>
+    
     
     
     
@@ -945,87 +953,20 @@
     
 </dd>
 
-        </dl>
-    
-    
-    
-        <h3 class="subsection-title">Methods</h3>
         
-        <dl>
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id=".escape">
-            
-            <span class="type-signature static">static</span>DuRegExp.escape<span class="signature">(string)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{string}</span>
-        </h4>
-    
-        
-        <div class="tag-source">
-            D:/DEV SRC/RxOT/DuAEF/src/DuESF/tools/build/output/DuESF.jsxinc, line 2889
-        </div>
-        
+        <h4 class="name" id=".originalLanguageId"><span class="type-signature static">static</span>DuTranslator.Settings.originalLanguageId<span class="type-signature type string">string</span> </h4>
     </div>
-
+    
     
 </dt>
 <dd>
     
-    
     <div class="description">
-        Escape reg exp reserved characters from a string to build a regular expression compatible string
+        The original languageId
     </div>
-    
-
-    
-    
-    
-    
-    
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>string</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                The string to escape</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
     
     
     
@@ -1045,6 +986,9 @@
     
     
     
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy"><li>"en"</li></ul></dd>
+    
     
     
     
@@ -1055,48 +999,155 @@
 
     
     
+</dd>
 
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-
-
-<table class="params">
-    <thead>
-    <tr>
         
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
             
-            <td class="type">
-            
-                        string
-                        
-                    
-            </td>
-            <td class="description last">The escaped string</td>
-        </tr>
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id=".originalLanguageName"><span class="type-signature static">static</span>DuTranslator.Settings.originalLanguageName<span class="type-signature type string">string</span> </h4>
+    </div>
     
-    </tbody>
-</table>
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        The original language name
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
 
     
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy"><li>"English"</li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id=".prefix"><span class="type-signature static">static</span>DuTranslator.Settings.prefix<span class="type-signature type string">string</span> </h4>
+    </div>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        The prefix in the translation filenames
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy"><li>"thisScriptFileName_"</li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id=".suffix"><span class="type-signature static">static</span>DuTranslator.Settings.suffix<span class="type-signature type string">string</span> </h4>
+    </div>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        The suffix (including file extension) in the translation filenames
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy"><li>".json"</li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
     
     
 </dd>
 
         </dl>
+    
+    
     
     
     

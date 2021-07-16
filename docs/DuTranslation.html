@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Namespace: DuRegExp</title>
+    <title>Class: DuTranslation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -789,7 +789,7 @@
     </ul>
 </div>
     <div class="main">
-        <h1 class="page-title" data-filename="DuRegExp.html">Namespace: DuRegExp</h1>
+        <h1 class="page-title" data-filename="DuTranslation.html">Class: DuTranslation</h1>
         
 
 
@@ -798,8 +798,10 @@
     
 <header>
     <h2>
-    DuRegExp
+    DuTranslation
     </h2>
+    
+        <div class="class-description">An translation for a string.</div>
     
 </header>  
 
@@ -809,160 +811,16 @@
     
     
         
-            <div class="description">JavaScript Regular Expression related methods</div>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-    
-    </div>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-        <h3 class="subsection-title">Members</h3>
-        
-        <dl>
-            
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id=".javascriptSymbols"><span class="type-signature static">static,readonly</span>DuRegExp.javascriptSymbols</h4>
-    </div>
-    
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        The set containing javascript symbols ( +, -, [, etc.). Useful when parsing javascript code.
-    </div>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-</dd>
-
-        
+        <h4 class="name" id="DuTranslation">
             
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id=".javascriptVarChars"><span class="type-signature static">static,readonly</span>DuRegExp.javascriptVarChars</h4>
-    </div>
-    
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        The set containing authorized characters for javascript variable. Useful when parsing javascript code.
-    </div>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-</dd>
-
-        </dl>
-    
-    
-    
-        <h3 class="subsection-title">Methods</h3>
-        
-        <dl>
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id=".escape">
-            
-            <span class="type-signature static">static</span>DuRegExp.escape<span class="signature">(string)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{string}</span>
+            new DuTranslation<span class="signature">(source, <span class="optional">translation</span>, <span class="optional">comment</span>, <span class="optional">context</span>, <span class="optional">contextId</span>)</span>
         </h4>
     
         
         <div class="tag-source">
-            D:/DEV SRC/RxOT/DuAEF/src/DuESF/tools/build/output/DuESF.jsxinc, line 2889
+            D:/DEV SRC/RxOT/DuAEF/src/DuESF/tools/build/output/DuESF.jsxinc, line 4298
         </div>
         
     </div>
@@ -973,7 +831,7 @@
     
     
     <div class="description">
-        Escape reg exp reserved characters from a string to build a regular expression compatible string
+        Creates a new string translation.
     </div>
     
 
@@ -994,6 +852,8 @@
 		<th>Type</th>
 		
 		
+		<th>Default</th>
+		
 		
 		<th class="last">Description</th>
 	</tr>
@@ -1004,7 +864,7 @@
 	
         <tr>
             
-                <td class="name"><code>string</code></td>
+                <td class="name"><code>source</code></td>
             
             
             <td class="type">
@@ -1017,10 +877,163 @@
             </td>
             
             
+                <td class="default">
+                
+                </td>
+            
             
             <td class="description last">
                 
-                The string to escape</td>
+                    
+                    
+                        
+                    
+                
+                The source string</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>translation</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    ''
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                The translated string</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>comment</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    ''
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                A comment to explain what needs to be explained</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>context</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    ''
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                The context where the string is used</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>contextId</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                A unique id for the couple source/context</td>
         </tr>
 	
 	
@@ -1063,40 +1076,254 @@
     
     
     
-    <h5>Returns:</h5>
     
+    
+</dd>
 
-
-<table class="params">
-    <thead>
-    <tr>
+    
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        <h3 class="subsection-title">Members</h3>
         
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
+        <dl>
             
-            <td class="type">
-            
-                        string
-                        
-                    
-            </td>
-            <td class="description last">The escaped string</td>
-        </tr>
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="comment">comment<span class="type-signature type string">string</span> </h4>
+    </div>
     
-    </tbody>
-</table>
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        A comment to explain what needs to be explained
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
 
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="context">context<span class="type-signature type string">string</span> </h4>
+    </div>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        The context where the string is used
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="contextId">contextId<span class="type-signature type string">string</span> </h4>
+    </div>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        A unique id for the couple source/context
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="source">source<span class="type-signature type string">string</span> </h4>
+    </div>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        The source string
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="translation">translation<span class="type-signature type string">string</span> </h4>
+    </div>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        The translated string
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
     
     
 </dd>
 
         </dl>
+    
+    
     
     
     
