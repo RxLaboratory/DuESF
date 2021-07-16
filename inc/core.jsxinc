@@ -167,7 +167,7 @@ DuESF.init = function( scriptName, scriptVersion, companyName )
     scriptVersion = def( scriptVersion, "0.0.0" );
     DuESF.scriptName = scriptName;
     DuESF.scriptVersion = new DuVersion(scriptVersion);
-    DuESF.companyName = dev( companyName, "RxLaboratory" );
+    DuESF.companyName = def( companyName, "RxLaboratory" );
 
     // Everything which needs to be initialized once we have our info
     DuFolder.init();

@@ -17,4 +17,7 @@
     DuESF.scriptAbout = 'The Duduf ExtendScript Framework to help you develop Adobe Scripts';
     DuESF.companyURL = 'https://rxlaboratory.org';
 
+
+    alert(DuESF.scriptAbout);
+
 })(this);

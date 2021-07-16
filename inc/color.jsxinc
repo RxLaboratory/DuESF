@@ -42,7 +42,7 @@ function DuColor( floatRGBA )
  * @param {bool} [clamped=true] Set to false to keep the values > 1.0
  * @return {float} an [R,G,B,A] Array.
  */
-DuColor.protoptype.floatRGBA = function(clamped)
+DuColor.prototype.floatRGBA = function(clamped)
 {
 	clamped = def( clamped, true );
 
