@@ -22,10 +22,14 @@
 	*/
 function DuList( obj )
 {
-	obj  = def( obj, []);
+	newList  = def( newList, [] );
+
+	// Copy constructor
+	if (obj instanceof DuList)
+		newList = obj.list;
 
 	//check if list is an Array or a Collection
-	if ( DuList.isAECollection(obj) )
+	if ( DuList.isAECollection( newList ) )
 	{
 		this.isCollection = true;
 		this.isArray = false;
@@ -37,12 +41,12 @@ function DuList( obj )
 	}
 	
 	//if note a list, store it as a one-item array
-	if (!(obj instanceof Array) && !this.isCollection)
+	if ( !DuList.isList(newList) )
 	{
-		obj = [obj];
+		newList = [newList];
 	}
 
-	this.list = obj;
+	this.list = newList;
 
 	this.current = -1;
 	this.atStart = false;
@@ -84,10 +88,312 @@ DuList.prototype.at = function( index )
 	return this.list[index];
 }
 
+/**
+	* Gets the first index of a value, or -1 if not found
+	* @memberof DuList
+	* @param {*}	value	- The value to find. Must be compatible with the == operand if you don't provide a comparison function
+	* @param {function}	[comparisonFunction]	- A function which compares two values which returns true if the values are considered the same.
+	* @return {int}	The index of the value, -1 if not found
+*/
+DuList.prototype.indexOf = function (value, comparisonFunction)
+{
+	if (typeof value === 'undefined') throw "Value can not be undefined";
+
+	var useFunction = typeof comparisonFunction !== 'undefined';
+
+	for (var i = 0, n  = this.length(); i < n; i++)
+	{
+		if (!useFunction && this.at(i) == value) return i;
+		else if (useFunction && comparisonFunction( this.at(i), value) ) return i;
+	}
+	return -1;
+}
+
+/**
+	* Checks if the list has duplicated values
+	* @memberof DuList
+	* @return {boolean}	true if the list has duplicated values. Always false for Ae Collections as they can't have duplicated items.
+*/
+DuList.prototype.hasDuplicates = function ()
+{
+	for (var i = 0, n = this.length(); i < n; i++) {
+		for (var j = i+1; j < n; j++ ) {
+			if ( this.at(i) === this.at(j) ) return true;
+		}
+	}
+	return false;
+}
+
+/**
+	* Returns all duplicated values found in the list
+	* @memberof DuList
+	* @return {DuList}	The duplicated values. An empty list for Ae Collections as they can't have duplicated items.
+*/
+DuList.prototype.getDuplicates = function ()
+{
+	if (this.isAECollection) return new DuList();
+
+	var duplicates = [];
+
+	for (var i = 0, n = this.length(); i < n; i++) {
+		for (var j = i+1; j < n; j++) {
+			if ( this.at(i) === this.at(j) ) duplicates.push( this.at(j) );
+		}
+	}
+
+	duplicates = new DuList( duplicates );
+	duplicates.removeDuplicates( duplicates );
+
+	return duplicates;
+}
+
+/**
+	* Removes all duplicated values from the list, and returns them
+	* @memberof DuList
+	* @param {function}	[comparisonFunction] - A function which compares two values which returns true if the values are considered the same.
+	* @return {Array}	The duplicated (and removed) values. An empty list for Ae Collections as they can't have duplicated items.
+*/
+DuList.prototype.removeDuplicates = function ( comparisonFunction )
+{
+	if (this.isAECollection) return new DuList();
+
+	var useFunction = typeof comparisonFunction !== 'undefined';
+	var removed = [];
+
+	for ( var i = 0, n = this.length(); i < n; i++ )
+	{
+        for (var j = i+1; j < n; j++)
+		{
+            if ( !useFunction && this.at(i) === this.at(j) ) removed = removed.concat( this.list.splice(j,1) );
+			else if ( useFunction && comparisonFunction( this.at(i), this.at(j) ) ) removed = removed.concat( this.list.splice(j,1) );
+        }
+	}
+
+	//sometimes the two last items may still be the same (for a reason I don't understand)
+	if (this.length > 1)
+	{
+		var last = this.last();
+		var ante = this.at( this.length -2 );
+		if ( !useFunction && last === ante) removed.push( this.list.pop() );
+		if (useFunction && comparisonFunction( ante, last ) ) removed.push( this.list.pop() );
+	}
+	
+	return new DuList( removed );
+}
+
+/**
+	* Compares two arrays.<br />
+	* The items in the arrays must be compatible with the == operand if you don't provide a comparison function
+	* @memberof DuList
+	* @param {Array|Collection|DuList} other - The other list
+	* @param {int} [floatPrecision=-1] - The precision for (float) number comparison, number of decimals. Set to -1 to not use.
+	* @return {boolean} true if the two arrays contain the same values
+*/
+DuList.prototype.equals = function ( other, comparisonFunction, floatPrecision )
+{
+	var useFunction = typeof comparisonFunction !== 'undefined';
+
+	if ( !DuList.isList(other) ) return false;
+
+	other = new DuList( other );
+
+	if ( this.length() != other.length() ) return false;
+
+	var originalIndex = this.current;
+
+	DuList.reinitIterator();
+	var ok = true;
+	while( var item1 = DuList.next() )
+	{
+		var item2 = other.at( this.current );
+
+		// A list, recursive
+		if ( DuList.isList( item1 ) )
+		{
+			var test = new DuList( item1 );
+			if ( !test.equals( item2, comparisonFunction, floatPrecision ) ) ok = false;
+			continue;
+		}
+
+		// Comparison function
+		if (useFunction)
+		{
+			if ( !comparisonFunction( item1, item2 ) ) ok = false;
+			continue;
+		}
+
+		// Numbers
+		if ( jstype( item1 ) == 'number' )
+		{
+			if ( !DuMath.equals( item1, item2, floatPrecision) ) ok = false;
+			continue;
+		}
+
+		// Other
+		if (item1 != item2) ok = false;
+	}
+
+	// Restore original iterator index
+	this.goTo( originalIndex );
+	return ok;
+}
+
+/**
+	* Returns true if the list is empty
+	* @return {boolean}
+	*/
+DuList.prototype.isEmpty = function()
+{
+	return this.length() == 0;
+}
+
+/**
+	* Gets the last item in the list
+	* @return {*} The last item, null if the list is empty.
+	*/
+DuList.prototype.last = function()
+{
+	if ( this.isEmpty() ) return null;
+	return this.at( this.length() - 1 );
+}
+
+/**
+	* Gets the first item in the list
+	* @return {*} The first item, null if the list is empty.
+	*/
+DuList.prototype.first = function()
+{
+	if ( this.isEmpty() ) return null;
+	return this.at( 0 );
+}
+
+// ================ ITERATOR METHODS ================
+
+
+/**
+	* Reinits the iterator, i.e. go to index -1 so that the next call to {@link DuList.next} returns the first item.
+*/
+DuList.prototype.reinitIterator = function ( )
+{
+	this.goTo(-1);
+}
+
+/**
+	* Sets the iterator on the index
+	* @param {int} index - The index
+	* @return {*} The item at index, or null if the index is invalid
+*/
+DuList.prototype.goTo = function(index)
+{
+	this.current = index;
+
+	var count = this.length();
+
+	if ( this.current < 0 || this.current >= count ) this.valid = false;
+	else this.valid = true;
+
+	if ( this.current == 0 ) this.atStart = true;
+	else this.atStart = false;
+
+	if ( this.current == count-1 ) this.atEnd = true;
+	else this.atEnd = false;
+
+	if (this.valid) return this.at( this.current );
+	else return null;
+}
+
+/**
+	* Goes to the end of the Iterator
+	* @return {Object} The item at the end, or null if length is 0
+*/
+DuList.prototype.goToEnd = function ()
+{
+	if ( this.isEmpty() ) return null;
+	return this.goTo( this.length() - 1 );
+}
+
+/**
+	* Goes to the start of the Iterator
+	* @return {Object} The item at the start, or null if length is 0
+*/
+DuList.prototype.goToStart = function ()
+{
+	if ( this.isEmpty() ) return null;
+	return this.goTo( 0 );
+}
+
+/**
+	* Increments the Iterator<br />
+	* Must be called at least once to validate the iterator
+	* @return {Object} The next item, or null if there isn't
+*/
+DuList.prototype.next = function ()
+{
+	if ( this.isEmpty() ) return null;
+
+	if ( !this.valid )
+	{
+		return this.goToStart();
+	}
+
+	if ( this.current < this.length()-1 )
+	{
+		return this.goTo( this.current + 1 );
+	}
+
+	return null;
+}
+
+/**
+	* Decrements the Iterator
+	* if it's called while valid is false, goes to the end
+	* @return {Object} The previous item, or null if there isn't
+*/
+DuList.prototype.previous = function ()
+{
+	if ( this.isEmpty() ) return null;
+
+	if (!this.valid)
+	{
+		return this.goToEnd();
+	}
+
+	if (this.current > 0)
+	{
+		return this.goTo( this.current - 1 );
+	}
+
+	return null;
+}
+
+/**
+	* Executes a function on each item of the List
+	* @param {function} callBack - The function to execute, which takes one parameter: an item of the list
+*/
+DuList.prototype.do = function (callBack)
+{
+	if ( this.isEmpty() ) return;
+
+	// Keep the current index
+	var current = this.current;
+
+	for (var i = 0, n = this.length() ; i < n ; i++)
+	{
+		this.valid = true;
+		this.current = i;
+		callBack( this.at(i) );
+	}
+
+	// Restore the current index
+	this.goTo(current);
+}
+
+
 // ================ STATIC ==========================
 
 /**
 	* Checks if the object is an AE collection
+	* @static
 	* @param {Object} collection - The object to check
 	* @return {boolean} true if collection is a collection, false if it's an array or any other object
 */
@@ -96,20 +402,19 @@ DuList.isAECollection = function (collection)
 	return collection instanceof ItemCollection || collection instanceof LayerCollection || collection instanceof OMCollection || collection instanceof RQItemCollection;
 }
 
-// ================ DEPRECATED ======================
-
 /**
-	* Checks if this is an Array or an After Effects collection type
+	* Checks if this is an Array or an After Effects collection type or a {@link DuList}
 	* @static
-	* @deprecated
-	* @memberof DuList
 	* @param {Array|Collection} list - The list to check
-	* @return {boolean} true if this is a Cllection or an Array
+	* @return {boolean} true if this is a Cllection or an Array or a {@link DuList}
 */
 DuList.isList = function (list)
 {
-	return (list instanceof Array || DuList.isAECollection(list));
+	return (list instanceof Array || DuList.isAECollection(list) || list instanceof DuList);
 }
+
+// ================ DEPRECATED ======================
+
 
 /**
 	* A function to compare two elements in an array
@@ -123,6 +428,8 @@ DuList.isList = function (list)
 /**
 	* Gets the first index of a value in an Array, or -1 if not found
 	* @memberof DuList
+	* @static
+	* @deprecated
 	* @param {Array}	arr	- The array
 	* @param {*}	value	- The value to find. Must be compatible with the == operand, or provide a comparison function
 	* @param {function}	[comparisonFunction]	- A function which compares two values which returns true if the values are considered the same.
@@ -144,6 +451,8 @@ DuList.indexOf = function (arr,value,comparisonFunction)
 /**
 	* Checks if the array has duplicate values
 	* @memberof DuList
+	* @static
+	* @deprecated
 	* @param {Array}	arr	- The array
 	* @return {boolean}	true if the array has duplicate values
 */
@@ -160,6 +469,8 @@ DuList.hasDuplicates = function (arr)
 /**
 	* Returns all duplicated values found in the array
 	* @memberof DuList
+	* @static
+	* @deprecated
 	* @param {Array}	arr	- The array
 	* @return {Array}	The duplicated values
 */
@@ -178,6 +489,8 @@ DuList.getDuplicates = function (arr)
 /**
 	* Removes all duplicated values from the Array, and returns them
 	* @memberof DuList
+	* @static
+	* @deprecated
 	* @param {Array}	arr	- The array
 	* @param {function}	[comparisonFunction] - A function which compares two values which returns true if the values are considered the same.
 	* @return {Array}	The duplicated (and removed) values
@@ -205,6 +518,8 @@ DuList.removeDuplicates = function (arr, comparisonFunction)
 	* Compares two arrays.<br />
 	* The items in the arrays must be compatible with the == operand
 	* @memberof DuList
+	* @static
+	* @deprecated
 	* @param {Array|Collection} array1 - The array
 	* @param {Array|Collection} array2 - The array
 	* @param {int} [floatPrecision=-1] - The precision for (float) number comparison, number of decimals. Set to -1 to not use.
@@ -216,7 +531,7 @@ DuList.compare = function (array1,array2,floatPrecision)
 	{
 		if (typeof array1 == 'number' && typeof array2 == 'number')
 		{
-			return DuMath.compare(array1,array2,floatPrecision)
+			return DuMath.equals(array1,array2,floatPrecision)
 		}
 		else return array1 == array2;
 	}
@@ -224,7 +539,7 @@ DuList.compare = function (array1,array2,floatPrecision)
 	if (!DuList.isList(array1) && DuList.isList(array2)) return false;
 	if (array1.length != array2.length) return false;
 
-	var it = new Iterator(array1);
+	var it = new DuList(array1);
 	var ok = true;
 	it.do(function (item1)
 	{

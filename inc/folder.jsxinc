@@ -38,7 +38,7 @@ DuFolder.wipeFolder = function(folder)
 
 	//get content and remove 
 	var files = folder.getFiles();
-	var it = new Iterator(files);
+	var it = new DuList(files);
 	it.do(function (file)
 	{
 		if ( jstype(file) == 'Folder' ) DuFolder.wipeFolder(file);

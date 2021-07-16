@@ -58,7 +58,7 @@ DuMath.getLength = function (value1,value2)
 	* @param {int} [floatPrecision=-1] - The precision for (float) number comparison, number of decimals. Set to -1 to not use.
 	* @return {boolean} true if the two values are equal
 */
-DuMath.compare = function (value1,value2,floatPrecision)
+DuMath.equals = function (value1,value2,floatPrecision)
 {
 	if (typeof value1 != 'number') return false;
 	if (typeof value2 != 'number') return false;
