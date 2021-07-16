@@ -1,0 +1,240 @@
+﻿/**
+	* Constructs a new DuList object
+	* @class
+	* @name DuList
+	* @classdesc DuList helps manipulating JS Arrays and After Effects Collections the same way. It is faster than converting a Collection to an Array.<br />
+	* Other specific Adobe Lists in other Applications may be supported later.<br />
+	* The first item of a DuList is always at index 0, the last at index length-1.<br />
+	* Accessor is the {@link DuList.at} method instead of <code>Array[]</code>.<br />
+	* List length is given by the {@link DuList.length} method instead of a property.<br />
+	* DuList does not reimplements methods to add or remove items, use the source list instead with the {@link DuList.list} property
+	* with its original properties (from the Collection instance or Array).<br />
+	* DuList can also be used as an interator with interator-like methods like {@link DuList.next}.<br />
+	* You can also run a function on each item with {@link DuList.do}.
+	* @param {Object} [obj] An Array or a Collection. Maybe another object; in this case a new list is constructed using the object as its first item.
+	* @property {Array|Collection} list The original list, an Array or an After Effects Collection.
+	* @property {int} current - The current item number
+	* @property {boolean} atEnd - true if the iterator has reached the end
+	* @property {boolean} atStart - true if the iterator is at the start
+	* @property {boolean} valid - true if the iterator is between min and max. false until next() or previous() has been called at least once
+	* @property {boolean} isCollection - true if the original list is an After Effects Collection, false otherwise
+	* @property {boolean} isArray - true if the original  list is an Array, false otherwise
+	*/
+function DuList( obj )
+{
+	obj  = def( obj, []);
+
+	//check if list is an Array or a Collection
+	if ( DuList.isAECollection(obj) )
+	{
+		this.isCollection = true;
+		this.isArray = false;
+	}
+	else 
+	{
+		this.isCollection = false;
+		this.isArray = true;
+	}
+	
+	//if note a list, store it as a one-item array
+	if (!(obj instanceof Array) && !this.isCollection)
+	{
+		obj = [obj];
+	}
+
+	this.list = obj;
+
+	this.current = -1;
+	this.atStart = false;
+	this.atEnd = false;
+	this.valid = false;
+}
+
+/**
+	* Returns the number of items in the list
+	* @return {int} The number of items.
+	*/
+DuList.prototype.length = function()
+{
+	return this.list.length;
+}
+
+/**
+ * see length
+ * @alias DuList.length
+ */
+DuList.prototype.count = DuList.prototype.length;
+
+/**
+	* Accessor. First item is always 0, last is always length()-1<br />
+	* Does not move the iterator to the index; to move the iterator use {@link DuList.goTo} instead.
+	* @param {int} index The index of the item. If it is out of range (negative or > length()-1), returns null
+	* @return  {object} The item at the given index.
+	*/
+DuList.prototype.at = function( index )
+{
+	var count = this.length();
+	if (count == 0) return null;
+
+	if (this.isCollection) index--;
+
+	if (index < 0) return null;
+	if (index > count-1 ) return null;
+
+	return this.list[index];
+}
+
+// ================ STATIC ==========================
+
+/**
+	* Checks if the object is an AE collection
+	* @param {Object} collection - The object to check
+	* @return {boolean} true if collection is a collection, false if it's an array or any other object
+*/
+DuList.isAECollection = function (collection)
+{
+	return collection instanceof ItemCollection || collection instanceof LayerCollection || collection instanceof OMCollection || collection instanceof RQItemCollection;
+}
+
+// ================ DEPRECATED ======================
+
+/**
+	* Checks if this is an Array or an After Effects collection type
+	* @static
+	* @deprecated
+	* @memberof DuList
+	* @param {Array|Collection} list - The list to check
+	* @return {boolean} true if this is a Cllection or an Array
+*/
+DuList.isList = function (list)
+{
+	return (list instanceof Array || DuList.isAECollection(list));
+}
+
+/**
+	* A function to compare two elements in an array
+	* @callback DuList.indexOf~comparisonFunction
+	* @memberof DuList.indexOf
+	* @param {*} elementInArray The element in the array
+	* @param {*} value The value to compare
+	* @return {bool} true if the two values should be considered the same
+*/
+
+/**
+	* Gets the first index of a value in an Array, or -1 if not found
+	* @memberof DuList
+	* @param {Array}	arr	- The array
+	* @param {*}	value	- The value to find. Must be compatible with the == operand, or provide a comparison function
+	* @param {function}	[comparisonFunction]	- A function which compares two values which returns true if the values are considered the same.
+	* @return {int}	The index of the value, -1 if not found
+*/
+DuList.indexOf = function (arr,value,comparisonFunction)
+{
+	if (value == undefined) throw "Value can not be undefined";
+	var useFunction = typeof comparisonFunction === 'function';
+
+	for (var i = 0;i<arr.length;i++)
+	{
+		if (!useFunction && arr[i] == value) return i;
+		if (useFunction && comparisonFunction(arr[i],value)) return i;
+	}
+	return -1;
+}
+
+/**
+	* Checks if the array has duplicate values
+	* @memberof DuList
+	* @param {Array}	arr	- The array
+	* @return {boolean}	true if the array has duplicate values
+*/
+DuList.hasDuplicates = function (arr)
+{
+	for (var i = 0;i<arr.length-1;i++) {
+		for (var j=i+1;j<arr.length;j++) {
+			if (arr[i] === arr[j]) return true;
+		}
+	}
+	return false;
+}
+
+/**
+	* Returns all duplicated values found in the array
+	* @memberof DuList
+	* @param {Array}	arr	- The array
+	* @return {Array}	The duplicated values
+*/
+DuList.getDuplicates = function (arr)
+{
+	var duplicates = [];
+	for (var i = 0;i<arr.length-1;i++) {
+	for (var j=i+1;j<arr.length;j++) {
+	if (arr[i] === arr[j]) duplicates.push(arr[j]);
+	}
+	}
+	DuList.removeDuplicates(duplicates);
+	return duplicates;
+}
+
+/**
+	* Removes all duplicated values from the Array, and returns them
+	* @memberof DuList
+	* @param {Array}	arr	- The array
+	* @param {function}	[comparisonFunction] - A function which compares two values which returns true if the values are considered the same.
+	* @return {Array}	The duplicated (and removed) values
+*/
+DuList.removeDuplicates = function (arr, comparisonFunction)
+{
+	var useFunction = typeof comparisonFunction === 'function';
+	var removed = [];
+	for (var i = 0;i<arr.length-1;i++)
+	{
+        for (var j=i+1;j<arr.length;j++)
+		{
+            if (! useFunction && arr[i] === arr[j]) removed = removed.concat(arr.splice(j,1));
+			if (useFunction && comparisonFunction(arr[i],arr[j]) ) removed = removed.concat(arr.splice(j,1));
+        }
+	}
+	//sometimes the two last items may still be the same (for a reason I don't understand)
+	if (! useFunction && arr[arr.length-2] === arr[arr.length-1]) removed.push(arr.pop());
+	if (useFunction && comparisonFunction(arr.length-2,arr.length-1) ) removed.push(arr.pop());
+
+	return removed;
+}
+
+/**
+	* Compares two arrays.<br />
+	* The items in the arrays must be compatible with the == operand
+	* @memberof DuList
+	* @param {Array|Collection} array1 - The array
+	* @param {Array|Collection} array2 - The array
+	* @param {int} [floatPrecision=-1] - The precision for (float) number comparison, number of decimals. Set to -1 to not use.
+	* @return {boolean} true if the two arrays contain the same values
+*/
+DuList.compare = function (array1,array2,floatPrecision)
+{
+	if (!DuList.isList(array1) && !DuList.isList(array2))
+	{
+		if (typeof array1 == 'number' && typeof array2 == 'number')
+		{
+			return DuMath.compare(array1,array2,floatPrecision)
+		}
+		else return array1 == array2;
+	}
+	if (DuList.isList(array1) && !DuList.isList(array2)) return false;
+	if (!DuList.isList(array1) && DuList.isList(array2)) return false;
+	if (array1.length != array2.length) return false;
+
+	var it = new Iterator(array1);
+	var ok = true;
+	it.do(function (item1)
+	{
+		var item2 = array2[it.current];
+		if (!DuList.compare(item1,item2,floatPrecision))
+		{
+			ok = false;
+			return;
+		}
+	});
+
+	return ok;
+}

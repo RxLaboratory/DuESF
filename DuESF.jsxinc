@@ -13,3 +13,4 @@
 #include "inc/math.jsxinc"
 #include "inc/date.jsxinc"
 #include "inc/color.jsxinc"
+#include "inc/list.jsxinc"

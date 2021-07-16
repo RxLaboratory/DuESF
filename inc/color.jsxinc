@@ -323,6 +323,7 @@ DuColor.random = function()
 /**
  * Checks if this color is valid ([R,G,B,A] in the range 0.0 ... 1.0)
  * @static
+ * @deprecated
  * @param {float[]} color - The floatRGBA color to validate
  * @param {boolean} [ignoreAlpha=false] - Will return true even if the array does not have any alpha value
  * @return {boolean} true if the color is valid
@@ -348,6 +349,7 @@ DuColor.isValid = function (color, ignoreAlpha)
 /**
 	* Generates a random color
 	* @static
+	* @deprecated
 	* @memberof DuColor
 	* @return {float[]}	The color as an [R,G,B,A] Array with float values between 0.0 and 1.0
 */
@@ -364,6 +366,7 @@ DuColor.randomFloatRGBA = function ()
 /**
 	* Converts an hexadecimal color to a floatRGBA Array
 	* @static
+	* @deprecated
 	* @memberof DuColor
 	* @param {string|int[]} hexColor	- The hexadecimal color
 	* @param {boolean}	[isString=true] 	- Whether hexColor is a string or an Array of int of base 16
@@ -392,6 +395,8 @@ DuColor.hexToRGB = function (hexColor,isString)
 /**
 	* Converts an RGB color to a hex string
 	* @memberof DuColor
+	* @deprecated
+	* @static
 	* @param {float[]} rgbColor	- The rgb color
 	* @return {string}	The color as an hex string
 */
@@ -412,6 +417,8 @@ DuColor.rgbToHex = function (rgbColor)
 
 /**
 	* Converts an HSL color to RGB
+	* @deprecated
+	* @static
 	* @param {float[]} color - The RGBA color array
 	* @return {float[]} the HSLA color array
 */
@@ -450,6 +457,8 @@ DuColor.hslToRgb = function (color)
 
 /**
 	* Converts an RGB color to HSL
+	* @deprecated
+	* @static
 	* @param {float[]} color - The HSLA color array
 	* @return {float[]} the RGBA color array
 */
@@ -484,6 +493,8 @@ DuColor.rgbToHsl = function (color)
 
 /**
  * Converts an 8bpc color array to a 32bpc float color array
+ * @deprecated
+ * @static
  * @param {int[]} color - The RGB(A) color array in 8bpc (0-255 range)
  * @return {float[]} the RGBA color array
  */

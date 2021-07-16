@@ -68,7 +68,7 @@ function Iterator(list)
 {
 	//check if list is an Array, a collection, or something else.
 	//if something else, store it in a one-item array
-	this.isCollection = DuAEF.DuAE.isCollection(list);
+	this.isCollection = DuList.isAECollection(list);
 	if (!(list instanceof Array) && !this.isCollection)
 	{
 		list = [list];
