@@ -85,7 +85,7 @@ DuFile.parseJSON = function(file)
 	if (json == '') return null;
 	var data = {};
 
-	try { data = DuAEF.JSON.parse(json); } catch (e) { if (DuESF.debug) alert(e.description + '\n\nJSON DATA:\n\n' + json); }
+	try { data = JSON.parse(json); } catch (e) { if (DuESF.debug) alert(e.description + '\n\nJSON DATA:\n\n' + json); }
 	return data;
 }
 
@@ -99,7 +99,7 @@ DuFile.saveJSON = function (obj,file)
 {
 	if (!DuAEF.DuAE.App.hasFilesAndNetworkAccess) return false;
 	if (!(file instanceof File)) file = new File(file);
-	var data = DuAEF.JSON.stringify(obj,null,4);
+	var data = JSON.stringify(obj,null,4);
     return DuFile.write( file, data );
 }
 

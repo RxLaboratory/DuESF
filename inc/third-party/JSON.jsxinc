@@ -5,8 +5,7 @@
  * @license Public-Domain
  */
 
- // We include JSON in the DuAEF Object to not share it globally
-DuAEF.JSON = {};
+JSON = {};
 
  (function () {
      "use strict";
@@ -231,7 +230,7 @@ DuAEF.JSON = {};
 
  // If the JSON object does not yet have a stringify method, give it one.
 
-     if (typeof DuAEF.JSON.stringify !== "function") {
+     if (typeof JSON.stringify !== "function") {
          meta = {    // table of character substitutions
              "\b": "\\b",
              "\t": "\\t",
@@ -241,7 +240,7 @@ DuAEF.JSON = {};
              "\"": "\\\"",
              "\\": "\\\\"
          };
-         DuAEF.JSON.stringify = function (value, replacer, space) {
+         JSON.stringify = function (value, replacer, space) {
 
  // The stringify method takes a value and an optional replacer, and an optional
  // space parameter, and returns a JSON text. The replacer can be a function
@@ -288,8 +287,8 @@ DuAEF.JSON = {};
 
  // If the JSON object does not yet have a parse method, give it one.
 
-     if (typeof DuAEF.JSON.parse !== "function") {
-         DuAEF.JSON.parse = function (text, reviver) {
+     if (typeof JSON.parse !== "function") {
+         JSON.parse = function (text, reviver) {
 
  // The parse method takes a text and an optional reviver function, and returns
  // a JavaScript value if the text is a valid JSON text.
