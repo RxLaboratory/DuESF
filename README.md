@@ -9,7 +9,7 @@ This stable shows where to find the implementation for each classes & namespace 
 [Read the reference](http://duesf.rxlab.io) for the description of all classes and namespaces.
 
 | Name | Type | File | Description |
-| :---: | :---: | --- |
+| :---: | :---: | --- | --- |
 | DuColor | *Class* | [inc/color.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/color.jsxinc) | Represents a color. |
 | DuDate | *namespace* | [inc/date.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/date.jsxinc) | Methods to manipulate dates. |
 | DuESF | *namespace* | [inc/core.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/core.jsxinc) | Core. |
