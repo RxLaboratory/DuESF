@@ -1,7 +1,6 @@
 ﻿/**
 	* Date related methods
 	* @namespace
-	* @memberof DuAEF.DuJS
 */
 var DuDate = {};
 

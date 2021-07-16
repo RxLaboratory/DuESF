@@ -1,10 +1,11 @@
 ﻿;(function(){
 /**
- * ColorPicker v2.0 for Adobe scripting.<br />
+ * @classdesc ColorPicker v2.0 for Adobe scripting.<br />
  * 2016-5-11 -> 2016-7-24<br />
  * This is a rebuilt color picker for Adobe scripting.<br />
  * Support all Adobe softwares such as PS,AI,PR and so on.<br />
- * See usage on {@link github.com/Smallpath/AdobeColorPicker}
+ * See usage on {@link http://github.com/Smallpath/AdobeColorPicker}
+ * @class
  * @name colorPicker
  * @author smallpath
  * @copyright smallpath

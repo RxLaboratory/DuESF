@@ -48,13 +48,13 @@ var DuESF = {};
  * The Current DuESF Version
  * @readonly
  * @memberof DuESF
- * @type {string}
+ * @type {DuVersion}
  */
 DuESF.version = new DuVersion('1.0.0');
 /**
  * Set to true and enable debug mode if you're a developper
  * @memberof DuESF
- * @type {boolean}
+ * @type {Boolean}
  */
 DuESF.debug = false;
 /**
@@ -73,46 +73,57 @@ DuESF.scriptName = "DuESF";
 DuESF.scriptVersion = new DuVersion('0.0.0');
 /**
  * An icon for this script
+ * @type {string}
  */
 DuESF.scriptIcon = '';
 /**
  * The url for the forum about the script
+ * @type {string}
  */
 DuESF.forumURL = '';
 /**
  * The url for a chat server about the script
+ * @type {string}
  */
 DuESF.chatURL = '';
 /**
  * The url for reporting bugs
+ * @type {string}
  */
 DuESF.bugReportURL = '';
 /**
  * The url for requesting features
+ * @type {string}
  */
 DuESF.featureRequestURL = '';
 /**
  * The url about the script
+ * @type {string}
  */
 DuESF.aboutURL = '';
 /**
  * The url to the documentation of the script
+ * @type {string}
  */
 DuESF.docURL = '';
 /**
  * The text about the script
+ * @type {string}
  */
 DuESF.scriptAbout = '';
 /**
  * The name of the company/organisation/individual developping this tool
+ * @type {string}
  */
 DuESF.companyName = 'RxLaboratory';
 /**
  * The URL to the company's website
+ * @type {string}
  */
 DuESF.companyURL = 'https://rxlaboratory.org';
 /**
  * An icon for this company
+ * @type {string}
  */
 DuESF.companyIcon = '';
 /**
@@ -164,6 +175,7 @@ DuESF.init = function( scriptName, scriptVersion, companyName )
 
 /**
  * Assigns a default value to a var if it's undefined.
+ * @global
  * @param {object} val - The variable to set
  * @param {object} defaultVal - The default value
  * @return {object} The var
@@ -176,6 +188,7 @@ function def( val, defaultVal )
 
 /**
  * Improved typeof which returns the type of object instead of 'object'
+ * @global
  * @param {any} exp - The expression to check.
  * @return {string} The type. For primitives, in lower case ('string', 'number', 'boolean', 'null', 'undefined'). A function is 'Function'
 */

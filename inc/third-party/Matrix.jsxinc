@@ -5,21 +5,21 @@
 */
 
 /**
-  * 2D transformation matrix object initialized with identity matrix.
-  *
-  * @prop {number} a - scale x
-  * @prop {number} b - shear y
-  * @prop {number} c - shear x
-  * @prop {number} d - scale y
-  * @prop {number} e - translate x
-  * @prop {number} f - translate y
-  * @constructor
-  * @overview 2D Transformation Matrix.
-  * @author Epistemex
-  * @version 2.7.5
-  * @license MIT license (header required)
-  * @copyright Epistemex.com 2014-2018
-*/
+	* 2D transformation matrix object initialized with identity matrix.
+	* @class
+	* @name Matrix
+	* @classdesc 2D Transformation Matrix.
+	* @prop {number} a - scale x
+	* @prop {number} b - shear y
+	* @prop {number} c - shear x
+	* @prop {number} d - scale y
+	* @prop {number} e - translate x
+	* @prop {number} f - translate y
+	* @author Epistemex
+	* @version 2.7.5
+	* @license MIT license (header required)
+	* @copyright Epistemex.com 2014-2018
+ */
 function Matrix() {
 
 	var me = this, _el;

@@ -5,24 +5,35 @@
 	* @classdesc DuList helps manipulating JS Arrays and After Effects Collections the same way. It is faster than converting a Collection to an Array.<br />
 	* Other specific Adobe Lists in other Applications may be supported later.<br />
 	* The first item of a DuList is always at index 0, the last at index length-1.<br />
-	* Accessor is the {@link DuList.at} method instead of <code>Array[]</code>.<br />
-	* List length is given by the {@link DuList.length} method instead of a property.<br />
-	* DuList does not reimplements methods to add or remove items, use the source list instead with the {@link DuList.list} property
-	* with its original properties (from the Collection instance or Array).<br />
-	* DuList can also be used as an interator with interator-like methods like {@link DuList.next}.<br />
-	* You can also run a function on each item with {@link DuList.do}.
-	* @param {Object} [obj] An Array or a Collection. Maybe another object; in this case a new list is constructed using the object as its first item.
-	* @property {Array|Collection} list The original list, an Array or an After Effects Collection.
-	* @property {int} current - The current item number
-	* @property {boolean} atEnd - true if the iterator has reached the end
-	* @property {boolean} atStart - true if the iterator is at the start
-	* @property {boolean} valid - true if the iterator is between min and max. false until next() or previous() has been called at least once
+	* Accessor is the {@link DuList#at DuList.at()} method instead of <code>Array</code>.<br />
+	* List length is given by the {@link DuList#length DuList.length()} method instead of a property.<br />
+	* DuList does not reimplement methods to add or remove items, use the source list instead with the {@link DuList#list DuList.list()} property
+	* and the original methods (from the <code>Collection</code> instance or <code>Array</code>).<br />
+	* DuList can also be used as an iterator with iterator-like methods like {@link DuList#next DuList.next()}.<br />
+	* You can also run a function on each item with {@link DuList#do DuList.do()}.
 	* @property {boolean} isCollection - true if the original list is an After Effects Collection, false otherwise
 	* @property {boolean} isArray - true if the original  list is an Array, false otherwise
 	*/
 function DuList( obj )
 {
 	newList  = def( newList, [] );
+
+	/**
+		* True if the original list is an After Effects Collection, false otherwise.
+		* @memberof DuList.prototype
+		* @name isCollection
+		* @readonly
+		* @type {Boolean}
+	*/
+	this.isCollection = false;
+	/**
+		* True if the original list is an Array, false otherwise
+		* @memberof DuList.prototype
+		* @name isArray
+		* @readonly
+		* @type {Boolean}
+	*/
+	this.isArray = false;
 
 	// Copy constructor
 	if (obj instanceof DuList)
@@ -46,11 +57,45 @@ function DuList( obj )
 		newList = [newList];
 	}
 
+	/**
+		* The original list, an Array or an After Effects Collection.
+		* @memberof DuList.prototype
+		* @name list
+		* @readonly
+		* @type {Array|Collection}
+	*/
 	this.list = newList;
-
+	/**
+		* The current index of the iterator.
+		* @memberof DuList.prototype
+		* @name current
+		* @readonly
+		* @type {int}
+	*/
 	this.current = -1;
+	/**
+		* True if the iterator is at the start.
+		* @memberof DuList.prototype
+		* @name atStart
+		* @readonly
+		* @type {Boolean}
+	*/
 	this.atStart = false;
-	this.atEnd = false;
+	/**
+		* True if the iterator has reached the end.
+		* @memberof DuList.prototype
+		* @name atEnd
+		* @readonly
+		* @type {Boolean}
+	*/
+	this.valid = false;
+	/**
+		* True if the iterator is between 0 and length-1. Note that on creation, the iterator is always invalid, but calling {@link DuList#next DuList.next()} moves it to the beginning and makes it valid.
+		* @memberof DuList.prototype
+		* @name atEnd
+		* @readonly
+		* @type {Boolean}
+	*/
 	this.valid = false;
 }
 
@@ -64,8 +109,11 @@ DuList.prototype.length = function()
 }
 
 /**
- * see length
- * @alias DuList.length
+ * Alias for {@link DuList#length DuList.length()}
+ * @alias DuList.length()
+ * @name count
+ * @memberof DuList.prototype
+ * @function
  */
 DuList.prototype.count = DuList.prototype.length;
 
@@ -203,7 +251,8 @@ DuList.prototype.equals = function ( other, comparisonFunction, floatPrecision )
 
 	DuList.reinitIterator();
 	var ok = true;
-	while( var item1 = DuList.next() )
+	var item1;
+	while( item1 = DuList.next() )
 	{
 		var item2 = other.at( this.current );
 

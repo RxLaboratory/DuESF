@@ -12,17 +12,20 @@
         "dictionaries": ["jsdoc","closure"]
     },
     "templates": {
-        "cleverLinks": false,
-        "monospaceLinks": true,
+        "cleverLinks": true,
+        "monospaceLinks": false,
         "copyright"             : "Copyright (c) 2017-2021 Nicolas Dufresne and contributors",
         "includeDate"           : true,
-        "theme"                 : "slate",
-        "collapseSymbols"       : "false",
-        "syntaxTheme"           : "dark",
         "search"                : "true"
     },
+    "linenums": true,
+    "meta": {
+        "title": "DuESF",
+        "description": "The Duduf ExtendScript Framework reference",
+        "keyword": "ExtendScript, Adobe"
+    },
 	"opts": {
-        "template": "node_modules/tui-jsdoc-template",
+        "template": "node_modules/jaguarjs-jsdoc",
 		"recurse": false,
         "destination": "../../docs"
     }
