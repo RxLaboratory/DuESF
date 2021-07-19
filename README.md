@@ -5,8 +5,10 @@
 
 ## Classes and namespaces
 
-This stable shows where to find the implementation for each classes & namespace of the framework.  
+These stables show where to find the implementation for each classes & namespace of the framework.  
 [Read the reference](http://duesf.rxlab.io) for the description of all classes and namespaces.
+
+### General
 
 | Name | Type | File | Description |
 | :---: | :---: | --- | --- |
@@ -45,3 +47,16 @@ This stable shows where to find the implementation for each classes & namespace 
 | `def` | *function* | [inc/core.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/core.jsxinc) | Defines a undefined var. |
 | `jstype` | *function* | [inc/core.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/core.jsxinc) | Checks the JS type of any var. |
 | `tr` | *function* | [inc/translator.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/core.jsxinc) | Checks the JS type of any var. |
+
+### ScriptUI
+
+Methods and classes to help building UI.
+
+| Name | Type | File | Description |
+| :---: | :---: | --- | --- |
+| `DuButton` | *Class* | [inc/scriptui/button.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/scriptui/button.jsxinc) | A button with an optional icon. |
+| `DuCheckBox` | *Class* | [inc/scriptui/checkbox.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/scriptui/checkbox.jsxinc) | A checkbox with an optional icon. |
+| `DuScriptUI` | *namespace* | [inc/scriptui/core.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/scriptui/core.jsxinc) | Methods to build UI. |
+| `DuSeparator` | *Class* | [inc/scriptui/layout.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/scriptui/layout.jsxinc) | A separator optionaly checkable with an optional title. |
+| `DuSimpleCheckBox` | *Class* | [inc/scriptui/checkbox.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/scriptui/checkbox.jsxinc) | A simple checkbox without icon. |
+| `DuSmallButton` | *Class* | [inc/scriptui/button.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/scriptui/button.jsxinc) | A small button without icon. |
