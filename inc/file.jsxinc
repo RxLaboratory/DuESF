@@ -66,10 +66,17 @@ DuFile.write = function(file, content, append, encoding)
 	file.encoding = encoding;
 	var mode = 'w';
 	if (append) mode = 'a';
-	if (!file.open(mode)) return false;
-	file.write(content);
-	file.close();
-    return true;
+	
+	var ok = DuDebuf.safeRun( function()
+	{
+		if (!file.open(mode)) return false;
+		file.write(content);
+		file.close();
+		return true;
+	});
+	
+    if (ok) return true;
+	else return false;
 }
 
 /**

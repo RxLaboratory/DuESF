@@ -23,7 +23,8 @@
 
 /**
  * The Duduf ExtendScript Framework.<br />
- * by {@link https://rxlaboratory.org RxLaboratory} and {@link http://duduf.com Duduf}.
+ * by {@link https://rxlaboratory.org RxLaboratory} and {@link http://duduf.com Duduf}.<br />
+ * WARNING: all objects marked deprecated will be removed in the version 1.1.0 of the framework.
  * @namespace
  * @author Nicolas Dufresne and contributors
  * @copyright 2021 Nicolas Dufresne, RxLaboratory

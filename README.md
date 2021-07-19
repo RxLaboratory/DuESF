@@ -13,6 +13,8 @@ This stable shows where to find the implementation for each classes & namespace 
 | `DuBinary` | *Class* | [inc/binary.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/binary.jsxinc) | Stores binary files as strings. |
 | `DuColor` | *Class* | [inc/color.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/color.jsxinc) | Represents a color. |
 | `DuDate` | *namespace* | [inc/date.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/date.jsxinc) | Methods to manipulate dates. |
+| `DuDebug` | *namespace* | [inc/debug.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/debug.jsxinc) | Methods to help debugging scripts and catching errors. |
+| `DuDebugLog` | *Class* | [inc/debug.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/debug.jsxinc) | Logs errors and other infos to a file. |
 | `DuESF` | *namespace* | [inc/core.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/core.jsxinc) | Core. |
 | `DuFile` | *namespace* | [inc/file.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/file.jsxinc) | Methods to manipulate files. |
 | `DuFolder` | *namespace* | [inc/folder.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/folder.jsxinc) | Methods to manipulate folders. |
@@ -21,6 +23,7 @@ This stable shows where to find the implementation for each classes & namespace 
 | `DuNumber` | *namespace* | [inc/number.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/number.jsxinc) | Methods to manipulate numbers. |
 | `DuPath` | *namespace* | [inc/path.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/path.jsxinc) | Methods to manipulate string paths. |
 | `DuRegExp` | *namespace* | [inc/regexp.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/regexp.jsxinc) | Methods to manipulate strings. |
+| `DuSettings` | *class* | [inc/settings.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/settings.jsxinc) | Manages settings for the scripts. |
 | `DuString` | *namespace* | [inc/string.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/string.jsxinc) | Methods to manipulate regular expressions. |
 | `DuVersion` | *class* | [inc/version.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/version.jsxinc) | Represents the version of an app. |
 | `JSON` | *namespace* | [third-party/JSON.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/third-party/JSON.jsxinc) | JSON methods. |

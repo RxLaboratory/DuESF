@@ -15,5 +15,6 @@
 #include "inc/date.jsxinc"
 #include "inc/color.jsxinc"
 #include "inc/list.jsxinc"
+#include "inc/debug.jsxinc"
 #include "inc/settings.jsxinc"
 #include "inc/binary.jsxinc"

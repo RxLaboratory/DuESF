@@ -91,9 +91,10 @@ DuBinary.prototype.toFile = function( outputFileName, onlyAtFirstRun )
 		}
 	}
 
-    try 
-    {
+    return DuDebug.safeRun( function() {
+
         file.encoding = 'BINARY';
+
         if (file.open('w'))
         {
             success = file.write(this.binAsString);
@@ -101,12 +102,7 @@ DuBinary.prototype.toFile = function( outputFileName, onlyAtFirstRun )
         }
 
         return file;
-    }
-    catch(e)
-    {
-        if (DuESF.debug) alert (e);
-        return null;
-    }
+    });
 }
 
 /**

@@ -12,8 +12,9 @@
 function DuSettings( namespace, file )
 {
 	namespace = def(namespace, DuESF.scriptName);
-	if (jstype( namespace ) != 'string') throw "Dusettings( namespace, file ): error\n\nnamespace must be a string";
-	if (namespace == "") throw "Dusettings( namespace, file ): error\n\nnamespace can not be an empty string";
+	if ( DuDebug.checkVar( namespace, 'namespace', 'string', DuSettings ) !== true ) throw "Sorry, an error has occured in `new DuSettings()`.";
+
+	if (namespace == "") throw "new Dusettings( namespace, file ): error\n\nnamespace can not be an empty string";
 
 	// Get path from duesf settings
 	if ( typeof file === 'undefined' )

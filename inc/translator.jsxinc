@@ -392,11 +392,9 @@ function tr(str, context, args)
 {
 	// Default args
 	var useContextId = true;
-	if (jstype(str) != 'string')
-	{
-		DuESF.debug.throwTypeError( str, "str", "String", "DuTranslator::tr()");
-		return str;
-	}
+
+	if ( DuDebug.checkVar( str, 'str', 'string', "DuTranslator::tr()" ) !== true ) return str;
+
 	if (typeof context === 'string' || context instanceof String) useContextId = false;
 	if (typeof context === 'undefined') context = -1;
 	else if (context < 0) context = -1;

@@ -145,7 +145,8 @@ DuList.prototype.at = function( index )
 */
 DuList.prototype.indexOf = function (value, comparisonFunction)
 {
-	if (typeof value === 'undefined') throw "Value can not be undefined";
+	if ( DuDebug.checkVar( value, 'value', undefined,  'DuList.indexOf( value, comparisonFunction )' ) !== true )
+		return -1;
 
 	var useFunction = typeof comparisonFunction !== 'undefined';
 
