@@ -13,7 +13,7 @@ var DuFolder = {};
  * @type {Folder}
  */
 DuFolder.userData = Folder.userData;
-if (DuESF.mac) DuFolder.userData = new Folder('~/Library/Application Support');
+if (DuSystem.mac) DuFolder.userData = new Folder('~/Library/Application Support');
 
 /**
  * The folder where DuESF stores its data, which is adapted depending on the script using the framework

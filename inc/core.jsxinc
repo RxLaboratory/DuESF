@@ -158,26 +158,6 @@ DuESF.state = DuESF.State.NOT_SET;
  */
 DuESF.scriptFirstRun = true;
 
-//Initializes DuESF
-( function()
-{
-    //detect OS Version
-    var mac = $.os.toLowerCase().indexOf( "mac" ) >= 0;
-    /**
-     * The current OS, true if we're on Mac OS
-     * @memberof DuESF
-     * @readonly
-     * @type {boolean}
-     */
-    DuESF.mac = mac;
-    /**
-     * The current OS, true if we're on Windows
-     * @memberof DuESF
-     * @readonly
-     * @type {boolean}
-     */
-    DuESF.win = !mac;
-} )();
 
 /**
  * This method has to be called once at the very beginning of the script, just after the inclusion of DuESF <code>#include DuESF.jsxinc</code>

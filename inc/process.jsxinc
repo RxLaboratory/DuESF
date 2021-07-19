@@ -115,8 +115,8 @@ DuProcess.prototype.waitForFinished = function ( timeout ) {
 
     var checkCmd = '';
     var processName = new File( this.processPath ).name;
-    if ( DuESF.mac ) checkCmd = 'ps -A | grep "' + processName + '"';
-    if ( DuESF.win ) checkCmd = 'tasklist /FO TABLE /NH /FI "Imagename eq ' + processName + '"';
+    if ( DuSystem.mac ) checkCmd = 'ps -A | grep "' + processName + '"';
+    if ( DuSystem.win ) checkCmd = 'tasklist /FO TABLE /NH /FI "Imagename eq ' + processName + '"';
 
     //wait
     while ( wait ) {
@@ -198,8 +198,8 @@ DuProcess.prototype.buildQueueCmd = function () {
 
     for ( var i = 0; i < this.queue.length; i++ ) {
         if ( i > 0 ) {
-            if ( DuESF.mac ) cmd += ' && ';
-            if ( DuESF.win ) cmd += '\r\n';
+            if ( DuSystem.mac ) cmd += ' && ';
+            if ( DuSystem.win ) cmd += '\r\n';
         }
         cmd += this.buildCmd( this.queue[ i ] );
     }
@@ -213,12 +213,12 @@ DuProcess.prototype.buildQueueCmd = function () {
  */
 DuProcess.prototype.startCmd = function ( cmd ) {
     //Start
-    if ( DuESF.mac ) {
+    if ( DuSystem.mac ) {
         //add ' &' at the end to start detached
         cmd += ' &';
         system.callSystem( cmd );
     }
-    if ( DuESF.win ) {
+    if ( DuSystem.win ) {
         //create batch file
         var batName = 'DuProcess_' + new Date().getTime() + '.bat'
         var bat = new File( DuFolder.duesfData.absoluteURI + '/' + batName );
@@ -256,7 +256,7 @@ DuProcess.run = function( process, args ) {
  * @return {bool} true if path is an application package.
  */
 DuProcess.isAppPackage = function (path) {
-    if (DuESF.win) return false;
+    if (DuSystem.win) return false;
 
     if (path instanceof File || path instanceof Folder) path = path.absoluteURI;
     if (!DuString.endsWith( path, ".app")) return false;
@@ -290,8 +290,8 @@ DuProcessQueue.prototype.start = function () {
     for ( var i = 0; i < this.processes.length; i++ ) {
         var p = this.processes[ i ];
         if ( i > 0 ) {
-            if ( DuESF.mac ) cmd += ' && ';
-            if ( DuESF.win ) cmd += '\r\n';
+            if ( DuSystem.mac ) cmd += ' && ';
+            if ( DuSystem.win ) cmd += '\r\n';
         }
         cmd += p.buildQueueCmd();
         p.queue = [];
