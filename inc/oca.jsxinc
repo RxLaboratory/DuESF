@@ -31,7 +31,7 @@
  * @property {string} name - The layer name
  * @property {OCAFrame[]} frames - The keyframes of the animation for this layer.
  * @property {OCALayer[]} childLayers - The child layers if this layer is a group.
- * @property {DuOCA.load} type - The type of the layer. See the Layer Types section below
+ * @property {DuOCA.LayerType} type - The type of the layer. See the Layer Types section below
  * @property {string} fileType -  The type of the files used for the frames. The file extension, without the initial dot.
  * @property {DuAEF.OCA.BlendingModes} blendingMode - The blending mode of the layer
  * @property {bool} inheritAlpha - The inherit alpaha option (preserve transparency)
@@ -73,7 +73,7 @@ var DuOCA = {};
     * @readonly
     * @enum {string}
     */
-DuOCA.layerTypes = {
+DuOCA.LayerType = {
     PAINT: 'paintlayer',
     VECTOR: 'vectorlayer',
     GROUP: 'grouplayer'

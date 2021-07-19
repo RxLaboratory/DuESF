@@ -8,7 +8,7 @@ var DuDebug = {};
  * Set this attribute to a DuDebugLog you have created to automatically add some debug infos to the log (like catched errors).
  * @type {DuDebugLog|null}
  */
-DuDebug.DuDebugLog = null;
+DuDebug.debugLog = null;
 
 /**
  * The log levels

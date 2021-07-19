@@ -7,6 +7,7 @@ DuSystem = {};
 /**
  * Opens a URL in the default browser.<br />
  * @param {string} url - The URL
+ * @method
  */
 DuSystem.openURL = function (url)
 {
