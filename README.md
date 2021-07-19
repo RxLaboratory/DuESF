@@ -25,6 +25,9 @@ This stable shows where to find the implementation for each classes & namespace 
 | `DuProcess` | *Class* | [inc/process.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/process.jsxinc) | Runs and manages processes. |
 | `DuProcessQueue` | *Class* | [inc/process.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/process.jsxinc) | A queue of processes. |
 | `DuRegExp` | *namespace* | [inc/regexp.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/regexp.jsxinc) | Methods to manipulate strings. |
+| `DuRSS` | *namespace* | [inc/rss.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/rss.jsxinc) | Methods to manipulate RSS feeds. |
+| `DuRSSChannel` | *Class* | [inc/rss.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/rss.jsxinc) | An RSS channel. |
+| `DuRSSItem` | *Class* | [inc/rss.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/rss.jsxinc) | An item in an RSS feed. |
 | `DuSettings` | *class* | [inc/settings.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/settings.jsxinc) | Manages settings for the scripts. |
 | `DuString` | *namespace* | [inc/string.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/string.jsxinc) | Methods to manipulate regular expressions. |
 | `DuVersion` | *class* | [inc/version.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/version.jsxinc) | Represents the version of an app. |
