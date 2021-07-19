@@ -1,0 +1,391 @@
+
+/**
+ * @class
+ * @name DuButton
+ * @classdesc For use with {@link DuScriptUI}.<br />
+ * An Image Button.<br />
+ * This is not a real class, and cannot be instanciated.<br />
+ * Use {@link DuScriptUI.button} to create an Image Button.<br />
+ * The Image Button inherits the <code>Group</code> object from ScriptUI and has all of its properties and methods.
+ * @property {string} helpLink - A URL to a help page, shown on shift click on the button.
+ * @property {Image} image - The scriptui object representing the image.
+ * @property {StaticText} label - The label
+ * @property {DuPopup} optionsPanel - A panel for options
+ * @property {DuButton~onClick} onClick - The function to execute when the button is clicked
+ * @property {DuButton~onAltClick} onAltClick - The function to execute when the button is Alt + clicked
+ * @property {DuButton~onCtrlClick} onCtrlClick - The function to execute when the button is Ctrl + clicked
+ * @property {DuButton~onCtrlAltClick} onCtrlAltClick - The function to execute when the button is Ctrl + Alt + clicked
+ */
+
+/**
+ * The function to execute when the button is clicked.
+ * @callback DuButton~onClick
+ * @memberof DuButton
+ */
+
+/**
+ * The function to execute when the button is Alt + clicked.
+ * @callback DuButton~onAltClick
+ * @memberof DuButton
+ */
+
+/**
+ * The function to execute when the button is Ctrl + clicked.
+ * @callback DuButton~onCtrlClick
+ * @memberof DuButton
+ */
+
+/**
+ * The function to execute when the button is Ctrl + Alt + clicked.
+ * @callback DuButton~onCtrlAltClick
+ * @memberof DuButton
+ */
+
+/**
+ * Changes the background color of the button.
+ * @method
+ * @memberof DuButton
+ * @name setBackgroundColor
+ * @param {DuColor} color - the color.
+ */
+
+/**
+ * Changes the text color of the button.
+ * @method
+ * @memberof DuButton
+ * @name setTextColor
+ * @param {DuColor} color - the color.
+ */
+
+/**
+ * Creates a button with an optionnal icon. Must have at least an icon or a text, or both.
+ * @param {Panel|Window|Group}		container	- The ScriptUI Object which will contain and display the button.
+ * @param {string}					[text]		- The label of the button. Default: empty string
+ * @param {string|DuBInary}			[image]		- The path to the icon (or a PNG as a string representation). Default: empty string
+ * @param {string}					[helpTip]		- The helptip. Default: empty string
+ * @param {bool}					[addOptionsPanel=false]	- Adds a panel for options and a button to access it.
+ * @param {bool}					[orientation='row']	- The orientation of the button (icon, text, options button). Default will be changed to 'column' if there's no text.
+ * @param {boolean}					[localize=true]	- Set to false if the text must not be translated.
+ * @return {DuButton}			The image button created.
+ */
+DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, orientation, localize )
+{
+    if (typeof container === 'undefined')
+    {
+        throw 'DuScriptUI: DuScriptUI.button(container, text, image, helpTip, imageOver):\nMissing argument: container.';
+    }
+
+    if (jstype(container) != 'Group' && jstype(container) != 'Panel' && jstype(container) != 'Window' )
+    {
+        throw 'DuScriptUI: DuScriptUI.button(container, text, image, helpTip):\nTypeError.\n\ncontainer has to be a Group/Panel/Window.\n\ncontainer is ' + jstype(container) + ' with value ' + container.toString();
+    }
+
+    text = def(text, '');
+    image = def(image, '');
+    helpTip = def(helpTip, '');
+    addOptionsPanel = def(addOptionsPanel, false);
+    orientation = def(orientation, text == '' ? 'column' : 'row' );
+    localize = def(localize, true);
+    
+    if (localize)
+    {
+        text = tr( text );
+        helpTip = tr( helpTip );
+    }
+
+    if ( image == '' && text == '' ) text = 'button';
+
+    var duButton = container.add('group');
+    duButton.orientation = orientation;
+    duButton.margins = 0;
+    duButton.alignment = [ 'fill', 'top' ];
+    if (addOptionsPanel) duButton.spacing = 2;
+    else duButton.spacing = 0;
+
+    duButton.mainGroup = DuScriptUI.group( duButton, orientation );
+    duButton.mainGroup.alignment = ['fill', 'fill'];
+
+    if (text != '') duButton.bgColor = DuColor.Color.ABYSS_GREY;
+    else duButton.bgColor = DuColor.Color.TRANSPARENT;
+    duButton.textColor = DuColor.Color.APP_TEXT_COLOR;   
+
+    //Add fillers to be able to click anywhere on the button
+    if ( text != '' )
+    {
+        duButton.fillerL = duButton.mainGroup.add( 'statictext', undefined, " " );
+        duButton.fillerL.alignment = [ 'left', 'fill' ];
+        duButton.fillerL.size = [10, -1];
+    }
+
+    // Add image
+    if (image != '')
+    {
+        if (image instanceof DuBinary) image = image.binAsString;
+        duButton.image = duButton.mainGroup.add( 'image', undefined, image );
+        if (orientation == 'row') duButton.image.alignment = [ 'left', 'center' ];
+        else duButton.image.alignment = ['center', 'center'];
+        duButton.image.helpTip = helpTip;
+    }
+
+    // Another filler
+    if ( text != '' && image != '' && orientation == 'row')
+    {
+        duButton.fillerM = duButton.mainGroup.add( 'statictext', undefined, " " );
+        duButton.fillerM.alignment = [ 'left', 'fill' ];
+        duButton.fillerM.size = [10, -1];
+    }
+
+    // Add text
+    if ( text != '' )
+    {
+        duButton.label = duButton.mainGroup.add( 'statictext', undefined, text );
+        duButton.label.helpTip = helpTip;
+        duButton.label.alignment = [ 'left', 'center' ];
+    }
+
+    // Another filler
+    if ( text != '' )
+    {
+        duButton.fillerR = duButton.mainGroup.add( 'statictext', undefined, " " );
+        duButton.fillerR.alignment = [ 'fill', 'fill' ];
+        duButton.fillerR.size = [10, -1];
+    }
+
+    
+    duButton.onClick = function() {};
+    duButton.onAltClick = function() {};
+    duButton.onCtrlAltClick = function() {};
+    duButton.onCtrlClick = function() {};
+
+    // Options button
+    if (addOptionsPanel) {
+        var optionsButton = DuScriptUI.button(
+            duButton,
+            '',
+            w14_options,
+            text + '\nOptions'
+        )
+        if (orientation == 'column') optionsButton.alignment = ['center', 'bottom'];
+        else optionsButton.alignment = ['right', 'center'];
+
+        var optionsPanel = DuScriptUI.popUp(text == '' ? 'Options' : text);
+        optionsPanel.tieTo(optionsButton);
+        duButton.optionsPanel = DuScriptUI.group( optionsPanel.content, 'column');
+
+        duButton.optionsButton = DuScriptUI.button(
+            optionsPanel.content,
+            text,
+            w25_check,
+            text
+            )
+    }
+
+
+    //events
+    duButton.clicked = function()
+    {
+        DuDebug.safeRun(duButton.onClick);
+    }
+
+    duButton.shiftClicked = function()
+    {
+        if (duButton.helpLink != '')
+        {
+            DuSystem.openURL(imageButton.helpLink);
+        }
+    }
+
+    duButton.altClicked = function()
+    {
+        DuDebug.safeRun(duButton.onAltClick);
+    }
+
+    duButton.ctrlAltClicked = function()
+    {
+        DuDebug.safeRun(duButton.onCtrlAltClick);
+    }
+
+    duButton.ctrlClicked = function()
+    {
+        DuDebug.safeRun(duButton.onCtrlClick);
+    }
+
+    duButton.highlight = function( e )
+    {
+        e.stopPropagation();
+        DuScriptUI.dimControls();
+
+        if (duButton.label)
+        {
+            DuScriptUI.setTextColor( duButton.label, DuColor.Color.VERY_DARK_GREY );
+            DuScriptUI.setBackgroundColor( duButton.mainGroup, DuColor.Color.APP_HIGHLIGHT_COLOR );
+        }
+        else 
+        {
+            DuScriptUI.setBackgroundColor( duButton.mainGroup, DuColor.Color.APP_HIGHLIGHT_COLOR );
+        }
+
+        DuScriptUI.highlightedControls.push( duButton );
+    }
+
+    duButton.dim = function()
+    {
+        if (duButton.label) DuScriptUI.setTextColor( duButton.label,  duButton.textColor );
+        DuScriptUI.setBackgroundColor( duButton.mainGroup, duButton.bgColor );
+    }
+
+    duButton.setBackgroundColor = function(color)
+    {
+        duButton.bgColor = color;
+        duButton.dim();
+    }
+
+    duButton.setTextColor = function(color)
+    {
+        duButton.textColor = color;
+        duButton.dim();
+    }
+
+    //add events
+    duButton.mainGroup.addEventListener( 'click', function( e )
+    {
+        if ( e.shiftKey ) duButton.shiftClicked();
+        else if ( e.altKey && e.ctrlKey ) duButton.ctrlAltClicked();
+        else if ( e.altKey ) duButton.altClicked();
+        else if ( e.ctrlKey ) duButton.ctrlClicked();
+        else duButton.clicked();
+    }, true );
+    
+    duButton.addEventListener( "mouseover", duButton.highlight );
+    if (duButton.label) duButton.label.addEventListener( "mouseover", duButton.highlight );
+    if (duButton.fillerL) duButton.fillerL.addEventListener( "mouseover", duButton.highlight );
+    if (duButton.fillerR) duButton.fillerR.addEventListener( "mouseover", duButton.highlight );
+    if (duButton.fillerM) duButton.fillerM.addEventListener( "mouseover", duButton.highlight );
+
+    // Align icons
+    duButton.resize = function()
+    {
+        duButton.fillerL.size = [ duButton.size.width / 4, duButton.size.height ];
+    }
+
+    duButton.dim();
+
+    return duButton;
+}
+
+/**
+ * @class
+ * @name DuSmallButton
+ * @classdesc For use with {@link DuScriptUI}.<br />
+ * An Small Button.<br />
+ * This is not a real class, and cannot be instanciated.<br />
+ * Use {@link DuScriptUI.smallbutton} to create a Small Button.<br />
+ * The Small Button inherits the Group object from ScriptUI and has all of its properties and methods.
+ * @property {string} helpLink - A URL to a help page, shown on shift click on the button.
+ * @property {StaticText} label - The label
+ * @property {any} value - A user value stored in the button, which is passed to the onClick method
+ * @property {DuSmallButton~onClick} onClick - The function to execute when the button is clicked
+ */
+
+/**
+ * The function to execute when the button is clicked.<br />
+ * The implementation of this function can take one parameter which is the used defined value of the button.
+ * @callback DuSmallButton~onClick
+ * @memberof DuSmallButton
+ * @param {any} value - The used defined value of the button
+ */
+
+/**
+ * Creates a small button.
+ * @param {Panel|Window|Group}			container	- The ScriptUI Object which will contain and display the button.
+ * @param {string}					text		- The label of the button. Default: empty string
+ * @param {string}					[helpTip]		- The helptip. Default: empty string
+ * @param {any}					[value]		- A user value stored in the button, which is passed to the onClick method
+ * @return {DuButton}			The image button created.
+ */
+DuScriptUI.smallbutton = function( container, text, helpTip, value )
+{
+    if ( typeof helpTip === 'undefined' ) helpTip = '';
+
+    text = tr( text );
+    helpTip = tr( helpTip );
+
+    var smallButton = container.add( 'group' );
+    smallButton.orientation = 'row';
+    smallButton.margins = 0;
+    smallButton.alignment = [ 'fill', 'top' ];
+    smallButton.alignChildren = [ 'fill', 'fill' ];
+    smallButton.spacing = 0;
+
+    smallButton.onClick = function() {};
+    smallButton.onAltClick = function() {};
+    smallButton.onCtrlAltClick = function() {};
+    smallButton.onCtrlClick = function() {};
+    smallButton.label = smallButton.add( 'statictext', undefined, text );
+    smallButton.label.helpTip = helpTip;
+    smallButton.label.justify = 'center';
+
+    smallButton.value = value;
+    smallButton.helpLink = '';
+
+    //events
+    smallButton.clicked = function()
+    {
+        DuDebug.safeRun(smallButton.onClick, smallButton.value);
+    }
+
+    smallButton.shiftClicked = function()
+    {
+        if (duButton.helpLink != '')
+        {
+            DuSystem.openURL(smallButton.helpLink);
+        }
+    }
+
+    smallButton.altClicked = function()
+    {
+        DuDebug.safeRun(smallButton.onAltClick, smallButton.value);
+    }
+
+    smallButton.ctrlAltClicked = function()
+    {
+        DuDebug.safeRun(smallButton.onCtrlAltClick, smallButton.value);
+    }
+
+    smallButton.ctrlClicked = function()
+    {
+        DuDebug.safeRun(smallButton.onCtrlClick, smallButton.value);
+    }
+
+    smallButton.highlight = function( e )
+    {
+        e.stopPropagation();
+        DuScriptUI.dimControls();
+
+        if (smallButton.label) DuScriptUI.setTextColor( smallButton.label, DuColor.Color.VERY_DARK_GREY );
+        DuScriptUI.setBackgroundColor( smallButton, DuColor.Color.LIGHT_GREY );
+
+        DuScriptUI.highlightedControls.push( smallButton );
+    }
+
+    smallButton.dim = function()
+    {
+        if (smallButton.label) DuScriptUI.setTextColor( smallButton.label, DuColor.Color.APP_TEXT_COLOR );
+        DuScriptUI.setBackgroundColor( smallButton, DuColor.Color.TRANSPARENT );
+    }
+
+    //add events
+    smallButton.addEventListener( 'click', function( e )
+    {
+        if ( e.shiftKey ) smallButton.shiftClicked();
+        else if ( e.altKey && e.ctrlKey ) smallButton.ctrlAltClicked();
+        else if ( e.altKey ) smallButton.altClicked();
+        else if ( e.ctrlKey ) smallButton.ctrlClicked();
+        else smallButton.clicked();
+    }, true );
+
+
+    smallButton.addEventListener( "mouseover", smallButton.highlight );
+
+    return smallButton;
+}

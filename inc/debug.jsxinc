@@ -161,7 +161,7 @@ DuDebug.throwUndefinedError = function( varName, functionName )
  * @param {any} [functionName] The name or description of the function throwing the error.
  * @return {string|bool} The (multiline) description for the error if any and {@link DuESF.debug} is true, false if there's an error and {@link DuESF.debug} is false, true if everything is ok.
  */
-DuDebug.checkVar( variable, varName, varType, functionName )
+DuDebug.checkVar = function ( variable, varName, varType, functionName )
 {
 	// Check if undefined
 	if ( typeof variable === 'undefined' )

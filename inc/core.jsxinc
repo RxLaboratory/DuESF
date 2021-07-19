@@ -157,16 +157,43 @@ DuESF.state = DuESF.State.NOT_SET;
  * @readonly
  */
 DuESF.scriptFirstRun = true;
-
+/**
+ * The applicatiosns DuESF can be used with.
+ * @readonly
+ * @enum {string}
+ */
+DuESF.HostApplication = {
+    AFTER_EFFECTS: 'aftereffects',
+    ILLUSTRATOR: 'illustrator',
+    PHOTOSHOP: 'photoshop',
+    INDESIGN: 'indesign'
+}
+/**
+ * The host application
+ * @type {DuESF.HostApplication}
+ */
+DuESF.host = null;
+/**
+ * The version of the host application
+ */
+DuESF.hostVersion = new DuVersion();
 
 /**
  * This method has to be called once at the very beginning of the script, just after the inclusion of DuESF <code>#include DuESF.jsxinc</code>
+ * @param {DuESF.host} hostApplication - The host application of the script.
  * @param {string} [scriptName="DuESF"] - The name of your script, as it has to be displayed in the UI and the filesystem
  * @param {string} [scriptVersion="0.0.0"] - The version of your script, in the form "XX.XX.XX-Comment", for example "1.0.12-Beta". The "-Comment" part is optional.
  * @param {string} [companyName="RxLaboratory"] - The name of the company/organisation/individual developping this script.
  */
-DuESF.init = function( scriptName, scriptVersion, companyName )
+DuESF.init = function( hostApplication, scriptName, scriptVersion, companyName )
 {
+    DuESF.host = DuESF.host;
+
+    if (DuESF.host == DuESF.HostApplication.AFTER_EFFECTS)
+    {
+        DuESF.hostVersion = new DuVersion( app.version );
+    }
+    
     DuESF.state = DuESF.State.INIT;
 
     scriptName = def( scriptName, "DuESF" );
@@ -196,6 +223,45 @@ DuESF.enterRunTime = function()
     DuESF.settings.data.version = DuESF.scriptVersion.fullVersion;
     DuESF.settings.save();
     DuESF.state = DuESF.State.RUNTIME;
+}
+
+/**
+ * Removes all DuESF parts from memory. Call this if you've updated before you reload DuESF.
+ */
+DuESF.delete = function()
+{
+    delete tr;
+    delete def;
+    delete jstype;
+    delete DuBinary;
+    delete DuColor;
+    delete DuDate;
+    delete DuDebug;
+    delete DuDebugLog;
+    delete DuESF;
+    delete DuFile;
+    delete DuFolder;
+    delete DuList;
+    delete DuMath;
+    delete DuNumber;
+    delete DuOCA;
+    delete DuPath;
+    delete DuProcess;
+    delete DuProcessQueue;
+    delete DuRegExp;
+    delete DuRSS;
+    delete DuRSSChannel;
+    delete DuRSSItem;
+    delete DuSettings;
+    delete DuSystem;
+    delete DuString;
+    delete DuTranslator;
+    delete DuTranslation;
+    delete DuVersion;
+    delete DuXML;
+    delete DuXMP;
+    delete DuZip;
+    delete DuESF;
 }
 
 /**

@@ -203,12 +203,11 @@ DuBinary.toJsxincFile = function(file,category,outputFileName,varName)
  */
 DuBinary.toFile = function(DuBinary,outputFileName,onlyAtFirstRun)
 {
-  onlyAtFirstRun = def( onlyAtFirstRun, true );
-	if (!DuAEF.DuAE.App.hasFilesAndNetworkAccess) return null;
-  if (typeof DuBinary === 'undefined') return;
+    onlyAtFirstRun = def( onlyAtFirstRun, true );
+    if (typeof DuBinary === 'undefined') return;
 	if (DuBinary instanceof File) return;
-  var rootFolder = DuFolder.duesfData.absoluteURI;
-  if (DuESF.scriptName != '') rootFolder += '/'  + DuESF.scriptName;
+    var rootFolder = DuFolder.duesfData.absoluteURI;
+    if (DuESF.scriptName != '') rootFolder += '/'  + DuESF.scriptName;
 	if (typeof outputFileName === 'undefined') outputFileName = rootFolder + '/' + DuBinary.category + '/' + DuBinary.fileName;
 	var file = new File(outputFileName);
 

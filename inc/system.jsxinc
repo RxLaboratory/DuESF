@@ -4,34 +4,38 @@
 */
 DuSystem = {};
 
+(function()
+{
+    /**
+        * The current OS, true if we're on Mac OS
+        * @memberof DuSystem
+        * @readonly
+        * @type {boolean}
+        */
+    DuSystem.mac = $.os.toLowerCase().indexOf( "mac" ) >= 0;
+    /**
+        * The current OS, true if we're on Windows
+        * @memberof DuSystem
+        * @readonly
+        * @type {boolean}
+        */
+    DuSystem.win = !DuSystem.mac ;
+})();
+
 /**
  * Opens a URL in the default browser.<br />
  * @param {string} url - The URL
  * @method
  */
-DuSystem.openURL = function (url)
+DuSystem.openURL = function ( url )
 {
-    if ( DuSystem.mac ) system.callSystem( 'open "' + url + '"' );
-    else system.callSystem( 'explorer "' + url + '"' );
+    if ( DuSystem.mac )
+    {
+        system.callSystem( 'open "' + url + '"' );
+    }
+    else
+    {
+        system.callSystem( 'explorer "' + url + '"' );
+    }
 }
 
-// Detects OS
-( function()
-{
-    //detect OS Version
-    var mac = $.os.toLowerCase().indexOf( "mac" ) >= 0;
-    /**
-     * The current OS, true if we're on Mac OS
-     * @memberof DuSystem
-     * @readonly
-     * @type {boolean}
-     */
-    DuSystem.mac = mac;
-    /**
-     * The current OS, true if we're on Windows
-     * @memberof DuSystem
-     * @readonly
-     * @type {boolean}
-     */
-    DuSystem.win = !mac;
-} )();

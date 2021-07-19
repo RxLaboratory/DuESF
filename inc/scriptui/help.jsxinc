@@ -1,0 +1,115 @@
+/**
+ * Creates a button displaying the version of the script and redirecting to the about url.
+ * @param {Panel|Window|Group} container - The ScriptUI Object which will contain and display the button.
+ * @param {string|DuBinary} [image=DuESF.scriptIcon] - The path to the icon or a png binstring. Default: empty string
+ * @return {DuButton} The version button created.
+ */
+DuScriptUI.versionButton = function( container, image )
+{
+    image = def(image, DuESF.scriptIcon);
+
+    var button = DuScriptUI.button(
+        container,
+        'v' + DuESF.scriptVersion.fullVersion,
+        image,
+        DuESF.companyName + '\n' + DuESF.scriptName + ' v' + DuESF.scriptVersion.fullVersion
+    )
+
+    button.bgColor = DuColor.Color.TRANSPARENT;
+    button.dim();
+
+    if (DuESF.aboutURL != '') button.onClick = function() {
+        DuSystem.openURL(DuESF.aboutURL);
+        };
+
+    return button;
+}
+
+/**
+ * Creates a button opening the bug report url.
+ * @memberof DuAEF.DuScriptUI
+ * @param {Panel|Window|Group} container - The ScriptUI Object which will contain and display the button.
+ * @param {bool} [showLabel=false] - When true, the button includes a "Bug Report" label.
+ * @return {DuButton} The bug button created.
+ */
+DuScriptUI.addBugButton = function( container, showLabel )
+{
+    showLabel = def(showLabel, false);
+
+    var label = DuScriptUI.String.BUG_REPORT;
+    var helpTip = DuScriptUI.String.BUG_REPORT_TIP;
+    label = tr(label);
+    helpTip = tr(helpTip);
+
+    var button = DuScriptUI.button(
+        container,
+        showLabel ? label : "",
+        w18_bugreport,
+        helpTip
+        );
+    button.onClick = function ()
+    {
+        DuSystem.openURL( DuESF.bugReportURL );
+    }
+    return button;
+}
+
+/**
+ * Creates a button opening the feature request url.
+ * @memberof DuAEF.DuScriptUI
+ * @param {Panel|Window|Group} container - The ScriptUI Object which will contain and display the button.
+ * @param {bool} [showLabel=false] - When true, the button includes a "Feature Request" label.
+ * @return {DuButton} The feature request button created.
+ */
+DuScriptUI.addFeatureRequestButton = function( container, showLabel )
+{
+    showLabel = def(showLabel, false);
+
+    var label = DuScriptUI.String.FEATURE_REQUEST;
+    var helpTip = DuScriptUI.String.FEATURE_REQUEST_TIP;
+    label = tr(label);
+    helpTip = tr(helpTip);
+
+    var button = DuScriptUI.button(
+        container,
+        showLabel ? label : "",
+        w18_featurerequest,
+        helpTip
+        );
+    button.onClick = function ()
+    {
+        DuSystem.openURL( DuESF.featureRequestURL );
+    }
+    return button;
+}
+
+/**
+ * Creates a button opening the help panel.
+ * @memberof DuAEF.DuScriptUI
+ * @param {Panel|Window|Group} container - The ScriptUI Object which will contain and display the button.
+ * @param {bool} [showLabel=false] - When true, the button includes a "Help" label.
+ * @return {DuButton} The help button created.
+ */
+DuScriptUI.addHelpButton = function( container, showLabel )
+{
+    showLabel = def(showLabel, false);
+
+    var label = DuScriptUI.String.HELP;
+    var helpTip = DuScriptUI.String.HELP_TIP;
+    label = tr(label);
+    helpTip = tr(helpTip);
+
+    var button = DuScriptUI.button(
+        container,
+        showLabel ? label : "",
+        w18_help,
+        helpTip
+    );
+
+    button.onClick = function ()
+    {
+        DuSystem.openURL( DuESF.docURL );
+    }
+
+    return button;
+}

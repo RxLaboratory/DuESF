@@ -1,0 +1,333 @@
+
+/**
+ * @class
+ * @name DuCheckBox
+ * @classdesc For use with {@link DuAEF.DuScriptUI}.<br />
+ * An Image Checkbox.<br />
+ * This is not a real class, and cannot be instanciated.<br />
+ * Use {@link DuScriptUI.checkBox} to create an Image Checkbox.<br />
+ * The Image Checkbox inherits the Group object from ScriptUI and has all of its properties and methods.
+ * @property {Image} image The scriptui object representing the image, if any
+ * @property {StaticText} label The label, if any
+ * @property {string} text The current text
+ * @property {string} textChecked The text to display when the checkbox is checked
+ * @property {string} defaultText The text to display when the checkbox is unchecked
+ * @property {boolean} checked The checked state of the button
+ * @property {DuCheckBox~onClick} onClick The function to execute when the button is clicked
+ */
+
+/**
+ * The function to execute when the button is clicked.
+ * @callback DuCheckBox~onClick
+ * @memberof DuCheckBox
+ */
+
+/**
+ * Sets the checked state of the button
+ * @method
+ * @memberof DuCheckBox
+ * @name setChecked
+ * @param {boolean} [checked=true] - The state
+ */
+
+/**
+ * Creates a checkbox with an optionnal icon. Must have at least an icon or a text, or both.
+ * @param {Panel|Window|Group} container The ScriptUI Object which will contain and display the button.
+ * @param {string} text The label of the button. Default: empty string
+ * @param {string} image The path to the icon. Default: empty string
+ * @param {string} helpTip The helptip. Default: empty string
+ * @param {string} [textChecked] The label of the button displayed when it is checked.
+ * @return {DuCheckBox} The image checkbox created.
+ */
+DuScriptUI.checkBox = function( container, text, image, helpTip, textChecked, isTab )
+{
+    //isTab is an undocumented low-level param used to create buttons for tabs in tabpanel
+    isTab = def(isTab, false);
+    if ( !container ) return null;
+    text = def(text, '');
+    image = def(image, '');
+    helpTip = def(helpTip, '');
+    textChecked = def(textChecked, '');
+
+    //if no image and no text, a placeholder character
+    if ( image == '' && text == '' ) text = '#';
+
+    //translate text and helptip
+    text = tr( text );
+    helpTip = tr( helpTip );
+
+    //create ui
+    var duCheckBox = container.add( 'group' );
+    duCheckBox.orientation = 'column';
+    duCheckBox.margins = 2;
+    if ( isTab ) duCheckBox.spacing = 3;
+    else duCheckBox.spacing = 0;
+
+    duCheckBox.group = duCheckBox.add( 'group' );
+    duCheckBox.group.orientation = 'row';
+    duCheckBox.group.margins = 0;
+    duCheckBox.group.spacing = 3;
+
+    var outLine;
+    if ( isTab && text != '' )
+    {
+        outLine = duCheckBox.add( 'group' );
+        outLine.margins = 0;
+        outLine.minimumSize.height = 2;
+        outLine.alignment = [ 'fill', 'top' ];
+    }
+
+    duCheckBox.onClick = function() {};
+    duCheckBox.onAltClick = function() {};
+    duCheckBox.checked = duCheckBox.value = false;
+    duCheckBox.textChecked = textChecked;
+    duCheckBox.defaultText = text;
+    duCheckBox.text = text;
+
+    duCheckBox.helpLink = '';
+
+    var checkbox; //the icon checkbox
+
+    //Add fillers to be able to click anywhere on the button
+    if ( text != '' )
+    {
+        duCheckBox.fillerL = duCheckBox.group.add( 'statictext', undefined, "" );
+        duCheckBox.fillerL.alignment = [ 'left', 'fill' ];
+        if ( image != '' ) duCheckBox.fillerL.size = [ 10, -1];
+    }
+
+    //checkbox icon
+    if ( !isTab )
+    {
+        checkbox = duCheckBox.group.add( 'checkbox', undefined, '' );
+        checkbox.alignment = [ 'left', 'center' ];
+        checkbox.helpTip = helpTip;
+    }
+    //general appearance
+    if ( text == '' )
+    {
+        duCheckBox.alignment = [ 'fill', 'top' ];
+        duCheckBox.alignChildren = [ 'fill', 'center' ];
+    }
+    
+    //adjust appearance if there's an image
+    if ( image != '' )
+    {
+        if (jstype(image) == 'DuBinary' ) image = image.binAsString;
+        duCheckBox.image = duCheckBox.group.add( 'image', undefined, image );
+        if ( isTab ) duCheckBox.image.alignment = [ 'center', 'center' ];
+        else duCheckBox.image.alignment = [ 'left', 'center' ];
+        duCheckBox.image.helpTip = helpTip;
+    }
+
+    //Add fillers to be able to click anywhere on the button
+    if ( text != '' )
+    {
+        duCheckBox.fillerM = duCheckBox.group.add( 'statictext', undefined, "" );
+        duCheckBox.fillerM.alignment = [ 'left', 'fill' ];
+        if ( image != '' ) duCheckBox.fillerM.size = [ 10, -1];
+    }
+
+    //add the label 
+    //label
+    if ( text != '')
+    {
+        duCheckBox.label = duCheckBox.group.add( 'statictext', undefined, text );
+        duCheckBox.label.helpTip = helpTip;
+        if ( isTab ) duCheckBox.label.alignment = [ 'center', 'center' ];
+        else duCheckBox.label.alignment = [ 'left', 'center' ];
+        //label size
+        if ( text.length < textChecked.length ) duCheckBox.label.characters = textChecked.length;
+        else duCheckBox.label.characters = text.length;
+    }
+
+    //Add fillers to be able to click anywhere on the button
+    if ( text != '' )
+    {
+        duCheckBox.fillerR = duCheckBox.group.add( 'statictext', undefined, "" );
+        duCheckBox.fillerR.alignment = [ 'fill', 'fill' ];
+    }
+
+    duCheckBox.setChecked = function( c )
+    {
+        c = def(c, true);
+        duCheckBox.checked = duCheckBox.value = c;
+
+        //icon
+        if ( checkbox ) checkbox.value = c;
+
+        if ( c )
+        {
+            //label
+            if ( duCheckBox.label && duCheckBox.textChecked != '' )
+            {
+                duCheckBox.label.text = duCheckBox.textChecked;
+                duCheckBox.text = duCheckBox.textChecked;
+            }
+            //outline
+            if (outLine) DuScriptUI.setBackgroundColor( outLine, DuColor.Color.RAINBOX_RED, true );
+        }
+        else 
+        {
+            //label
+            if ( duCheckBox.label)
+            {
+                duCheckBox.label.text = duCheckBox.defaultText;
+                duCheckBox.text = duCheckBox.defaultText;
+            }
+            //outline 
+            if (outLine) DuScriptUI.setBackgroundColor( outLine, DuColor.Color.TRANSPARENT, true );
+        }
+    }
+
+    duCheckBox.clicked = function( e )
+    {
+        e.stopPropagation();
+
+        if ( e.shiftKey )
+        {
+            if ( duCheckBox.helpLink != '' )
+            {
+                DuSystem.openURL( duCheckBox.helpLink );
+            }
+            return;
+        }
+
+        duCheckBox.setChecked( !duCheckBox.checked );
+        DuDebug.safeRun(duCheckBox.onClick);
+    }
+
+    duCheckBox.altClicked = function()
+    {
+        DuDebug.safeRun(duCheckBox.onAltClick);
+    }
+
+    duCheckBox.highlight = function( e )
+    {
+        e.stopPropagation();
+        DuScriptUI.dimControls();
+        
+        if (duCheckBox.label) DuScriptUI.setTextColor( duCheckBox.label, DuColor.Color.VERY_DARK_GREY );
+        DuScriptUI.setBackgroundColor( duCheckBox, DuColor.Color.LIGHT_GREY );
+
+        //outline
+        if ( outLine ) DuScriptUI.setBackgroundColor( outLine, DuColor.Color.LIGHT_GREY, true );
+
+        DuScriptUI.highlightedControls.push( duCheckBox );
+    }
+
+    duCheckBox.dim = function( e )
+    {
+        
+        if (duCheckBox.label) DuScriptUI.setTextColor( duCheckBox.label,  DuColor.Color.APP_TEXT_COLOR );
+        DuScriptUI.setBackgroundColor( duCheckBox,  DuColor.Color.TRANSPARENT );
+
+        //outline
+        if ( outLine && duCheckBox.checked ) DuScriptUI.setBackgroundColor( outLine, DuColor.Color.RAINBOX_RED, true );
+        else if ( outLine ) DuScriptUI.setBackgroundColor( outLine, DuColor.Color.DARK_GREY, true );
+    }
+
+    duCheckBox.group.addEventListener( "mousedown", function(e)
+    {
+        if ( e.altKey ) duCheckBox.altClicked();
+        else duCheckBox.clicked(e);
+    }, true );
+
+
+    duCheckBox.addEventListener( "mouseover", duCheckBox.highlight );
+
+    return duCheckBox;
+}
+
+/**
+ * @class
+ * @name DuSimpleCheckBox
+ * @classdesc For use with {@link DuAEF.DuScriptUI}.<br />
+ * A Nice Checkbox.<br />
+ * This is not a real class, and cannot be instanciated.<br />
+ * Use {@link DuScriptUI.simpleCheckBox} to create an Nice Checkbox.<br />
+ * The Nice Checkbox inherits the Group object from ScriptUI and has all of its properties and methods.
+ * @property {StaticText} label - The statictext used as a label
+ * @property {CheckBox} checkbox - The box
+ * @property {float[]} color - The color [R,G,B,A]
+ * @property {NiceCheckbox~onClick} onClick - Function to execute when clicked
+ */
+
+/**
+ * The function to execute when the button is clicked.
+ * @callback NiceCheckbox~onClick
+ * @memberof NiceCheckbox
+ */
+
+/**
+ * Creates a checkbox which can be colored, and changes color on hover
+ * @param {Panel|Window|Group}		container		- The ScriptUI Object which will contain and display the button.
+ * @param {string}					[text]			- The label of the button.
+ * @param {string}					[helpTip]			- The helptip.
+ * @param {color}					[color=DuColor.Color.LIGHT_GREY]			- The color of the text
+ * @return {DuSimpleCheckBox}					The image checkbox created.
+ */
+DuScriptUI.simpleCheckBox = function( container, text, helpTip, color )
+{
+    color = def( color, DuColor.Color.APP_TEXT_COLOR );
+    helpTip = def( helpTip, '' );
+    text = def(text, '' );
+
+    text = tr( text );
+    helpTip = tr( helpTip );
+
+    var simpleCheckBox = container.add( 'group' );
+    simpleCheckBox.orientation = 'row';
+    simpleCheckBox.alignChildren = [ 'left', 'center' ];
+    simpleCheckBox.spacing = DuScriptUI.defaultSpacing;
+    simpleCheckBox.margins = 0;
+    simpleCheckBox.checkBox = simpleCheckBox.add( 'checkbox', undefined, '' );
+    simpleCheckBox.label = simpleCheckBox.add( 'statictext', undefined, text );
+    simpleCheckBox.onClick = function() {};
+    simpleCheckBox.checked = simpleCheckBox.value = false;
+    simpleCheckBox.color = color;
+
+    simpleCheckBox.checkBox.helpTip = helpTip;
+    simpleCheckBox.label.helpTip = helpTip;
+
+    DuScriptUI.setTextColor( simpleCheckBox.label, simpleCheckBox.color );
+
+    simpleCheckBox.setChecked = function( c )
+    {
+        simpleCheckBox.checked = simpleCheckBox.value = c;
+        simpleCheckBox.checkBox.value = c;
+    }
+
+    simpleCheckBox.labelClicked = function( e )
+    {
+        simpleCheckBox.setChecked( !simpleCheckBox.checked );
+        DuDebug.safeRun(simpleCheckBox.onClick);
+    }
+
+    simpleCheckBox.checkBoxClicked = function( e )
+    {
+        simpleCheckBox.checked = simpleCheckBox.value = simpleCheckBox.checkBox.value;
+        DuDebug.safeRun(simpleCheckBox.onClick);
+    }
+
+    simpleCheckBox.highlight = function( e )
+    {
+        e.stopPropagation();
+        DuScriptUI.dimControls();
+        if (simpleCheckBox.label) DuScriptUI.setTextColor( simpleCheckBox.label, DuColor.Color.VERY_DARK_GREY );
+        DuScriptUI.setBackgroundColor( simpleCheckBox, DuColor.Color.LIGHT_GREY );
+        DuScriptUI.highlightedControls.push( simpleCheckBox );
+    }
+
+    simpleCheckBox.dim = function( e )
+    {
+        if (simpleCheckBox.label) DuScriptUI.setTextColor( simpleCheckBox.label,  DuColor.Color.APP_TEXT_COLOR );
+        DuScriptUI.setBackgroundColor( simpleCheckBox,  DuColor.Color.TRANSPARENT );
+    }
+
+    if (simpleCheckBox.label) simpleCheckBox.label.addEventListener( "mousedown", simpleCheckBox.labelClicked, false );
+    simpleCheckBox.checkBox.onClick = simpleCheckBox.checkBoxClicked;
+    simpleCheckBox.addEventListener( "mouseover", simpleCheckBox.highlight );
+
+    return simpleCheckBox;
+}

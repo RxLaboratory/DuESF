@@ -1,0 +1,41 @@
+
+/**
+ * Resets the layout of the whole ui containing a scriptUI item.
+ * @memberof DuAEF.DuScriptUI
+ * @param {ScriptUI} item - The ScriptUI element which needs to be resized
+ */
+DuScriptUI.layout = function( item )
+{
+    item.layout.layout( true );
+    item.layout.resize();
+}
+
+/**
+ * Changes the color of the text of a ScriptUI Object
+ * @memberof DuAEF.DuScriptUI
+ * @param {ScriptUI} text - The ScriptUI Object
+ * @param {DuColor} color - The new color
+ */
+DuScriptUI.setTextColor = function( text, color )
+{
+    if ( typeof text === 'undefined' ) throw "You must provide a ScriptUI Control to change the color of the text";
+
+    var g = text.graphics;
+    var textPen = g.newPen( g.PenType.SOLID_COLOR, color.floatRGBA(true), 1 );
+    g.foregroundColor = textPen;
+}
+
+/**
+ * Changes the color of the background of a ScriptUI Object
+ * @memberof DuAEF.DuScriptUI
+ * @param {ScriptUI} uiItem - The ScriptUI Object
+ * @param {Array} color - The new color [R,V,B,A] Array
+ */
+DuScriptUI.setBackgroundColor = function( uiItem, color )
+{
+    if ( typeof uiItem === 'undefined' ) throw "You must provide a ScriptUI Control to change the color of the background";
+   
+    var g = uiItem.graphics;
+    var brush = g.newBrush( g.BrushType.SOLID_COLOR, color.floatRGBA(true) );
+    g.backgroundColor = brush;
+}

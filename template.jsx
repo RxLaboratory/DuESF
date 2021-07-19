@@ -5,7 +5,7 @@
 
     #include "DuESF.jsxinc"
     // This is required
-    DuESF.init("Your Script Name", "1.0.0", "Your Company");
+    DuESF.init( DuESF.HostApplication.AFTER_EFFECTS, "Your Script Name", "1.0.0", "Your Company");
 
     // Setting these may prove useful
     DuESF.debug = false; // Change to true when you're developping!

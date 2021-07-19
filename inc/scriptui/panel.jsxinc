@@ -1,0 +1,596 @@
+
+/**
+ * @class
+ * @name DuPanel
+ * @classdesc For use with {@link DuScriptUI}.<br />
+ * A Panel or Window.<br />
+ * This is not a real class, and cannot be instanciated.<br />
+ * Use {@link DuScriptUI.mainPanel} to create a Panel.<br />
+ * The DuPanel inherits the Panel or Window object from ScriptUI and has all of its properties and methods.
+ */
+
+/**
+ * The ScriptUI group where the new controls must be added. Do not add any control directly inside the DuPanel.
+ * @name content
+ * @type {Group} file - The script to reload. 
+ * @memberof DuPanel.prototype
+ */
+
+/**
+ * A function to reload a script in this panel.
+ * @method refreshUi
+ * @param {File} file - The script to reload. 
+ * @return {boolean} true on success, false otherwise.
+ * @memberof DuPanel.prototype
+ */
+
+/**
+ * Creates the main panel for a script
+ * @param {Panel|null} container - The container ('this' in the root of the calling script), either a Panel (when launched from the 'Window' menu) or null (when launched from 'file/scripts/run...')
+ * @param {string} [scriptName=DuESF.scriptName] - A name for this UI
+ * @param {string[]} [contentAlignment=DuScriptUI.defaultColumnAlignment] - The alignment of the content in the panel
+ * @param {string} [borderless=false] - When true, creates a borderless window if container is not a panel
+ * @return {DuPanel} The panel created, either a ScriptUI Panel or a ScriptUI Window.
+ * @example
+ * var ui = DuScriptUI.mainPanel(this,"Test Script");
+ * var refreshButton = ui.content.add('button',undefined,"Refresh");
+ * refreshButton.onClick = function() { ui.refreshUI( new File($.fileName) ); }; //reloads the current script
+ * DuScriptUI.showUI(ui);
+ */
+DuScriptUI.mainPanel = function( container, scriptName, contentAlignment, bless )
+{
+    scriptName = def(scriptName, DuESF.scriptName, false);
+    contentAlignment = def(contentAlignment, DuScriptUI.defaultColumnAlignment, false);
+    bless = def (bless, false);
+
+    scriptName = tr( scriptName );
+
+    var myPal = null;
+    container instanceof Panel ? myPal = container : myPal = new Window( 'palette', scriptName, undefined,
+    {
+        resizeable: true,
+        borderless: bless
+    } );
+
+    if ( myPal == null ) throw "Failed to create User Interface.";
+
+    myPal.margins = 0;
+    myPal.spacing = 0;
+
+    //create margins to dim buttons
+    var topMargin = myPal.add( 'button' );
+    topMargin.onDraw = function() {};
+    topMargin.minimumSize.height = DuScriptUI.defaultMargins;
+    topMargin.alignment = [ 'fill', 'top' ];
+    topMargin.maximumSize.height = topMargin.minimumSize.height = topMargin.preferredSize.height = DuScriptUI.defaultMargins;
+
+    var mainRow = myPal.add( 'group' );
+    mainRow.alignment = contentAlignment;
+    mainRow.alignChildren = contentAlignment;
+    mainRow.margins = 0;
+    mainRow.spacing = 0;
+
+    var leftMargin = mainRow.add( 'button' );
+    leftMargin.onDraw = function() {};
+    leftMargin.maximumSize.width = leftMargin.minimumSize.width = leftMargin.preferredSize.width = DuScriptUI.defaultMargins;
+    leftMargin.alignment = [ 'left', 'fill' ];
+
+    myPal.content = mainRow.add( 'group' );
+    myPal.content.margins = 0;
+    myPal.content.spacing = DuScriptUI.defaultSpacing;
+    myPal.content.alignChildren = DuScriptUI.defaultColumnAlignment;
+    myPal.content.orientation = "column";
+
+    var rightMargin = mainRow.add( 'button' );
+    rightMargin.onDraw = function() {};
+    rightMargin.maximumSize.width = rightMargin.minimumSize.width = rightMargin.preferredSize.width = DuScriptUI.defaultMargins;
+    rightMargin.alignment = [ 'right', 'fill' ];
+
+    var bottomMargin = myPal.add( 'button' );
+    bottomMargin.onDraw = function() {};
+    bottomMargin.maximumSize.height = bottomMargin.minimumSize.height = bottomMargin.preferredSize.height = DuScriptUI.defaultMargins;
+    bottomMargin.alignment = [ 'fill', 'bottom' ];
+
+    myPal.refreshUI = function( scriptFile )
+    {
+
+        function refresh ()
+        {
+            var ok = false;
+            DuScriptUI.dimControls();
+            // Remove everything
+            for ( var i = myPal.children.length - 1; i >= 0; i-- )
+            {
+                myPal.remove( this.children[ i ] );
+            }
+
+            // delete DuESF
+            DuESF.delete();
+
+            // Run the scriptFile
+            try
+            {
+                ok = true;
+                $.evalFile( scriptFile );
+            }
+            catch ( err )
+            {
+                ok = false;
+                //add debug info
+                if ( DuESF.debug )
+                {
+                    myPal.add( 'statictext', undefined, err.fileName,
+                    {
+                        multiline: true
+                    } );
+                    myPal.add( 'statictext', undefined, err.message,
+                    {
+                        multiline: true
+                    } );
+                    myPal.add( 'statictext', undefined, "on line" + err.line );
+                    //add a refresh button
+                    var button = myPal.add( 'button', undefined, "Refresh UI" );
+                    button.onClick = function()
+                    {
+                        myPal.refreshUI( scriptFile )
+                    };
+                }
+            }
+
+            // Recalculate UI
+            myPal.layout.layout( true );
+            myPal.layout.resize();
+
+            return ok;
+        }
+
+        return refresh.call( myPal );
+    }
+
+    myPal.addEventListener( "mouseover", DuScriptUI.dimControls );
+    topMargin.addEventListener( "mouseover", DuScriptUI.dimControls );
+    leftMargin.addEventListener( "mouseover", DuScriptUI.dimControls );
+    rightMargin.addEventListener( "mouseover", DuScriptUI.dimControls );
+    bottomMargin.addEventListener( "mouseover", DuScriptUI.dimControls );
+
+    return myPal;
+}
+
+/**
+ * @class
+ * @name DuPopup
+ * @classdesc For use with {@link DuScriptUI}.<br />
+ * A borderless popup, to be tied to a ui control.<br />
+ * This is not a real class, and cannot be instanciated.<br />
+ * Use {@link DuScriptUI.popUp} to create a Popup.<br />
+ * The DuPopup inherits the Window object from ScriptUI and has all of its properties and methods.
+ * @property {Group} content - The ScriptUI group where the new controls must be added. Do not add any control directly inside the DuPopup.
+ * @property {boolean} pinned - true if this popup is "pinned", which means it won't hide when the user clicks outside of the window.
+ */
+
+/**
+ * Ties the popup to a ui control. The popup will be shown just above the control when it is clicked.<br />
+ * The control must have an addEventListener method.
+ * @method
+ * @memberof DuPopup
+ * @name tieTo
+ * @param {ScriptUI} [control] - The control
+ */
+
+/**
+ * Pins the popup (it won't be hidden anymore when deactivated).
+ * @method
+ * @memberof DuPopup
+ * @name pin
+ * @param {boolean} [pinned=true] - true to pin the popup, false to un-pin it.
+ */
+
+/**
+ * Creates a borderless popup
+ * @param {string} title The title of the popup
+ * @param {string[]} [alignment=DuScriptUI.defaultColumnAlignment] The alignement of this window
+ * @param {boolean} [modal=false] Set the popup to a modal dialog
+ * @return {DuPopup} The popup, a ScriptUI Window which is borderless, with a 'tieTo(control)' method.
+ * @example
+ * var popup = DuScriptUI.popUp( );
+ * var popupButton = DuScriptUI.button( myUI, "My Buttton for the popup" );
+ * popup.tieTo( popupButton ); // will show the popup when the button is clicked, just above it.
+ */
+DuScriptUI.popUp = function( title, alignment, modal )
+{
+    modal = def(modal, false);
+    alignment = def( alignment, DuScriptUI.defaultColumnAlignment );
+    title = def (title, "");
+    title = tr( title );
+    
+    var type = 'palette';
+    if (modal) type = 'dialog'; 
+    var popup = new Window( type, title, undefined,
+    {
+        resizeable: false,
+        borderless: true
+    } );
+
+    popup.margins = 0;
+    popup.spacing = 0;
+    popup.pinned = false;
+
+    //add stroke around
+    function drawBorder ( drawState ) {
+        var g = this.graphics;
+        var c = DuColor.Color.DARK_GREY;
+        c = DuAEF.DuScriptUI.adjustColor( c );
+
+        var pen = g.newPen( g.PenType.SOLID_COLOR, c, 1 );
+
+        g.newPath();
+        if (this.side == 0) {
+            g.moveTo (0, 0);
+            g.lineTo (this.size.width, 0);
+        }
+        else if (this.side == 2) {
+            g.moveTo (this.size.width, 0);
+            g.lineTo (this.size.width, this.size.height);
+        }
+        else if (this.side == 1) {
+            g.moveTo (0, 0);
+            g.lineTo (0, this.size.height);
+        }
+        else if (this.side == 3) {
+            g.moveTo (0, this.size.height);
+            g.lineTo (this.size.width, this.size.height);
+        }
+
+        g.strokePath( pen );
+    };
+
+    //create margins to dim buttons
+    var topMargin = popup.add( 'group' );
+    topMargin.onDraw = drawBorder;
+    topMargin.side = 0;
+    topMargin.minimumSize.height = DuScriptUI.defaultMargins;
+    topMargin.alignment = [ 'fill', 'top' ];
+    topMargin.maximumSize.height = topMargin.minimumSize.height = topMargin.preferredSize.height = 1;
+    DuScriptUI.setBackgroundColor( topMargin, DuColor.Color.DARK_GREY );
+    
+    var mainRow = popup.add( 'group' );
+    mainRow.alignment = alignment;
+    mainRow.alignChildren = alignment;
+    mainRow.margins = 0;
+    mainRow.spacing = 0;
+
+    var leftMargin = mainRow.add( 'button' );
+    leftMargin.onDraw = drawBorder;
+    leftMargin.side = 1;
+    leftMargin.maximumSize.width = leftMargin.minimumSize.width = leftMargin.preferredSize.width = 1;
+    leftMargin.alignment = [ 'left', 'fill' ];
+
+    var mainColumn = mainRow.add( 'group' );
+    mainColumn.orientation = 'column';
+    mainColumn.spacing = DuScriptUI.defaultMargins;
+    mainColumn.margins = 0;
+    mainColumn.alignment = ['fill','fill'];
+
+    var titleBar = mainColumn.add( 'group' );
+    titleBar.margins = 0;
+    titleBar.spacing = 0;
+    titleBar.alignment = ['fill','top'];
+    DuScriptUI.setBackgroundColor( titleBar, DuColor.Color.DARK_GREY );
+    //add pin
+    var pinButton = DuScriptUI.checkBox(titleBar, '', w14_pin, 'Pin window');
+    pinButton.alignment = [ 'left', 'top' ];
+    //add title
+    var titleLabel = titleBar.add('statictext', undefined,  title);
+    titleLabel.alignment = [ 'center', 'top' ];
+    if (modal) DuScriptUI.setTextColor(titleLabel, DuColor.Color.RAINBOX_RED)
+    //add close button
+    var closeButton = DuScriptUI.button(titleBar, '', w14_cancel, 'Close');
+    closeButton.alignment = [ 'right', 'top' ];
+
+    popup.content = mainColumn.add( 'group' );
+    popup.content.margins = 0;
+    popup.content.spacing = DuScriptUI.defaultSpacing;
+    popup.content.alignChildren = alignment;
+    popup.content.orientation = "column";
+
+    var rightMargin = mainRow.add( 'button' );
+    rightMargin.onDraw = drawBorder;
+    rightMargin.side = 2;
+    rightMargin.maximumSize.width = rightMargin.minimumSize.width = rightMargin.preferredSize.width = 1;
+    rightMargin.alignment = [ 'right', 'fill' ];
+
+    var bottomMargin = popup.add( 'button' );
+    bottomMargin.onDraw = drawBorder;
+    bottomMargin.side = 3;
+    bottomMargin.maximumSize.height = bottomMargin.minimumSize.height = bottomMargin.preferredSize.height = 1;
+    bottomMargin.alignment = [ 'fill', 'bottom' ];
+
+    popup.tieTo = function (control)
+    {
+        control.addEventListener( 'click', function(e) {
+            var x = e.screenX - e.clientX;
+            var y = e.screenY - e.clientY;
+            //we need a layout and resize to get the window frame size
+            popup.layout.layout( true );
+            popup.layout.resize( );
+            var location = [x,y];
+            location = DuAEF.DuScriptUI.moveInsideScreen( [x, y], popup.frameSize );
+            popup.location = location;
+            if (!popup.pinned) DuScriptUI.eventFunctionsPaused = true;
+            popup.show();
+        }, true);
+    }
+
+    popup.pin = function(p)
+    {
+        p = def (p, true);
+        popup.pinned = p;
+        pinButton.setChecked(p);
+    }
+
+    var movingTitle = false;
+    var movingPopup = false;
+    var startMouseLocation = [0,0];
+    var startPopupLocation = [0,0];
+
+    function enterTitleMoveState(e)
+    {
+        movingTitle = true;
+        startMouseLocation = [e.screenX, e.screenY];
+        startPopupLocation = [popup.location[0], popup.location[1]];
+    }
+
+    function enterPopupMoveState(e)
+    {
+        movingPopup = true;
+        startMouseLocation = [e.screenX, e.screenY];
+        startPopupLocation = [popup.location[0], popup.location[1]];
+    }
+
+    function movePopup(e)
+    {
+        if (!movingPopup) return;
+        if (movingTitle) return;
+        var x = e.screenX - startMouseLocation[0];
+        var y = e.screenY - startMouseLocation[1];
+        popup.location = [ x, y ] + startPopupLocation;
+    }
+
+    function moveTitle(e)
+    {
+        if (!movingTitle) return;
+        var x = e.screenX - startMouseLocation[0];
+        var y = e.screenY - startMouseLocation[1];
+        popup.location = [ x, y ] + startPopupLocation;
+    }
+
+    function endMoveState(e)
+    {
+        movingTitle = false;
+        movingPopup = false;
+    }
+
+    function esc(e)
+    {
+        if ( e.keyName == "Escape") hidePopup();
+    }
+
+    function hidePopup()
+    {
+        popup.hide();
+        DuScriptUI.eventFunctionsPaused = false;
+    }
+
+    popup.cancel = hidePopup;
+
+    popup.onDeactivate = function () { if (!popup.pinned) hidePopup(); };
+    closeButton.onClick = hidePopup;
+
+    pinButton.onClick = function () { popup.pin(pinButton.checked); };
+
+    popup.addEventListener( "mouseover", DuScriptUI.dimControls );
+    popup.addEventListener( "keydown", esc );
+    topMargin.addEventListener( "mouseover", DuScriptUI.dimControls );
+    leftMargin.addEventListener( "mouseover", DuScriptUI.dimControls );
+    rightMargin.addEventListener( "mouseover", DuScriptUI.dimControls );
+    bottomMargin.addEventListener( "mouseover", DuScriptUI.dimControls );
+    titleBar.addEventListener( "mouseover", DuScriptUI.dimControls );
+
+    titleBar.addEventListener( "mousedown", enterPopupMoveState );
+    titleBar.addEventListener( "mousemove", movePopup);
+    titleBar.addEventListener( "mouseup", endMoveState );
+    titleBar.addEventListener( "mouseout", endMoveState );
+
+    titleLabel.addEventListener( "mousedown", enterTitleMoveState );
+    titleLabel.addEventListener( "mousemove", moveTitle );
+    titleLabel.addEventListener( "mouseup", endMoveState );
+    titleLabel.addEventListener( "mouseout", endMoveState );
+
+    if (modal) popup.pin();
+
+    return popup;
+}
+
+/**
+ * Resizes and shows the main panel of a script
+ * @memberof DuAEF.DuScriptUI
+ * @param {Panel|Window}		ui	- The UI created by Duik.ui.createUI
+ * @param {boolean}		[enterRunTime=false]	- Set to true to automatically set DuAEF to runtime state<br />
+ * Set this to false if the ui shown is not the actual main panel of the script and it is shown before the main panel has been loaded.
+ */
+DuScriptUI.showUI = function( ui, enterRunTime )
+{
+    enterRunTime = def( enterRunTime, true);
+
+    DuDebug.log( "DuScriptUI.showUI" );
+
+    DuDebug.log( "DuScriptUI.showUI: Defining layout" );
+    ui.layout.layout( true );
+    DuDebug.log( "DuScriptUI.showUI: Resizing" );
+    ui.layout.resize();
+    ui.onResizing = ui.onResize = function()
+    {
+        try
+        {
+            ui.layout.resize();
+        }
+        catch ( e )
+        {}
+    }
+    DuDebug.log( "DuScriptUI.showUI: UI Ready" );
+
+    // If it's a Window, it needs to be shown
+    if ( ui instanceof Window )
+    {
+        DuDebug.log( "DuScriptUI.showUI: Showing window" );
+        //ui.center();
+        ui.show();
+        DuDebug.log( "DuScriptUI.showUI: Window visible." );
+    }
+
+    DuScriptUI.uiShown = true;
+
+    if (enterRunTime) DuESF.enterRunTime();
+}
+
+/**
+ * @class
+ * @name DuScriptPanel
+ * @extends DuPanel
+ * @classdesc For use with {@link DuAEF.DuScriptUI}.<br />
+ * A Panel or Window.<br />
+ * This is not a real class, and cannot be instanciated.<br />
+ * Use {@link DuScriptUI.scriptPanel} to create a Panel.<br />
+ * @property {Group} settingsGroup - The ScriptUI group where to add the UI for the settings of the script.
+ * @property {Group} mainGroup - The ScriptUI group where to add the main UI of the script.
+ */
+
+/**
+ * Creates the main panel of a script
+ * @param {Panel|null} container - The container ('this' in the root of the calling script), either a Panel (when launched from the 'Window' menu) or null (when launched from 'file/scripts/run...')
+ * @param {bool} [addSettingsButton=true] - Wether to create a button to open the settings or not
+ * @param {bool} [addHelpButton=false] - Wether to create a button to open the help panel or not
+ * @param {File} [scriptFile] - The main script file, needed for the refresh button in debug mode
+ * @return {DuScriptPanel} The panel created, either a ScriptUI Panel or a ScriptUI Window.
+ * @example
+ * var ui = DuScriptUI.mainPanel(this,"Test Script");
+ * var refreshButton = ui.content.add('button',undefined,"Refresh");
+ * refreshButton.onClick = function() { ui.refreshUI( new File($.fileName) ); }; //reloads the current script
+ * DuScriptUI.showUI(ui);
+ */
+DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, scriptFile )
+{
+    addSettingsButton = def(addSettingsButton, true);
+    addHelpButton = def(addHelpButton, false);
+
+    var panel = DuScriptUI.mainPanel( container, undefined, ['fill','fill'] );
+    panel.content.orientation = 'stack';
+    panel.content.alignment = ['fill','fill'];
+
+    var contentsMainGroup = DuScriptUI.group(panel.content, 'column');
+    contentsMainGroup.alignment = ['fill', 'fill'];
+    var contentsMainStack = DuScriptUI.group(contentsMainGroup, 'column');
+    contentsMainStack.orientation = 'stack';
+    contentsMainStack.alignment = ['fill', 'fill'];
+
+    panel.mainGroup = DuScriptUI.group(contentsMainStack, 'column');
+    panel.mainGroup.alignment = ['fill', 'fill'];
+
+    //a margin at the bottom (hidden by the bottom bar buttons)
+    var mainGroupMarginBottom = DuScriptUI.group(contentsMainGroup, 'column');
+    mainGroupMarginBottom.alignment= ['fill', 'bottom'];
+    mainGroupMarginBottom.minimumSize = [0, 20];
+    
+    // == SETTINGS PANEL
+    var rootSettingsGroup = DuScriptUI.group(contentsMainStack, 'column');
+    rootSettingsGroup.alignment = ['fill', 'fill'];
+    rootSettingsGroup.visible = false;
+    panel.settingsGroup = DuScriptUI.group(rootSettingsGroup, 'column');
+    panel.settingsGroup.alignment = ['fill', 'top'];
+    var settingsTitle = DuScriptUI.separator( panel.settingsGroup, DuESF.scriptName + ' ' + DuScriptUI.String.SETTINGS );
+    var settingsBackButton = DuScriptUI.button(
+        rootSettingsGroup,
+        DuScriptUI.String.BACK,
+        w14_back,
+        DuScriptUI.String.CLOSE_SETTINGS
+    )
+
+    // == Bottom Line
+    // Draw a thin line like other panels
+    var bottomUberGroup = DuScriptUI.group(panel.content, 'column');
+    bottomUberGroup.alignment = ['fill', 'bottom'];
+
+    var bottomLine = DuScriptUI.separator(bottomUberGroup);
+    bottomLine.alignment = ['fill', 'bottom'];
+    
+    panel.bottomGroup = DuScriptUI.group(bottomUberGroup, 'row');
+
+    if (DuESF.bugReportURL != '')
+    {
+        var bugButton = DuScriptUI.addBugButton( panel.bottomGroup );
+        bugButton.alignment = ['left', 'fill'];
+    }
+    
+    if (DuESF.featureRequestURL != '')
+    {
+        var featureRequestButton = DuScriptUI.addFeatureRequestButton( panel.bottomGroup );
+        featureRequestButton.alignment = ['left', 'fill'];
+    }
+    
+    if (addSettingsButton)
+    {
+        var settingsButton = DuScriptUI.button(
+            panel.bottomGroup,
+            '',
+            w18_settings,
+            DuScriptUI.String.EDIT_SETTINGS
+            );
+        settingsButton.alignment = ['left', 'fill'];
+
+        settingsButton.onClick = function()
+        {
+            if (!rootSettingsGroup.visible)
+            {
+                panel.mainGroup.visible = false;
+                rootSettingsGroup.visible = true;
+            }
+            else
+            {
+                panel.mainGroup.visible = true;
+                rootSettingsGroup.visible = false;
+            }
+        }
+
+        settingsBackButton.onClick = function()
+        {
+            panel.mainGroup.visible = true;
+            rootSettingsGroup.visible = false;
+        }
+
+    }
+
+    if (addHelpButton)
+    {
+        var helpButton = DuScriptUI.addHelpButton( panel.bottomGroup, false );
+        helpButton.alignment = ['left', 'fill'];
+    }
+
+    var versionButton = DuScriptUI.versionButton(
+        panel.bottomGroup
+        );
+    versionButton.alignment = ['right', 'fill'];
+    
+    //Refresh button
+    if ( DuESF.debug && (scriptFile instanceof File) && scriptFile.exists )
+    {
+        var refreshButton = panel.bottomGroup.add( 'button', undefined, 'R' );
+        refreshButton.alignment = [ 'right', 'bottom' ];
+        refreshButton.maximumSize = [ 20, 20 ];
+        refreshButton.onClick = function()
+        {
+            panel.refreshUI( thisScriptFile );
+        };
+    }
+
+    return panel;
+}

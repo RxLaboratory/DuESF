@@ -1,0 +1,16 @@
+/**
+ * The list of strings used by the UI.
+ * @enum {string}
+ */
+DuScriptUI.String = {
+    BACK: "Back",
+    BUG_REPORT: "Bug report",
+    BUG_REPORT_TIP: "Bug report\nTell us what's wrong!",
+    CLOSE_SETTINGS: "Close settings",
+    EDIT_SETTINGS: "Edit settings",
+    FEATURE_REQUEST: "Feature request",
+    FEATURE_REQUEST_TIP: "Feature request\nRequest something new.",
+    HELP: "Help",
+    HELP_TIP: "Get help.",
+    SETTINGS: "Settings"
+}

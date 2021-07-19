@@ -32,6 +32,8 @@ This stable shows where to find the implementation for each classes & namespace 
 | `DuSettings` | *Class* | [inc/settings.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/settings.jsxinc) | Manages settings for the scripts. |
 | `DuSystem` | *namespace* | [inc/system.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/system.jsxinc) | System (OS specific) tools. |
 | `DuString` | *namespace* | [inc/string.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/string.jsxinc) | Methods to manipulate regular expressions. |
+| `DuTranslation` | *namespace* | [inc/translator.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/translator.jsxinc) | A translation of a string. |
+| `DuTranslator` | *namespace* | [inc/translator.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/translator.jsxinc) | The translation (localization) framework. |
 | `DuVersion` | *Class* | [inc/version.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/version.jsxinc) | Represents the version of an app. |
 | `DuXML` | *namespace* | [inc/xml.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/xml.jsxinc) | Methods to help parsing XML. |
 | `DuXMP` | *namespace* | [inc/xmp.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/xmp.jsxinc) | Methods to help using the XMP library. |
@@ -42,3 +44,4 @@ This stable shows where to find the implementation for each classes & namespace 
 | `colorPicker` | *Class* | [third-party/colorPicker.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/third-party/colorPicker.jsxinc) | A color picker UI for Adobe Apps. |
 | `def` | *function* | [inc/core.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/core.jsxinc) | Defines a undefined var. |
 | `jstype` | *function* | [inc/core.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/core.jsxinc) | Checks the JS type of any var. |
+| `tr` | *function* | [inc/translator.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/core.jsxinc) | Checks the JS type of any var. |

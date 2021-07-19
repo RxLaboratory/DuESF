@@ -67,7 +67,7 @@ DuFile.write = function(file, content, append, encoding)
 	var mode = 'w';
 	if (append) mode = 'a';
 	
-	var ok = DuDebuf.safeRun( function()
+	var ok = DuDebug.safeRun( function()
 	{
 		if (!file.open(mode)) return false;
 		file.write(content);
@@ -104,7 +104,6 @@ DuFile.parseJSON = function(file)
 */
 DuFile.saveJSON = function (obj,file)
 {
-	if (!DuAEF.DuAE.App.hasFilesAndNetworkAccess) return false;
 	if (!(file instanceof File)) file = new File(file);
 	var data = JSON.stringify(obj,null,4);
     return DuFile.write( file, data );
