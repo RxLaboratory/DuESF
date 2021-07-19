@@ -10,6 +10,7 @@ This stable shows where to find the implementation for each classes & namespace 
 
 | Name | Type | File | Description |
 | :---: | :---: | --- | --- |
+| `DuBinary` | *Class* | [inc/binary.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/binary.jsxinc) | Stores binary files as strings. |
 | `DuColor` | *Class* | [inc/color.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/color.jsxinc) | Represents a color. |
 | `DuDate` | *namespace* | [inc/date.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/date.jsxinc) | Methods to manipulate dates. |
 | `DuESF` | *namespace* | [inc/core.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/core.jsxinc) | Core. |
