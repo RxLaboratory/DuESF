@@ -1,0 +1,93 @@
+/**
+	* Constructs a new DuSettings instance.
+	* @class DuSettings
+	* @classdesc A class to manage settings.<br />
+	 * Warning: DuESF stores the settings in json files and needs the right to write files, but it does not check if it has write access on the files, you should check that first using methods specific to the host application.
+	* @param {string}	  [namespace=DuESF.scriptName]     - A namespace to group your settings.
+	* @param {File|string}    [file=Folder.myDocuments/namespace/namespace_settings.json]    - The file to store the settings
+	* @property {string}	  namespace	- A namespace to group your settings.
+	* @property {File}		file	- The file to store the settings
+	* @property {Object}	data	- The settings as a js object
+	*/
+function DuSettings( namespace, file )
+{
+	namespace = def(namespace, DuESF.scriptName);
+	if (jstype( namespace ) != 'string') throw "Dusettings( namespace, file ): error\n\nnamespace must be a string";
+	if (namespace == "") throw "Dusettings( namespace, file ): error\n\nnamespace can not be an empty string";
+
+	// Get path from duesf settings
+	if ( typeof file === 'undefined' )
+	{
+		var filePath = DuESF.settings.data.scriptSettingsFile;
+		if ( filePath !== 'undefined' ) file = new File( filePath );
+	}
+
+	// Generate default path
+	if (typeof file === 'undefined')
+	{
+		var settingsFolder = new Folder( Folder.myDocuments.absoluteURI + "/" + namespace );
+		if ( !settingsFolder.exists ) settingsFolder.create();
+		file = new File( settingsFolder.absoluteURI + "/" + namespace + "_settings.json" );
+	}
+
+	this.namespace = namespace;
+	if (file instanceof File) this.file = file;
+	else this.file = new File(file);
+	this.file.encoding = 'UTF-8';
+	
+	DuESF.settings.data.scriptSettingsFile =  this.file.absoluteURI;
+	DuESF.settings.save();
+
+	this.data = {};
+	this.load();
+}
+
+/**
+ * loads data from the settings file
+ * @memberof DuSettings
+ */
+DuSettings.prototype.load = function()
+{
+	//load file
+	if (this.file.exists)
+	{
+		this.data = DuFile.parseJSON( this.file );
+	}
+}
+
+/**
+ * Saves data to the file.<br />
+ * Warning: DuESF does not check if it has write access on the files, you should check that first using methods specific to the host application.
+ * @memberof DuSettings
+ * @return {boolean} true if the file has been correctly written
+ */
+DuSettings.prototype.save = function()
+{
+	return DuFile.saveJSON(this.data, this.file);
+}
+
+/**
+ * Sets the file to be used to save the settings
+ * @param {File|string} file The file or path to the file
+ */
+DuSettings.prototype.setFile = function(file)
+{
+	if (file instanceof File) this.file = file;
+	else this.file = new File(file);
+	if (file.exists) this.load();
+	else this.save();
+	DuESF.settings.data.scriptSettingsFile =  this.file.absoluteURI;
+	DuESF.settings.save();
+}
+
+/**
+ * Some settings shared with all DuAEF instances
+ * @type {DuSettings}
+ */
+DuAEF.settings = new DuSettings("DuAEF",DuFolder.duesfData.absoluteURI + "/DuAEF_settings.json");
+
+
+// Low-level undocumented function. Called by DuESF.init()
+DuSettings.init = function() {
+	DuESF.settings = new DuSettings( DuESF.scriptName, DuESF.duesfData.absoluteURI + '/duesf_settings.json'  );
+}

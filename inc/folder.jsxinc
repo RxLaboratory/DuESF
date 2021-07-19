@@ -16,7 +16,7 @@ DuFolder.userData = Folder.userData;
 if (DuESF.mac) DuFolder.userData = new Folder('~/Library/Application Support');
 
 /**
- * The folder where DuESF stores its data,
+ * The folder where DuESF stores its data, which is adapted depending on the script using the framework
  * a "DuESF.companyName/AdobeScripts/DuESF.scriptName" subfolder of DuFolder.userData
  * @type {Folder}
  */

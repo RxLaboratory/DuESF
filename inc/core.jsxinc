@@ -133,6 +133,29 @@ DuESF.companyIcon = '';
  * @type {File}
  */
 DuESF.file = new File( $.fileName );
+/**
+ * Enum for states.
+ * @readonly
+ * @enum {int}
+ */
+DuESF.State = {
+    NOT_SET: -1,
+    INIT: 0,
+    RUNTIME: 1
+};
+/**
+ * The current state of the script
+ * @type {DuESF.State}
+ * @default DuESF.State.NOT_SET
+ */
+DuESF.state = DuESF.State.NOT_SET;
+/**
+ * True if the script is run for the first time (new or the version has changed since last run)
+ * @memberof DuAEF
+ * @type {boolean}
+ * @readonly
+ */
+DuESF.scriptFirstRun = true;
 
 //Initializes DuESF
 ( function()
@@ -163,6 +186,8 @@ DuESF.file = new File( $.fileName );
  */
 DuESF.init = function( scriptName, scriptVersion, companyName )
 {
+    DuESF.state = DuESF.State.INIT;
+
     scriptName = def( scriptName, "DuESF" );
     scriptVersion = def( scriptVersion, "0.0.0" );
     DuESF.scriptName = scriptName;
@@ -171,6 +196,25 @@ DuESF.init = function( scriptName, scriptVersion, companyName )
 
     // Everything which needs to be initialized once we have our info
     DuFolder.init();
+    DuSettings.init();
+
+    // check if this script has already been run once
+    // Check the version from latest run
+    if ( DuESF.settings.data.version !== 'undefined' )
+    {
+        var prevVersion =  DuESF.settings.data.version;
+        if ( prevVersion == scriptVersion ) DuESF.scriptFirstRun = false;
+    }
+}
+
+/**
+ * This method has to be called once at the end of the script, when everything is ready and the main UI visible (after any prompt or setup during startup).
+ */
+DuESF.enterRunTime = function()
+{
+    DuESF.settings.data.version = DuESF.scriptVersion.fullVersion;
+    DuESF.settings.save();
+    DuESF.state = DuESF.State.RUNTIME;
 }
 
 /**
