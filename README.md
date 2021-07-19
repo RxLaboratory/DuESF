@@ -28,9 +28,11 @@ This stable shows where to find the implementation for each classes & namespace 
 | `DuRSS` | *namespace* | [inc/rss.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/rss.jsxinc) | Methods to manipulate RSS feeds. |
 | `DuRSSChannel` | *Class* | [inc/rss.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/rss.jsxinc) | An RSS channel. |
 | `DuRSSItem` | *Class* | [inc/rss.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/rss.jsxinc) | An item in an RSS feed. |
-| `DuSettings` | *class* | [inc/settings.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/settings.jsxinc) | Manages settings for the scripts. |
+| `DuSettings` | *Class* | [inc/settings.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/settings.jsxinc) | Manages settings for the scripts. |
+| `DuSystem` | *namespace* | [inc/system.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/system.jsxinc) | System (OS specific) tools. |
 | `DuString` | *namespace* | [inc/string.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/string.jsxinc) | Methods to manipulate regular expressions. |
-| `DuVersion` | *class* | [inc/version.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/version.jsxinc) | Represents the version of an app. |
+| `DuVersion` | *Class* | [inc/version.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/version.jsxinc) | Represents the version of an app. |
+| `DuXML` | *namespace* | [inc/xml.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/xml.jsxinc) | Methods to help parsing XML. |
 | `JSON` | *namespace* | [third-party/JSON.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/third-party/JSON.jsxinc) | JSON methods. |
 | `Math.seedRandom` | *function* | [third-party/SeedRandom.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/third-party/SeedRandom.jsxinc) | Generates random numbers with a seed. |
 | `Matrix` | *class* | [third-party/Matrix.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/third-party/Matrix.jsxinc) | A 2D Transformation matrix. |

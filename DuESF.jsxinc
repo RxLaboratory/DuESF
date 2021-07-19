@@ -20,3 +20,4 @@
 #include "inc/settings.jsxinc"
 #include "inc/binary.jsxinc"
 #include "inc/process.jsxinc"
+#include "inc/xml.jsxinc"

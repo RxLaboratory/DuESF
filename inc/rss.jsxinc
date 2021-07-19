@@ -158,20 +158,20 @@ DuRSS.get = function ( url, subfolder, userAgentVersion, port, updateInterval ) 
 
 
     var xmlChannel = reply.channel;
-    DuRSSChannel.title = DuAEF.DuXML.getValue( xmlChannel.title );
-    DuRSSChannel.link = DuAEF.DuXML.getValue( xmlChannel.link );
-    DuRSSChannel.description = DuAEF.DuXML.getValue( xmlChannel.description );
+    DuRSSChannel.title = DuXML.getValue( xmlChannel.title );
+    DuRSSChannel.link = DuXML.getValue( xmlChannel.link );
+    DuRSSChannel.description = DuXML.getValue( xmlChannel.description );
 
     var xmlItems = xmlChannel.child( 'item' );
 
     for ( var i = 0, num = xmlItems.length(); i < num; i++ ) {
         var item = {};
         var xmlItem = xmlItems[ i ];
-        item.title = DuAEF.DuXML.getValue( xmlItem.title );
-        item.link = DuAEF.DuXML.getValue( xmlItem.link );
-        item.comments = DuAEF.DuXML.getValue( xmlItem.comments );
-        item.description = DuAEF.DuXML.getValue( xmlItem.description );
-        item.pubDate = DuAEF.DuXML.getValue( xmlItem.pubDate, 'date' );
+        item.title = DuXML.getValue( xmlItem.title );
+        item.link = DuXML.getValue( xmlItem.link );
+        item.comments = DuXML.getValue( xmlItem.comments );
+        item.description = DuXML.getValue( xmlItem.description );
+        item.pubDate = DuXML.getValue( xmlItem.pubDate, 'date' );
         DuRSSChannel.items.push( item );
     }
 
