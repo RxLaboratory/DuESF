@@ -12,7 +12,7 @@
 /**
  * The ScriptUI group where the new controls must be added. Do not add any control directly inside the DuPanel.
  * @name content
- * @type {Group} file - The script to reload. 
+ * @type {Group}
  * @memberof DuPanel.prototype
  */
 

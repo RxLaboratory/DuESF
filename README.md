@@ -56,6 +56,8 @@ Methods and classes to help building UI.
 | :---: | :---: | --- | --- |
 | `DuButton` | *Class* | [inc/scriptui/button.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/scriptui/button.jsxinc) | A button with an optional icon. |
 | `DuCheckBox` | *Class* | [inc/scriptui/checkbox.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/scriptui/checkbox.jsxinc) | A checkbox with an optional icon. |
+| `DuPanel` | *Class* | [inc/scriptui/panel.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/scriptui/panel.jsxinc) | A Simple Main Panel. |
+| `DuScriptPanel` | *Class* | [inc/scriptui/panel.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/scriptui/panel.jsxinc) | A Complete Main Panel. |
 | `DuScriptUI` | *namespace* | [inc/scriptui/core.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/scriptui/core.jsxinc) | Methods to build UI. |
 | `DuSeparator` | *Class* | [inc/scriptui/layout.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/scriptui/layout.jsxinc) | A separator optionaly checkable with an optional title. |
 | `DuSimpleCheckBox` | *Class* | [inc/scriptui/checkbox.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/scriptui/checkbox.jsxinc) | A simple checkbox without icon. |

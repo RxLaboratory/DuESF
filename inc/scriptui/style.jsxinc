@@ -1,7 +1,6 @@
 
 /**
  * Resets the layout of the whole ui containing a scriptUI item.
- * @memberof DuAEF.DuScriptUI
  * @param {ScriptUI} item - The ScriptUI element which needs to be resized
  */
 DuScriptUI.layout = function( item )
@@ -12,7 +11,6 @@ DuScriptUI.layout = function( item )
 
 /**
  * Changes the color of the text of a ScriptUI Object
- * @memberof DuAEF.DuScriptUI
  * @param {ScriptUI} text - The ScriptUI Object
  * @param {DuColor} color - The new color
  */
@@ -27,7 +25,6 @@ DuScriptUI.setTextColor = function( text, color )
 
 /**
  * Changes the color of the background of a ScriptUI Object
- * @memberof DuAEF.DuScriptUI
  * @param {ScriptUI} uiItem - The ScriptUI Object
  * @param {Array} color - The new color [R,V,B,A] Array
  */
