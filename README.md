@@ -22,6 +22,8 @@ This stable shows where to find the implementation for each classes & namespace 
 | `DuMath` | *namespace* | [inc/math.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/math.jsxinc) | Math methods. |
 | `DuNumber` | *namespace* | [inc/number.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/number.jsxinc) | Methods to manipulate numbers. |
 | `DuPath` | *namespace* | [inc/path.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/path.jsxinc) | Methods to manipulate string paths. |
+| `DuProcess` | *Class* | [inc/process.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/process.jsxinc) | Runs and manages processes. |
+| `DuProcessQueue` | *Class* | [inc/process.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/process.jsxinc) | A queue of processes. |
 | `DuRegExp` | *namespace* | [inc/regexp.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/regexp.jsxinc) | Methods to manipulate strings. |
 | `DuSettings` | *class* | [inc/settings.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/settings.jsxinc) | Manages settings for the scripts. |
 | `DuString` | *namespace* | [inc/string.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/string.jsxinc) | Methods to manipulate regular expressions. |

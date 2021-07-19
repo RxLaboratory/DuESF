@@ -18,3 +18,4 @@
 #include "inc/debug.jsxinc"
 #include "inc/settings.jsxinc"
 #include "inc/binary.jsxinc"
+#include "inc/process.jsxinc"
