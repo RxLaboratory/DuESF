@@ -22,3 +22,4 @@
 #include "inc/process.jsxinc"
 #include "inc/xml.jsxinc"
 #include "inc/xmp.jsxinc"
+#include "inc/zip.jsxinc"
