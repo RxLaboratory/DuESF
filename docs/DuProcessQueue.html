@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Class: DuTranslation</title>
+    <title>Class: DuProcessQueue</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -1199,7 +1199,7 @@
     </ul>
 </div>
     <div class="main">
-        <h1 class="page-title" data-filename="DuTranslation.html">Class: DuTranslation</h1>
+        <h1 class="page-title" data-filename="DuProcessQueue.html">Class: DuProcessQueue</h1>
         
 
 
@@ -1208,10 +1208,10 @@
     
 <header>
     <h2>
-    DuTranslation
+    DuProcessQueue
     </h2>
     
-        <div class="class-description">An translation for a string.</div>
+        <div class="class-description">A class to launch several processes</div>
     
 </header>  
 
@@ -1223,14 +1223,14 @@
         
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id="DuTranslation">
+        <h4 class="name" id="DuProcessQueue">
             
-            new DuTranslation<span class="signature">(source, <span class="optional">translation</span>, <span class="optional">comment</span>, <span class="optional">context</span>, <span class="optional">contextId</span>)</span>
+            new DuProcessQueue<span class="signature">(<span class="optional">processes</span>)</span>
         </h4>
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/src/DuESF/tools/build/output/DuESF.jsxinc, line 295
+            D:/DEV_SRC/RxOT/DuAEF/src/DuESF/tools/build/output/DuESF.jsxinc, line 5837
         </div>
         
     </div>
@@ -1241,7 +1241,7 @@
     
     
     <div class="description">
-        Creates a new string translation.
+        Constructs a queue of different processes
     </div>
     
 
@@ -1262,8 +1262,6 @@
 		<th>Type</th>
 		
 		
-		<th>Default</th>
-		
 		
 		<th class="last">Description</th>
 	</tr>
@@ -1274,56 +1272,18 @@
 	
         <tr>
             
-                <td class="name"><code>source</code></td>
+                <td class="name"><code>processes</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">Array.&lt;<a href="DuProcess.html">DuProcess</a>></span>
 
 
             
             </td>
             
-            
-                <td class="default">
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                    
-                    
-                        
-                    
-                
-                The source string</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>translation</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-                <td class="default">
-                
-                    ''
-                
-                </td>
             
             
             <td class="description last">
@@ -1335,115 +1295,7 @@
                         
                     
                 
-                The translated string</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>comment</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-                <td class="default">
-                
-                    ''
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                    
-                        <span class="optional">optional</span>
-                    
-                    
-                        
-                    
-                
-                A comment to explain what needs to be explained</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>context</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-                <td class="default">
-                
-                    ''
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                    
-                        <span class="optional">optional</span>
-                    
-                    
-                        
-                    
-                
-                The context where the string is used</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>contextId</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">int</span>
-
-
-            
-            </td>
-            
-            
-                <td class="default">
-                
-                    0
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                    
-                        <span class="optional">optional</span>
-                    
-                    
-                        
-                    
-                
-                A unique id for the couple source/context</td>
+                The DuProcess Array</td>
         </tr>
 	
 	
@@ -1510,7 +1362,7 @@
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id="comment">comment<span class="type-signature type string">string</span> </h4>
+        <h4 class="name" id=".processes"><span class="type-signature static">static</span>DuProcessQueue.processes<span class="type-signature type array.<duprocess>">Array.&lt;<a href="DuProcess.html">DuProcess</a>></span> </h4>
     </div>
     
     
@@ -1518,187 +1370,7 @@
 <dd>
     
     <div class="description">
-        A comment to explain what needs to be explained
-    </div>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id="context">context<span class="type-signature type string">string</span> </h4>
-    </div>
-    
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        The context where the string is used
-    </div>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id="contextId">contextId<span class="type-signature type string">string</span> </h4>
-    </div>
-    
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        A unique id for the couple source/context
-    </div>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id="source">source<span class="type-signature type string">string</span> </h4>
-    </div>
-    
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        The source string
-    </div>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id="translation">translation<span class="type-signature type string">string</span> </h4>
-    </div>
-    
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        The translated string
+        The DuProcess list
     </div>
     
     
@@ -1735,6 +1407,81 @@
     
     
     
+        <h3 class="subsection-title">Methods</h3>
+        
+        <dl>
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="start">
+            
+            start<span class="signature">()</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            D:/DEV_SRC/RxOT/DuAEF/src/DuESF/tools/build/output/DuESF.jsxinc, line 5857
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Starts the processes
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        </dl>
+    
     
     
     
@@ -1750,7 +1497,7 @@
         
 
         <footer>
-            Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Mon Jul 19 2021 12:06:57 GMT+0200 (heure d’été d’Europe centrale)
+            Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Mon Jul 19 2021 12:06:56 GMT+0200 (heure d’été d’Europe centrale)
         </footer>
     </div>
 </div>

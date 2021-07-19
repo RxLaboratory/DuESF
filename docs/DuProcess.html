@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Namespace: DuESF</title>
+    <title>Class: DuProcess</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -1199,7 +1199,7 @@
     </ul>
 </div>
     <div class="main">
-        <h1 class="page-title" data-filename="DuESF.html">Namespace: DuESF</h1>
+        <h1 class="page-title" data-filename="DuProcess.html">Class: DuProcess</h1>
         
 
 
@@ -1208,8 +1208,10 @@
     
 <header>
     <h2>
-    DuESF
+    DuProcess
     </h2>
+    
+        <div class="class-description">A class to launch and manage processes, using the system command line.</div>
     
 </header>  
 
@@ -1219,16 +1221,166 @@
     
     
         
-            <div class="description">The Duduf ExtendScript Framework.<br />by <a target="_blank" href="https://rxlaboratory.org">RxLaboratory</a> and <a target="_blank" href="http://duduf.com">Duduf</a>.<br />WARNING: all objects marked deprecated will be removed in the version 1.1.0 of the framework.</div>
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="DuProcess">
+            
+            new DuProcess<span class="signature">(processPath, <span class="optional">args</span>, <span class="optional">timeout</span>)</span>
+        </h4>
+    
         
+        <div class="tag-source">
+            D:/DEV_SRC/RxOT/DuAEF/src/DuESF/tools/build/output/DuESF.jsxinc, line 5571
+        </div>
         
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Constructs a new DuProcess instance
+    </div>
+    
+
+    
+    
+    
+    
+    
         
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		<th>Default</th>
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>processPath</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                    
+                        
+                    
+                
+                The path to the process executable binary</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>args</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                The common arguments used to run the process. You can append arguments each time you run the process with start(args)</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>timeout</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                Waiting timeout after process start, in ms, 0 to avoid waiting, -1 for infinite.If the process times out, process will not be killed, the script will just stop waiting.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
 <dl class="details">
     
         
-    
-    <dt class="tag-version">Version:</dt>
-    <dd class="tag-version"><ul class="dummy"><li>1.0.0</li></ul></dd>
     
     
     
@@ -1236,22 +1388,9 @@
     
     
     
-    <dt class="tag-author">Author:</dt>
-    <dd class="tag-author">
-        <ul>
-            <li>Nicolas Dufresne and contributors</li>
-        </ul>
-    </dd>
     
     
     
-    <dt class="tag-copyright">Copyright:</dt>
-    <dd class="tag-copyright"><ul class="dummy"><li>2021 Nicolas Dufresne, RxLaboratory</li></ul></dd>
-    
-    
-    
-    <dt class="tag-license">License:</dt>
-    <dd class="tag-license"><ul class="dummy"><li>GPL-3.0 <br />This program is free software: you can redistribute it and/or modify<br />it under the terms of the GNU General Public License as published by<br />the Free Software Foundation, either version 3 of the License, or<br />(at your option) any later version.<br /><br />This program is distributed in the hope that it will be useful,<br />but WITHOUT ANY WARRANTY; without even the implied warranty of<br />MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the<br />GNU General Public License for more details.<br /><br />You should have received a copy of the GNU General Public License<br />along with this program. If not, see <a target="_blank" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</li></ul></dd>
     
     
     
@@ -1263,8 +1402,20 @@
     
 </dl>
 
-        
-        
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
     
     </div>
     
@@ -1285,7 +1436,7 @@
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id=".aboutURL"><span class="type-signature static">static</span>DuESF.aboutURL<span class="type-signature type string">string</span> </h4>
+        <h4 class="name" id=".args"><span class="type-signature static">static</span>DuProcess.args<span class="type-signature type array.<any>">Array.&lt;any></span> </h4>
     </div>
     
     
@@ -1293,7 +1444,7 @@
 <dd>
     
     <div class="description">
-        The url about the script
+        The common arguments used to run the process. You can append arguments each time you run the process with start(args)
     </div>
     
     
@@ -1330,7 +1481,7 @@
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id=".bugReportURL"><span class="type-signature static">static</span>DuESF.bugReportURL<span class="type-signature type string">string</span> </h4>
+        <h4 class="name" id=".isAppPackage"><span class="type-signature static">static,readonly</span>DuProcess.isAppPackage<span class="type-signature type boolean">Boolean</span> </h4>
     </div>
     
     
@@ -1338,7 +1489,7 @@
 <dd>
     
     <div class="description">
-        The url for reporting bugs
+        True if the process path leads to an application package (.app folder containing at least "/Contents/MacOS") on mac. False otherwise.
     </div>
     
     
@@ -1375,7 +1526,7 @@
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id=".chatURL"><span class="type-signature static">static</span>DuESF.chatURL<span class="type-signature type string">string</span> </h4>
+        <h4 class="name" id=".latestCommand"><span class="type-signature static">static,readonly</span>DuProcess.latestCommand<span class="type-signature type string">string</span> </h4>
     </div>
     
     
@@ -1383,7 +1534,7 @@
 <dd>
     
     <div class="description">
-        The url for a chat server about the script
+        The latest command which has been run.
     </div>
     
     
@@ -1420,7 +1571,7 @@
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id=".companyIcon"><span class="type-signature static">static</span>DuESF.companyIcon<span class="type-signature type string">string</span> </h4>
+        <h4 class="name" id=".processPath"><span class="type-signature static">static,readonly</span>DuProcess.processPath<span class="type-signature type string">string</span> </h4>
     </div>
     
     
@@ -1428,7 +1579,7 @@
 <dd>
     
     <div class="description">
-        An icon for this company
+        The path to the process executable binary
     </div>
     
     
@@ -1465,7 +1616,7 @@
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id=".companyName"><span class="type-signature static">static</span>DuESF.companyName<span class="type-signature type string">string</span> </h4>
+        <h4 class="name" id=".queue"><span class="type-signature static">static</span>DuProcess.queue<span class="type-signature type array.<array.<string>>">Array.&lt;Array.&lt;string>></span> </h4>
     </div>
     
     
@@ -1473,7 +1624,7 @@
 <dd>
     
     <div class="description">
-        The name of the company/organisation/individual developping this tool
+        An Array of arguments array.<br />Arrays of arguments in the queue will be processed one after each other.<br />Update the Array and launch the queue with startQueue()
     </div>
     
     
@@ -1510,7 +1661,7 @@
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id=".companyURL"><span class="type-signature static">static</span>DuESF.companyURL<span class="type-signature type string">string</span> </h4>
+        <h4 class="name" id=".timeout"><span class="type-signature static">static</span>DuProcess.timeout<span class="type-signature type int">int</span> </h4>
     </div>
     
     
@@ -1518,667 +1669,7 @@
 <dd>
     
     <div class="description">
-        The URL to the company's website
-    </div>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id=".debug"><span class="type-signature static">static</span>DuESF.debug<span class="type-signature type boolean">Boolean</span> </h4>
-    </div>
-    
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        Set to true and enable debug mode if you're a developper
-    </div>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id=".docURL"><span class="type-signature static">static</span>DuESF.docURL<span class="type-signature type string">string</span> </h4>
-    </div>
-    
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        The url to the documentation of the script
-    </div>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id=".featureRequestURL"><span class="type-signature static">static</span>DuESF.featureRequestURL<span class="type-signature type string">string</span> </h4>
-    </div>
-    
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        The url for requesting features
-    </div>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id=".file"><span class="type-signature static">static,readonly</span>DuESF.file<span class="type-signature type file">File</span> </h4>
-    </div>
-    
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        The current DuESF File
-    </div>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id=".forumURL"><span class="type-signature static">static</span>DuESF.forumURL<span class="type-signature type string">string</span> </h4>
-    </div>
-    
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        The url for the forum about the script
-    </div>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id=".scriptAbout"><span class="type-signature static">static</span>DuESF.scriptAbout<span class="type-signature type string">string</span> </h4>
-    </div>
-    
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        The text about the script
-    </div>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id=".scriptIcon"><span class="type-signature static">static</span>DuESF.scriptIcon<span class="type-signature type string">string</span> </h4>
-    </div>
-    
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        An icon for this script
-    </div>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id=".scriptName"><span class="type-signature static">static,readonly</span>DuESF.scriptName<span class="type-signature type string">string</span> </h4>
-    </div>
-    
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        The name of the script using this instance of DuESF. Must be set by <a href="DuESF.html#.init"><code>DuESF.init</code></a>.
-    </div>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id=".scriptVersion"><span class="type-signature static">static,readonly</span>DuESF.scriptVersion<span class="type-signature type duversion"><a href="DuVersion.html">DuVersion</a></span> </h4>
-    </div>
-    
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        The version of the script using this instance of DuESF. Must be set by <a href="DuESF.html#.init"><code>DuESF.init</code></a>.
-    </div>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id=".State"><span class="type-signature static">static,readonly</span>DuESF.State<span class="type-signature type int">int</span> </h4>
-    </div>
-    
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        Enum for states.
-    </div>
-    
-    
-    
-<dl class="details">
-    
-        
-        <h5 class="subsection-title">Properties:</h5>
-        
-        <dl>
-
-<table class="props">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		<th>Default</th>
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>NOT_SET</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">int</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-                <td class="default">
-                
-                    -1
-                
-                </td>
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>INIT</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">int</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-                <td class="default">
-                
-                    0
-                
-                </td>
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>RUNTIME</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">int</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-                <td class="default">
-                
-                    1
-                
-                </td>
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	</tbody>
-</table></dl>
-        
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id=".state"><span class="type-signature static">static</span>DuESF.state<span class="type-signature type duesf.state"><a href="DuESF.html#.State">DuESF.State</a></span> </h4>
-    </div>
-    
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        The current state of the script
-    </div>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-default">Default Value:</dt>
-    <dd class="tag-default"><ul class="dummy"><li>DuESF.State.NOT_SET</li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id=".version"><span class="type-signature static">static,readonly</span>DuESF.version<span class="type-signature type duversion"><a href="DuVersion.html">DuVersion</a></span> </h4>
-    </div>
-    
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        The Current DuESF Version
+        Waiting timeout after process start, in ms, 0 to avoid waiting, -1 for infinite.<br />If the process times out, process will not be killed, the script will just stop waiting. Default: 0
     </div>
     
     
@@ -2221,14 +1712,14 @@
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id=".enterRunTime">
+        <h4 class="name" id=".isAppPackage">
             
-            <span class="type-signature static">static</span>DuESF.enterRunTime<span class="signature">()</span>
+            <span class="type-signature static">static</span>DuProcess.isAppPackage<span class="signature">(path)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{bool}</span>
         </h4>
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/src/DuESF/tools/build/output/DuESF.jsxinc, line 202
+            D:/DEV_SRC/RxOT/DuAEF/src/DuESF/tools/build/output/DuESF.jsxinc, line 5828
         </div>
         
     </div>
@@ -2239,7 +1730,7 @@
     
     
     <div class="description">
-        This method has to be called once at the end of the script, when everything is ready and the main UI visible (after any prompt or setup during startup).
+        Checks if a given path leads to an Application package on Mac, i.e. it's a path ending with <code>.app</code> containing at least <code>Contents/MacOS/</code>.
     </div>
     
 
@@ -2247,6 +1738,684 @@
     
     
     
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>path</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">Folder</span>
+|
+
+<span class="param-type">File</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                The path to the file or folder to check.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        bool
+                        
+                    
+            </td>
+            <td class="description last">true if path is an application package.</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id=".run">
+            
+            <span class="type-signature static">static</span>DuProcess.run<span class="signature">(process, <span class="optional">args</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{string}</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            D:/DEV_SRC/RxOT/DuAEF/src/DuESF/tools/build/output/DuESF.jsxinc, line 5814
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Runs a command with some arguments.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		<th>Default</th>
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>process</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">File</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                    
+                        
+                    
+                
+                The process or a path to the process.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>args</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    []
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                The arguments to pass to the command.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        string
+                        
+                    
+            </td>
+            <td class="description last">The output from the command.</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="buildCmd">
+            
+            buildCmd<span class="signature">(<span class="optional">args</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{string}</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            D:/DEV_SRC/RxOT/DuAEF/src/DuESF/tools/build/output/DuESF.jsxinc, line 5710
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Builds and returns the command line
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>args</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                Args to append to DuProcess.args before starting</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        string
+                        
+                    
+            </td>
+            <td class="description last">The command</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="buildQueueCmd">
+            
+            buildQueueCmd<span class="signature">()</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{string}</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            D:/DEV_SRC/RxOT/DuAEF/src/DuESF/tools/build/output/DuESF.jsxinc, line 5762
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Builds and returns the command line to launch the current queue
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        string
+                        
+                    
+            </td>
+            <td class="description last">The command</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="start">
+            
+            start<span class="signature">(args, <span class="optional">timeout</span>)</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            D:/DEV_SRC/RxOT/DuAEF/src/DuESF/tools/build/output/DuESF.jsxinc, line 5646
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Starts the process
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>args</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                    
+                        
+                    
+                
+                Args to append to <a href="DuProcess.html#.args"><code>DuProcess.args</code></a> before starting</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>timeout</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                Overrides the default timeout.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
     
     
     
@@ -2292,14 +2461,14 @@
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id=".init">
+        <h4 class="name" id="startCmd">
             
-            <span class="type-signature static">static</span>DuESF.init<span class="signature">(<span class="optional">scriptName</span>, <span class="optional">scriptVersion</span>, <span class="optional">companyName</span>)</span>
+            startCmd<span class="signature">(cmd)</span>
         </h4>
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/src/DuESF/tools/build/output/DuESF.jsxinc, line 176
+            D:/DEV_SRC/RxOT/DuAEF/src/DuESF/tools/build/output/DuESF.jsxinc, line 5784
         </div>
         
     </div>
@@ -2310,7 +2479,7 @@
     
     
     <div class="description">
-        This method has to be called once at the very beginning of the script, just after the inclusion of DuESF <code>#include DuESF.jsxinc</code>
+        Starts a command (in another thread).
     </div>
     
 
@@ -2331,7 +2500,121 @@
 		<th>Type</th>
 		
 		
-		<th>Default</th>
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>cmd</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                The command to start</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="startQueue">
+            
+            startQueue<span class="signature">(<span class="optional">timeout</span>)</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            D:/DEV_SRC/RxOT/DuAEF/src/DuESF/tools/build/output/DuESF.jsxinc, line 5661
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Starts the queue
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
 		
 		
 		<th class="last">Description</th>
@@ -2343,24 +2626,18 @@
 	
         <tr>
             
-                <td class="name"><code>scriptName</code></td>
+                <td class="name"><code>timeout</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">int</span>
 
 
             
             </td>
             
-            
-                <td class="default">
-                
-                    "DuESF"
-                
-                </td>
             
             
             <td class="description last">
@@ -2372,31 +2649,118 @@
                         
                     
                 
-                The name of your script, as it has to be displayed in the UI and the filesystem</td>
+                Overrides the default timeout.</td>
         </tr>
 	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="waitForFinished">
+            
+            waitForFinished<span class="signature">(<span class="optional">timeout</span>)</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            D:/DEV_SRC/RxOT/DuAEF/src/DuESF/tools/build/output/DuESF.jsxinc, line 5678
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Waits for the process to finish
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
 	
 	
         <tr>
             
-                <td class="name"><code>scriptVersion</code></td>
+                <td class="name"><code>timeout</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">int</span>
 
 
             
             </td>
             
-            
-                <td class="default">
-                
-                    "0.0.0"
-                
-                </td>
             
             
             <td class="description last">
@@ -2408,43 +2772,7 @@
                         
                     
                 
-                The version of your script, in the form "XX.XX.XX-Comment", for example "1.0.12-Beta". The "-Comment" part is optional.</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>companyName</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-                <td class="default">
-                
-                    "RxLaboratory"
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                    
-                        <span class="optional">optional</span>
-                    
-                    
-                        
-                    
-                
-                The name of the company/organisation/individual developping this script.</td>
+                Overrides the default timeout.</td>
         </tr>
 	
 	
