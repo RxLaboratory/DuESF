@@ -33,6 +33,7 @@ This stable shows where to find the implementation for each classes & namespace 
 | `DuString` | *namespace* | [inc/string.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/string.jsxinc) | Methods to manipulate regular expressions. |
 | `DuVersion` | *Class* | [inc/version.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/version.jsxinc) | Represents the version of an app. |
 | `DuXML` | *namespace* | [inc/xml.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/xml.jsxinc) | Methods to help parsing XML. |
+| `DuXMP` | *namespace* | [inc/xmp.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/xmp.jsxinc) | Methods to help using the XMP library. |
 | `JSON` | *namespace* | [third-party/JSON.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/third-party/JSON.jsxinc) | JSON methods. |
 | `Math.seedRandom` | *function* | [third-party/SeedRandom.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/third-party/SeedRandom.jsxinc) | Generates random numbers with a seed. |
 | `Matrix` | *class* | [third-party/Matrix.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/third-party/Matrix.jsxinc) | A 2D Transformation matrix. |

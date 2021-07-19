@@ -1,0 +1,22 @@
+/**
+ * XMP tools
+ * @namespace
+ */
+DuXMP = {};
+
+DuXMP.initialized = false;
+
+/**
+ * Loads the XMP library if it has not been loaded yet. There is no need to call this function as it's called automatically by DuESF methods if needed.<br />
+ * Call it once if you plan to use XMP without the methods in DuESF.<br />
+ * Note that the XMP library is added statically as <code>ExternalObject.AdobeXMPScript</code>.
+ */
+DuXMP.init = function ()
+{
+    if (DuXMP.initialized) return;
+    
+    // load the library
+    ExternalObject.AdobeXMPScript = def ( ExternalObject.AdobeXMPScript, new ExternalObject( "lib:AdobeXMPScript") );
+
+    DuXMP.initialized = true;
+}
