@@ -17,4 +17,7 @@
     DuESF.scriptAbout = 'The Duduf ExtendScript Framework to help you develop Adobe Scripts';
     DuESF.companyURL = 'https://rxlaboratory.org';
 
+    // This is required at the end of init (building ui, etc) and before running methods
+    DuESF.enterRunTime();
+
 })(this);
