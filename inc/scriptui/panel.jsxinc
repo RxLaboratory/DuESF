@@ -784,6 +784,7 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
 
         panel.settingsGroup.backButton.onClick = function()
         {
+            if( panel.hasCommonSettings ) panel.settingsGroup.reset();
             panel.mainGroup.visible = true;
             rootSettingsGroup.visible = false;
         }
