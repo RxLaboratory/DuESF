@@ -489,6 +489,7 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
 
     var contentsMainGroup = DuScriptUI.group(panel.content, 'column');
     contentsMainGroup.alignment = ['fill', 'fill'];
+    contentsMainGroup.margins = 0;
     var contentsMainStack = DuScriptUI.group(contentsMainGroup, 'column');
     contentsMainStack.orientation = 'stack';
     contentsMainStack.alignment = ['fill', 'fill'];
@@ -519,11 +520,14 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
     // Draw a thin line like other panels
     var bottomUberGroup = DuScriptUI.group(panel.content, 'column');
     bottomUberGroup.alignment = ['fill', 'bottom'];
+    bottomUberGroup.margins = 0;
+    bottomUberGroup.spacing = 0;
 
     var bottomLine = DuScriptUI.separator(bottomUberGroup);
     bottomLine.alignment = ['fill', 'bottom'];
     
     panel.bottomGroup = DuScriptUI.group(bottomUberGroup, 'row');
+    panel.bottomGroup.margins = 0;
 
     if (DuESF.bugReportURL != '')
     {
