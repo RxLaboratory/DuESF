@@ -314,7 +314,7 @@ DuScriptUI.popUp = function( title, alignment, modal )
             popup.layout.layout( true );
             popup.layout.resize( );
             var location = [x,y];
-            location = DuAEF.DuScriptUI.moveInsideScreen( [x, y], popup.frameSize );
+            location = DuScriptUI.moveInsideScreen( [x, y], popup.frameSize );
             popup.location = location;
             if (!popup.pinned) DuScriptUI.eventFunctionsPaused = true;
             popup.show();
