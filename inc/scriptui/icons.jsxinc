@@ -1,4 +1,8 @@
-// small 12px wide
+// very small 18px
+#include "icons/w8_ae_blue.png.jsxinc"
+#include "icons/w8_rx_purple.png.jsxinc"
+#include "icons/w8_rx_red.png.jsxinc"
+// small 12px
 #include "icons/w12_bugreport.png.jsxinc"
 #include "icons/w12_feature.png.jsxinc"
 #include "icons/w12_help.png.jsxinc"
@@ -8,4 +12,10 @@
 #include "icons/w12_pin.png.jsxinc"
 #include "icons/w12_options.png.jsxinc"
 #include "icons/w12_check.png.jsxinc"
+#include "icons/w12_reset.png.jsxinc"
+#include "icons/w12_update.png.jsxinc"
+#include "icons/w12_menu.png.jsxinc"
+// normal 16px
 #include "icons/w16_arm_structure.png.jsxinc"
+#include "icons/w16_language.png.jsxinc"
+#include "icons/w16_settings_file.png.jsxinc"

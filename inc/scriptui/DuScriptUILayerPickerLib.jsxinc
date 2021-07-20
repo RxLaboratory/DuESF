@@ -76,7 +76,7 @@ DuAEF.DuScriptUI.addLayerPicker = function( container )
         inputLabel = tr( inputLabel );
         var l = layerPicker.labelsGroup.add( 'statictext', undefined, inputLabel );
 
-        var sel = DuAEF.DuScriptUI.addLayerSelector( layerPicker.selectorsGroup );
+        var sel = DuScriptUI.layerSelector( layerPicker.selectorsGroup );
         layerPicker.selectors.push( sel );
         sel.alignment = [ 'fill', 'fill' ];
 

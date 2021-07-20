@@ -8,7 +8,6 @@
     DuESF.init( DuESF.HostApplication.AFTER_EFFECTS, "Duik NoName", "17.0.0-Dev", "RxLaboratory");
 
     // Setting these may prove useful
-    //DuESF.debug = true;
     DuESF.chatURL = 'http://chat.rxlab.info';
     DuESF.bugReportURL = 'http://git.rxlab.io';
     DuESF.featureRequestURL = 'http://git.rxlab.io';
@@ -18,7 +17,7 @@
     DuESF.companyURL = 'https://rxlaboratory.org';
 
     var ui = DuScriptUI.scriptPanel( thisObj, true, true, new File($.fileName) );
-
+    ui.addCommonSettings();
 
     var testButton = DuScriptUI.button( ui.mainGroup, 'Button with options', undefined, undefined, true );
     testButton.onClick = function() { alert('Hello World!'); };

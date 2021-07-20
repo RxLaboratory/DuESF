@@ -91,18 +91,9 @@ DuBinary.prototype.toFile = function( outputFileName, onlyAtFirstRun )
 		}
 	}
 
-    return DuDebug.safeRun( function() {
+    DuFile.write( file, this.binAsString, false, 'BINARY');
 
-        file.encoding = 'BINARY';
-
-        if (file.open('w'))
-        {
-            success = file.write(this.binAsString);
-            file.close();
-        }
-
-        return file;
-    });
+    return file;
 }
 
 /**

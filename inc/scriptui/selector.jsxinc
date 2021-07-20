@@ -1,0 +1,298 @@
+
+/**
+ * @class
+ * @name Selector
+ * @classdesc For use with {@link DuAEF.DuScriptUI}.<br />
+ * A drop down selector.<br />
+ * This is not a real class, and cannot be instanciated.<br />
+ * Use {@link DuScriptUI.selector} to create a Selector.<br />
+ * The Selector inherits the Group object from ScriptUI and has all of its properties and methods.
+ * @property {string} image - The path to the current image (or a PNG as a string representation)
+ * @property {Image} icon - The Image currently displayed
+ * @property {StaticText} label - The current text
+ * @property {string[][]} items  - The buttons, each one is an array with [text, image, helptip]
+ * @property {int} index  - The current index
+ * @property {string} text  - The current text
+ * @property {Selector~onChange} onChange  - The function to execute when the index changes.<br />
+ * You can set your own function here, which must take no argument.<br />
+ * The method is called after the index has changed.
+ * @property {Selector~onRefresh} onRefresh  - The function to execute when the refresh button is clicked.<br />
+ * You can set your own function here, which must take no argument.
+ */
+
+/**
+ * The function to execute when the index changes.<br />
+ * The method is called after the index has changed.
+ * @callback Selector~onChange
+ * @memberof Selector
+ */
+
+/**
+ * The function to execute when the refresh button is clicked.
+ * @callback Selector~onRefresh
+ * @memberof Selector
+ */
+
+/**
+ * Adds a new button to the selector
+ * @method
+ * @memberof Selector
+ * @name addButton
+ * @param {string} [text] - The text displayed by the button
+ * @param {string} [image] - The icon, either a path to the file or a PNG represented as a string.
+ * @param {string} [helpTip] - The help tip for the entry
+ * @param {string} [imageOver] - The roll over icon, either a path to the file or a PNG represented as a string.
+ * @param {boolean} [localize=true] - Set to false if the text must not be translated.
+ */
+
+/**
+ * Removes all buttons from the selector. This is the same as {@link Selector.clear}.
+ * @method
+ * @memberof Selector
+ * @name removeAll
+ */
+
+/**
+ * Removes all buttons from the selector. This is the same as {@link Selector.removeAll}.
+ * @method
+ * @memberof Selector
+ * @name clear
+ */
+
+/**
+ * Changes the selection and the current index of the selector
+ * @method
+ * @memberof Selector
+ * @name setCurrentIndex
+ * @param {int} index - The new index
+ */
+
+/**
+ * Changes the selection and the current index of the selector, using the text of the selection
+ * @method
+ * @memberof Selector
+ * @name setCurrentText
+ * @param {string} text - The text to select
+ */
+
+/**
+ * Creates a drop down selector, using image buttons
+ * @memberof DuAEF.DuScriptUI
+ * @param {Window|Panel|Group} container - The ScriptUI Object which will contain and display the selector.
+ * @param {bool} [addRefreshButton=false] - When true, the selector includes a refresh button. Add your function to refresh it with the onRefresh callback.
+ * @param {bool} [helpTip] - The help tip to show on the selector
+ * @return {Selector} - The selector
+ */
+DuScriptUI.selector = function( container, addRefreshButton, helpTip )
+{
+    helpTip = def(helpTip, '');
+    helpTip = tr(helpTip);
+
+    //create main group
+    var selector = container.add( 'group' );
+    selector.orientation = 'row';
+    selector.spacing = 0;
+    selector.alignment = [ 'fill', 'top' ];
+    selector.alignChildren = [ 'center', 'center' ];
+    selector.mainGroup = selector.add( 'group' );
+    selector.mainGroup.orientation = 'row';
+    selector.mainGroup.margins = 1;
+    selector.mainGroup.alignment = [ 'fill', 'fill' ];
+    selector.mainGroup.alignChildren = [ 'center', 'center' ];
+    selector.helpTip = helpTip;
+    DuScriptUI.setBackgroundColor( selector.mainGroup, DuColor.Color.OBSIDIAN );
+
+    selector.fillerL = selector.mainGroup.add( 'statictext', undefined, " " );
+    selector.fillerL.alignment = [ 'left', 'fill' ];
+    selector.fillerL.size = [5, -1];
+
+    //the menu button
+    selector.menuButton = selector.mainGroup.add( 'image', undefined, w12_menu.binAsString );
+    selector.menuButton.alignment = [ 'left', 'center' ];
+    selector.menuButton.helpTip = helpTip;
+
+    //the image
+    selector.icon = selector.mainGroup.add( 'image' );
+    selector.icon.alignment = [ 'left', 'center' ];
+    selector.icon.helpTip = helpTip;
+
+    //the text
+    selector.label = selector.mainGroup.add( 'statictext', undefined, '' );
+    selector.label.helpTip = '';
+    selector.label.alignment = [ 'fill', 'center' ];
+    selector.label.helpTip = helpTip;
+
+    //add fillers to be able to click anywhere on the button
+    selector.fillerR = selector.mainGroup.add( 'statictext', undefined, " " );
+    selector.fillerR.alignment = [ 'fill', 'fill' ];
+
+    //create popup
+    selector.popup = new Window( 'palette', '', undefined,
+    {
+        borderless: true
+    } );
+    selector.popup.margins = 2;
+    selector.popup.spacing = 0;
+    selector.popup.closeButton = DuScriptUI.button( selector.popup, DuScriptUI.String.CANCEL );
+    selector.popup.closeButton.onClick = selector.popup.onDeactivate = function()
+    {
+        selector.popup.hide();
+    };
+    selector.popup.buttons = selector.popup.add( 'group' );
+    selector.popup.buttons.orientation = 'column';
+    selector.popup.buttons.margins = 0;
+    selector.popup.buttons.spacing = 0;
+    selector.popup.hide();
+
+    //the refresh button
+    if (addRefreshButton)
+    {
+        selector.refreshButton = DuScriptUI.button( selector, '', w12_update );
+        selector.refreshButton.alignment = [ 'right', 'fill' ];
+    }
+
+    //add default button
+    selector.items = [];
+    selector.index = -1;
+
+    selector.addButton = function( text, image, helpTip, localize )
+    {
+        selector.popup.hide();
+        text = def(text, '-');
+        image = def(image, '');
+        helpTip = def(helpTip, '');
+        localize = def(localize, true);
+
+        if (localize)
+        {
+            text = tr( text );
+            helpTip = tr( helpTip );
+        }
+        
+        var size = text.length * 7;
+        if ( selector.label.minimumSize.width < size ) selector.label.minimumSize.width = size;
+
+        var index = selector.items.length;
+        selector.items.push( [ text, image, helpTip ] );
+        //add to popup
+        var button = DuScriptUI.button( selector.popup.buttons, text, image, helpTip, false, undefined, undefined, false );
+        button.bgColor = DuColor.Color.OBSIDIAN;
+        button.dim();
+        button.onClick = function()
+        {
+            selector.setCurrentIndex( index );
+            selector.popup.hide();
+        };
+        selector.popup.layout.layout(true);
+        selector.popup.update();
+    }
+
+    selector.removeAll = function()
+    {
+        selector.popup.hide();
+        selector.items = [];
+        selector.setCurrentIndex( 0 );
+        for ( var i = selector.popup.buttons.children.length - 1; i >= 0; i-- )
+        {
+            selector.popup.buttons.remove( selector.popup.buttons.children[ i ] );
+        }
+        selector.popup.layout.layout(true);
+        selector.popup.update();
+    }
+    selector.clear = selector.removeAll;
+
+    selector.setCurrentIndex = function( index )
+    {
+        if ( index < 0 ) return;
+        if ( index >= selector.items.length ) return;
+
+        var item = selector.items[ index ];
+
+        if ( !item ) return;
+
+        var image = item[ 1 ];
+        if ( image != '' )
+        {
+            if (image instanceof DuBinary) image = image.toFile();
+            selector.icon.show();
+            selector.icon.image = image;
+        }
+        else 
+        {
+            selector.icon.hide();
+        }
+        selector.label.text = item[ 0 ];
+
+        selector.index = index;
+
+        selector.text = item[ 0 ];
+
+        selector.onChange();
+    }
+
+    selector.setCurrentText = function( text )
+    {
+        for (var i = 0, n = selector.items.length; i < n; i++)
+        {
+            if (selector.items[i][0] == text)
+            {
+                selector.setCurrentIndex(i);
+                break;
+            }
+        }
+    }
+
+    selector.clicked = function( e )
+    {
+        var popup = false;
+
+        if ( e.target === selector.menuButton ) popup = true;
+        if ( e.altKey ) popup = true;
+
+        if ( popup )
+        {
+            var x = e.screenX - e.clientX;
+            var y = e.screenY - e.clientY;
+            selector.popup.location = [ x, y ];
+            selector.popup.show();
+        }
+        else
+        {
+            var index = selector.index;
+            if ( index == selector.items.length - 1 ) index = 0;
+            else index++;
+            selector.setCurrentIndex( index );
+        }
+    }
+
+    selector.refreshed = function ( e )
+    {
+        selector.onRefresh();
+    }
+
+    //mouse over
+    selector.highlight = function( e )
+    {
+        e.stopPropagation();
+        DuScriptUI.dimControls();
+        DuScriptUI.setBackgroundColor( selector, DuColor.Color.APP_HIGHLIGHT_COLOR.darker() );
+        DuScriptUI.highlightedControls.push( selector );
+    }
+
+    selector.dim = function( e )
+    {
+        DuScriptUI.setBackgroundColor( selector, DuColor.Color.TRANSPARENT );
+        DuScriptUI.setTextColor( selector.label, DuColor.Color.APP_TEXT_COLOR );
+    }
+
+    selector.mainGroup.addEventListener( "mouseover", selector.highlight );
+    selector.mainGroup.addEventListener( "click", selector.clicked, true );
+
+    selector.onChange = function() {};
+    selector.onRefresh = function (){};
+
+    selector.dim();
+
+    return selector;
+}
+

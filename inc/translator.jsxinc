@@ -100,7 +100,7 @@ DuTranslator.Settings = {}
  * The folder containing the translation files
  * @memberof DuTranslator.Settings
  * @type {string}
- * @default "thisScriptFile/file/path/"
+ * @default DuESF.scriptSettings.file.parent
  *
  */
 DuTranslator.Settings.folder = File($.fileName).path + "/";
@@ -467,4 +467,9 @@ function tr(str, context, args)
 	}
 
 	return res;
+}
+
+// Low-level undocumented function. Called by DuESF.init()
+DuTranslator.init = function() {
+	DuTranslator.Settings.folder = DuESF.scriptSettings.file.parent.absoluteURI + '/';
 }

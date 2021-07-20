@@ -65,10 +65,11 @@
  * @param {string}					[helpTip]		- The helptip. Default: empty string
  * @param {bool}					[addOptionsPanel=false]	- Adds a panel for options and a button to access it.
  * @param {bool}					[orientation='row']	- The orientation of the button (icon, text, options button). Default will be changed to 'column' if there's no text.
+ * @param {bool}					[alignment='left']	- The alignment of the button content ('center', 'right' or 'left' for 'row', 'top' 'bottom', 'center' for column).
  * @param {boolean}					[localize=true]	- Set to false if the text must not be translated.
  * @return {DuButton}			The image button created.
  */
-DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, orientation, localize )
+DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, orientation, alignment, localize )
 {
     if (typeof container === 'undefined')
     {
@@ -85,6 +86,7 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
     helpTip = def(helpTip, '');
     addOptionsPanel = def(addOptionsPanel, false);
     orientation = def(orientation, text == '' ? 'column' : 'row' );
+    alignment = def( alignment, orientation == 'row' ? 'left' : 'top');
     localize = def(localize, true);
     
     if (localize)
@@ -113,7 +115,7 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
     {
         duButton.fillerL = duButton.mainGroup.add( 'statictext', undefined, " " );
         duButton.fillerL.alignment = [ 'left', 'fill' ];
-        duButton.fillerL.size = [10, -1];
+        if (alignment == 'left') duButton.fillerL.size = [10, -1];
     }
 
     // Add image
@@ -129,8 +131,8 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
         subgroup.alignment = ['fill', 'fill'];
         if (image instanceof DuBinary) image = image.binAsString;
         duButton.image = subgroup.add( 'image', undefined, image );
-        if (orientation == 'row') duButton.imageGroup.alignment = [ 'left', 'center' ];
-        else duButton.imageGroup.alignment = ['center', 'center'];
+        if (orientation == 'row') duButton.imageGroup.alignment = [ alignment, 'center' ];
+        else duButton.imageGroup.alignment = ['center', alignment ];
         duButton.image.helpTip = helpTip;
     }
 
@@ -147,7 +149,8 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
     {
         duButton.label = duButton.mainGroup.add( 'statictext', undefined, text );
         duButton.label.helpTip = helpTip;
-        duButton.label.alignment = [ 'left', 'center' ];
+        if (orientation == 'row') duButton.label.alignment = [ alignment, 'center' ];
+        else duButton.label.alignment = ['center', alignment ];
     }
 
     // Another filler
@@ -155,7 +158,7 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
     {
         duButton.fillerR = duButton.mainGroup.add( 'statictext', undefined, " " );
         duButton.fillerR.alignment = [ 'fill', 'fill' ];
-        duButton.fillerR.size = [10, -1];
+        if (alignment == 'right') duButton.fillerR.size = [10, -1];
     }
 
     
@@ -173,7 +176,7 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
             text + '\nOptions'
         )
         if (orientation == 'column') optionsButton.alignment = ['center', 'top'];
-        else optionsButton.alignment = ['right', 'fill'];
+        else optionsButton.alignment = ['right', 'center'];
 
         var optionsPanel = DuScriptUI.popUp(text == '' ? 'Options' : text);
         optionsPanel.tieTo(optionsButton);

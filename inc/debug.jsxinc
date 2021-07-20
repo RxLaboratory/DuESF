@@ -69,7 +69,7 @@ DuDebug.safeRun = function (callback)
 			args.push(arguments[i]);
 		}
 		var params = args.join(',');
-		var call = 'var result = callback(' + params + '); result;'
+		call = 'var result = callback(' + params + '); result;'
 	}
 	
 	try

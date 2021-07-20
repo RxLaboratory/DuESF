@@ -3,14 +3,34 @@
  * @enum {string}
  */
 DuScriptUI.String = {
+    AE_BLUE: "After Effects Blue",
+    AE_BLUE_TIP: "The After Effects highlighting blue",
+    APPLY: "Apply",
+    APPLY_SETTINGS: "Apply changes to the settings.",
     BACK: "Back",
     BUG_REPORT: "Bug report",
     BUG_REPORT_TIP: "Bug report\nTell us what's wrong!",
+    CANCEL: "Cancel",
+    COLOR_HIGHLIGHT_TIP: "Set the highlight color.",
+    CUSTOM: "Custom",
+    CUSTOM_COLOR_TIP: "Select a custom color",
     CLOSE_SETTINGS: "Close settings",
+    DEFAULT: "Default",
+    DEV_MODE: "Dev and Debug mode",
+    DEV_MODE_TIP: "Use at your own risk!",
     EDIT_SETTINGS: "Edit settings",
     FEATURE_REQUEST: "Feature request",
     FEATURE_REQUEST_TIP: "Feature request\nRequest something new.",
     HELP: "Help",
     HELP_TIP: "Get help.",
-    SETTINGS: "Settings"
+    LANGUAGE_TIP: "Set the language of the interface.",
+    NORMAL_MODE: "Normal mode",
+    RESET_SETTINGS: "Reset the settings to their default values.",
+    RX_PURPLE: "RxLab Purple",
+    RX_PURPLE_TIP: "The RxLaboratory Purple",
+    RX_RED: "Rainbox Red",
+    RX_RED_TIP: "The Rainbox Productions Red",
+    SETTINGS: "Settings",
+    SETTINGS_FILE: "Settings file",
+    SETTINGS_FILE_TIP: "Set the location of the settings file."
 }
