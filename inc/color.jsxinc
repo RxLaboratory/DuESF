@@ -188,6 +188,42 @@ DuColor.prototype.toFloatHSLA = function()
     return hsla;
 }
 
+/**
+ * Creates a new color darker than the current one
+ * @param {int} [ratio=200] A percentage: 200 means twice darker, 50 twice lighter
+ * @returns {DuColor} The new color
+ */
+DuColor.prototype.darker = function( ratio )
+{
+	ratio = def(ratio, 200);
+	ratio = ratio / 100;
+
+	return new DuColor([
+		this.red/ratio,
+		this.green/ratio,
+		this.blue/ratio,
+		this.alpha,
+	]);
+}
+
+/**
+ * Creates a new color lighter than the current one
+ * @param {int} [ratio=200] A percentage: 200 means twice lighter, 50 twice darker
+ * @returns {DuColor} The new color
+ */
+DuColor.prototype.lighter = function( ratio )
+{
+	ratio = def(ratio, 200);
+	ratio = ratio / 100;
+
+	return new DuColor([
+		this.red*ratio,
+		this.green*ratio,
+		this.blue*ratio,
+		this.alpha,
+	]);
+}
+
 // ============== STATIC ===============
 
 /**

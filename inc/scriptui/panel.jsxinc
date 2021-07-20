@@ -277,14 +277,14 @@ DuScriptUI.popUp = function( title, alignment, modal )
     titleBar.alignment = ['fill','top'];
     DuScriptUI.setBackgroundColor( titleBar, DuColor.Color.DARK_GREY );
     //add pin
-    var pinButton = DuScriptUI.checkBox(titleBar, '', w14_pin, 'Pin window');
+    var pinButton = DuScriptUI.checkBox(titleBar, '', w12_pin, 'Pin window');
     pinButton.alignment = [ 'left', 'top' ];
     //add title
     var titleLabel = titleBar.add('statictext', undefined,  title);
     titleLabel.alignment = [ 'center', 'top' ];
     if (modal) DuScriptUI.setTextColor(titleLabel, DuColor.Color.RAINBOX_RED)
     //add close button
-    var closeButton = DuScriptUI.button(titleBar, '', w14_cancel, 'Close');
+    var closeButton = DuScriptUI.button(titleBar, '', w12_close, 'Close');
     closeButton.alignment = [ 'right', 'top' ];
 
     popup.content = mainColumn.add( 'group' );
@@ -511,7 +511,7 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
     var settingsBackButton = DuScriptUI.button(
         rootSettingsGroup,
         DuScriptUI.String.BACK,
-        w14_back,
+        w12_back,
         DuScriptUI.String.CLOSE_SETTINGS
     )
 
@@ -542,7 +542,7 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
         var settingsButton = DuScriptUI.button(
             panel.bottomGroup,
             '',
-            w18_settings,
+            w12_settings,
             DuScriptUI.String.EDIT_SETTINGS
             );
         settingsButton.alignment = ['left', 'fill'];

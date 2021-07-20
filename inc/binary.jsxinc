@@ -107,26 +107,26 @@ DuBinary.prototype.toFile = function( outputFileName, onlyAtFirstRun )
 
 /**
  * Writes the DuBinary to a jsxinc file
- * @param {string} [outputFileName=Same folder, same name with .json extension]  - The file name for the output.
+ * @param {string} outputFilePath  - The file path for the output.
  * @param {any} [varName=File name without extension]	- The name of the variable used to store the javascript object.
  * @returns {File} the new jsxinc file.
  */
-DuBinary.toJsxincFile = function( outputFileName, varName )
+DuBinary.prototype.toJsxincFile = function( outputFilePath, varName )
 {
-    outputFileName = def( outputFileName, file.absoluteURI + '.jsxinc' );
-    varName = def (varName, file.name.replace(/\..+/,'') );
+    var fileName = DuPath.getBasename(outputFilePath);
+    varName = def (varName, fileName.replace(/\..+/,'') );
 	varName = DuString.replace(varName,'%20','_');
 
     var jsString = 'var ' + varName + ' = ' + this.toSource() + ';\r\n' + varName + ';\r\n';
 
-	var outputFile = new File( outputFileName );
+	var outputFile = new File( outputFilePath );
 	outputFile.encoding = 'UTF8';
 	if (outputFile.open("w", "TEXT", "????"))
 	{
 		outputFile.write(jsString);
 		outputFile.close();
 	}
-
+    
     return outputFile;
 }
 // =============== STATIC =====================
@@ -158,16 +158,17 @@ DuBinary.fromFile = function ( file, category )
  * Converts a file to a jsxinc file
  * @static
  * @param {File}    file      - The binary file to convert
- * @param {string}  [category]        - A Category for the file, will be used as a subfolder to extract files. Can have subcategories like "category/subcategory". Default: ""
- * @param {string}  [outputFileName=Same folder, same name with .json extension]  - The file name for the output.
+ * @param {string}  [category]        - A Category for the file, will be used as a subfolder to extract files. Can have subcategories like "category/subcategory". Default is the name of the folder containing the file.
+ * @param {string}  [outputFilePath=Same folder, same name with .json extension]  - The file name for the output.
  * @param {string}	[varName=File name without extension]	- The name of the variable used to store the javascript object.
  * @return {File} The jsxinc file created
  */
-DuBinary.toJsxincFile = function(file,category,outputFileName,varName)
+DuBinary.toJsxincFile = function(file,category,outputFilePath,varName)
 {
+    category = def (category, file.parent.name );
+    outputFilePath = def (outputFilePath, file.absoluteURI + '.jsxinc' );
 	var duBinary = DuBinary.fromFile(file,category);
-
-	return duBinary.toJsxincFile( outputFileName, varName );
+	return duBinary.toJsxincFile( outputFilePath, varName );
 }
 
 // ============== DEPRECATED ==================

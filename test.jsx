@@ -20,8 +20,16 @@
     var ui = DuScriptUI.scriptPanel( thisObj, true, true, new File($.fileName) );
 
 
-    var testButton = DuScriptUI.button( ui.mainGroup, 'Test Button', undefined, undefined, true );
+    var testButton = DuScriptUI.button( ui.mainGroup, 'Button with options', undefined, undefined, true );
     testButton.onClick = function() { alert('Hello World!'); };
+
+    var testCheckBox = DuScriptUI.checkBox(ui.mainGroup, 'CheckBox' );
+
+    var testIconButton = DuScriptUI.button( ui.mainGroup, 'Icon Button', w16_arm_structure, 'Help!' );
+
+    var testIconButtonOpts = DuScriptUI.button( ui.mainGroup, 'Icon Button w/ opts', w16_arm_structure, 'Help!', true );
+
+    var testIconCheckBox = DuScriptUI.checkBox(ui.mainGroup, 'Icon CheckBox', w16_arm_structure, 'Checkbox', 'Icon Checked' );
 
     // This is required at the end of init (building ui, etc) and before running methods
     // Equivalent to using true as second arg of DuScriptUI.showUI

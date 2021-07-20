@@ -44,7 +44,7 @@ DuScriptUI.addBugButton = function( container, showLabel )
     var button = DuScriptUI.button(
         container,
         showLabel ? label : "",
-        w18_bugreport,
+        w12_bugreport,
         helpTip
         );
     button.onClick = function ()
@@ -73,7 +73,7 @@ DuScriptUI.addFeatureRequestButton = function( container, showLabel )
     var button = DuScriptUI.button(
         container,
         showLabel ? label : "",
-        w18_featurerequest,
+        w12_feature,
         helpTip
         );
     button.onClick = function ()
@@ -102,7 +102,7 @@ DuScriptUI.addHelpButton = function( container, showLabel )
     var button = DuScriptUI.button(
         container,
         showLabel ? label : "",
-        w18_help,
+        w12_help,
         helpTip
     );
 
