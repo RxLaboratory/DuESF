@@ -58,6 +58,7 @@ DuSettings.prototype.load = function()
 	if (this.file.exists)
 	{
 		this.data = DuFile.parseJSON( this.file );
+		if (!this.data) this.data = {};
 	}
 }
 
