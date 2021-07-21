@@ -56,9 +56,21 @@ Methods and classes to help building UI.
 | :---: | :---: | --- | --- |
 | `DuButton` | *Class* | [inc/scriptui/button.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/scriptui/button.jsxinc) | A button with an optional icon. |
 | `DuCheckBox` | *Class* | [inc/scriptui/checkbox.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/scriptui/checkbox.jsxinc) | A checkbox with an optional icon. |
+| `DuFolderSelector` | *Class* | [inc/scriptui/fileSelector.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/scriptui/fileSelector.jsxinc) | A folder selection button + optional edit text. |
+| `DuFileSelector` | *Class* | [inc/scriptui/fileSelector.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/scriptui/fileSelector.jsxinc) | A file selection button + optional edit text. |
+| `DuCheckBox` | *Class* | [inc/scriptui/checkbox.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/scriptui/checkbox.jsxinc) | A checkbox with an optional icon. |
+| `DuEditText` | *Class* | [inc/scriptui/text.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/scriptui/text.jsxinc) | An edit text. |
+| `DuForm` | *Class* | [inc/scriptui/form.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/scriptui/checkbox.jsxinc) | A form container. |
 | `DuPanel` | *Class* | [inc/scriptui/panel.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/scriptui/panel.jsxinc) | A Simple Main Panel. |
-| `DuScriptPanel` | *Class* | [inc/scriptui/panel.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/scriptui/panel.jsxinc) | A Complete Main Panel. |
+| `DuRSSPanel` | *Class* | [inc/scriptui/rssPanel.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/scriptui/panel.jsxinc) | A Simple Main Panel. |
+| `DuScriptPanel` | *Class* | [inc/scriptui/panel.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/scriptui/rssPanel.jsxinc) | A Panel to display an RSS channel. |
 | `DuScriptUI` | *namespace* | [inc/scriptui/core.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/scriptui/core.jsxinc) | Methods to build UI. |
+| `DuScriptUI.Icon` | *enum* | [inc/scriptui/icons.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/scriptui/icons.jsxinc) | All icons used and avaiable in DuESF. |
+| `DuScriptUI.String` | *enum* | [inc/scriptui/strings.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/scriptui/strings.jsxinc) | All strings used in the UI. |
+| `DuSelector` | *Class* | [inc/scriptui/selector.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/scriptui/selector.jsxinc) | A drop down selector. |
 | `DuSeparator` | *Class* | [inc/scriptui/layout.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/scriptui/layout.jsxinc) | A separator optionaly checkable with an optional title. |
-| `DuSimpleCheckBox` | *Class* | [inc/scriptui/checkbox.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/scriptui/checkbox.jsxinc) | A simple checkbox without icon. |
+| `DuSlider` | *Class* | [inc/scriptui/slider.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/scriptui/slider.jsxinc) | A slider. |
 | `DuSmallButton` | *Class* | [inc/scriptui/button.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/scriptui/button.jsxinc) | A small button without icon. |
+| `DuStaticText` | *Class* | [inc/scriptui/text.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/scriptui/text.jsxinc) | An static text. |
+| `DuTabPanel` | *Class* | [inc/scriptui/tabPanel.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/scriptui/tabPanel.jsxinc) | A tab panel. |
+| `DuTab` | *Class* | [inc/scriptui/tabPanel.jsxinc](https://github.com/RxLaboratory/DuESF/blob/main/inc/scriptui/tabPanel.jsxinc) | A tab in a tab panel. |

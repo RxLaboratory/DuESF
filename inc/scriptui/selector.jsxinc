@@ -1,8 +1,8 @@
 
 /**
  * @class
- * @name Selector
- * @classdesc For use with {@link DuAEF.DuScriptUI}.<br />
+ * @name DuSelector
+ * @classdesc For use with {@link DuScriptUI}.<br />
  * A drop down selector.<br />
  * This is not a real class, and cannot be instanciated.<br />
  * Use {@link DuScriptUI.selector} to create a Selector.<br />
@@ -24,19 +24,19 @@
  * The function to execute when the index changes.<br />
  * The method is called after the index has changed.
  * @callback Selector~onChange
- * @memberof Selector
+ * @memberof DuSelector
  */
 
 /**
  * The function to execute when the refresh button is clicked.
  * @callback Selector~onRefresh
- * @memberof Selector
+ * @memberof DuSelector
  */
 
 /**
  * Adds a new button to the selector
  * @method
- * @memberof Selector
+ * @memberof DuSelector
  * @name addButton
  * @param {string} [text] - The text displayed by the button
  * @param {string} [image] - The icon, either a path to the file or a PNG represented as a string.
@@ -48,21 +48,21 @@
 /**
  * Removes all buttons from the selector. This is the same as {@link Selector.clear}.
  * @method
- * @memberof Selector
+ * @memberof DuSelector
  * @name removeAll
  */
 
 /**
  * Removes all buttons from the selector. This is the same as {@link Selector.removeAll}.
  * @method
- * @memberof Selector
+ * @memberof DuSelector
  * @name clear
  */
 
 /**
  * Changes the selection and the current index of the selector
  * @method
- * @memberof Selector
+ * @memberof DuSelector
  * @name setCurrentIndex
  * @param {int} index - The new index
  */
@@ -70,14 +70,13 @@
 /**
  * Changes the selection and the current index of the selector, using the text of the selection
  * @method
- * @memberof Selector
+ * @memberof DuSelector
  * @name setCurrentText
  * @param {string} text - The text to select
  */
 
 /**
  * Creates a drop down selector, using image buttons
- * @memberof DuAEF.DuScriptUI
  * @param {Window|Panel|Group} container - The ScriptUI Object which will contain and display the selector.
  * @param {bool} [addRefreshButton=false] - When true, the selector includes a refresh button. Add your function to refresh it with the onRefresh callback.
  * @param {bool} [helpTip] - The help tip to show on the selector
