@@ -537,11 +537,15 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
         panel.hasCommonSettings = true;
         // Add default settings
         // settings file
-        panel.settingsGroup.fileButton = DuScriptUI.button (
+        panel.settingsGroup.fileButton = DuScriptUI.fileSelector (
             panel.settingsGroup,
             DuScriptUI.String.SETTINGS_FILE + '...',
+            true,
+            DuScriptUI.String.SETTINGS_FILE_TIP,
             w16_settings_file,
-            DuScriptUI.String.SETTINGS_FILE_TIP
+            'save',
+            "JSON: *.json, All Files: *.*",
+            'column'
         );
         // color
         panel.settingsGroup.colorSelector = DuScriptUI.selector(
@@ -603,12 +607,12 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
             w16_bug
         )
 
-        panel.settingsGroup.fileButton.onClick = function()
+        panel.settingsGroup.fileButton.onChange = function()
         {
-            var file = DuESF.scriptSettings.file.saveDlg("Where do you want to store the settings?","Json:*.json");
+            var file = panel.settingsGroup.fileButton.getFile();
             if (file == null) return;
-
             DuESF.scriptSettings.setFile(file);
+            panel.settingsGroup.reset();
         }
 
         // Load settings
@@ -619,6 +623,9 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
             var highlightColor = def( common.highlightColor, '');
             var currentLanguageName = def( common.currentLanguageName, 'Esperanto');
             var debug = def( common.debug, false);
+            
+            // Settings File
+            panel.settingsGroup.fileButton.setPath( DuESF.scriptSettings.file.absoluteURI );
 
             // Color
             panel.settingsGroup.colorSelector.setCurrentIndex( highlightSelection );

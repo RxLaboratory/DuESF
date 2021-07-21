@@ -57,7 +57,6 @@
 
 /**
  * Creates a nice edittext where the edit text is shown only on click.
- * @memberof DuAEF.DuScriptUI
  * @param {Window|Panel|Group}	container		- The ScriptUI Object which will contain and display the nice edit text.
  * @param {string} text - The initial text in the edit.
  * @param {string} [prefix=""] - A text prefix to display.
@@ -150,8 +149,16 @@ DuScriptUI.editText = function( container, text, prefix, suffix, placeHolder, he
 
     niceEditText.setText = function( text )
     {
-        niceEditText.edit.text = niceEditText.text = text;
-        niceEditText.static.text = niceEditText.prefix + text + niceEditText.suffix;
+        if (text == '')
+        {
+            niceEditText.edit.text = niceEditText.text = text;
+            niceEditText.static.text = niceEditText.placeHolder;
+        }
+        else 
+        {
+            niceEditText.edit.text = niceEditText.text = text;
+            niceEditText.static.text = niceEditText.prefix + text + niceEditText.suffix;
+        }
     }
 
     niceEditText.setPrefix = function( prefix )
@@ -188,7 +195,6 @@ DuScriptUI.editText = function( container, text, prefix, suffix, placeHolder, he
 
 /**
  * Creates a statictext (with an optionnal color).
- * @memberof DuAEF.DuScriptUI
  * @param {Window|Panel|Group} container - The ScriptUI Object which will contain and display the nice edit text.
  * @param {string} text - The initial text in the edit.
  * @param {DuColor} [color] - The color of the text. By default, uses a slightly darker text than the Host App text color

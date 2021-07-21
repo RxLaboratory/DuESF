@@ -25,6 +25,7 @@ DuScriptUI.String = {
     HELP_TIP: "Get help.",
     LANGUAGE_TIP: "Set the language of the interface.",
     NORMAL_MODE: "Normal mode",
+    PATH: "Path",
     RESET_SETTINGS: "Reset the settings to their default values.",
     RX_PURPLE: "RxLab Purple",
     RX_PURPLE_TIP: "The RxLaboratory Purple",

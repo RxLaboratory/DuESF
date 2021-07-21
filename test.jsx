@@ -35,6 +35,12 @@
     var staticText = DuScriptUI.staticText( ui.mainGroup, 'Static Text', undefined, "This is astatic text field");
     var staticColoredText = DuScriptUI.staticText( ui.mainGroup, 'Colored Static Text', DuColor.Color.RAINBOX_RED, "This is astatic text field");
 
+    var folderSelector = DuScriptUI.folderSelector( ui.mainGroup, "Select a folder...", true, "A folder selector");
+    
+    var fileOpenSelector = DuScriptUI.fileSelector( ui.mainGroup, "Open file...", true, "A file selector");
+    
+    var fileSaveSelector = DuScriptUI.fileSelector( ui.mainGroup, "Save file...", true, "A file selector", undefined, 'save', "After Effects Project: *.aep, All files: *.*");
+
     // This is required at the end of init (building ui, etc) and before running methods
     // Equivalent to using true as second arg of DuScriptUI.showUI
     //DuESF.enterRunTime();
