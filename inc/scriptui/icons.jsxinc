@@ -15,6 +15,8 @@
 #include "icons/w12_reset.png.jsxinc"
 #include "icons/w12_update.png.jsxinc"
 #include "icons/w12_menu.png.jsxinc"
+#include "icons/w12_box_checked.png.jsxinc"
+#include "icons/w12_box_unchecked.png.jsxinc"
 // normal 16px
 #include "icons/w16_arm_structure.png.jsxinc"
 #include "icons/w16_language.png.jsxinc"
