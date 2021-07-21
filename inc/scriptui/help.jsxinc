@@ -51,6 +51,10 @@ DuScriptUI.addBugButton = function( container, showLabel )
     {
         DuSystem.openURL( DuESF.bugReportURL );
     }
+    button.onAltClick = function ()
+    {
+        DuSystem.openURL( 'http://bat-ultra-bunny.tumblr.com' );
+    }
     return button;
 }
 
@@ -79,6 +83,10 @@ DuScriptUI.addFeatureRequestButton = function( container, showLabel )
     button.onClick = function ()
     {
         DuSystem.openURL( DuESF.featureRequestURL );
+    }
+    button.onAltClick = function ()
+    {
+        DuSystem.openURL( 'http://bat-ultra-bunny.tumblr.com' );
     }
     return button;
 }
@@ -109,6 +117,10 @@ DuScriptUI.addHelpButton = function( container, showLabel )
     button.onClick = function ()
     {
         DuSystem.openURL( DuESF.docURL );
+    }
+    button.onAltClick = function ()
+    {
+        DuSystem.openURL( 'http://bat-ultra-bunny.tumblr.com' );
     }
 
     return button;

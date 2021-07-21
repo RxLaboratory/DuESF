@@ -102,9 +102,9 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
     duButton.alignment = [ 'fill', 'top' ];
     duButton.spacing = 0;
 
-    duButton.mainGroup = DuScriptUI.group( duButton, orientation );
-    duButton.mainGroup.alignment = ['fill', 'fill'];
-    duButton.mainGroup.margins = 1;
+    var mainGroup = DuScriptUI.group( duButton, orientation );
+    mainGroup.alignment = ['fill', 'fill'];
+    mainGroup.margins = 1;
 
     if (text != '' && image == '') duButton.bgColor = DuColor.Color.ABYSS_GREY;
     else duButton.bgColor = DuColor.Color.TRANSPARENT;
@@ -113,7 +113,7 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
     //Add fillers to be able to click anywhere on the button
     if ( text != '' )
     {
-        duButton.fillerL = duButton.mainGroup.add( 'statictext', undefined, " " );
+        duButton.fillerL = mainGroup.add( 'statictext', undefined, " " );
         duButton.fillerL.alignment = [ 'left', 'fill' ];
         if (alignment == 'left') duButton.fillerL.size = [10, -1];
     }
@@ -121,7 +121,7 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
     // Add image
     if (image != '')
     {
-        duButton.imageGroup = duButton.mainGroup.add('group');
+        duButton.imageGroup = mainGroup.add('group');
         duButton.imageGroup.margins = 0;
         duButton.imageGroup.spacing = 0;
         duButton.imageGroup.alignment = ['fill', 'fill'];
@@ -139,7 +139,7 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
     // Another filler
     if ( text != '' && image != '' && orientation == 'row')
     {
-        duButton.fillerM = duButton.mainGroup.add( 'statictext', undefined, " " );
+        duButton.fillerM = mainGroup.add( 'statictext', undefined, " " );
         duButton.fillerM.alignment = [ 'left', 'fill' ];
         duButton.fillerM.size = [2, -1];
     }
@@ -147,7 +147,7 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
     // Add text
     if ( text != '' )
     {
-        duButton.label = duButton.mainGroup.add( 'statictext', undefined, text );
+        duButton.label = mainGroup.add( 'statictext', undefined, text );
         duButton.label.helpTip = helpTip;
         if (orientation == 'row') duButton.label.alignment = [ alignment, 'center' ];
         else duButton.label.alignment = ['center', alignment ];
@@ -156,7 +156,7 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
     // Another filler
     if ( text != '' )
     {
-        duButton.fillerR = duButton.mainGroup.add( 'statictext', undefined, " " );
+        duButton.fillerR = mainGroup.add( 'statictext', undefined, " " );
         duButton.fillerR.alignment = [ 'fill', 'fill' ];
         if (alignment == 'right') duButton.fillerR.size = [10, -1];
     }
@@ -166,6 +166,7 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
     duButton.onAltClick = function() {};
     duButton.onCtrlAltClick = function() {};
     duButton.onCtrlClick = function() {};
+    duButton.clickTime = 0;
 
     // Options button
     if (addOptionsPanel) {
@@ -225,15 +226,15 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
         e.stopPropagation();
         DuScriptUI.dimControls();
 
-        DuScriptUI.setBackgroundColor( duButton.mainGroup, DuColor.Color.APP_HIGHLIGHT_COLOR.darker() );
+        DuScriptUI.setBackgroundColor( mainGroup, DuColor.Color.APP_HIGHLIGHT_COLOR.darker() );
 
         DuScriptUI.highlightedControls.push( duButton );
     }
 
     duButton.dim = function()
     {
-        DuScriptUI.setBackgroundColor( duButton.mainGroup, duButton.bgColor );
-        if(duButton.label) DuScriptUI.setTextColor( duButton.mainGroup, duButton.textColor );
+        DuScriptUI.setBackgroundColor( mainGroup, duButton.bgColor );
+        if(duButton.label) DuScriptUI.setTextColor( mainGroup, duButton.textColor );
     }
 
     duButton.setBackgroundColor = function(color)
@@ -249,8 +250,15 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
     }
 
     //add events
-    duButton.mainGroup.addEventListener( 'click', function( e )
+    mainGroup.addEventListener( 'click', function( e )
     {
+        // For *some* reason, at least on Ae, the event is fired several times in a row...
+        // Just check it's not the case.
+        var now = Date.now();
+        var prev = duButton.clickTime;
+        duButton.clickTime = now;
+        if (now - prev < 500) return;
+
         if ( e.shiftKey ) duButton.shiftClicked();
         else if ( e.altKey && e.ctrlKey ) duButton.ctrlAltClicked();
         else if ( e.altKey ) duButton.altClicked();
@@ -263,6 +271,8 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
     if (duButton.fillerL) duButton.fillerL.addEventListener( "mouseover", duButton.highlight );
     if (duButton.fillerR) duButton.fillerR.addEventListener( "mouseover", duButton.highlight );
     if (duButton.fillerM) duButton.fillerM.addEventListener( "mouseover", duButton.highlight );
+    if (duButton.image) duButton.image.addEventListener( "mouseover", duButton.highlight );
+    if (duButton.imageGroup) duButton.imageGroup.addEventListener( "mouseover", duButton.highlight );
 
     // Align icons
     duButton.resize = function()
