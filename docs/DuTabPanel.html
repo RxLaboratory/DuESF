@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Namespace: DuTranslator</title>
+    <title>Class: DuTabPanel</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -1737,7 +1737,7 @@
     </ul>
 </div>
     <div class="main">
-        <h1 class="page-title" data-filename="DuTranslator.html">Namespace: DuTranslator</h1>
+        <h1 class="page-title" data-filename="DuTabPanel.html">Class: DuTabPanel</h1>
         
 
 
@@ -1746,8 +1746,10 @@
     
 <header>
     <h2>
-    DuTranslator
+    DuTabPanel
     </h2>
+    
+        <div class="class-description">For use with <a href="DuScriptUI.html"><code>DuScriptUI</code></a>.<br />A Panel with tabs.<br />This is not a real class, and cannot be instanciated.<br />Use <a href="DuScriptUI.html#.tabPanel"><code>DuScriptUI.tabPanel</code></a> to create a picker.<br />The DuTabPanel inherits the Group object from ScriptUI and has all of its properties and methods.</div>
     
 </header>  
 
@@ -1757,122 +1759,223 @@
     
     
         
-            <div class="description">The ExtendScript translator part of the Dutranslator Framework<br />see <a target="_blank" href="https://github.com/Rainbox-dev/Dutranslator">https://github.com/Rainbox-dev/Dutranslator</a></div>
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-    
-    </div>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-        <h3 class="subsection-title">Namespaces</h3>
-        
-        <dl>
-            <dt><a href="namespaces.html#DuTranslator.Settings"><a href="DuTranslator.Settings.html">Settings</a></a></dt>
-            <dd></dd>
-        </dl>
-    
-    
-    
-        <h3 class="subsection-title">Members</h3>
-        
-        <dl>
-            
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id=".current"><span class="type-signature static">static,readonly</span>DuTranslator.current<span class="type-signature type string">string</span> </h4>
-    </div>
+        <h4 class="name" id="DuTabPanel">
+            
+            new DuTabPanel<span class="signature">()</span>
+        </h4>
     
+        
+        <div class="tag-source">
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 9606
+        </div>
+        
+    </div>
+
     
 </dt>
 <dd>
     
-    <div class="description">
-        The current language id (fr, en, ..)
-    </div>
+    
+
+    
+    
+    
+    
     
     
     
 <dl class="details">
     
         
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-</dd>
-
+        <h5 class="subsection-title">Properties:</h5>
         
+        <dl>
+
+<table class="props">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
             
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id=".currentName"><span class="type-signature static">static,readonly</span>DuTranslator.currentName<span class="type-signature type string">string</span> </h4>
-    </div>
-    
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        The current language name
-    </div>
-    
-    
-    
-<dl class="details">
+                <td class="name"><code>buttons</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="DuButton.html">DuButton</a>></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The buttons for the tabs. Not that an "index" property is added to the button, containing the DuTab index.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>tabs</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="DuTab.html">DuTab</a>></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The tabs.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The currently visible tab.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>buttonsGroup</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Group</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The ScriptUI Group containing the buttons</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>mainGroup</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Group</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The ScriptUI Group containing the tabs</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>scriptUIPanel</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The file name ("script.jsx") of a scriptUI Panel. Alt+Click on this tab will open/close this panel.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>onChange</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="DuTabPanel.html#~onChange">DuTabPanel~onChange</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Called when the index changes.</td>
+        </tr>
+	
+	
+	</tbody>
+</table></dl>
+        
     
         
     
@@ -1898,9 +2001,31 @@
 
     
     
+
+    
+
+    
+    
+    
+    
+    
+    
+    
 </dd>
 
-        </dl>
+    
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -1910,14 +2035,14 @@
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id=".generateTranslationFile">
+        <h4 class="name" id=".addTab">
             
-            <span class="type-signature static">static</span>DuTranslator.generateTranslationFile<span class="signature">(<span class="optional">translations</span>, file, <span class="optional">appName</span>, <span class="optional">version</span>, <span class="optional">languageId</span>, <span class="optional">languageName</span>)</span>
+            <span class="type-signature static">static</span>DuTabPanel.addTab<span class="signature">(<span class="optional">text</span>, <span class="optional">image</span>, <span class="optional">helpTip</span>, <span class="optional">imageOver</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="DuTab.html">DuTab</a>}</span>
         </h4>
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 1062
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 9623
         </div>
         
     </div>
@@ -1928,7 +2053,7 @@
     
     
     <div class="description">
-        Creates a file for translation with the given base strings.
+        Adds a new empty DuTab in the DuTabPanel.
     </div>
     
 
@@ -1961,16 +2086,13 @@
 	
         <tr>
             
-                <td class="name"><code>translations</code></td>
+                <td class="name"><code>text</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">Array.&lt;<a href="DuTranslation.html">DuTranslation</a>></span>
-|
-
-<span class="param-type">strings</span>
+<span class="param-type">string</span>
 
 
             
@@ -1979,7 +2101,7 @@
             
                 <td class="default">
                 
-                    DuTranslator.localizedStrings
+                    ''
                 
                 </td>
             
@@ -1993,49 +2115,14 @@
                         
                     
                 
-                The translations or source strings to be included in the translation file.</td>
+                The label of the button.</td>
         </tr>
 	
 	
 	
         <tr>
             
-                <td class="name"><code>file</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">File</span>
-|
-
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-                <td class="default">
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                    
-                    
-                        
-                    
-                
-                The file or URI</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>appName</code></td>
+                <td class="name"><code>image</code></td>
             
             
             <td class="type">
@@ -2050,7 +2137,7 @@
             
                 <td class="default">
                 
-                    "dutranslator"
+                    ''
                 
                 </td>
             
@@ -2064,14 +2151,14 @@
                         
                     
                 
-                A name for the app using this translation file.</td>
+                The path to the icon.</td>
         </tr>
 	
 	
 	
         <tr>
             
-                <td class="name"><code>version</code></td>
+                <td class="name"><code>helpTip</code></td>
             
             
             <td class="type">
@@ -2086,7 +2173,7 @@
             
                 <td class="default">
                 
-                    "0.0"
+                    ''
                 
                 </td>
             
@@ -2100,14 +2187,14 @@
                         
                     
                 
-                A version (as a string) for this translation file or app.</td>
+                The helptip.</td>
         </tr>
 	
 	
 	
         <tr>
             
-                <td class="name"><code>languageId</code></td>
+                <td class="name"><code>imageOver</code></td>
             
             
             <td class="type">
@@ -2122,7 +2209,7 @@
             
                 <td class="default">
                 
-                    DuTranslator.current
+                    image
                 
                 </td>
             
@@ -2136,20 +2223,144 @@
                         
                     
                 
-                A version (as a string) for this translation file or app.</td>
+                The path to an icon displayed when the mouse is over the button.</td>
         </tr>
 	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        <a href="DuTab.html">DuTab</a>
+                        
+                    
+            </td>
+            <td class="description last">The new DuTab.</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id=".setCurrentIndex">
+            
+            <span class="type-signature static">static</span>DuTabPanel.setCurrentIndex<span class="signature">(<span class="optional">index</span>)</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 9635
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Sets the current visible tab.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		<th>Default</th>
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
 	
 	
         <tr>
             
-                <td class="name"><code>languageName</code></td>
+                <td class="name"><code>index</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">int</span>
 
 
             
@@ -2158,7 +2369,7 @@
             
                 <td class="default">
                 
-                    DuTranslator.currentName
+                    0
                 
                 </td>
             
@@ -2172,7 +2383,7 @@
                         
                     
                 
-                A version (as a string) for this translation file or app.</td>
+                The index of the tab to show.</td>
         </tr>
 	
 	
@@ -2214,976 +2425,6 @@
     
     
     
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id=".generateTranslations">
-            
-            <span class="type-signature static">static</span>DuTranslator.generateTranslations<span class="signature">(strings)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Array.&lt;<a href="DuTranslation.html">DuTranslation</a>>}</span>
-        </h4>
-    
-        
-        <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 1096
-        </div>
-        
-    </div>
-
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Converts an Array of strings to an Array of empty translations
-    </div>
-    
-
-    
-    
-    
-    
-    
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>strings</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;string></span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                The base strings to convert.</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        Array.&lt;<a href="DuTranslation.html">DuTranslation</a>>
-                        
-                    
-            </td>
-            <td class="description last">The empty translations</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id=".getAvailable">
-            
-            <span class="type-signature static">static</span>DuTranslator.getAvailable<span class="signature">()</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{int}</span>
-        </h4>
-    
-        
-        <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 887
-        </div>
-        
-    </div>
-
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Load the list of available languages.<br /><br />If the language id and or the language name can't be found in the file, the file name will be used<br />to determine the language id and the name will be set as the id.<br />
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        int
-                        
-                    
-            </td>
-            <td class="description last">A success code<br />0	Success<br />1	One of the file haven't been correctly opened</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id=".getLanguageId">
-            
-            <span class="type-signature static">static</span>DuTranslator.getLanguageId<span class="signature">(prettyName)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{string}</span>
-        </h4>
-    
-        
-        <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 968
-        </div>
-        
-    </div>
-
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Returns the language id of a given language name
-    </div>
-    
-
-    
-    
-    
-    
-    
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>prettyName</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                The pretty name of the request language</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        string
-                        
-                    
-            </td>
-            <td class="description last"></td>
-        </tr>
-    
-    </tbody>
-</table>
-
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id=".getPrettyName">
-            
-            <span class="type-signature static">static</span>DuTranslator.getPrettyName<span class="signature">(langId)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{string}</span>
-        </h4>
-    
-        
-        <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 957
-        </div>
-        
-    </div>
-
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Returns the pretty name of a given language
-    </div>
-    
-
-    
-    
-    
-    
-    
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>langId</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                The id of the request language</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        string
-                        
-                    
-            </td>
-            <td class="description last"></td>
-        </tr>
-    
-    </tbody>
-</table>
-
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id=".getPrettyNames">
-            
-            <span class="type-signature static">static</span>DuTranslator.getPrettyNames<span class="signature">(langId)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Array.&lt;string>}</span>
-        </h4>
-    
-        
-        <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 982
-        </div>
-        
-    </div>
-
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Returns a list containing pretty names of all languages
-    </div>
-    
-
-    
-    
-    
-    
-    
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>langId</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                The id of the request language</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        Array.&lt;string>
-                        
-                    
-            </td>
-            <td class="description last"></td>
-        </tr>
-    
-    </tbody>
-</table>
-
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id=".setLanguage">
-            
-            <span class="type-signature static">static</span>DuTranslator.setLanguage<span class="signature">(languageId)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{int}</span>
-        </h4>
-    
-        
-        <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 1003
-        </div>
-        
-    </div>
-
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Set the current language
-    </div>
-    
-
-    
-    
-    
-    
-    
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>languageId</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                The id of the language to set</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        int
-                        
-                    
-            </td>
-            <td class="description last">success code<br />0	Everything went ok<br />1	The file linked to the given id can't be opened<br />2	The json content doesn't match a translation file</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id=".setPrettyLanguage">
-            
-            <span class="type-signature static">static</span>DuTranslator.setPrettyLanguage<span class="signature">(languageName)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{int}</span>
-        </h4>
-    
-        
-        <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 1043
-        </div>
-        
-    </div>
-
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Set the current language with a given pretty name
-    </div>
-    
-
-    
-    
-    
-    
-    
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>languageName</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                The pretty name of the language to set</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        int
-                        
-                    
-            </td>
-            <td class="description last">success code<br />0	Everything went ok<br />-1   Can't find any language with the given pretty name<br />>0  Call to setLanguage(languageId) failed</td>
-        </tr>
-    
-    </tbody>
-</table>
-
     
     
     
@@ -3192,6 +2433,81 @@
         </dl>
     
     
+    
+        <h3 class="subsection-title">Type Definitions</h3>
+        
+        <dl>
+                
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="~onChange">
+            
+            onChange<span class="signature">()</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 9643
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Called when the index changes.
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+            </dl>
     
     
     
