@@ -569,6 +569,11 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
             DuScriptUI.String.RX_RED_TIP
         );
         panel.settingsGroup.colorSelector.addButton(
+            DuScriptUI.String.AE_ORANGE,
+            w8_ae_orange,
+            DuScriptUI.String.AE_ORANGE_TIP
+        );
+        panel.settingsGroup.colorSelector.addButton(
             DuScriptUI.String.CUSTOM + '...',
             undefined,
             DuScriptUI.String.CUSTOM_COLOR_TIP
@@ -715,6 +720,11 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
         {
             DuESF.scriptSettings.data.common.highlightColor = '';
             DuColor.Color.APP_HIGHLIGHT_COLOR = DuColor.Color.RAINBOX_RED;
+        }
+        else if (colorIndex == 3)
+        {
+            DuESF.scriptSettings.data.common.highlightColor = '';
+            DuColor.Color.APP_HIGHLIGHT_COLOR = DuColor.Color.AE_ORANGE;
         }
 
         // Language

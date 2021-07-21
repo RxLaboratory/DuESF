@@ -1,0 +1,2 @@
+var w8_ae_orange = new DuBinary( "\u0089PNG\r\n\x1A\n\x00\x00\x00\rIHDR\x00\x00\x00\b\x00\x00\x00\b\b\x06\x00\x00\x00\u00C4\x0F\u00BE\u008B\x00\x00\x00\tpHYs\x00\x00\x03\u00B0\x00\x00\x03\u00B0\x01'\u00C4\x0F\u00AD\x00\x00\x00\x19tEXtSoftware\x00www.inkscape.org\u009B\u00EE<\x1A\x00\x00\x00\x16IDAT\x18\u0095c<>\u0089\u00E1?\x03\x1E\u00C0\u0084Or\u00F8(\x00\x00n?\x02h(Q\u00FBI\x00\x00\x00\x00IEND\u00AEB`\u0082", "w8ae_orange.png", "w8" );
+w8_ae_orange;

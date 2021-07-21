@@ -64,7 +64,7 @@ DuScriptUI.form = function( container )
         var height = 20;
         if ( type == "DuButton" )
         {
-            control = DuScriptUI.button( mainGroup.buttons, '', value[ 0 ], helpTip, value[ 1 ] );
+            control = DuScriptUI.button( mainGroup.buttons, '', value[ 0 ], helpTip );
             height = control.image.preferredSize[ 1 ];
         }
         else

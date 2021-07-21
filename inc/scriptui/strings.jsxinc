@@ -5,6 +5,8 @@
 DuScriptUI.String = {
     AE_BLUE: "After Effects Blue",
     AE_BLUE_TIP: "The After Effects highlighting blue",
+    AE_ORANGE: "After Effects Orange (CS6)",
+    AE_ORANGE_TIP: "The After Effects highlighting orange from good ol'CS6",
     APPLY: "Apply",
     APPLY_SETTINGS: "Apply changes to the settings.",
     BACK: "Back",

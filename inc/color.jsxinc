@@ -254,7 +254,8 @@ DuColor.Color =
 	RX_PURPLE: new DuColor([.7411,.1843,.7686,1]),
 	APP_BACKGROUND_COLOR: new DuColor([0.199,0.199,0.199,1]),
 	APP_HIGHLIGHT_COLOR: new DuColor([.7411,.1843,.7686,1]),
-	APP_TEXT_COLOR: new DuColor( [ 0.6941, 0.6941, 0.6941, 1])
+	APP_TEXT_COLOR: new DuColor( [ 0.6941, 0.6941, 0.6941, 1]),
+	AE_ORANGE: new DuColor( [ .7804, .5725, 0, 1])
 };
 
 // Get the app colors

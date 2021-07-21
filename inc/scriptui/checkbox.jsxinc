@@ -38,16 +38,21 @@
  * @param {string} [helpTip=''] The helptip. Default: empty string
  * @param {string} [textChecked=text] The label of the button displayed when it is checked.
  * @param {string|DuBinary} [imageChecked=checked check box] The image to show when it is checked
+ * @param {string} [orientation='row'] The orientation
  * @return {DuCheckBox} The checkbox created.
  */
-DuScriptUI.checkBox = function( container, text, image, helpTip, textChecked, imageChecked, isTab )
+DuScriptUI.checkBox = function( container, text, image, helpTip, textChecked, imageChecked, orientation, isTab )
 {
     //isTab is an undocumented low-level param used to create buttons for tabs in tabpanel
     isTab = def(isTab, false);
+    orientation = def(orientation, 'row');
+
     if ( !container ) return null;
     text = def(text, '');
+    if (isTab && typeof image === 'undefined') drawIcon = false;
+    else drawIcon = true;
+    imageChecked = def(imageChecked, typeof image === 'undefined' ? w12_box_checked : image);
     image = def(image, w12_box_unchecked);
-    imageChecked = def(imageChecked, w12_box_checked);
     helpTip = def(helpTip, '');
     textChecked = def(textChecked, text);
 
@@ -63,7 +68,8 @@ DuScriptUI.checkBox = function( container, text, image, helpTip, textChecked, im
     duCheckBox.orientation = 'column';
     if ( isTab ) duCheckBox.spacing = 3;
     else duCheckBox.spacing = 0;
-    duCheckBox.alignment = [ 'fill', 'top' ];
+    if (isTab) duCheckBox.alignment = ['left', 'fill'];
+    else duCheckBox.alignment = [ 'fill', 'top' ];
 
     // attributes
     duCheckBox.onClick = function() {};
@@ -77,11 +83,11 @@ DuScriptUI.checkBox = function( container, text, image, helpTip, textChecked, im
     duCheckBox.mainGroup = DuScriptUI.group(duCheckBox, 'column');
     duCheckBox.mainGroup.margins = 1;
     duCheckBox.mainGroup.alignment = ['fill', 'fill'];
-    duCheckBox.buttonGroup = DuScriptUI.group(duCheckBox.mainGroup, 'row');
+    duCheckBox.buttonGroup = DuScriptUI.group(duCheckBox.mainGroup, orientation);
     duCheckBox.buttonGroup.alignment = ['fill', 'top'];
 
     //Add fillers to be able to click anywhere on the button
-    if ( text != '' )
+    if ( text != '' && !isTab )
     {
         duCheckBox.fillerL = duCheckBox.buttonGroup.add( 'statictext', undefined, " " );
         duCheckBox.fillerL.alignment = [ 'left', 'fill' ];
@@ -89,12 +95,12 @@ DuScriptUI.checkBox = function( container, text, image, helpTip, textChecked, im
     }
 
     //checkbox icon
-    if ( !isTab )
+    if ( drawIcon )
     {
         duCheckBox.imageGroup = duCheckBox.buttonGroup.add('group');
         duCheckBox.imageGroup.margins = 0;
         duCheckBox.imageGroup.spacing = 0;
-        if ( text == '' ) duCheckBox.imageGroup.alignment = [ 'center', 'center' ];
+        if ( text == '' || orientation == 'column' ) duCheckBox.imageGroup.alignment = [ 'center', 'center' ];
         else duCheckBox.imageGroup.alignment = [ 'left', 'center' ];
 
         var subgroup = duCheckBox.imageGroup.add('group');
@@ -119,7 +125,7 @@ DuScriptUI.checkBox = function( container, text, image, helpTip, textChecked, im
     }
  
     //Add fillers to be able to click anywhere on the button
-    if ( text != '' )
+    if ( text != '' && !isTab )
     {
         duCheckBox.fillerM = duCheckBox.buttonGroup.add( 'statictext', undefined, " " );
         duCheckBox.fillerM.alignment = [ 'left', 'fill' ];
@@ -130,15 +136,18 @@ DuScriptUI.checkBox = function( container, text, image, helpTip, textChecked, im
     if ( text != '')
     {
         duCheckBox.label = duCheckBox.buttonGroup.add( 'statictext', undefined, text );
-        duCheckBox.label.helpTip = helpTip;
+        duCheckBox.label.helpTip = helpTip;$
         duCheckBox.label.alignment = [ 'left', 'center' ];
         //label size
-        if ( text.length < textChecked.length ) duCheckBox.label.characters = textChecked.length;
+        if (!isTab)
+        {
+            if ( text.length < textChecked.length ) duCheckBox.label.characters = textChecked.length;
         else duCheckBox.label.characters = text.length;
+        }
     }
 
     //Add fillers to be able to click anywhere on the button
-    if ( text != '' )
+    if ( text != '' && !isTab )
     {
         duCheckBox.fillerR = duCheckBox.buttonGroup.add( 'statictext', undefined, "" );
         duCheckBox.fillerR.alignment = [ 'fill', 'fill' ];
@@ -147,10 +156,10 @@ DuScriptUI.checkBox = function( container, text, image, helpTip, textChecked, im
     // outline
     if ( isTab )
     {
-        duCheckBox.outline = duCheckBox.mainGroup.add( 'group' );
+        duCheckBox.outLine = duCheckBox.mainGroup.add( 'group' );
         duCheckBox.outLine.margins = 0;
         duCheckBox.outLine.minimumSize.height = 2;
-        duCheckBox.outLine.alignment = [ 'fill', 'top' ];
+        duCheckBox.outLine.alignment = [ 'fill', 'bottom' ];
     }
 
     duCheckBox.setChecked = function( c )
@@ -242,7 +251,6 @@ DuScriptUI.checkBox = function( container, text, image, helpTip, textChecked, im
 
             //outline
             if ( duCheckBox.outLine ) DuScriptUI.setBackgroundColor( duCheckBox.outLine, DuColor.Color.APP_HIGHLIGHT_COLOR );
-            
         }
         
 
@@ -253,13 +261,16 @@ DuScriptUI.checkBox = function( container, text, image, helpTip, textChecked, im
     {
         if ( duCheckBox.checked )
         {
-            if (duCheckBox.label) DuScriptUI.setTextColor( duCheckBox.label,  DuColor.Color.APP_HIGHLIGHT_COLOR );
-
             // BG
             DuScriptUI.setBackgroundColor( duCheckBox.buttonGroup, DuColor.Color.TRANSPARENT );
 
             //outline
-            if ( duCheckBox.outLine ) DuScriptUI.setBackgroundColor( outLine, DuColor.Color.APP_TEXT_COLOR );
+            if ( duCheckBox.outLine )
+            {
+                DuScriptUI.setBackgroundColor( duCheckBox.outLine, DuColor.Color.APP_TEXT_COLOR );
+                DuScriptUI.setTextColor( duCheckBox.label,  DuColor.Color.APP_TEXT_COLOR );
+            }
+            else if (duCheckBox.label) DuScriptUI.setTextColor( duCheckBox.label,  DuColor.Color.APP_HIGHLIGHT_COLOR );
         }
         else 
         {

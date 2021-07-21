@@ -2,6 +2,7 @@
 #include "icons/w8_ae_blue.png.jsxinc"
 #include "icons/w8_rx_purple.png.jsxinc"
 #include "icons/w8_rx_red.png.jsxinc"
+#include "icons/w8_ae_orange.png.jsxinc"
 // small 12px
 #include "icons/w12_bugreport.png.jsxinc"
 #include "icons/w12_feature.png.jsxinc"
@@ -62,5 +63,6 @@ DuScriptUI.Icon = {
     SETTINGS_FILE: w16_settings_file,
     USER: w16_user,
     BUG: w16_bug,
-    GO_TO: w12_goto
+    GO_TO: w12_goto,
+    AE_ORANGE: w8_ae_orange
 };

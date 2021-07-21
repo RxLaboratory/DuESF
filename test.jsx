@@ -20,36 +20,44 @@
     var ui = DuScriptUI.scriptPanel( thisObj, true, true, new File($.fileName) );
     ui.addCommonSettings();
 
-    var testButton = DuScriptUI.button( ui.mainGroup, 'Button with options', undefined, undefined, true );
-    testButton.onClick = function() { alert('Hello World!'); };
+    // A tab panel
+    var tabPanel = DuScriptUI.tabPanel( ui.mainGroup, 'column' );
 
-    var testCheckBox = DuScriptUI.checkBox(ui.mainGroup, 'CheckBox' );
+    // A tab
+    var firstTab = tabPanel.addTab( "First", w16_arm_structure, "A tab with an icon and a text" )
+    var secondTab = tabPanel.addTab( "Second", w16_arm_structure, "A tab with an icon and a text" )
+    var thirdTab = tabPanel.addTab( "Third", w16_arm_structure, "A tab with an icon and a text" )
 
-    var testIconButton = DuScriptUI.button( ui.mainGroup, 'Icon Button', w16_arm_structure, 'Help!' );
+    secondTab.build = function( )
+    {
+        var testButton = DuScriptUI.button( this, 'Button with options', undefined, undefined, true );
+        testButton.onClick = function() { alert('Hello World!'); };
 
-    var testIconButtonOpts = DuScriptUI.button( ui.mainGroup, 'Icon Button w/ opts', w16_arm_structure, 'Help!', true );
+        var testCheckBox = DuScriptUI.checkBox( this, 'CheckBox' );
 
-    var testIconCheckBox = DuScriptUI.checkBox(ui.mainGroup, 'Icon CheckBox', w16_arm_structure, 'Checkbox', 'Icon Checked' );
+        var testIconButton = DuScriptUI.button( this, 'Icon Button', w16_arm_structure, 'Help!' );
 
-    var textEdit = DuScriptUI.editText( ui.mainGroup, '', 'prefix ', ' suffix', "edit text", "This is an edit text field");
+        var testIconButtonOpts = DuScriptUI.button( this, 'Icon Button w/ opts', w16_arm_structure, 'Help!', true );
+
+        var testIconCheckBox = DuScriptUI.checkBox( this, 'Icon CheckBox', w16_arm_structure, 'Checkbox', 'Icon Checked' );
+
+        var textEdit = DuScriptUI.editText( this, '', 'prefix ', ' suffix', "edit text", "This is an edit text field");
+        
+        var staticText = DuScriptUI.staticText( this, 'Static Text', undefined, "This is astatic text field");
+        var staticColoredText = DuScriptUI.staticText( this, 'Colored Static Text', DuColor.Color.RAINBOX_RED, "This is astatic text field");
+
+        var folderSelector = DuScriptUI.folderSelector( this, "Select a folder...", true, "A folder selector");
+        
+        var fileOpenSelector = DuScriptUI.fileSelector( this, "Open file...", true, "A file selector");
+        
+        var fileSaveSelector = DuScriptUI.fileSelector( this, "Save file...", true, "A file selector", undefined, 'save', "After Effects Project: *.aep, All files: *.*");
+        
+        var slider = DuScriptUI.slider( this, 17, 0, 100, 'column', false, "A slider: ", "%");
+    }
+
     
-    var staticText = DuScriptUI.staticText( ui.mainGroup, 'Static Text', undefined, "This is astatic text field");
-    var staticColoredText = DuScriptUI.staticText( ui.mainGroup, 'Colored Static Text', DuColor.Color.RAINBOX_RED, "This is astatic text field");
 
-    var folderSelector = DuScriptUI.folderSelector( ui.mainGroup, "Select a folder...", true, "A folder selector");
-    
-    var fileOpenSelector = DuScriptUI.fileSelector( ui.mainGroup, "Open file...", true, "A file selector");
-    
-    var fileSaveSelector = DuScriptUI.fileSelector( ui.mainGroup, "Save file...", true, "A file selector", undefined, 'save', "After Effects Project: *.aep, All files: *.*");
-    
-    var slider = DuScriptUI.slider( ui.mainGroup, 17, 0, 100, 'column', false, "A slider: ", "%");
-
-    // This is required at the end of init (building ui, etc) and before running methods
-    // Equivalent to using true as second arg of DuScriptUI.showUI
+    // One of these is required at the end of init (building ui, etc) and before runtime.
     //DuESF.enterRunTime();
-
     DuScriptUI.showUI(ui, true);
-
-    //alert(DuESF.scriptAbout);
-
 })(this);
