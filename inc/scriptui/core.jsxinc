@@ -17,6 +17,7 @@ var DuScriptUI = {}
 #include "text.jsxinc"
 #include "fileSelector.jsxinc"
 #include "slider.jsxinc"
+#include "form.jsxinc"
 
 //low-level list of functions to be run when the user interacts with the UI
 DuScriptUI.eventFunctions = [];
