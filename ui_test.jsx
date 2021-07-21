@@ -4,7 +4,6 @@
 (function (thisObj) {
 
     #include "DuESF.jsxinc"
-    #include "inc/scriptui/icons/w16_arm_structure.png.jsxinc"
     // This is required
     DuESF.init( DuESF.HostApplication.AFTER_EFFECTS, "Duik NoName", "17.0.0-Dev", "RxLaboratory");
 
@@ -24,9 +23,9 @@
     var tabPanel = DuScriptUI.tabPanel( ui.mainGroup, 'column' );
 
     // A tab
-    var firstTab = tabPanel.addTab( "First", w16_arm_structure, "A tab with an icon and a text" )
-    var secondTab = tabPanel.addTab( "Second", w16_arm_structure, "A tab with an icon and a text" )
-    var thirdTab = tabPanel.addTab( "Third", w16_arm_structure, "A tab with an icon and a text" )
+    var firstTab = tabPanel.addTab( "First", DuScriptUI.Icon.ROOKIE, "A tab with an icon and a text" )
+    var secondTab = tabPanel.addTab( "Second", DuScriptUI.Icon.STANDARD, "A tab with an icon and a text" )
+    var thirdTab = tabPanel.addTab( "Third", DuScriptUI.Icon.EXPERT, "A tab with an icon and a text" )
 
     secondTab.build = function( )
     {
@@ -35,11 +34,11 @@
 
         var testCheckBox = DuScriptUI.checkBox( this, 'CheckBox' );
 
-        var testIconButton = DuScriptUI.button( this, 'Icon Button', w16_arm_structure, 'Help!' );
+        var testIconButton = DuScriptUI.button( this, 'Icon Button', DuScriptUI.Icon.ROOKIE, 'Help!' );
 
-        var testIconButtonOpts = DuScriptUI.button( this, 'Icon Button w/ opts', w16_arm_structure, 'Help!', true );
+        var testIconButtonOpts = DuScriptUI.button( this, 'Icon Button w/ opts', DuScriptUI.Icon.ROOKIE, 'Help!', true );
 
-        var testIconCheckBox = DuScriptUI.checkBox( this, 'Icon CheckBox', w16_arm_structure, 'Checkbox', 'Icon Checked' );
+        var testIconCheckBox = DuScriptUI.checkBox( this, 'Icon CheckBox', DuScriptUI.Icon.ROOKIE, 'Checkbox', 'Icon Checked' );
 
         var textEdit = DuScriptUI.editText( this, '', 'prefix ', ' suffix', "edit text", "This is an edit text field");
         
