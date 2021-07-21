@@ -27,6 +27,9 @@
 #include "icons/w16_settings_file.png.jsxinc"
 #include "icons/w16_user.png.jsxinc"
 #include "icons/w16_bug.png.jsxinc"
+#include "icons/w16_rookie.png.jsxinc"
+#include "icons/w16_standard.png.jsxinc"
+#include "icons/w16_expert.png.jsxinc"
 
 /**
  * The list of available icons.
@@ -64,5 +67,8 @@ DuScriptUI.Icon = {
     USER: w16_user,
     BUG: w16_bug,
     GO_TO: w12_goto,
-    AE_ORANGE: w8_ae_orange
+    AE_ORANGE: w8_ae_orange,
+    ROOKIE: w16_rookie,
+    STANDARD: w16_standard,
+    EXPERT: w16_expert
 };

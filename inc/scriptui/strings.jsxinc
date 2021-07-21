@@ -37,5 +37,12 @@ DuScriptUI.String = {
     RX_RED_TIP: "The Rainbox Productions Red",
     SETTINGS: "Settings",
     SETTINGS_FILE: "Settings file",
-    SETTINGS_FILE_TIP: "Set the location of the settings file."
+    SETTINGS_FILE_TIP: "Set the location of the settings file.",
+    UI_MODE_TIP: "Select the UI mode.",
+    ROOKIE: "Rookie",
+    ROOKIE_UI_TIP: "The easiest-to-use mode, but also the biggest UI.",
+    STANDARD: "Standard",
+    STANDARD_UI_TIP: "The standard not-too-big UI.",
+    EXPERT: "Expert",
+    EXPERT_UI_TIP: "The smallest UI, for expert users."
 }

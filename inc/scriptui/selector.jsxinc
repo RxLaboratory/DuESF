@@ -174,7 +174,7 @@ DuScriptUI.selector = function( container, addRefreshButton, helpTip )
         var index = selector.items.length;
         selector.items.push( [ text, image, helpTip ] );
         //add to popup
-        var button = DuScriptUI.button( selector.popup.buttons, text, image, helpTip, false, undefined, undefined, false );
+        var button = DuScriptUI.button( selector.popup.buttons, text, image, helpTip, false, undefined, undefined, false, true );
         button.bgColor = DuColor.Color.OBSIDIAN;
         button.dim();
         button.onClick = function()

@@ -536,6 +536,29 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
         if (panel.hasCommonSettings) return;
         panel.hasCommonSettings = true;
         // Add default settings
+        // language
+        // Prepare languages, count how many there are, etc
+        DuTranslator.getAvailable();
+        var languages = DuTranslator.getPrettyNames();
+        var languageCount = languages.length;
+        if (languageCount > 0)
+        {
+            panel.settingsGroup.languageSelector = DuScriptUI.selector(
+                panel.settingsGroup,
+                false,
+                DuScriptUI.String.LANGUAGE_TIP
+            )
+
+            for (var i = 0; i < languageCount; i++ )
+            {
+                panel.settingsGroup.languageSelector.addButton(
+                    languages[i],
+                    w16_language
+                );
+            }
+
+            panel.settingsGroup.languageSelector.setCurrentIndex(0);
+        }
         // settings file
         panel.settingsGroup.fileButton = DuScriptUI.fileSelector (
             panel.settingsGroup,
@@ -579,29 +602,28 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
             DuScriptUI.String.CUSTOM_COLOR_TIP
         );
         panel.settingsGroup.colorSelector.setCurrentIndex(0);
-        // language
-        // Prepare languages, count how many there are, etc
-        DuTranslator.getAvailable();
-        var languages = DuTranslator.getPrettyNames();
-        var languageCount = languages.length;
-        if (languageCount > 0)
-        {
-            panel.settingsGroup.languageSelector = DuScriptUI.selector(
-                panel.settingsGroup,
-                false,
-                DuScriptUI.String.LANGUAGE_TIP
-            )
-
-            for (var i = 0; i < languageCount; i++ )
-            {
-                panel.settingsGroup.languageSelector.addButton(
-                    languages[i],
-                    w16_language
-                );
-            }
-
-            panel.settingsGroup.languageSelector.setCurrentIndex(0);
-        }
+        // ui mode
+        panel.settingsGroup.uiModeSelector = DuScriptUI.selector(
+            panel.settingsGroup,
+            false,
+            DuScriptUI.String.UI_MODE_TIP
+        )
+        panel.settingsGroup.uiModeSelector.addButton(
+            DuScriptUI.String.ROOKIE,
+            w16_rookie,
+            DuScriptUI.String.ROOKIE_UI_TIP
+        );
+        panel.settingsGroup.uiModeSelector.addButton(
+            DuScriptUI.String.STANDARD,
+            w16_standard,
+            DuScriptUI.String.STANDARD_UI_TIP
+        );
+        panel.settingsGroup.uiModeSelector.addButton(
+            DuScriptUI.String.EXPERT,
+            w16_expert,
+            DuScriptUI.String.EXPERT_UI_TIP
+        );
+        panel.settingsGroup.uiModeSelector.setCurrentIndex(0);
         // dev & debug
         panel.settingsGroup.debugButton = DuScriptUI.checkBox (
             panel.settingsGroup,
@@ -628,9 +650,13 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
             var highlightColor = def( common.highlightColor, '');
             var currentLanguageName = def( common.currentLanguageName, 'Esperanto');
             var debug = def( common.debug, false);
+            var uiMode = def( common.uiMode, 0);
             
             // Settings File
             panel.settingsGroup.fileButton.setPath( DuESF.scriptSettings.file.absoluteURI );
+
+            // Ui mode
+            panel.settingsGroup.uiModeSelector.setCurrentIndex( uiMode );
 
             // Color
             panel.settingsGroup.colorSelector.setCurrentIndex( highlightSelection );
@@ -697,6 +723,9 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
         }
         // Update and Save settings
         DuESF.scriptSettings.data.common = def( DuESF.scriptSettings.data.common, {} );
+
+        // UI Mode
+        DuESF.scriptSettings.data.common.uiMode = panel.settingsGroup.uiModeSelector.index;
 
         // Color
         var colorIndex = panel.settingsGroup.colorSelector.index;
