@@ -21,3 +21,5 @@
 #include "icons/w16_arm_structure.png.jsxinc"
 #include "icons/w16_language.png.jsxinc"
 #include "icons/w16_settings_file.png.jsxinc"
+#include "icons/w16_user.png.jsxinc"
+#include "icons/w16_bug.png.jsxinc"

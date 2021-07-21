@@ -597,9 +597,10 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
         panel.settingsGroup.debugButton = DuScriptUI.checkBox (
             panel.settingsGroup,
             DuScriptUI.String.NORMAL_MODE,
-            w12_bugreport,
+            w16_user,
             DuScriptUI.String.DEV_MODE_TIP,
-            DuScriptUI.String.DEV_MODE
+            DuScriptUI.String.DEV_MODE,
+            w16_bug
         )
 
         panel.settingsGroup.fileButton.onClick = function()
