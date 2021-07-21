@@ -76,8 +76,8 @@ DuAEF.DuScriptUI.addRSSPanel = function( container, updateInterval, rssUrl, titl
     rssPanel.updateInterval = updateInterval;
     
     //title and date
-    var ui_newsTitle = DuAEF.DuScriptUI.addStaticText( rssPanel, '', titleColor, '', true, true );
-    var ui_newsDate = DuAEF.DuScriptUI.addStaticText( rssPanel, '', DuColor.Color.DARK_GREY, '' );
+    var ui_newsTitle = DuScriptUI.staticText( rssPanel, '', titleColor, '', true, true );
+    var ui_newsDate = DuScriptUI.staticText( rssPanel, '', DuColor.Color.DARK_GREY, '' );
 
     //prev and next buttons
     var newsNavGroup = DuScriptUI.group( rssPanel, 'row' );
@@ -100,7 +100,7 @@ DuAEF.DuScriptUI.addRSSPanel = function( container, updateInterval, rssUrl, titl
     );
 
     //content
-    var ui_newsDescription = DuAEF.DuScriptUI.addStaticText( rssPanel, '', undefined, '', false, true );
+    var ui_newsDescription = DuScriptUI.staticText( rssPanel, '', undefined, '', false, true );
     ui_newsDescription.alignment = ['fill','fill'];
 
     //read more

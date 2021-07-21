@@ -120,7 +120,7 @@ DuAEF.DuScriptUI.addSlider = function( container, defaultValue, min, max, orient
 
     if ( textAlignment == 'right' || textAlignment == 'bottom' ) addButtons();
 
-    niceSlider.edit = DuAEF.DuScriptUI.addEditText( niceSlider.editGroup, defaultValue.toString(), prefix, suffix );
+    niceSlider.edit = DuScriptUI.editText( niceSlider.editGroup, defaultValue.toString(), prefix, suffix );
     var numChars = max.toString().length;
     if ( min.toString().length > max.toString().length ) numChars = min.toString().length;
     niceSlider.edit.edit.characters = numChars + prefix.length + suffix.length - 1;

@@ -14,6 +14,7 @@ var DuScriptUI = {}
 #include "checkbox.jsxinc"
 #include "screen.jsxinc"
 #include "selector.jsxinc"
+#include "text.jsxinc"
 
 //low-level list of functions to be run when the user interacts with the UI
 DuScriptUI.eventFunctions = [];

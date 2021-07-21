@@ -30,6 +30,11 @@
 
     var testIconCheckBox = DuScriptUI.checkBox(ui.mainGroup, 'Icon CheckBox', w16_arm_structure, 'Checkbox', 'Icon Checked' );
 
+    var textEdit = DuScriptUI.editText( ui.mainGroup, '', 'prefix ', ' suffix', "edit text", "This is an edit text field");
+    
+    var staticText = DuScriptUI.staticText( ui.mainGroup, 'Static Text', undefined, "This is astatic text field");
+    var staticColoredText = DuScriptUI.staticText( ui.mainGroup, 'Colored Static Text', DuColor.Color.RAINBOX_RED, "This is astatic text field");
+
     // This is required at the end of init (building ui, etc) and before running methods
     // Equivalent to using true as second arg of DuScriptUI.showUI
     //DuESF.enterRunTime();

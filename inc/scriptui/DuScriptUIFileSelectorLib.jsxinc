@@ -5,7 +5,7 @@
  * @classdesc For use with {@link DuAEF.DuScriptUI}.<br />
  * A "Browse" button for folders only, with an optional text field for the path.<br />
  * This is not a real class, and cannot be instanciated.<br />
- * Use {@link DuAEF.DuScriptUI.addFolderSelector} to create a selector.<br />
+ * Use {@link DuScriptUI.folderSelector} to create a selector.<br />
  * The DuFolderSelector inherits the Group object from ScriptUI and has all of its properties and methods.
  * @property {string} path - The folder path, initialized with an empty string. Note that this may not point to an existing folder if the user entered an incorrect path in the text field.<br />
  * To be sure to get an existing folder, you can use the getFolder() method.
@@ -30,7 +30,7 @@
  * @param {string} [helpTip=''] - The helptip for this control.
  * @return {TabPanel} The panel.
  */
-DuAEF.DuScriptUI.addFolderSelector = function ( container, text, textField, helpTip )
+DuScriptUI.folderSelector = function ( container, text, textField, helpTip )
 {
     text = def(text, "Browse...");
     textField = def(textField, true);
@@ -54,7 +54,7 @@ DuAEF.DuScriptUI.addFolderSelector = function ( container, text, textField, help
 
     folderSelector.editText = null;
     if (textField) {
-        folderSelector.editText = DuAEF.DuScriptUI.addEditText(
+        folderSelector.editText = DuScriptUI.editText(
             folderSelector,
             '',
             '',
