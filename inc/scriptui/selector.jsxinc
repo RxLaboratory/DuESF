@@ -73,6 +73,7 @@
  * @memberof DuSelector
  * @name setCurrentText
  * @param {string} text - The text to select
+ * @param {Boolean} [quiet=false] When true, the onChange() callback will not be triggered.
  */
 
 /**
@@ -200,7 +201,7 @@ DuScriptUI.selector = function( container, addRefreshButton, helpTip )
     }
     selector.clear = selector.removeAll;
 
-    selector.setCurrentIndex = function( index )
+    selector.setCurrentIndex = function( index, quiet )
     {
         if ( index < 0 ) return;
         if ( index >= selector.items.length ) return;
@@ -226,7 +227,7 @@ DuScriptUI.selector = function( container, addRefreshButton, helpTip )
 
         selector.text = item[ 0 ];
 
-        selector.onChange();
+        if (!quiet) selector.onChange();
     }
 
     selector.setCurrentText = function( text )

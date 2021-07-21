@@ -224,6 +224,30 @@ DuColor.prototype.lighter = function( ratio )
 	]);
 }
 
+/**
+ * Compares two colors
+ * @param {Boolean} [ignoreAlpha=false] Set to true to consider colors to be equal if they differ only by their alpha.
+ * @param {int} [precision=4] The precision to use (the number of decimals to compare).
+ * @return {Boolean} true if the colors are the same.
+ */
+DuColor.prototype.equals = function( other, ignoreAlpha, precision )
+{
+	if (!DuMath.equals( this.red, other.red, precision )) return false;
+	if (!DuMath.equals( this.green, other.green, precision )) return false;
+	if (!DuMath.equals( this.blue, other.blue, precision )) return false;
+	if (!DuMath.equals( this.alpha, other.alpha, precision )) return false;
+	return true;
+}
+
+/**
+	* Creates a JSON string representation of the color; Actually an RGBA float Array.
+	* @return {string} The JSON
+	*/
+DuColor.prototype.toJSON = function ()
+{
+	return '[' + this.red + ',' + this.green + ',' + this.blue + ',' + this.alpha + ']';
+}
+
 // ============== STATIC ===============
 
 /**
@@ -318,6 +342,7 @@ DuColor.fromHex = function( hexColor )
 
 /**
  * Creates a new color from HSL(A) values
+ * @static
  * @param {float[]} hsl the HSL(A) values
  * @return {DuColor} the color.
  */
@@ -359,6 +384,8 @@ DuColor.fromHSL = function( hsl )
 
 /**
  * Creates a new color from an 8-bit int RGB(A) array
+ * @static
+ * @param {int[]} source The 8-bit int RGB(A) array
  * @return {DuColor}
  */
 DuColor.fromInt = function( intRGB )
@@ -370,6 +397,17 @@ DuColor.fromInt = function( intRGB )
 	}
 
 	return new DuColor( floatColor );
+}
+
+/**
+	* Creates a color from a JSON string; Actually a JSON RGBA float Array.
+	* @static
+	* @param {string} json The JSON string
+	* @return {DuColor} The color
+	*/
+DuColor.fromJSON = function (json)
+{
+	return new DuColor( JSON.parse(json) );
 }
 
 /**
