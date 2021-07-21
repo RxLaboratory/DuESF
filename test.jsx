@@ -41,6 +41,8 @@
     var fileOpenSelector = DuScriptUI.fileSelector( ui.mainGroup, "Open file...", true, "A file selector");
     
     var fileSaveSelector = DuScriptUI.fileSelector( ui.mainGroup, "Save file...", true, "A file selector", undefined, 'save', "After Effects Project: *.aep, All files: *.*");
+    
+    var slider = DuScriptUI.slider( ui.mainGroup, 17, 0, 100, 'column', false, "A slider: ", "%");
 
     // This is required at the end of init (building ui, etc) and before running methods
     // Equivalent to using true as second arg of DuScriptUI.showUI

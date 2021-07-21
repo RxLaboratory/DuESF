@@ -2,10 +2,10 @@
 /**
  * @class
  * @name DuSlider
- * @classdesc For use with {@link DuAEF.DuScriptUI}.<br />
+ * @classdesc For use with {@link DuScriptUI}.<br />
  * A Nice Slider.<br />
  * This is not a real class, and cannot be instanciated.<br />
- * Use {@link DuAEF.DuScriptUI.addSlider} to create a Nice Slider.<br />
+ * Use {@link DuScriptUI.slider} to create a Nice Slider.<br />
  * The Nice Slider inherits the Group object from ScriptUI and has all of its properties and methods.
  * @property {int} value - Read-Only | The current value
  * @property {DuSlider~onChanging} onChanging - Function to execute when changing
@@ -33,8 +33,7 @@
  */
  
 /**
- * Creates a nice edittext where the edit text is shown only on click.
- * @memberof DuAEF.DuScriptUI
+ * Creates a slider.
  * @param {Window|Panel|Group}	container		- The ScriptUI Object which will contain and display the nice edit text.
  * @param {int}	[defaultValue=0]		- The initial value.
  * @param {int}	[min=0]		- The minimal value.
@@ -50,16 +49,16 @@
  * @return {DuSlider}	The custom Group containing the slider.
  * @todo implement helpTip
  */
-DuAEF.DuScriptUI.addSlider = function( container, defaultValue, min, max, orientation, invertedAppearance, prefix, suffix, textAlignment, valueButtons )
+DuScriptUI.slider = function( container, defaultValue, min, max, orientation, invertedAppearance, prefix, suffix, textAlignment, valueButtons )
 {
-    if ( typeof prefix === 'undefined' ) prefix = '';
-    if ( typeof suffix === 'undefined' ) suffix = '';
-    if ( typeof min === 'undefined' ) min = 0;
-    if ( typeof max === 'undefined' ) max = 100;
-    if ( typeof defaultValue === 'undefined' ) defaultValue = 0;
-    if ( typeof textAlignment === 'undefined' ) textAlignment = 'center';
-    if ( typeof valueButtons === 'undefined' ) valueButtons = [];
-    if ( orientation != 'row' ) orientation = 'column';
+    prefix = def(prefix, '');
+    suffix = def(suffix, '');
+    min = def( min, 0);
+    max = def( max, 100);
+    defaultValue = def(defaultValue, 0);
+    textAlignment = def(textAlignment, 'center');
+    valueButtons = def(valueButtons, []);
+    orientation = def(orientation, 'column');
 
     if ( valueButtons.length > 0 && textAlignment == 'center' )
     {
@@ -67,20 +66,13 @@ DuAEF.DuScriptUI.addSlider = function( container, defaultValue, min, max, orient
         else textAlignment = 'bottom';
     }
 
-    if ( prefix != '' )
-    {
-        DuScriptUI.uiStrings.push( prefix );
-        prefix = tr( prefix );
-    }
-    if ( suffix != '' )
-    {
-        DuScriptUI.uiStrings.push( suffix );
-        suffix = tr( suffix );
-    }
+    prefix = tr( prefix );
+    suffix = tr( suffix );
 
     var niceSlider = container.add( 'group' );
     niceSlider.orientation = orientation;
-    niceSlider.spacing = DuScriptUI.defaultSpacing;
+    niceSlider.spacing = 0;
+    niceSlider.margins = 0;
     niceSlider.alignment = [ 'fill', 'top' ];
     niceSlider.alignChildren = [ 'fill', 'fill' ];
 
@@ -94,6 +86,7 @@ DuAEF.DuScriptUI.addSlider = function( container, defaultValue, min, max, orient
 
     niceSlider.editGroup = DuScriptUI.group( niceSlider );
     niceSlider.editGroup.spacing = 0;
+    niceSlider.editGroup.margins = 0;
 
     //a function to add buttons before or after the edittext, depending on the textAlignment
     niceSlider.buttons = [];
@@ -126,11 +119,13 @@ DuAEF.DuScriptUI.addSlider = function( container, defaultValue, min, max, orient
     niceSlider.edit.edit.characters = numChars + prefix.length + suffix.length - 1;
     if ( orientation == 'row' )
     {
+        niceSlider.editGroup.alignment = [ 'right', 'fill'];
         niceSlider.edit.alignment = [ 'center', textAlignment ];
         niceSlider.edit.static.justify = 'center';
     }
     else
     {
+        niceSlider.editGroup.alignment = [ 'fill', 'bottom'];
         niceSlider.edit.alignment = [ textAlignment, 'center' ];
         niceSlider.edit.static.justify = textAlignment;
     }
