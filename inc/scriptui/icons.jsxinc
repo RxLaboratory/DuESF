@@ -19,9 +19,48 @@
 #include "icons/w12_box_unchecked.png.jsxinc"
 #include "icons/w12_folder.png.jsxinc"
 #include "icons/w12_file.png.jsxinc"
+#include "icons/w12_next.png.jsxinc"
+#include "icons/w12_goto.png.jsxinc"
 // normal 16px
-#include "icons/w16_arm_structure.png.jsxinc"
 #include "icons/w16_language.png.jsxinc"
 #include "icons/w16_settings_file.png.jsxinc"
 #include "icons/w16_user.png.jsxinc"
 #include "icons/w16_bug.png.jsxinc"
+
+/**
+ * The list of available icons.
+ * @enum {DuBinary}
+ * @static
+ * @memberof DuScriptUI
+ */
+DuScriptUI.Icon = {
+    AE_BLUE: w8_ae_blue,
+    RX_PURPLE: w8_rx_purple,
+    RAINBOX_RED: w8_rx_red,
+    BUG_REPORT: w12_bugreport,
+    FEATURE: w12_feature,
+    HELP: w12_help,
+    SETTINGS: w12_settings,
+    BACK: w12_back,
+    CLOSE: w12_close,
+    PIN: w12_pin,
+    OPTIONS: w12_options,
+    CHECK: w12_check,
+    RESET: w12_reset,
+    UPDATE: w12_update,
+    MENU: w12_menu,
+    BOX_CHECKED: w12_check,
+    RESET: w12_reset,
+    UPDATE: w12_update,
+    MENU: w12_menu,
+    BOX_UNCHECKED: w12_box_unchecked,
+    BOX_CHECKED: w12_box_checked,
+    FOLDER: w12_folder,
+    FILE: w12_file,
+    NEXT: w12_next,
+    LANGUAGE: w16_language,
+    SETTINGS_FILE: w16_settings_file,
+    USER: w16_user,
+    BUG: w16_bug,
+    GO_TO: w12_goto
+};

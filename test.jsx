@@ -4,6 +4,7 @@
 (function (thisObj) {
 
     #include "DuESF.jsxinc"
+    #include "inc/scriptui/icons/w16_arm_structure.png.jsxinc"
     // This is required
     DuESF.init( DuESF.HostApplication.AFTER_EFFECTS, "Duik NoName", "17.0.0-Dev", "RxLaboratory");
 

@@ -1,10 +1,10 @@
 /**
  * @class
  * @name DuRSSPanel
- * @classdesc For use with {@link DuAEF.DuScriptUI}.<br />
+ * @classdesc For use with {@link DuScriptUI}.<br />
  * A Panel with which displays an RSS feed.<br />
  * This is not a real class, and cannot be instanciated.<br />
- * Use {@link DuAEF.DuScriptUI.addRSSPanel} to create an RSS Panel.<br />
+ * Use {@link DuScriptUI.rssPanel} to create an RSS Panel.<br />
  * The DuRSSPanel inherits the Group object from ScriptUI and has all of its properties and methods.
  * @property {DuRSSChannel} channel - The RSS Channel displayed by this panel.
  * @property {DuRSSItem} currentItem - The current RSS item displayed by this panel.
@@ -47,7 +47,6 @@
 /**
  * Creates a panel which displays RSS feed.<br />
  * DuRSS uses a cache system and gets the content online only if more time than a given interval has passed, otherwise it gets the contents from cache.
- * @memberof DuAEF.DuScriptUI
  * @param {Window|Panel|Group} container - The ScriptUI Object which will contain and display the panel.
  * @param {int} [updateInterval=3600] - The minimum interval between two updates of the feed (in seconds).
  * @param {string} [rssUrl] - The url of the RSS server.
@@ -57,7 +56,7 @@
  * @param {int} [rssPort=80] - The server port.
  * @return {TabPanel} The panel.
  */
-DuAEF.DuScriptUI.addRSSPanel = function( container, updateInterval, rssUrl, titleColor, rssArgs, rssUserAgentVersion, rssPort )
+DuScriptUI.rssPanel = function( container, updateInterval, rssUrl, titleColor, rssArgs, rssUserAgentVersion, rssPort )
 {
     titleColor = def(titleColor, DuColor.Color.VERY_LIGHT_GREY);
     rssUrl = def(rssUrl, '');
@@ -82,21 +81,16 @@ DuAEF.DuScriptUI.addRSSPanel = function( container, updateInterval, rssUrl, titl
     //prev and next buttons
     var newsNavGroup = DuScriptUI.group( rssPanel, 'row' );
     newsNavGroup.alignment = [ 'fill', 'top' ];
-    DuScriptUI.uiStrings.push( "Previous" );
-    DuScriptUI.uiStrings.push( "Next" );
+
     ui_prevButton = DuScriptUI.button(
         newsNavGroup,
-        tr( "Previous" ),
-        DuBinary.toFile( w14_back_m ),
-        '',
-        DuBinary.toFile( w14_back_l )
+        DuScriptUI.String.PREVIOUS,
+        DuBinary.toFile( w12_back )
     );
     ui_nextButton = DuScriptUI.button(
         newsNavGroup,
-        tr( "Next" ),
-        DuBinary.toFile( w14_next_m ),
-        '',
-        DuBinary.toFile( w14_next_l )
+        DuScriptUI.String.NEXT,
+        DuBinary.toFile( w12_next )
     );
 
     //content
@@ -107,9 +101,8 @@ DuAEF.DuScriptUI.addRSSPanel = function( container, updateInterval, rssUrl, titl
     var ui_newsOpenButton = DuScriptUI.button(
         rssPanel,
         'Read More...',
-        DuBinary.toFile( w14_url_m ),
-        "Read more details online",
-        DuBinary.toFile( w14_url_l )
+        DuBinary.toFile( w12_goto ),
+        "Read more details online"
         );
     ui_newsOpenButton.alignment = ['fill','bottom'];
 
