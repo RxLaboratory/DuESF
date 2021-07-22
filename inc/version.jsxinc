@@ -68,6 +68,31 @@ DuVersion.prototype.higherThan = function( otherVersion )
 }
 
 /**
+ * Checks if this version is higher than or equals another.
+ * @memberof DuVersion
+ * @param {DuVersion|string} otherVersion The version to compare with.
+ * @return {bool} true if this version is more recent than or the same as otherVersion
+*/
+DuVersion.prototype.atLeast = function( otherVersion )
+{
+	if ( this.equals(otherVersion) ) return true;
+	return DuESF.Version.compare(this, otherVersion);
+}
+
+/**
+ * Checks if this version is the same as another.
+ * @memberof DuVersion
+ * @param {DuVersion|string} otherVersion The version to compare with.
+ * @return {bool} true if this version is the same
+*/
+DuVersion.prototype.equals = function( otherVersion )
+{
+	if (! (otherVersion instanceof DuVersion) ) otherVersion = new DuVersion( otherVersion );
+
+	return this.fullVersion == otherVersion.fullVersion;
+}
+
+/**
  * Compares two versions of an application
  * @static
  * @memberof DuVersion
