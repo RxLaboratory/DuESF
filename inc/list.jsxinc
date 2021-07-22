@@ -88,11 +88,11 @@ function DuList( obj )
 		* @readonly
 		* @type {Boolean}
 	*/
-	this.valid = false;
+	this.atEnd = false;
 	/**
 		* True if the iterator is between 0 and length-1. Note that on creation, the iterator is always invalid, but calling {@link DuList#next DuList.next()} moves it to the beginning and makes it valid.
 		* @memberof DuList.prototype
-		* @name atEnd
+		* @name valid
 		* @readonly
 		* @type {Boolean}
 	*/
@@ -197,14 +197,17 @@ DuList.prototype.getDuplicates = function ()
 }
 
 /**
-	* Removes all duplicated values from the list, and returns them
+	* Removes all duplicated values from the list, and returns them.<br />
+	* The internal list may be converted to an Array if needed.<br />
+	* The iterator invalidated.
 	* @memberof DuList
 	* @param {function}	[comparisonFunction] - A function which compares two values which returns true if the values are considered the same.
 	* @return {Array}	The duplicated (and removed) values. An empty list for Ae Collections as they can't have duplicated items.
 */
 DuList.prototype.removeDuplicates = function ( comparisonFunction )
 {
-	if (this.isAECollection) return new DuList();
+	// Convert to an Array
+	this.convertToArray();
 
 	var useFunction = typeof comparisonFunction !== 'undefined';
 	var removed = [];
@@ -226,6 +229,9 @@ DuList.prototype.removeDuplicates = function ( comparisonFunction )
 		if ( !useFunction && last === ante) removed.push( this.list.pop() );
 		if (useFunction && comparisonFunction( ante, last ) ) removed.push( this.list.pop() );
 	}
+
+	this.valid = false;
+	this.current = -1;
 	
 	return new DuList( removed );
 }
@@ -317,8 +323,152 @@ DuList.prototype.first = function()
 	return this.at( 0 );
 }
 
-// ================ ITERATOR METHODS ================
+/**
+ * Converts the stored list to an Array if it was a Collection.<br />
+ * This enables the modification of the list, but changes in the list will not be reflected in the application (if a layer is removed from the list, it is not removed in the application).
+ */
+DuList.prototype.convertToArray = function( index )
+{
+	// Nothing to do
+	if (!this.isCollection) return;
 
+	// The new array
+	var arr = [];
+	for (var i = 1, n = collection.length; i <= n; i++)
+	{
+		arr.push(collection[i]);
+	}
+	
+	this.isCollection = false;
+	this.isArray = true;
+	this.list = arr;
+}
+
+/**
+ * Removes the item at the given index. The internal list may be converted to an Array if needed.<br />
+ * The iterator invalidated.
+ * @param {int} index The index.
+ */
+DuList.prototype.remove = function( index )
+{
+	// Convert to an Array
+	this.convertToArray();
+	this.list.splice(index, 1);
+
+	this.valid = false;
+	this.current = -1;
+}
+
+/**
+ * Removes the first value from the list. The value must be checkable with the <code>==</code> operator if no <code>comparisonFunction</code> is provided.<br />
+ * The internal list may be converted to an Array if needed.<br />
+ * The iterator invalidated.
+ * @param {int} index The index.
+ * @param {function} [comparisonFunction] A function which compares two values which returns true if the values are considered the same.
+ */
+DuList.prototype.removeOne = function( value, comparisonFunction )
+{
+	// Convert to an Array
+	this.convertToArray();
+
+	var index = this.indexOf(value, comparisonFunction);
+	if (index >= 0) this.remove(index);
+
+	this.valid = false;
+	this.current = -1;
+}
+
+/**
+ * Removes all occurences of the value from the list. The value must be checkable with the <code>==</code> operator if no <code>comparisonFunction</code> is provided.<br />
+ * The internal list may be converted to an Array if needed.<br />
+ * The iterator invalidated.
+ * @param {int} index The index.
+ * @param {function} [comparisonFunction] A function which compares two values which returns true if the values are considered the same.
+ * @return {int} The number of items removed.
+ */
+DuList.prototype.removeAll = function( value, comparisonFunction )
+{
+	// Convert to an Array
+	this.convertToArray();
+
+	var count = 0;
+	var index = this.indexOf(value, comparisonFunction);
+	while (index >= 0)
+	{
+		this.remove(index);
+		count++;
+	}
+
+	this.valid = false;
+	this.current = -1;
+
+	return count;
+}
+
+/**
+ * Reimplements the Array.sort() method.<br />
+ * The internal list may be converted to an Array if needed.<br />
+ * The iterator invalidated.
+ * @param {function} compareFunction Specifies a function that defines the sort order. If omitted, the array elements are converted to strings, then sorted according to each character's Unicode code point value.
+ * @return {Array} The sorted array. Note that the array is sorted in place, and no copy is made.
+ */
+DuList.prototype.sort = function( compareFunction )
+{
+	// Convert to an Array
+	this.convertToArray();
+
+	this.list.sort( compareFunction );
+
+	this.valid = false;
+	this.current = -1;
+
+	return this.list;
+}
+
+/**
+ * Adds one or more elements to the end of the list and returns the new length of the list.<br />
+ * The internal list may be converted to an Array if needed.
+ * @param {any} element0 The element(s) to add to the end of the array.
+ * @param {any} element1 The element(s) to add to the end of the array.
+ * @param {any} element... The element(s) to add to the end of the array.
+ * @param {any} elementN The element(s) to add to the end of the array.
+ * @return {int} The new length of the list.
+ */
+DuList.prototype.push = function (  )
+{
+	this.convertToArray();
+
+	this.list = this.list.concat( arguments );
+
+	return this.list.length;
+}
+
+/**
+ * Merges the new array to the current list.<br />
+ * Note that to the contrary of the <code>Array.concat()</code> method, this does not create a new list, but modifies the current one in place.<br />
+ * The internal list may be converted to an Array if needed.
+ * @param {any[]} arr The other array.
+ * @return {int} The new length of the list.
+ */
+DuList.prototype.merge = function ( arr )
+{
+	this.convertToArray();
+
+	this.list = this.list.concat( arr );
+
+	return this.list.length;
+}
+
+/**
+ * Alias for {@link DuList#push DuList.push()}
+ * @alias DuList.push()
+ * @name append
+ * @memberof DuList.prototype
+ * @function
+ */
+DuList.prototype.append = DuList.prototype.push;
+
+// ================ ITERATOR METHODS ================
 
 /**
 	* Reinits the iterator, i.e. go to index -1 so that the next call to {@link DuList.next} returns the first item.
