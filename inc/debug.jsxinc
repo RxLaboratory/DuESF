@@ -105,7 +105,7 @@ DuDebug.inspect = function(obj, ownProperties)
 }
 
 /**
- * Alerts a nice TypeError description, if {@link DuESF.debug} is true.<br />
+ * Alerts a nice TypeError description, if {@link DuESF.debug} is true, and logs it if there's a log.<br />
  * Note that it does not actually throws an error.
  * @param {any} variable The failing argument
  * @param {string} varName The failing argument name
@@ -115,8 +115,6 @@ DuDebug.inspect = function(obj, ownProperties)
  */
 DuDebug.throwTypeError = function (variable, varName, varType, functionName)
 {
-	if (!DuESF.debug) return;
-
 	functionName = def (functionName, '');
 	if (typeof functionName === 'Function') {
 		functionName = func.toString().split('\n')[0];
@@ -127,11 +125,16 @@ DuDebug.throwTypeError = function (variable, varName, varType, functionName)
 	e += "\n" + varName + " should be of the type " + varType + "\n";
 	e += "but it is of the type " + jstype(variable);
 	if (typeof variable !== 'undefined') try { e += "and has value: " + variable.toString(); } catch(e) {};
-	alert(e);
+	
+	if (DuESF.debug) alert(e);
+	
+	DuDebug.log(e, DuDebug.LogLevel.CRITICAL);
+
+	return e;
 }
 
 /**
- * Alerts a nice UndefinedError description, if {@link DuESF.debug} is true.<br />
+ * Alerts a nice UndefinedError description, if {@link DuESF.debug} is true, and logs it if there's a log..<br />
  * Note that it does not actually throws an error.
  * @param {any} varName The name of the arg which should not be undefined
  * @param {any} [functionName] The name or description of the function throwing the error.
@@ -149,7 +152,37 @@ DuDebug.throwUndefinedError = function( varName, functionName )
 	var e = 'UndefinedError:\n';
 	if (functionName != '') e += "in function " + functionName + "\n";
 	e += "\n" + varName + " cannot be undefined.";
-	alert(e);
+
+	if (DuESF.debug) alert(e);
+
+	DuDebug.log(e, DuDebug.LogLevel.CRITICAL);
+
+	return e;
+}
+
+/**
+ * Alerts a nice Error description, if {@link DuESF.debug} is true, and logs it if there's a log..<br />
+ * Note that it does not actually throws an error.
+ * @param {any} message The message to show
+ * @param {any} [functionName] The name or description of the function throwing the error.
+ * @return {string} The (multiline) description for the error
+ */
+DuDebug.throwError = function( message, functionName )
+{
+	functionName = def (functionName, '');
+	if (typeof functionName === 'Function') {
+		functionName = func.toString().split('\n')[0];
+	}
+
+	var e = 'Error:\n';
+	if (functionName != '') e += "in function " + functionName + "\n";
+	e += "\n" + message;
+
+	if (DuESF.debug) alert(e);
+
+	DuDebug.log(e, DuDebug.LogLevel.CRITICAL);
+
+	return e;
 }
 
 /**
