@@ -165,9 +165,10 @@ DuDebug.throwUndefinedError = function( varName, functionName )
  * Note that it does not actually throws an error.
  * @param {any} message The message to show
  * @param {any} [functionName] The name or description of the function throwing the error.
+ * @param {Error} [error] A JS error.
  * @return {string} The (multiline) description for the error
  */
-DuDebug.throwError = function( message, functionName )
+DuDebug.throwError = function( message, functionName, error )
 {
 	functionName = def (functionName, '');
 	if (typeof functionName === 'Function') {
@@ -177,6 +178,11 @@ DuDebug.throwError = function( message, functionName )
 	var e = 'Error:\n';
 	if (functionName != '') e += "in function " + functionName + "\n";
 	e += "\n" + message;
+
+	if (typeof error !== 'undefined')
+	{
+		e += '\nAn error has occured in file\n' + error.fileName + '\nat line ' + error.line + '\n\n' + error.description;
+	}
 
 	if (DuESF.debug) alert(e);
 
