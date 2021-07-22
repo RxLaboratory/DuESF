@@ -31,7 +31,7 @@ DuMath.random = function (min, max)
 	* @param {int[]} value2 - The second value
 	* @return {float} The length
 */
-DuMath.getLength = function (value1,value2)
+DuMath.length = function (value1,value2)
 {
 	if (typeof value1 !== typeof value2)
 	{

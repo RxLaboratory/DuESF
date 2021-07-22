@@ -44,7 +44,7 @@ DuScriptUI.getClosestScreen = function(location)
         //get the center
         var c = [ (s.left + s.right)/2, (s.top + s.bottom) / 2];
         //get the distance
-        var d = DuMath.getLength(c, location);
+        var d = DuMath.length(c, location);
         if (d < distance)
         {
             screen = s;
