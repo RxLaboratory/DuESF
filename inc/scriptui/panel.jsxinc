@@ -545,7 +545,6 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
         {
             panel.settingsGroup.languageSelector = DuScriptUI.selector(
                 panel.settingsGroup,
-                false,
                 DuScriptUI.String.LANGUAGE_TIP
             )
 
@@ -573,7 +572,6 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
         // color
         panel.settingsGroup.colorSelector = DuScriptUI.selector(
             panel.settingsGroup,
-            false,
             DuScriptUI.String.COLOR_HIGHLIGHT_TIP
         );
         panel.settingsGroup.colorSelector.addButton(
@@ -605,7 +603,6 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
         // ui mode
         panel.settingsGroup.uiModeSelector = DuScriptUI.selector(
             panel.settingsGroup,
-            false,
             DuScriptUI.String.UI_MODE_TIP
         )
         panel.settingsGroup.uiModeSelector.addButton(
