@@ -16,7 +16,7 @@
  * @property {Selector~onChange} onChange  - The function to execute when the index changes.<br />
  * You can set your own function here, which must take no argument.<br />
  * The method is called after the index has changed.
- * @property {Selector~onRefresh} onRefresh  - The function to execute when the refresh button is clicked.<br />
+ * @property {Selector~onRefresh} onRefresh  - The function to execute to refresh the content.<br />
  * You can set your own function here, which must take no argument.
  */
 
@@ -28,7 +28,7 @@
  */
 
 /**
- * The function to execute when the refresh button is clicked.
+ * The function to execute to refresh the content.
  * @callback Selector~onRefresh
  * @memberof DuSelector
  */
@@ -79,11 +79,10 @@
 /**
  * Creates a drop down selector, using image buttons
  * @param {Window|Panel|Group} container - The ScriptUI Object which will contain and display the selector.
- * @param {bool} [addRefreshButton=false] - When true, the selector includes a refresh button. Add your function to refresh it with the onRefresh callback.
  * @param {bool} [helpTip] - The help tip to show on the selector
  * @return {Selector} - The selector
  */
-DuScriptUI.selector = function( container, addRefreshButton, helpTip )
+DuScriptUI.selector = function( container, helpTip )
 {
     helpTip = def(helpTip, '');
     helpTip = tr(helpTip);
@@ -94,6 +93,7 @@ DuScriptUI.selector = function( container, addRefreshButton, helpTip )
     selector.spacing = 0;
     selector.alignment = [ 'fill', 'top' ];
     selector.alignChildren = [ 'center', 'center' ];
+
     selector.mainGroup = selector.add( 'group' );
     selector.mainGroup.orientation = 'row';
     selector.mainGroup.margins = 1;
@@ -133,7 +133,7 @@ DuScriptUI.selector = function( container, addRefreshButton, helpTip )
     } );
     selector.popup.margins = 2;
     selector.popup.spacing = 0;
-    selector.popup.closeButton = DuScriptUI.button( selector.popup, DuScriptUI.String.CANCEL );
+    selector.popup.closeButton = DuScriptUI.button( selector.popup, tr(DuScriptUI.String.CANCEL) );
     selector.popup.closeButton.onClick = selector.popup.onDeactivate = function()
     {
         selector.popup.hide();
@@ -143,13 +143,6 @@ DuScriptUI.selector = function( container, addRefreshButton, helpTip )
     selector.popup.buttons.margins = 0;
     selector.popup.buttons.spacing = 0;
     selector.popup.hide();
-
-    //the refresh button
-    if (addRefreshButton)
-    {
-        selector.refreshButton = DuScriptUI.button( selector, '', w12_update );
-        selector.refreshButton.alignment = [ 'right', 'fill' ];
-    }
 
     //add default button
     selector.items = [];
@@ -244,6 +237,7 @@ DuScriptUI.selector = function( container, addRefreshButton, helpTip )
 
     selector.clicked = function( e )
     {
+        selector.onRefresh();
         var popup = false;
 
         if ( e.target === selector.menuButton ) popup = true;
@@ -263,11 +257,6 @@ DuScriptUI.selector = function( container, addRefreshButton, helpTip )
             else index++;
             selector.setCurrentIndex( index );
         }
-    }
-
-    selector.refreshed = function ( e )
-    {
-        selector.onRefresh();
     }
 
     //mouse over

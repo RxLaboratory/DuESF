@@ -146,6 +146,14 @@ DuTranslator.Settings.originalLanguageId = "en";
 DuTranslator.Settings.originalLanguageName = "English";
 
 /**
+ * The list of strings which have been translated.<br />
+ * This can be used to easily generate a new empty translation file.
+ * @type {DuList}
+ * @memberof DuTranslator.Settings
+ */
+DuTranslator.originalStrings = new DuList();
+
+/**
  * Load the list of available languages.<br />
  * <br />
  * If the language id and or the language name can't be found in the file, the file name will be used<br />
@@ -381,7 +389,7 @@ DuTranslator.generateTranslations = function (strings)
  * @function
  * @global
  * @param {string} str - 		The text to be translated
- * @param {int} or {string} context - 	Can be an integer or a string which is related to contextId or context in a translation file
+ * @param {int|string} context - 	Can be an integer or a string which is related to contextId or context in a translation file
  * @param {string[]} args -	Args to format into the translated string, default is []<br />
  * For example, when calling <code>tr("Welcome {#}", -1, "Paul")</code>, the output will be <code>"Welcome Paul"</code><br />
  * If too many args are given, they're ignored<br />
@@ -402,6 +410,8 @@ function tr(str, context, args)
 
 	var languageNumber = -1;
 	var res = str;
+
+	DuTranslator.originalStrings.pushUnique( str );
 
 	//a function to get the translation id from a given string
 	function getTranslationId( stri, noCapsNorSpaces )

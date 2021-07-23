@@ -16,7 +16,11 @@
 	*/
 function DuList( obj )
 {
-	newList  = def( newList, [] );
+	obj = def( obj, [] );
+	var newList = obj;
+	// Copy constructor
+	if (obj instanceof DuList)
+		newList = obj.list;
 
 	/**
 		* True if the original list is an After Effects Collection, false otherwise.
@@ -35,12 +39,13 @@ function DuList( obj )
 	*/
 	this.isArray = false;
 
-	// Copy constructor
-	if (obj instanceof DuList)
-		newList = obj.list;
-
 	//check if list is an Array or a Collection
-	if ( DuList.isAECollection( newList ) )
+	if ( 
+		newList instanceof ItemCollection ||
+		newList instanceof LayerCollection ||
+		newList instanceof OMCollection ||
+		newList instanceof RQItemCollection
+		)
 	{
 		this.isCollection = true;
 		this.isArray = false;
@@ -51,8 +56,15 @@ function DuList( obj )
 		this.isArray = true;
 	}
 	
-	//if note a list, store it as a one-item array
-	if ( !DuList.isList(newList) )
+	//if not a list, store it as a one-item array
+	if  (   !( 
+				newList instanceof Array ||
+				newList instanceof ItemCollection ||
+				newList instanceof LayerCollection ||
+				newList instanceof OMCollection ||
+				newList instanceof RQItemCollection ||
+				newList instanceof DuList
+		)	)
 	{
 		newList = [newList];
 	}
@@ -180,7 +192,7 @@ DuList.prototype.hasDuplicates = function ()
 */
 DuList.prototype.getDuplicates = function ()
 {
-	if (this.isAECollection) return new DuList();
+	if (this.isCollection) return new DuList();
 
 	var duplicates = [];
 
@@ -444,6 +456,50 @@ DuList.prototype.push = function (  )
 }
 
 /**
+ * Adds one or more elements to the end of the list and returns the new length of the list, only if the value is not already in the list<br />
+ * The internal list may be converted to an Array if needed.
+ * @param {function} [comparisonFunction] A function which compares two values which returns true if the values are considered the same.
+ * @param {any} element0 The element(s) to add to the end of the array.
+ * @param {any} element1 The element(s) to add to the end of the array.
+ * @param {any} element... The element(s) to add to the end of the array.
+ * @param {any} elementN The element(s) to add to the end of the array.
+ * @return {int} The new length of the list.
+ */
+DuList.prototype.pushUnique = function ( comparisonFunction )
+{
+	this.convertToArray();
+
+	var args = [];
+
+	for( var i = 1, n = arguments.length; i < n; i++)
+	{
+		var arg = arguments[i];
+		if ( this.indexOf(arg, comparisonFunction) >= 0 ) continue;
+		this.push( arg );
+	}
+
+	return this.list.length;
+}
+
+/**
+ * Alias for {@link DuList#push DuList.push()}
+ * @alias DuList.push()
+ * @name append
+ * @memberof DuList.prototype
+ * @function
+ */
+DuList.prototype.append = DuList.prototype.push;
+
+/**
+ * Alias for {@link DuList#pushUnique DuList.pushUnique()}
+ * @alias DuList.pushUnique()
+ * @name appendUnique
+ * @memberof DuList.prototype
+ * @function
+ */
+DuList.prototype.appendUnique = DuList.prototype.pushUnique;
+
+/**
  * Merges the new array to the current list.<br />
  * Note that to the contrary of the <code>Array.concat()</code> method, this does not create a new list, but modifies the current one in place.<br />
  * The internal list may be converted to an Array if needed.
@@ -458,15 +514,6 @@ DuList.prototype.merge = function ( arr )
 
 	return this.list.length;
 }
-
-/**
- * Alias for {@link DuList#push DuList.push()}
- * @alias DuList.push()
- * @name append
- * @memberof DuList.prototype
- * @function
- */
-DuList.prototype.append = DuList.prototype.push;
 
 // ================ ITERATOR METHODS ================
 
@@ -592,17 +639,6 @@ DuList.prototype.do = function (callBack)
 // ================ STATIC ==========================
 
 /**
-	* Checks if the object is an AE collection
-	* @static
-	* @param {Object} collection - The object to check
-	* @return {boolean} true if collection is a collection, false if it's an array or any other object
-*/
-DuList.isAECollection = function (collection)
-{
-	return collection instanceof ItemCollection || collection instanceof LayerCollection || collection instanceof OMCollection || collection instanceof RQItemCollection;
-}
-
-/**
 	* Checks if this is an Array or an After Effects collection type or a {@link DuList}
 	* @static
 	* @param {Array|Collection} list - The list to check
@@ -610,7 +646,14 @@ DuList.isAECollection = function (collection)
 */
 DuList.isList = function (list)
 {
-	return (list instanceof Array || DuList.isAECollection(list) || list instanceof DuList);
+	return (
+		list instanceof Array ||
+		list instanceof ItemCollection ||
+		list instanceof LayerCollection ||
+		list instanceof OMCollection ||
+		list instanceof RQItemCollection ||
+		list instanceof DuList
+	);
 }
 
 // ================ DEPRECATED ======================
