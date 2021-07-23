@@ -182,6 +182,7 @@ DuDebug.throwError = function( message, functionName, error )
 
 	if (typeof error !== 'undefined')
 	{
+		var file = new File(error.fileName);
 		e += 'In file\n\n' + file.name + '\n\nlocated in:\n' + file.parent.fsName + '\n\nat line ' + error.line + '\n\n' + error.description;
 	}
 
