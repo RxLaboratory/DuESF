@@ -152,7 +152,6 @@ DuESF.State = {
 DuESF.state = DuESF.State.NOT_SET;
 /**
  * True if the script is run for the first time (new or the version has changed since last run)
- * @memberof DuAEF
  * @type {boolean}
  * @readonly
  */

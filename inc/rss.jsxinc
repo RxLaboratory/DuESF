@@ -97,7 +97,6 @@ var DuRSS = {};
 * Gets the RSS content from a feed url, and returns it as a JS object.<br />
 * DuRSS uses a cache system and gets the content online only if more time than a given interval has passed, otherwise it gets the contents from cache.<br />
 * WARNING: This method needs network access but will not check if it has and may throw an error if not.
-* @memberof DuAEF.DuRSS
 * @param {string} url - The url of the server.
 * @param {string} [subfolder='feed'] - The subdirectory of the feed (without a leading '/')
 * @param {string} [userAgentVersion='DUAEF/0.0.0'] - Your script version name and number to be used as a user agent to connect to the server

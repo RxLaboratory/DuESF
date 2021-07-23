@@ -50,7 +50,6 @@ DuFolder.wipeFolder = function(folder)
 /**
 	* Recursively gets all files in a folder using a name filter
 	* Returns an array of File objects.
-	* @memberof DuAEF.DuJS.Fs
 	* @param {Folder}	folder	- The Folder
 	* @param {string|function}	[filter="*"]	- A search mask for file names, specified as a string or a function.
 	* A mask string can contain question mark (?) and asterisk (*) wild cards. Default is "*", which matches all file names.

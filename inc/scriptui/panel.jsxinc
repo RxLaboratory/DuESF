@@ -219,7 +219,6 @@ DuScriptUI.popUp = function( title, alignment, modal )
     function drawBorder ( drawState ) {
         var g = this.graphics;
         var c = DuColor.Color.DARK_GREY;
-        c = DuAEF.DuScriptUI.adjustColor( c );
 
         var pen = g.newPen( g.PenType.SOLID_COLOR, c, 1 );
 
@@ -413,9 +412,8 @@ DuScriptUI.popUp = function( title, alignment, modal )
 
 /**
  * Resizes and shows the main panel of a script
- * @memberof DuAEF.DuScriptUI
  * @param {Panel|Window}		ui	- The UI created by Duik.ui.createUI
- * @param {boolean}		[enterRunTime=false]	- Set to true to automatically set DuAEF to runtime state<br />
+ * @param {boolean}		[enterRunTime=false]	- Set to true to automatically set DuESF to runtime state<br />
  * Set this to false if the ui shown is not the actual main panel of the script and it is shown before the main panel has been loaded.
  */
 DuScriptUI.showUI = function( ui, enterRunTime )
@@ -457,7 +455,7 @@ DuScriptUI.showUI = function( ui, enterRunTime )
  * @class
  * @name DuScriptPanel
  * @extends DuPanel
- * @classdesc For use with {@link DuAEF.DuScriptUI}.<br />
+ * @classdesc For use with {@link DuScriptUI}.<br />
  * A Panel or Window.<br />
  * This is not a real class, and cannot be instanciated.<br />
  * Use {@link DuScriptUI.scriptPanel} to create a Panel.<br />

@@ -32,7 +32,7 @@ DuScriptUI.group = function( container, orientation )
 /**
  * @class
  * @name DuSeparator
- * @classdesc For use with {@link DuAEF.DuScriptUI}.<br />
+ * @classdesc For use with {@link DuScriptUI}.<br />
  * A DuSeparator.<br />
  * This is not a real class, and cannot be instanciated.<br />
  * Use {@link DuScriptUI.separator} to create a DuSeparator.<br />
@@ -43,7 +43,7 @@ DuScriptUI.group = function( container, orientation )
 
 /**
  * Adds separator with an optionnal name in the group
- * @memberof DuAEF.DuScriptUI
+ * @memberof DuScriptUI
  * @param {Panel|Window|Group} container - Where to create the separator
  * @param {string} [name] - The name displayed
  * @param {boolean} [checkable=false] - When true, adds a checkbox to the separator

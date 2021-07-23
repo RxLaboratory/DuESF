@@ -2,7 +2,7 @@
 /**
  * @class
  * @name DuCheckBox
- * @classdesc For use with {@link DuAEF.DuScriptUI}.<br />
+ * @classdesc For use with {@link DuScriptUI}.<br />
  * An Image Checkbox.<br />
  * This is not a real class, and cannot be instanciated.<br />
  * Use {@link DuScriptUI.checkBox} to create an Image Checkbox.<br />

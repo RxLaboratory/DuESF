@@ -149,6 +149,8 @@
             
                 <li data-name="DuESF.scriptAbout"><a href="DuESF.html#.scriptAbout">scriptAbout</a></li>
             
+                <li data-name="DuESF.scriptFirstRun"><a href="DuESF.html#.scriptFirstRun">scriptFirstRun</a></li>
+            
                 <li data-name="DuESF.scriptIcon"><a href="DuESF.html#.scriptIcon">scriptIcon</a></li>
             
                 <li data-name="DuESF.scriptName"><a href="DuESF.html#.scriptName">scriptName</a></li>
@@ -246,6 +248,8 @@
             <ul class="methods itemMembers">
             
             <span class="subtitle">Methods</span>
+            
+                <li data-name="DuFolder.getFiles"><a href="DuFolder.html#.getFiles">getFiles</a></li>
             
                 <li data-name="DuFolder.wipeFolder"><a href="DuFolder.html#.wipeFolder">wipeFolder</a></li>
             
@@ -373,6 +377,8 @@
             
                 <li data-name="DuPath.getBasename"><a href="DuPath.html#.getBasename">getBasename</a></li>
             
+                <li data-name="DuPath.getExtension"><a href="DuPath.html#.getExtension">getExtension</a></li>
+            
                 <li data-name="DuPath.getName"><a href="DuPath.html#.getName">getName</a></li>
             
                 <li data-name="DuPath.incrementName"><a href="DuPath.html#.incrementName">incrementName</a></li>
@@ -382,6 +388,8 @@
                 <li data-name="DuPath.newUniqueName"><a href="DuPath.html#.newUniqueName">newUniqueName</a></li>
             
                 <li data-name="DuPath.sizeFromBytes"><a href="DuPath.html#.sizeFromBytes">sizeFromBytes</a></li>
+            
+                <li data-name="DuPath.switchExtension"><a href="DuPath.html#.switchExtension">switchExtension</a></li>
             
             </ul>
             <ul class="events itemMembers">
@@ -453,7 +461,15 @@
             
             <span class="subtitle">Methods</span>
             
+                <li data-name="DuScriptUI.addBugButton"><a href="DuScriptUI.html#.addBugButton">addBugButton</a></li>
+            
                 <li data-name="DuScriptUI.addEvent"><a href="DuScriptUI.html#.addEvent">addEvent</a></li>
+            
+                <li data-name="DuScriptUI.addFeatureRequestButton"><a href="DuScriptUI.html#.addFeatureRequestButton">addFeatureRequestButton</a></li>
+            
+                <li data-name="DuScriptUI.addHelpButton"><a href="DuScriptUI.html#.addHelpButton">addHelpButton</a></li>
+            
+                <li data-name="DuScriptUI.buildAllTabs"><a href="DuScriptUI.html#.buildAllTabs">buildAllTabs</a></li>
             
                 <li data-name="DuScriptUI.button"><a href="DuScriptUI.html#.button">button</a></li>
             
@@ -485,9 +501,13 @@
             
                 <li data-name="DuScriptUI.selector"><a href="DuScriptUI.html#.selector">selector</a></li>
             
+                <li data-name="DuScriptUI.separator"><a href="DuScriptUI.html#.separator">separator</a></li>
+            
                 <li data-name="DuScriptUI.setBackgroundColor"><a href="DuScriptUI.html#.setBackgroundColor">setBackgroundColor</a></li>
             
                 <li data-name="DuScriptUI.setTextColor"><a href="DuScriptUI.html#.setTextColor">setTextColor</a></li>
+            
+                <li data-name="DuScriptUI.showUI"><a href="DuScriptUI.html#.showUI">showUI</a></li>
             
                 <li data-name="DuScriptUI.slider"><a href="DuScriptUI.html#.slider">slider</a></li>
             
@@ -787,6 +807,8 @@
                 <li data-name="DuBinary.convertToBinaryFile"><a href="DuBinary.html#.convertToBinaryFile">convertToBinaryFile</a></li>
             
                 <li data-name="DuBinary.fromFile"><a href="DuBinary.html#.fromFile">fromFile</a></li>
+            
+                <li data-name="DuBinary.toFile"><a href="DuBinary.html#.toFile">toFile</a></li>
             
                 <li data-name="DuBinary.toJsxincFile"><a href="DuBinary.html#.toJsxincFile">toJsxincFile</a></li>
             
@@ -4319,6 +4341,204 @@ Request something new.
             
 <dt>
     <div class="nameContainer">
+        <h4 class="name" id=".addBugButton">
+            
+            <span class="type-signature static">static</span>DuScriptUI.addBugButton<span class="signature">(container, <span class="optional">showLabel</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="DuButton.html">DuButton</a>}</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 8249
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Creates a button opening the bug report url.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		<th>Default</th>
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>container</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Panel</span>
+|
+
+<span class="param-type">Window</span>
+|
+
+<span class="param-type">Group</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                    
+                        
+                    
+                
+                The ScriptUI Object which will contain and display the button.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>showLabel</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">bool</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                When true, the button includes a "Bug Report" label.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        <a href="DuButton.html">DuButton</a>
+                        
+                    
+            </td>
+            <td class="description last">The bug button created.</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
         <h4 class="name" id=".addEvent">
             
             <span class="type-signature static">static</span>DuScriptUI.addEvent<span class="signature">(func, <span class="optional">timeOut</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{int}</span>
@@ -4326,7 +4546,7 @@ Request something new.
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 10101
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 10090
         </div>
         
     </div>
@@ -4511,6 +4731,473 @@ Request something new.
             
 <dt>
     <div class="nameContainer">
+        <h4 class="name" id=".addFeatureRequestButton">
+            
+            <span class="type-signature static">static</span>DuScriptUI.addFeatureRequestButton<span class="signature">(container, <span class="optional">showLabel</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="DuButton.html">DuButton</a>}</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 8281
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Creates a button opening the feature request url.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		<th>Default</th>
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>container</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Panel</span>
+|
+
+<span class="param-type">Window</span>
+|
+
+<span class="param-type">Group</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                    
+                        
+                    
+                
+                The ScriptUI Object which will contain and display the button.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>showLabel</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">bool</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                When true, the button includes a "Feature Request" label.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        <a href="DuButton.html">DuButton</a>
+                        
+                    
+            </td>
+            <td class="description last">The feature request button created.</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id=".addHelpButton">
+            
+            <span class="type-signature static">static</span>DuScriptUI.addHelpButton<span class="signature">(container, <span class="optional">showLabel</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="DuButton.html">DuButton</a>}</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 8313
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Creates a button opening the help panel.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		<th>Default</th>
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>container</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Panel</span>
+|
+
+<span class="param-type">Window</span>
+|
+
+<span class="param-type">Group</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                    
+                        
+                    
+                
+                The ScriptUI Object which will contain and display the button.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>showLabel</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">bool</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                When true, the button includes a "Help" label.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        <a href="DuButton.html">DuButton</a>
+                        
+                    
+            </td>
+            <td class="description last">The help button created.</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id=".buildAllTabs">
+            
+            <span class="type-signature static">static</span>DuScriptUI.buildAllTabs<span class="signature">()</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 10054
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Builds all the tabs from all the tab panels
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
         <h4 class="name" id=".button">
             
             <span class="type-signature static">static</span>DuScriptUI.button<span class="signature">(container, <span class="optional">text</span>, <span class="optional">image</span>, <span class="optional">helpTip</span>, <span class="optional">addOptionsPanel</span>, <span class="optional">orientation</span>, <span class="optional">alignment</span>, <span class="optional">localize</span>, <span class="optional">ignoreUIMode</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="DuButton.html">DuButton</a>}</span>
@@ -4518,7 +5205,7 @@ Request something new.
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 7883
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 7876
         </div>
         
     </div>
@@ -4965,7 +5652,7 @@ Request something new.
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 8523
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 8513
         </div>
         
     </div>
@@ -5345,7 +6032,7 @@ Request something new.
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 9205
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 9195
         </div>
         
     </div>
@@ -5719,7 +6406,7 @@ Request something new.
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 9497
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 9487
         </div>
         
     </div>
@@ -6098,7 +6785,7 @@ Request something new.
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 9399
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 9389
         </div>
         
     </div>
@@ -6404,7 +7091,7 @@ Request something new.
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 9817
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 9807
         </div>
         
     </div>
@@ -6415,7 +7102,7 @@ Request something new.
     
     
     <div class="description">
-        Creates a layout to add forms to a UI, using ScriptUI groups.<br />You can easily add controls/fields to this form using DuAEF.DuScriptUI.addField
+        Creates a layout to add forms to a UI, using ScriptUI groups.<br />You can easily add controls/fields to this form using DuScriptUI.addField
     </div>
     
 
@@ -6555,7 +7242,7 @@ Request something new.
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 8817
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 8807
         </div>
         
     </div>
@@ -6700,7 +7387,7 @@ Request something new.
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 8401
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 8391
         </div>
         
     </div>
@@ -6886,7 +7573,7 @@ Request something new.
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 8358
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 8348
         </div>
         
     </div>
@@ -7002,7 +7689,7 @@ Request something new.
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 6909
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 6904
         </div>
         
     </div>
@@ -7277,7 +7964,7 @@ Request something new.
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 8795
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 8785
         </div>
         
     </div>
@@ -7445,7 +8132,7 @@ Request something new.
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 7068
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 7063
         </div>
         
     </div>
@@ -7681,7 +8368,7 @@ Request something new.
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 10115
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 10104
         </div>
         
     </div>
@@ -7797,7 +8484,7 @@ Request something new.
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 7370
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 7363
         </div>
         
     </div>
@@ -8070,7 +8757,7 @@ Request something new.
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 8930
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 8920
         </div>
         
     </div>
@@ -8249,6 +8936,274 @@ Request something new.
             
 <dt>
     <div class="nameContainer">
+        <h4 class="name" id=".separator">
+            
+            <span class="type-signature static">static</span>DuScriptUI.separator<span class="signature">(container, <span class="optional">name</span>, <span class="optional">checkable</span>, <span class="optional">drawLine</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="DuSeparator.html">DuSeparator</a>}</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 8436
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Adds separator with an optionnal name in the group
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		<th>Default</th>
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>container</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Panel</span>
+|
+
+<span class="param-type">Window</span>
+|
+
+<span class="param-type">Group</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                    
+                        
+                    
+                
+                Where to create the separator</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                The name displayed</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>checkable</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                When true, adds a checkbox to the separator</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>drawLine</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                Draws a line when there is no name. When false, the separator is an empty space</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        <a href="DuSeparator.html">DuSeparator</a>
+                        
+                    
+            </td>
+            <td class="description last">The separator</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
         <h4 class="name" id=".setBackgroundColor">
             
             <span class="type-signature static">static</span>DuScriptUI.setBackgroundColor<span class="signature">(uiItem, color)</span>
@@ -8256,7 +9211,7 @@ Request something new.
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 8383
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 8373
         </div>
         
     </div>
@@ -8395,7 +9350,7 @@ Request something new.
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 8369
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 8359
         </div>
         
     </div>
@@ -8527,6 +9482,172 @@ Request something new.
             
 <dt>
     <div class="nameContainer">
+        <h4 class="name" id=".showUI">
+            
+            <span class="type-signature static">static</span>DuScriptUI.showUI<span class="signature">(ui, <span class="optional">enterRunTime</span>)</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 7283
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Resizes and shows the main panel of a script
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		<th>Default</th>
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>ui</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Panel</span>
+|
+
+<span class="param-type">Window</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                    
+                        
+                    
+                
+                The UI created by Duik.ui.createUI</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>enterRunTime</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                Set to true to automatically set DuESF to runtime state<br />Set this to false if the ui shown is not the actual main panel of the script and it is shown before the main panel has been loaded.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
         <h4 class="name" id=".slider">
             
             <span class="type-signature static">static</span>DuScriptUI.slider<span class="signature">(container, <span class="optional">defaultValue</span>, <span class="optional">min</span>, <span class="optional">max</span>, <span class="optional">orientation</span>, <span class="optional">invertedAppearance</span>, <span class="optional">prefix</span>, <span class="optional">suffix</span>, <span class="optional">textAlignment</span>, <span class="optional">valueButtons</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="DuSlider.html">DuSlider</a>}</span>
@@ -8534,7 +9655,7 @@ Request something new.
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 9647
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 9637
         </div>
         
     </div>
@@ -9021,7 +10142,7 @@ Request something new.
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 8132
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 8125
         </div>
         
     </div>
@@ -9265,7 +10386,7 @@ Request something new.
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 9341
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 9331
         </div>
         
     </div>
@@ -9563,7 +10684,7 @@ Request something new.
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 9958
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 9948
         </div>
         
     </div>
@@ -9737,7 +10858,7 @@ Request something new.
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 8229
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 8222
         </div>
         
     </div>
@@ -9944,7 +11065,7 @@ Request something new.
         
 
         <footer>
-            Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Fri Jul 23 2021 16:38:32 GMT+0200 (heure d’été d’Europe centrale)
+            Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Fri Jul 23 2021 17:02:29 GMT+0200 (heure d’été d’Europe centrale)
         </footer>
     </div>
 </div>

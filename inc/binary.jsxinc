@@ -165,7 +165,6 @@ DuBinary.toJsxincFile = function(file,category,outputFilePath,varName)
 
 /**
  * Creates a file from a DuBinary object representation.
- * @memberof DuAEF.DuBinary
  * @static
  * @deprecated
  * @param {DuBinary}	DuBinary  	- The DuBinary object containing the string representation.<br />

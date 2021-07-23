@@ -61,7 +61,7 @@ DuScriptUI.rssPanel = function( container, updateInterval, rssUrl, titleColor, r
     titleColor = def(titleColor, DuColor.Color.VERY_LIGHT_GREY);
     rssUrl = def(rssUrl, '');
     rssArgs = def(rssArgs, 'feed');
-    rssUserAgentVersion = def(rssUserAgentVersion, 'DuAEF/' + DuESF.version.fullVersion );
+    rssUserAgentVersion = def(rssUserAgentVersion, 'DuESF/' + DuESF.version.fullVersion );
     rssPort = def(rssPort, 80);
     updateInterval = def(updateInterval, 3600);
     

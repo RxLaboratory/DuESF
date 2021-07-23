@@ -187,7 +187,6 @@ DuScriptUI.tabPanel = function( container, tabOrientation )
 
 /**
  * Builds all the tabs from all the tab panels
- * @memberof DuAEF.DuScriptUI
  */
 DuScriptUI.buildAllTabs = function()
 {

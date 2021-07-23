@@ -14,7 +14,7 @@
  * @property {OCALayer[]} layers - The layers
  * @property {int} startTime - The frame number at which the animation starts
  * @property {int} endTime - The frame number at which the animation ends
- * @property {DuAEF.OCA.colorDepths} colorDepth - Bits per channel used in the document
+ * @property {DuOCA.colorDepths} colorDepth - Bits per channel used in the document
  * @property {float[]} backgroundColor - The background color
  * @property {string} originApp - The application name from which the document was exported.
  * @property {string} originAppVersion - The version of the origin application.
@@ -33,7 +33,7 @@
  * @property {OCALayer[]} childLayers - The child layers if this layer is a group.
  * @property {DuOCA.LayerType} type - The type of the layer. See the Layer Types section below
  * @property {string} fileType -  The type of the files used for the frames. The file extension, without the initial dot.
- * @property {DuAEF.OCA.BlendingModes} blendingMode - The blending mode of the layer
+ * @property {DuOCA.BlendingModes} blendingMode - The blending mode of the layer
  * @property {bool} inheritAlpha - The inherit alpaha option (preserve transparency)
  * @property {bool} animated - Whether this layer is a single frame or not.
  * @property {int[]} position - The coordinates of the center of the layer, in pixels [X,Y] in the document coordinates. 

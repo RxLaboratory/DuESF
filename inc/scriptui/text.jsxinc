@@ -2,7 +2,7 @@
 /**
  * @class
  * @name DuEditText
- * @classdesc For use with {@link DuAEF.DuScriptUI}.<br />
+ * @classdesc For use with {@link DuScriptUI}.<br />
  * A Nice EditText.<br />
  * This is not a real class, and cannot be instanciated.<br />
  * Use {@link DuScriptUI.editText} to create a Nice EditText.<br />

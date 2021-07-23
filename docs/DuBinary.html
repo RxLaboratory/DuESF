@@ -149,6 +149,8 @@
             
                 <li data-name="DuESF.scriptAbout"><a href="DuESF.html#.scriptAbout">scriptAbout</a></li>
             
+                <li data-name="DuESF.scriptFirstRun"><a href="DuESF.html#.scriptFirstRun">scriptFirstRun</a></li>
+            
                 <li data-name="DuESF.scriptIcon"><a href="DuESF.html#.scriptIcon">scriptIcon</a></li>
             
                 <li data-name="DuESF.scriptName"><a href="DuESF.html#.scriptName">scriptName</a></li>
@@ -246,6 +248,8 @@
             <ul class="methods itemMembers">
             
             <span class="subtitle">Methods</span>
+            
+                <li data-name="DuFolder.getFiles"><a href="DuFolder.html#.getFiles">getFiles</a></li>
             
                 <li data-name="DuFolder.wipeFolder"><a href="DuFolder.html#.wipeFolder">wipeFolder</a></li>
             
@@ -373,6 +377,8 @@
             
                 <li data-name="DuPath.getBasename"><a href="DuPath.html#.getBasename">getBasename</a></li>
             
+                <li data-name="DuPath.getExtension"><a href="DuPath.html#.getExtension">getExtension</a></li>
+            
                 <li data-name="DuPath.getName"><a href="DuPath.html#.getName">getName</a></li>
             
                 <li data-name="DuPath.incrementName"><a href="DuPath.html#.incrementName">incrementName</a></li>
@@ -382,6 +388,8 @@
                 <li data-name="DuPath.newUniqueName"><a href="DuPath.html#.newUniqueName">newUniqueName</a></li>
             
                 <li data-name="DuPath.sizeFromBytes"><a href="DuPath.html#.sizeFromBytes">sizeFromBytes</a></li>
+            
+                <li data-name="DuPath.switchExtension"><a href="DuPath.html#.switchExtension">switchExtension</a></li>
             
             </ul>
             <ul class="events itemMembers">
@@ -453,7 +461,15 @@
             
             <span class="subtitle">Methods</span>
             
+                <li data-name="DuScriptUI.addBugButton"><a href="DuScriptUI.html#.addBugButton">addBugButton</a></li>
+            
                 <li data-name="DuScriptUI.addEvent"><a href="DuScriptUI.html#.addEvent">addEvent</a></li>
+            
+                <li data-name="DuScriptUI.addFeatureRequestButton"><a href="DuScriptUI.html#.addFeatureRequestButton">addFeatureRequestButton</a></li>
+            
+                <li data-name="DuScriptUI.addHelpButton"><a href="DuScriptUI.html#.addHelpButton">addHelpButton</a></li>
+            
+                <li data-name="DuScriptUI.buildAllTabs"><a href="DuScriptUI.html#.buildAllTabs">buildAllTabs</a></li>
             
                 <li data-name="DuScriptUI.button"><a href="DuScriptUI.html#.button">button</a></li>
             
@@ -485,9 +501,13 @@
             
                 <li data-name="DuScriptUI.selector"><a href="DuScriptUI.html#.selector">selector</a></li>
             
+                <li data-name="DuScriptUI.separator"><a href="DuScriptUI.html#.separator">separator</a></li>
+            
                 <li data-name="DuScriptUI.setBackgroundColor"><a href="DuScriptUI.html#.setBackgroundColor">setBackgroundColor</a></li>
             
                 <li data-name="DuScriptUI.setTextColor"><a href="DuScriptUI.html#.setTextColor">setTextColor</a></li>
+            
+                <li data-name="DuScriptUI.showUI"><a href="DuScriptUI.html#.showUI">showUI</a></li>
             
                 <li data-name="DuScriptUI.slider"><a href="DuScriptUI.html#.slider">slider</a></li>
             
@@ -787,6 +807,8 @@
                 <li data-name="DuBinary.convertToBinaryFile"><a href="DuBinary.html#.convertToBinaryFile">convertToBinaryFile</a></li>
             
                 <li data-name="DuBinary.fromFile"><a href="DuBinary.html#.fromFile">fromFile</a></li>
+            
+                <li data-name="DuBinary.toFile"><a href="DuBinary.html#.toFile">toFile</a></li>
             
                 <li data-name="DuBinary.toJsxincFile"><a href="DuBinary.html#.toJsxincFile">toJsxincFile</a></li>
             
@@ -1794,7 +1816,7 @@
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5802
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5798
         </div>
         
     </div>
@@ -2146,7 +2168,7 @@
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 6047
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 6042
         </div>
         
     </div>
@@ -2348,7 +2370,7 @@
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5932
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5928
         </div>
         
     </div>
@@ -2521,6 +2543,252 @@
             
 <dt>
     <div class="nameContainer">
+        <h4 class="name" id=".toFile">
+            
+            <span class="type-signature static">static</span>DuBinary.toFile<span class="signature">(DuBinary, <span class="optional">outputFileName</span>, <span class="optional">onlyAtFirstRun</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{File|null}</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5990
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Creates a file from a DuBinary object representation.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		<th>Default</th>
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>DuBinary</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="DuBinary.html">DuBinary</a></span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                    
+                        
+                    
+                
+                The DuBinary object containing the string representation.<br />This object will be replaced by the File object created.<br />If a file object is provided (the file has already been extracted), does nothing.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>outputFileName</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    DuFolder.duesfData/DuAEF/scriptName/category/binaryfilename
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                The output filename.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>onlyAtFirstRun</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                Does not extract the file if it already exists and this is not the first time this version of the script is being used.<br />The file will be extracted only if the script is new or has just been updated (the version changed).</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+        <dt class="important tag-deprecated">Deprecated</dt><dd class="yes-def tag-deprecated"><ul class="dummy"><li>Yes</li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        File
+                         | 
+                    
+                        null
+                        
+                    
+            </td>
+            <td class="description last">The file created, null if the file could not be written.<br />If the file is not written, check user permissions, and check if the file and network access preference is checked.</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+        <h5>Examples</h5>
+        
+
+    
+    <pre class="prettyprint"><code>//First, include the text representation of the file (Add a # before the include word)include executable.exe.jsxinc// Now, a variable called `executable` (the original file name without extension) is available, you can pass this object to the `DuBinary.toFile()` method to extract it and get an ExtendScript File object representation of it.// Note: This object is an instance of a `DuBinary` class, which contains all information and a string representation of the original binary filevar execFile = DuBinary.toFile(executable);//Now, the file exists in the file system, and execFile is an ExtendScript File object.// The `DuBinary.toFile()` method extracts the file to the Application Data folder by default.execFile.fsName; // C:\users\duduf\appData\Roaming\DuAEF\icon.png (Example on Windows)</code></pre>
+    
+
+
+    
+    <pre class="prettyprint"><code>//You can specify the output file name. (Add a # before the include word)include preset.ffx.jsxincvar presetFile = DuBinary.toFile(preset,"C:/test/test_preset.ffx");presetFile.fsName; // C:\test\test_preset.exe");</code></pre>
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
         <h4 class="name" id=".toJsxincFile">
             
             <span class="type-signature static">static</span>DuBinary.toJsxincFile<span class="signature">(file, <span class="optional">category</span>, <span class="optional">outputFilePath</span>, <span class="optional">varName</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{File}</span>
@@ -2528,7 +2796,7 @@
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5957
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5953
         </div>
         
     </div>
@@ -2790,7 +3058,7 @@
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5869
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5865
         </div>
         
     </div>
@@ -3002,7 +3270,7 @@
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5905
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5901
         </div>
         
     </div>
@@ -3194,7 +3462,7 @@
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5843
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5839
         </div>
         
     </div>
@@ -3300,7 +3568,7 @@
         
 
         <footer>
-            Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Fri Jul 23 2021 16:38:32 GMT+0200 (heure d’été d’Europe centrale)
+            Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Fri Jul 23 2021 17:02:29 GMT+0200 (heure d’été d’Europe centrale)
         </footer>
     </div>
 </div>

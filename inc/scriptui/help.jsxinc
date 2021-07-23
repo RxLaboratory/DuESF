@@ -27,7 +27,6 @@ DuScriptUI.versionButton = function( container, image )
 
 /**
  * Creates a button opening the bug report url.
- * @memberof DuAEF.DuScriptUI
  * @param {Panel|Window|Group} container - The ScriptUI Object which will contain and display the button.
  * @param {bool} [showLabel=false] - When true, the button includes a "Bug Report" label.
  * @return {DuButton} The bug button created.
@@ -60,7 +59,6 @@ DuScriptUI.addBugButton = function( container, showLabel )
 
 /**
  * Creates a button opening the feature request url.
- * @memberof DuAEF.DuScriptUI
  * @param {Panel|Window|Group} container - The ScriptUI Object which will contain and display the button.
  * @param {bool} [showLabel=false] - When true, the button includes a "Feature Request" label.
  * @return {DuButton} The feature request button created.
@@ -93,7 +91,6 @@ DuScriptUI.addFeatureRequestButton = function( container, showLabel )
 
 /**
  * Creates a button opening the help panel.
- * @memberof DuAEF.DuScriptUI
  * @param {Panel|Window|Group} container - The ScriptUI Object which will contain and display the button.
  * @param {bool} [showLabel=false] - When true, the button includes a "Help" label.
  * @return {DuButton} The help button created.
