@@ -64,7 +64,7 @@ function DuVersion( version )
 */
 DuVersion.prototype.higherThan = function( otherVersion )
 {
-	return DuESF.Version.compare(this, otherVersion);
+	return DuVersion.compare(this, otherVersion);
 }
 
 /**
@@ -76,7 +76,7 @@ DuVersion.prototype.higherThan = function( otherVersion )
 DuVersion.prototype.atLeast = function( otherVersion )
 {
 	if ( this.equals(otherVersion) ) return true;
-	return DuESF.Version.compare(this, otherVersion);
+	return DuVersion.compare(this, otherVersion);
 }
 
 /**
