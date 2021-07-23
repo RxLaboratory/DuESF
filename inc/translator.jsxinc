@@ -215,9 +215,9 @@ DuTranslator.getAvailable = function ()
 
 		  file.close();
 
+		  if(langName == "") continue;
 
 		  if(langId == "") langId = fileName.replace(DuTranslator.Settings.prefix, "").replace(DuTranslator.Settings.suffix, "");
-		  if(langName == "") langName = langId;
 
 		  DuTranslator.languages[langId] = {
 			  "name": langName,
@@ -482,4 +482,5 @@ function tr(str, context, args)
 // Low-level undocumented function. Called by DuESF.init()
 DuTranslator.init = function() {
 	DuTranslator.Settings.folder = DuESF.scriptSettings.file.parent.absoluteURI + '/';
+	DuTranslator.Settings.prefix = DuESF.scriptName;
 }

@@ -27,15 +27,14 @@ function DuSettings( namespace, file, duesfSettings )
 	// Generate default path
 	if (typeof file === 'undefined')
 	{
-		var settingsFolder = new Folder( Folder.myDocuments.absoluteURI + "/" + namespace );
-		if ( !settingsFolder.exists ) settingsFolder.create();
-		file = new File( settingsFolder.absoluteURI + "/" + namespace + "_settings.json" );
+		file = new File( Folder.myDocuments.absoluteURI + "/" + namespace + "/" + namespace + "_settings.json" );
 	}
 
 	this.namespace = namespace;
 	if (file instanceof File) this.file = file;
 	else this.file = new File(file);
 	this.file.encoding = 'UTF-8';
+	this.folder = this.file.parent;
 	
 	if (!duesfSettings)
 	{
@@ -70,6 +69,15 @@ DuSettings.prototype.load = function()
  */
 DuSettings.prototype.save = function()
 {
+	try 
+	{
+		if ( !this.folder.exists ) this.folder.create();
+	}
+	catch (e)
+	{
+		DuDebug.throwError("Can't create folder", 'DuSettings.prototype.save', e);
+		return false;
+	}
 	return DuFile.saveJSON(this.data, this.file);
 }
 

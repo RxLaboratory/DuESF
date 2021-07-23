@@ -777,8 +777,11 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
 
         // Language
         if (panel.settingsGroup.languageSelector)
+        {
             DuESF.scriptSettings.data.common.language = DuTranslator.getLanguageId(panel.settingsGroup.languageSelector.label.text);
-
+            DuESF.scriptSettings.data.common.currentLanguageName = panel.settingsGroup.languageSelector.label.text;
+        }
+            
         // Dev Mode
         DuESF.scriptSettings.data.common.debug = panel.settingsGroup.debugButton.value;
 		DuESF.debug = panel.settingsGroup.debugButton.value;
