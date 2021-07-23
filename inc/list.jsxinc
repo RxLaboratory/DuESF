@@ -140,10 +140,22 @@ DuList.prototype.at = function( index )
 	var count = this.length();
 	if (count == 0) return null;
 
-	if (this.isCollection) index--;
+	var min, max;
 
-	if (index < 0) return null;
-	if (index > count-1 ) return null;
+	if (this.isCollection)
+	{
+		min = 1;
+		index++;
+		max = count;
+	}
+	else 
+	{
+		min = 0;
+		max = count -1;
+	}
+
+	if (index < min) return null;
+	if (index > max) return null;
 
 	return this.list[index];
 }
