@@ -278,7 +278,7 @@
             
                 <li data-name="DuMath.equals"><a href="DuMath.html#.equals">equals</a></li>
             
-                <li data-name="DuMath.getLength"><a href="DuMath.html#.getLength">getLength</a></li>
+                <li data-name="DuMath.length"><a href="DuMath.html#.length">length</a></li>
             
                 <li data-name="DuMath.log10"><a href="DuMath.html#.log10">log10</a></li>
             
@@ -636,6 +636,8 @@
             <ul class="members itemMembers">
             
             <span class="subtitle">Members</span>
+            
+                <li data-name="DuTranslator.Settings.DuTranslator.originalStrings"><a href="DuTranslator.Settings.html#.DuTranslator.originalStrings">DuTranslator.originalStrings</a></li>
             
                 <li data-name="DuTranslator.Settings.folder"><a href="DuTranslator.Settings.html#.folder">folder</a></li>
             
@@ -1121,13 +1123,13 @@
             
                 <li data-name="DuList.indexOf"><a href="DuList.html#.indexOf">indexOf</a></li>
             
-                <li data-name="DuList.isAECollection"><a href="DuList.html#.isAECollection">isAECollection</a></li>
-            
                 <li data-name="DuList.isList"><a href="DuList.html#.isList">isList</a></li>
             
                 <li data-name="DuList.removeDuplicates"><a href="DuList.html#.removeDuplicates">removeDuplicates</a></li>
             
                 <li data-name="DuList#append"><a href="DuList.html#append">append</a></li>
+            
+                <li data-name="DuList#appendUnique"><a href="DuList.html#appendUnique">appendUnique</a></li>
             
                 <li data-name="DuList#at"><a href="DuList.html#at">at</a></li>
             
@@ -1166,6 +1168,8 @@
                 <li data-name="DuList#previous"><a href="DuList.html#previous">previous</a></li>
             
                 <li data-name="DuList#push"><a href="DuList.html#push">push</a></li>
+            
+                <li data-name="DuList#pushUnique"><a href="DuList.html#pushUnique">pushUnique</a></li>
             
                 <li data-name="DuList#reinitIterator"><a href="DuList.html#reinitIterator">reinitIterator</a></li>
             
@@ -1790,7 +1794,7 @@
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 4839
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 770
         </div>
         
     </div>
@@ -2272,7 +2276,7 @@
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5566
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 1552
         </div>
         
     </div>
@@ -2504,7 +2508,7 @@
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5515
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 1501
         </div>
         
     </div>
@@ -2651,7 +2655,7 @@
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5497
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 1483
         </div>
         
     </div>
@@ -2798,7 +2802,7 @@
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5476
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 1462
         </div>
         
     </div>
@@ -3001,151 +3005,6 @@
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id=".isAECollection">
-            
-            <span class="type-signature static">static</span>DuList.isAECollection<span class="signature">(collection)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{boolean}</span>
-        </h4>
-    
-        
-        <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5438
-        </div>
-        
-    </div>
-
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Checks if the object is an AE collection
-    </div>
-    
-
-    
-    
-    
-    
-    
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>collection</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                The object to check</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        boolean
-                        
-                    
-            </td>
-            <td class="description last">true if collection is a collection, false if it's an array or any other object</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
         <h4 class="name" id=".isList">
             
             <span class="type-signature static">static</span>DuList.isList<span class="signature">(list)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{boolean}</span>
@@ -3153,7 +3012,7 @@
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5449
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 1428
         </div>
         
     </div>
@@ -3301,7 +3160,7 @@
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5536
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 1522
         </div>
         
     </div>
@@ -3483,7 +3342,7 @@
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5300
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 1265
         </div>
         
     </div>
@@ -3547,6 +3406,77 @@
             
 <dt>
     <div class="nameContainer">
+        <h4 class="name" id="appendUnique">
+            
+            appendUnique<span class="signature">()</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 1274
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Alias for <a href="DuList.html#pushUnique"><code>DuList.pushUnique()</code></a>
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
         <h4 class="name" id="at">
             
             at<span class="signature">(index)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{object}</span>
@@ -3554,7 +3484,7 @@
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 4964
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 907
         </div>
         
     </div>
@@ -3699,7 +3629,7 @@
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5168
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 1123
         </div>
         
     </div>
@@ -3770,7 +3700,7 @@
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 4949
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 892
         </div>
         
     </div>
@@ -3841,7 +3771,7 @@
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5411
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 1401
         </div>
         
     </div>
@@ -3957,7 +3887,7 @@
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5085
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 1040
         </div>
         
     </div>
@@ -4155,7 +4085,7 @@
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5158
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 1113
         </div>
         
     </div>
@@ -4255,7 +4185,7 @@
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5019
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 974
         </div>
         
     </div>
@@ -4355,7 +4285,7 @@
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5324
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 1314
         </div>
         
     </div>
@@ -4500,7 +4430,7 @@
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5347
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 1337
         </div>
         
     </div>
@@ -4600,7 +4530,7 @@
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5357
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 1347
         </div>
         
     </div>
@@ -4700,7 +4630,7 @@
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5004
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 959
         </div>
         
     </div>
@@ -4800,7 +4730,7 @@
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 4984
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 939
         </div>
         
     </div>
@@ -4980,7 +4910,7 @@
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5139
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 1094
         </div>
         
     </div>
@@ -5080,7 +5010,7 @@
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5148
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 1103
         </div>
         
     </div>
@@ -5180,7 +5110,7 @@
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 4944
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 887
         </div>
         
     </div>
@@ -5280,7 +5210,7 @@
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5291
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 1290
         </div>
         
     </div>
@@ -5425,7 +5355,7 @@
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5368
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 1358
         </div>
         
     </div>
@@ -5525,7 +5455,7 @@
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5390
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 1380
         </div>
         
     </div>
@@ -5625,7 +5555,7 @@
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5275
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 1230
         </div>
         
     </div>
@@ -5832,6 +5762,270 @@
             
 <dt>
     <div class="nameContainer">
+        <h4 class="name" id="pushUnique">
+            
+            pushUnique<span class="signature">(<span class="optional">comparisonFunction</span>, element0, element1, elementN)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{int}</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 1249
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Adds one or more elements to the end of the list and returns the new length of the list, only if the value is not already in the list<br />The internal list may be converted to an Array if needed.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>comparisonFunction</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                A function which compares two values which returns true if the values are considered the same.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>element0</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">any</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                    
+                        
+                    
+                
+                The element(s) to add to the end of the array.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>element1</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">any</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                    
+                        
+                    
+                
+                The element(s) to add to the end of the array.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>element...</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">any</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                    
+                        
+                    
+                
+                The element(s) to add to the end of the array.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>elementN</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">any</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                    
+                        
+                    
+                
+                The element(s) to add to the end of the array.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        int
+                        
+                    
+            </td>
+            <td class="description last">The new length of the list.</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
         <h4 class="name" id="reinitIterator">
             
             reinitIterator<span class="signature">()</span>
@@ -5839,7 +6033,7 @@
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5314
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 1304
         </div>
         
     </div>
@@ -5910,7 +6104,7 @@
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5190
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 1145
         </div>
         
     </div>
@@ -6026,7 +6220,7 @@
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5227
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 1182
         </div>
         
     </div>
@@ -6206,7 +6400,7 @@
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5045
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 1000
         </div>
         
     </div>
@@ -6358,7 +6552,7 @@
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5207
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 1162
         </div>
         
     </div>
@@ -6509,7 +6703,7 @@
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5253
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 1208
         </div>
         
     </div>
@@ -6660,7 +6854,7 @@
         
 
         <footer>
-            Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Thu Jul 22 2021 12:14:03 GMT+0200 (heure d’été d’Europe centrale)
+            Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Fri Jul 23 2021 16:27:29 GMT+0200 (heure d’été d’Europe centrale)
         </footer>
     </div>
 </div>
