@@ -690,6 +690,8 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
 
             // Debug mode
             panel.settingsGroup.debugButton.setChecked( debug );
+
+            panel.onResetSettings();
         }
 
         panel.settingsGroup.reset();
@@ -841,6 +843,7 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
         {
             if (!rootSettingsGroup.visible)
             {
+                if(panel.hasCommonSettings) panel.settingsGroup.reset();
                 panel.mainGroup.visible = false;
                 rootSettingsGroup.visible = true;
             }
