@@ -22,6 +22,7 @@
 #include "icons/w12_file.png.jsxinc"
 #include "icons/w12_next.png.jsxinc"
 #include "icons/w12_goto.png.jsxinc"
+#include "icons/w12_eye_dropper.png.jsxinc"
 // normal 16px
 #include "icons/w16_language.png.jsxinc"
 #include "icons/w16_settings_file.png.jsxinc"
@@ -70,5 +71,7 @@ DuScriptUI.Icon = {
     AE_ORANGE: w8_ae_orange,
     ROOKIE: w16_rookie,
     STANDARD: w16_standard,
-    EXPERT: w16_expert
+    EXPERT: w16_expert,
+    EYE_DROPPER: w12_eye_dropper
 };
+
