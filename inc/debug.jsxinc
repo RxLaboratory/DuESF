@@ -41,7 +41,8 @@ DuDebug.log = function (message,level)
  */
 DuDebug.error = function (error)
 {
-	var errorString = 'An error has occured in file\n' + error.fileName + '\nat line ' + error.line + '\n\n' + error.description;
+	var file = new File( error.fileName );
+	var errorString = 'An error has occured in file\n\n' + file.name + '\n\nlocated in:\n' + file.parent.fsName + '\n\nat line ' + error.line + '\n\n' + error.description;
 	DuDebug.log( errorString, DuDebug.LogLevel.WARNING );
 	if ( DuESF.debug )
 	{
@@ -181,7 +182,7 @@ DuDebug.throwError = function( message, functionName, error )
 
 	if (typeof error !== 'undefined')
 	{
-		e += '\nAn error has occured in file\n' + error.fileName + '\nat line ' + error.line + '\n\n' + error.description;
+		e += 'In file\n\n' + file.name + '\n\nlocated in:\n' + file.parent.fsName + '\n\nat line ' + error.line + '\n\n' + error.description;
 	}
 
 	if (DuESF.debug) alert(e);
