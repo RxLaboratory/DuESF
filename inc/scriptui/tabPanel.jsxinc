@@ -106,7 +106,6 @@ DuScriptUI.tabPanel = function( container, tabOrientation )
     {
         text = def( text, '');
         image = def (image, '');
-        if (DuESF.scriptSettings.data.common.uiMode >= 1 && image != '') text = '';
 
         //adds the new button
         var button = DuScriptUI.checkBox( panel.buttonsGroup, text, image, helpTip, undefined, undefined, panel.tabOrientation, true );

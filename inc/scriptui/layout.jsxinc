@@ -8,7 +8,7 @@
 DuScriptUI.group = function( container, orientation )
 {
     var group = container.add( "group" );
-    group.spacing = 2;
+    group.spacing = 0;
     group.margins = 0;
     if ( orientation !== undefined ) group.orientation = orientation;
     if ( group.orientation === "row" )

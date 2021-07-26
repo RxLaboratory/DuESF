@@ -110,7 +110,7 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
 
     var mainGroup = DuScriptUI.group( duButton, orientation );
     mainGroup.alignment = ['fill', 'fill'];
-    mainGroup.margins = 1;
+    mainGroup.margins = 0;
 
     if (text != '' && image == '') duButton.bgColor = DuColor.Color.ABYSS_GREY;
     else duButton.bgColor = DuColor.Color.TRANSPARENT;
@@ -121,7 +121,7 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
     {
         duButton.fillerL = mainGroup.add( 'statictext', undefined, " " );
         duButton.fillerL.alignment = [ 'left', 'fill' ];
-        if (alignment == 'left') duButton.fillerL.size = [14, -1];
+        if (alignment == 'left') duButton.fillerL.size = [18, -1];
     }
 
     // Add image
@@ -147,7 +147,7 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
     {
         duButton.fillerM = mainGroup.add( 'statictext', undefined, " " );
         duButton.fillerM.alignment = [ 'left', 'fill' ];
-        duButton.fillerM.size = [4, -1];
+        duButton.fillerM.size = [8, -1];
     }
 
     // Add text
