@@ -402,6 +402,8 @@ function tr(str, context, args)
 	var useContextId = true;
 	if ( DuDebug.checkVar( str, 'str', 'string', "DuTranslator::tr()" ) !== true ) return str;
 
+	if (str == '') return str;
+
 	if (typeof context === 'string' || context instanceof String) useContextId = false;
 	if (typeof context === 'undefined') context = -1;
 	else if (context < 0) context = -1;
