@@ -167,7 +167,6 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
         if (alignment == 'right') duButton.fillerR.size = [10, -1];
     }
 
-    
     duButton.onClick = function() {};
     duButton.onAltClick = function() {};
     duButton.onCtrlAltClick = function() {};
@@ -196,7 +195,6 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
             text
             )
     }
-
 
     //events
     duButton.clicked = function()
@@ -256,15 +254,10 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
     }
 
     //add events
-    mainGroup.addEventListener( 'click', function( e )
+    duButton.addEventListener( 'click', function( e )
     {
-        // For *some* reason, at least on Ae, the event is fired several times in a row...
-        // Just check it's not the case.
-        var now = Date.now();
-        var prev = duButton.clickTime;
-        duButton.clickTime = now;
-        if (now - prev < 500) return;
-
+        if(e.view.parent != duButton) return;
+        
         if ( e.shiftKey ) duButton.shiftClicked();
         else if ( e.altKey && e.ctrlKey ) duButton.ctrlAltClicked();
         else if ( e.altKey ) duButton.altClicked();
