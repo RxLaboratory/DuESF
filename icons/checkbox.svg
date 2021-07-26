@@ -14,7 +14,7 @@
    id="svg8"
    inkscape:version="1.0.2-2 (e86c870879, 2021-01-15)"
    sodipodi:docname="checkbox.svg"
-   inkscape:export-filename="D:\DEV_SRC\RxOT\DuAEF\src\DuESF\icons\w12\w12_box_unchecked.png"
+   inkscape:export-filename="D:\DEV_SRC\RxOT\DuAEF_Dugr\DuAEF\DuESF\icons\w12\w12_box_checked.png"
    inkscape:export-xdpi="36"
    inkscape:export-ydpi="36">
   <defs
@@ -168,7 +168,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -199,10 +199,10 @@
   <path
      d="M 7.5530278,8.460181 H 0.92789521 c -0.49895532,0 -0.90342717,-0.4044717 -0.90342717,-0.9034263 V 0.93162209 c 0,-0.49895537 0.40447185,-0.90342721 0.90342717,-0.90342721 H 7.5530278 c 0.4989553,0 0.903427,0.40447184 0.903427,0.90342721 V 7.5567547 c 0,0.4989546 -0.4044717,0.9034263 -0.903427,0.9034263 z M 3.7005507,6.6145739 7.1636878,3.1514367 c 0.1175962,-0.1175961 0.1175962,-0.3082757 0,-0.4258719 L 6.7378163,2.2996931 c -0.117596,-0.1175961 -0.3082757,-0.1176149 -0.4258905,0 L 3.4876054,5.1239945 2.1689971,3.8053861 c -0.1175961,-0.117596 -0.3082758,-0.117596 -0.4258907,0 L 1.3172347,4.231258 c -0.1175961,0.1175961 -0.1175961,0.3082757 0,0.4258718 l 1.9574254,1.9574256 c 0.1176149,0.1176333 0.3082757,0.1176333 0.4258906,1.85e-5 z"
      id="path889"
-     style="display:none;fill:#b1b1b1;fill-opacity:1;stroke-width:0.0188213" />
+     style="display:inline;fill:#646464;fill-opacity:1;stroke-width:0.0188213" />
   <path
      d="M 7.5795316,0 H 0.92046168 C 0.41895045,0 0.01240664,0.40654373 0.01240664,0.90805505 V 7.5671249 c 0,0.5015109 0.40654381,0.908055 0.90805504,0.908055 H 7.5795316 c 0.5015115,0 0.9080549,-0.4065441 0.9080549,-0.908055 V 0.90805505 C 8.4875865,0.40654373 8.0810431,0 7.5795316,0 Z m 0,7.5671249 H 0.92046168 V 0.90805505 H 7.5795316 Z"
      id="path900"
-     style="display:inline;fill:#b1b1b1;fill-opacity:1;stroke-width:0.0189178"
+     style="display:inline;fill:#646464;fill-opacity:1;stroke-width:0.0189178"
      sodipodi:nodetypes="sssssssssccccc" />
 </svg>

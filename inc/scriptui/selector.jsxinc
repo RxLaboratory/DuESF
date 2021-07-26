@@ -97,24 +97,30 @@ DuScriptUI.selector = function( container, helpTip )
     selector.mainGroup = selector.add( 'group' );
     selector.mainGroup.orientation = 'row';
     selector.mainGroup.margins = 1;
+    selector.mainGroup.spacing = 4;
     selector.mainGroup.alignment = [ 'fill', 'fill' ];
     selector.mainGroup.alignChildren = [ 'center', 'center' ];
     selector.helpTip = helpTip;
     DuScriptUI.setBackgroundColor( selector.mainGroup, DuColor.Color.OBSIDIAN );
 
-    selector.fillerL = selector.mainGroup.add( 'statictext', undefined, " " );
-    selector.fillerL.alignment = [ 'left', 'fill' ];
-    selector.fillerL.size = [5, -1];
-
     //the menu button
-    selector.menuButton = selector.mainGroup.add( 'image', undefined, w12_menu.binAsString );
+    selector.menuButton = selector.mainGroup.add( 'image', undefined, DuScriptUI.Icon.MENU.binAsString );
     selector.menuButton.alignment = [ 'left', 'center' ];
     selector.menuButton.helpTip = helpTip;
 
     //the image
-    selector.icon = selector.mainGroup.add( 'image' );
-    selector.icon.alignment = [ 'left', 'center' ];
+    var iconGroup = selector.mainGroup.add('group');
+    iconGroup.minimumSize = [20,20];
+    iconGroup.margins = 2;
+    iconGroup.alignment = ['left', 'fill'];
+    selector.icon = iconGroup.add( 'image', undefined, DuScriptUI.Icon.PLACEHOLDER );
+    selector.icon.alignment = [ 'center', 'center' ];
     selector.icon.helpTip = helpTip;
+
+    //add fillers to be able to click anywhere on the button
+    selector.fillerM = selector.mainGroup.add( 'statictext', undefined, " " );
+    selector.fillerM.alignment = [ 'left', 'fill' ];
+    selector.fillerM.size = [ 0, -1];
 
     //the text
     selector.label = selector.mainGroup.add( 'statictext', undefined, '' );

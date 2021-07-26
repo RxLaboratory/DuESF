@@ -34,10 +34,10 @@
  * Creates a checkbox with an optionnal icon. Must have at least an icon or a text, or both.
  * @param {Panel|Window|Group} container The ScriptUI Object which will contain and display the button.
  * @param {string} text The label of the button. Default: empty string
- * @param {string|DuBinary} [image=empty check box] The path to the icon. Default: empty string
+ * @param {string|DuBinary} [image] The path to the icon. Default: empty string
  * @param {string} [helpTip=''] The helptip. Default: empty string
  * @param {string} [textChecked=text] The label of the button displayed when it is checked.
- * @param {string|DuBinary} [imageChecked=checked check box] The image to show when it is checked
+ * @param {string|DuBinary} [imageChecked] The image to show when it is checked
  * @param {string} [orientation='row'] The orientation
  * @return {DuCheckBox} The checkbox created.
  */
@@ -49,10 +49,10 @@ DuScriptUI.checkBox = function( container, text, image, helpTip, textChecked, im
 
     if ( !container ) return null;
     text = def(text, '');
-    if (isTab && typeof image === 'undefined') drawIcon = false;
+    if (isTab) drawIcon = false;
     else drawIcon = true;
-    imageChecked = def(imageChecked, typeof image === 'undefined' ? w12_box_checked : image);
-    image = def(image, w12_box_unchecked);
+    imageChecked = def(imageChecked, '');
+    image = def(image, '');
     helpTip = def(helpTip, '');
     textChecked = def(textChecked, text);
 
@@ -83,45 +83,57 @@ DuScriptUI.checkBox = function( container, text, image, helpTip, textChecked, im
     duCheckBox.mainGroup = DuScriptUI.group(duCheckBox, 'column');
     duCheckBox.mainGroup.margins = 1;
     duCheckBox.mainGroup.alignment = ['fill', 'fill'];
+    
     duCheckBox.buttonGroup = DuScriptUI.group(duCheckBox.mainGroup, orientation);
     duCheckBox.buttonGroup.alignment = ['fill', 'top'];
 
-    //Add fillers to be able to click anywhere on the button
-    if ( text != '' && !isTab )
+    //the checkbox icon & image
+    duCheckBox.imageGroup = duCheckBox.buttonGroup.add('group');
+    duCheckBox.imageGroup.margins = 0;
+    duCheckBox.imageGroup.spacing = 4;
+    if ( text == '' || orientation == 'column' ) duCheckBox.imageGroup.alignment = [ 'center', 'center' ];
+    else duCheckBox.imageGroup.alignment = [ 'left', 'center' ];
+
+     var subgroup = duCheckBox.imageGroup.add('group');
+    subgroup.orientation = 'stacked';
+    subgroup.margins = 0;
+    subgroup.spacing = 0;
+    subgroup.size = [12,12];
+    if ( text == '' || orientation == 'column' ) subgroup.alignment = [ 'center', 'center' ];
+    else subgroup.alignment = [ 'left', 'center' ];
+
+    if (drawIcon)
     {
-        duCheckBox.fillerL = duCheckBox.buttonGroup.add( 'statictext', undefined, " " );
-        duCheckBox.fillerL.alignment = [ 'left', 'fill' ];
-        duCheckBox.fillerL.size = [ 10, -1];
+        duCheckBox.checkboxIcon = subgroup.add( 'image', undefined, DuScriptUI.Icon.BOX_UNCHECKED.binAsString );
+        duCheckBox.checkboxIcon.helpTip = helpTip;
+
+        duCheckBox.checkboxIconChecked = subgroup.add( 'image', undefined, DuScriptUI.Icon.BOX_CHECKED.binAsString );
+        duCheckBox.checkboxIconChecked.helpTip = helpTip;
+        duCheckBox.checkboxIconChecked.visible = false;
     }
 
     //checkbox icon
-    if ( drawIcon )
+    if ( image != '' )
     {
-        duCheckBox.imageGroup = duCheckBox.buttonGroup.add('group');
-        duCheckBox.imageGroup.margins = 0;
-        duCheckBox.imageGroup.spacing = 0;
-        if ( text == '' || orientation == 'column' ) duCheckBox.imageGroup.alignment = [ 'center', 'center' ];
-        else duCheckBox.imageGroup.alignment = [ 'left', 'center' ];
-
         var subgroup = duCheckBox.imageGroup.add('group');
         subgroup.orientation = 'stacked';
         subgroup.margins = 2;
         subgroup.spacing = 0;
         subgroup.minimumSize = [20,20];
-        subgroup.alignment = [ 'fill', 'fill' ];
+        subgroup.alignment = [ 'left', 'fill' ];
 
         if ( image instanceof DuBinary ) image = image.binAsString;
         if ( imageChecked instanceof DuBinary ) imageChecked = imageChecked.binAsString;
 
         duCheckBox.checkbox = subgroup.add( 'image', undefined, imageChecked );
-        duCheckBox.checkboxUnchecked = subgroup.add( 'image', undefined, image);
         duCheckBox.checkbox.helpTip = helpTip;
-        duCheckBox.checkboxUnchecked.helpTip = helpTip;
         duCheckBox.checkbox.visible = false;
         duCheckBox.checkbox.alignment = ['center', 'center'];
-        duCheckBox.checkboxUnchecked.alignment = ['center', 'center'];
 
-        
+        if (imageChecked != '')
+        duCheckBox.checkboxUnchecked = subgroup.add( 'image', undefined, image);
+        duCheckBox.checkboxUnchecked.helpTip = helpTip;
+        duCheckBox.checkboxUnchecked.alignment = ['center', 'center'];
     }
  
     //Add fillers to be able to click anywhere on the button
@@ -129,7 +141,7 @@ DuScriptUI.checkBox = function( container, text, image, helpTip, textChecked, im
     {
         duCheckBox.fillerM = duCheckBox.buttonGroup.add( 'statictext', undefined, " " );
         duCheckBox.fillerM.alignment = [ 'left', 'fill' ];
-        duCheckBox.fillerM.size = [ 2, -1];
+        duCheckBox.fillerM.size = [ 3, -1];
     }
 
     // label
@@ -169,6 +181,11 @@ DuScriptUI.checkBox = function( container, text, image, helpTip, textChecked, im
 
         if ( c )
         {
+            if (duCheckBox.checkboxIcon)
+            {
+                duCheckBox.checkboxIconChecked.visible = true;
+                duCheckBox.checkboxIcon.visible = false;
+            }
             //icon
             if ( duCheckBox.checkbox ) 
             {
@@ -191,6 +208,11 @@ DuScriptUI.checkBox = function( container, text, image, helpTip, textChecked, im
         }
         else 
         {
+            if (duCheckBox.checkboxIcon)
+            {
+                duCheckBox.checkboxIconChecked.visible = false;
+                duCheckBox.checkboxIcon.visible = true;
+            }
             if ( duCheckBox.checkbox ) 
             {
                 duCheckBox.checkbox.visible = false;
