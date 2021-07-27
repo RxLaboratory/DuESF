@@ -143,6 +143,7 @@ DuScriptUI.selector = function( container, helpTip )
     selector.popup.closeButton.onClick = selector.popup.onDeactivate = function()
     {
         selector.popup.hide();
+        DuScriptUI.eventFunctionsPaused = false;
     };
     selector.popup.buttons = selector.popup.add( 'group' );
     selector.popup.buttons.orientation = 'column';
@@ -255,6 +256,7 @@ DuScriptUI.selector = function( container, helpTip )
             var y = e.screenY - e.clientY;
             selector.popup.location = [ x, y ];
             selector.popup.show();
+            DuScriptUI.eventFunctionsPaused = true;
         }
         else
         {
@@ -262,6 +264,7 @@ DuScriptUI.selector = function( container, helpTip )
             if ( index == selector.items.length - 1 ) index = 0;
             else index++;
             selector.setCurrentIndex( index );
+            DuScriptUI.eventFunctionsPaused = false;
         }
     }
 
