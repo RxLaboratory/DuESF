@@ -11,6 +11,7 @@
 #include "icons/w12_back.png.jsxinc"
 #include "icons/w12_close.png.jsxinc"
 #include "icons/w12_pin.png.jsxinc"
+#include "icons/w12_pinned.png.jsxinc"
 #include "icons/w12_options.png.jsxinc"
 #include "icons/w12_check.png.jsxinc"
 #include "icons/w12_reset.png.jsxinc"
@@ -61,6 +62,7 @@ DuScriptUI.Icon = {
     NEXT: w12_next,
     OPTIONS: w12_options,
     PIN: w12_pin,
+    PINNED: w12_pinned,
     PLACEHOLDER: w16_placeholder,
     RAINBOX_RED: w8_rx_red,
     RESET: w12_reset,
