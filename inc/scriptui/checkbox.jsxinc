@@ -358,8 +358,10 @@ DuScriptUI.checkBox = function( container, text, image, helpTip, textChecked, im
         }
     }
 
-    duCheckBox.buttonGroup.addEventListener( "click", function(e)
+    duCheckBox.addEventListener( "click", function(e)
     {
+        if(e.view.parent != duCheckBox) return;
+        
         if ( e.altKey ) duCheckBox.altClicked();
         else duCheckBox.clicked(e);
     }, true );
