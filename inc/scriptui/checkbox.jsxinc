@@ -167,11 +167,15 @@ DuScriptUI.checkBox = function( container, text, image, helpTip, textChecked, im
 
         duCheckBox.label = labelGroup.add( 'statictext', undefined, text );
         duCheckBox.label.helpTip = helpTip;
+        if (orientation == 'column') duCheckBox.label.alignment = [ 'center', 'top' ];
+        else duCheckBox.label.alignment = [ 'left', 'fill' ];
         DuScriptUI.setTextColor( duCheckBox.label, DuColor.Color.APP_TEXT_COLOR );
         
         duCheckBox.labelChecked = labelGroup.add( 'statictext', undefined, textChecked );
         duCheckBox.labelChecked.helpTip = helpTip;
         duCheckBox.labelChecked.visible = false;
+        if (orientation == 'column') duCheckBox.labelChecked.alignment = [ 'center', 'top' ];
+        else duCheckBox.labelChecked.alignment = [ 'left', 'fill' ];
         DuScriptUI.setTextColor( duCheckBox.labelChecked, DuColor.Color.APP_HIGHLIGHT_COLOR );
     }
 
@@ -354,7 +358,7 @@ DuScriptUI.checkBox = function( container, text, image, helpTip, textChecked, im
         }
     }
 
-    duCheckBox.buttonGroup.addEventListener( "mousedown", function(e)
+    duCheckBox.buttonGroup.addEventListener( "click", function(e)
     {
         if ( e.altKey ) duCheckBox.altClicked();
         else duCheckBox.clicked(e);
