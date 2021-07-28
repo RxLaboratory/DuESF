@@ -209,6 +209,15 @@ DuScriptUI.mainPanel = function( container, scriptName, contentAlignment, bless 
  */
 
 /**
+ * Sets this parameter to <code>true</code> to prevent the next show of the popup.<br />
+ * This will prevent it from showing once (and only once).
+ * @type {Boolean}
+ * @memberof DuPopup
+ * @name block
+ * @default false
+ */
+
+/**
  * Creates a borderless popup
  * @param {string} title The title of the popup
  * @param {string[]} [alignment=[ "fill", "top" ]] The alignement of this window
@@ -326,9 +335,18 @@ DuScriptUI.popUp = function( title, alignment, modal )
     bottomMargin.maximumSize.height = bottomMargin.minimumSize.height = bottomMargin.preferredSize.height = 1;
     bottomMargin.alignment = [ 'fill', 'bottom' ];
 
+    popup.block = false;
+
     popup.tieTo = function (control)
     {
         control.addEventListener( 'click', function(e) {
+            if(e.view.parent != control) return;
+
+            if (popup.block)
+            {
+                popup.block = false;
+                return;
+            }
             var x = e.screenX - e.clientX;
             var y = e.screenY - e.clientY;
             //we need a layout and resize to get the window frame size
