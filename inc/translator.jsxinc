@@ -176,12 +176,13 @@ DuTranslator.getAvailable = function ()
 	var folder = new Folder(DuTranslator.Settings.folder);
 
 	// Get the list of translations
-	languageFiles = folder.getFiles(DuTranslator.Settings.prefix + '*' + DuTranslator.Settings.suffix);
+	var languageFiles = folder.getFiles(DuTranslator.Settings.prefix + '*' + DuTranslator.Settings.suffix);
 
 	for (var i = 0 ; i < languageFiles.length ; i++)
 	{
 		  var fileName = languageFiles[i].name;
-		  var langId = langName = "";
+		  var langId = "";
+		  var langName = "";
 
 		  // Determine the language name and the language id by reading the file
 		  // Values are stored at the top so it should be fase

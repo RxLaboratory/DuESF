@@ -65,7 +65,7 @@ DuColor.prototype.floatRGB = function(clamped)
 {
 	clamped = def( clamped, true );
 
-	col = [
+	var col = [
 		this.red,
 		this.green,
 		this.blue

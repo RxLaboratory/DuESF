@@ -2,7 +2,7 @@
  * XMP tools
  * @namespace
  */
-DuXMP = {};
+var DuXMP = {};
 
 DuXMP.initialized = false;
 
