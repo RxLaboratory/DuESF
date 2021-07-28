@@ -186,9 +186,32 @@ DuScriptUI.mainPanel = function( container, scriptName, contentAlignment, bless 
  */
 
 /**
+ * Pins the popup (it won't be hidden anymore when deactivated).
+ * @method
+ * @memberof DuPopup
+ * @name pin
+ * @param {boolean} [pinned=true] - true to pin the popup, false to un-pin it.
+ */
+
+/**
+ * Hides the popup.
+ * @method
+ * @memberof DuPopup
+ * @name hidePopup
+ */
+
+/**
+ * Hides the popup (alias for {@link DuPopup.hidePopup}).
+ * @alias DuPopup.hidePopup
+ * @method
+ * @memberof DuPopup
+ * @name cancel
+ */
+
+/**
  * Creates a borderless popup
  * @param {string} title The title of the popup
- * @param {string[]} [alignment=DuScriptUI.defaultColumnAlignment] The alignement of this window
+ * @param {string[]} [alignment=[ "fill", "top" ]] The alignement of this window
  * @param {boolean} [modal=false] Set the popup to a modal dialog
  * @return {DuPopup} The popup, a ScriptUI Window which is borderless, with a 'tieTo(control)' method.
  * @example
@@ -199,7 +222,7 @@ DuScriptUI.mainPanel = function( container, scriptName, contentAlignment, bless 
 DuScriptUI.popUp = function( title, alignment, modal )
 {
     modal = def(modal, false);
-    alignment = def( alignment, DuScriptUI.defaultColumnAlignment );
+    alignment = def( alignment, [ "fill", "top" ] );
     title = def (title, "");
     title = tr( title );
     
@@ -244,13 +267,12 @@ DuScriptUI.popUp = function( title, alignment, modal )
     };
 
     //create margins to dim buttons
-    var topMargin = popup.add( 'group' );
+    var topMargin = popup.add( 'button' );
     topMargin.onDraw = drawBorder;
     topMargin.side = 0;
     topMargin.minimumSize.height = DuScriptUI.defaultMargins;
     topMargin.alignment = [ 'fill', 'top' ];
     topMargin.maximumSize.height = topMargin.minimumSize.height = topMargin.preferredSize.height = 1;
-    DuScriptUI.setBackgroundColor( topMargin, DuColor.Color.DARK_GREY );
     
     var mainRow = popup.add( 'group' );
     mainRow.alignment = alignment;
@@ -266,7 +288,7 @@ DuScriptUI.popUp = function( title, alignment, modal )
 
     var mainColumn = mainRow.add( 'group' );
     mainColumn.orientation = 'column';
-    mainColumn.spacing = DuScriptUI.defaultMargins;
+    mainColumn.spacing = 0;
     mainColumn.margins = 0;
     mainColumn.alignment = ['fill','fill'];
 
@@ -277,18 +299,18 @@ DuScriptUI.popUp = function( title, alignment, modal )
     DuScriptUI.setBackgroundColor( titleBar, DuColor.Color.DARK_GREY );
     //add pin
     var pinButton = DuScriptUI.checkBox(titleBar, '', w12_pin, 'Pin window');
-    pinButton.alignment = [ 'left', 'top' ];
+    pinButton.alignment = [ 'left', 'center' ];
     //add title
     var titleLabel = titleBar.add('statictext', undefined,  title);
-    titleLabel.alignment = [ 'center', 'top' ];
-    if (modal) DuScriptUI.setTextColor(titleLabel, DuColor.Color.RAINBOX_RED)
+    titleLabel.alignment = [ 'center', 'center' ];
+    if (modal) DuScriptUI.setTextColor(titleLabel, DuColor.Color.APP_HIGHLIGHT_COLOR)
     //add close button
     var closeButton = DuScriptUI.button(titleBar, '', w12_close, 'Close');
-    closeButton.alignment = [ 'right', 'top' ];
+    closeButton.alignment = [ 'right', 'center' ];
 
     popup.content = mainColumn.add( 'group' );
     popup.content.margins = 0;
-    popup.content.spacing = DuScriptUI.defaultSpacing;
+    popup.content.spacing = 0;
     popup.content.alignChildren = alignment;
     popup.content.orientation = "column";
 
@@ -380,7 +402,7 @@ DuScriptUI.popUp = function( title, alignment, modal )
         DuScriptUI.eventFunctionsPaused = false;
     }
 
-    popup.cancel = hidePopup;
+    popup.cancel = popup.hidePopup = hidePopup;
 
     popup.onDeactivate = function () { if (!popup.pinned) hidePopup(); };
     closeButton.onClick = hidePopup;
