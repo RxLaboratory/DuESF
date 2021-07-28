@@ -366,6 +366,7 @@ DuList.prototype.convertToArray = function( index )
 	this.isCollection = false;
 	this.isArray = true;
 	this.list = arr;
+
 }
 
 /**
@@ -462,7 +463,10 @@ DuList.prototype.push = function (  )
 {
 	this.convertToArray();
 
-	this.list = this.list.concat( arguments );
+	for (var i = 0, n = arguments.length; i < n; i++)
+	{
+		this.list.push( arguments[i] );
+	}
 
 	return this.list.length;
 }
@@ -525,6 +529,46 @@ DuList.prototype.merge = function ( arr )
 	this.list = this.list.concat( arr );
 
 	return this.list.length;
+}
+
+/**
+ * Reimplementation of the <code>Array.join</code> function.<br />
+ * For collections, the name of the item will be used, or any other property which makes sense as a string list.
+ * @param {string} separator The separator to use
+ * @return {string} The new length of the list.
+ */
+DuList.prototype.join = function( separator )
+{
+	if (this.isArray) return this.list.join(separator);
+
+	// Collection without "name" property
+	if (this.list instanceof RQItemCollection)
+	{
+		var str = '';
+		this.do(function( item )
+		{
+			if (!this.current == 0) str += separator;
+			str += item.comp.name;
+			if (item.status == RQItemStatus.WILL_CONTINUE) str += ' (will continue)';
+			else if (item.status == RQItemStatus.NEEDS_OUTPUT) str += ' (no output)';
+			else if (item.status == RQItemStatus.UNQUEUED) str += ' (disabled)';
+			else if (item.status == RQItemStatus.QUEUED) str += ' (ready)';
+			else if (item.status == RQItemStatus.RENDERING) str += ' (rendering)';
+			else if (item.status == RQItemStatus.USER_STOPPED) str += ' (stopped)';
+			else if (item.status == RQItemStatus.ERR_STOPPED) str += ' (rendering error)';
+			else if (item.status == RQItemStatus.DONE) str += ' (done)';
+		});
+		return str;
+	}
+
+	// Other collections have a "name" property
+	var str = '';
+	this.do(function( item )
+	{
+		if (!this.current == 0) str += separator;
+		str += item.name;
+	});
+	return str;
 }
 
 // ================ ITERATOR METHODS ================
