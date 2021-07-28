@@ -417,12 +417,14 @@ DuList.prototype.removeAll = function( value, comparisonFunction )
 	this.convertToArray();
 
 	var count = 0;
-	var index = this.indexOf(value, comparisonFunction);
-	while (index >= 0)
+	var index;
+	do
 	{
-		this.remove(index);
+		index = this.indexOf(value, comparisonFunction);
+		if (index >= 0) this.remove(index);
 		count++;
 	}
+	while (index >= 0);
 
 	this.valid = false;
 	this.current = -1;
@@ -442,7 +444,8 @@ DuList.prototype.sort = function( compareFunction )
 	// Convert to an Array
 	this.convertToArray();
 
-	this.list.sort( compareFunction );
+	if (typeof compareFunction === 'undefined') this.list.sort();
+	else this.list.sort( compareFunction );
 
 	this.valid = false;
 	this.current = -1;
@@ -527,6 +530,27 @@ DuList.prototype.merge = function ( arr )
 	this.convertToArray();
 
 	this.list = this.list.concat( arr );
+
+	return this.list.length;
+}
+
+
+/**
+ * Merges the new array to the current list.<br />
+ * Will only add items if they're not already in the list.<br />
+ * Note that to the contrary of the <code>Array.concat()</code> method, this does not create a new list, but modifies the current one in place.<br />
+ * The internal list may be converted to an Array if needed.
+ * @param {any[]} arr The other array.
+ * @return {int} The new length of the list.
+ */
+DuList.prototype.mergeUnique = function ( arr, comparisonFunction )
+{
+	this.convertToArray();
+
+	for(var i = 0, n = arr.length; i < n; i++ )
+	{
+		this.pushUnique(comparisonFunction, arr[i] );
+	}
 
 	return this.list.length;
 }
