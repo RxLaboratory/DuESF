@@ -122,3 +122,35 @@ DuScriptUI.addHelpButton = function( container, showLabel )
 
     return button;
 }
+
+/**
+ * Creates a button opening the link for like/follow/donation
+ * @param {Panel|Window|Group} container - The ScriptUI Object which will contain and display the button.
+ * @param {bool} [showLabel=false] - When true, the button includes a <code>"I ♥ " + DuESF.scriptName</code> label.
+ * @return {DuButton} The like button created.
+ */
+DuScriptUI.addDonateButton = function ( container, showLabel )
+{
+    showLabel = def(showLabel, false);
+
+    var label = "I ♥ " + DuESF.scriptName;
+    label = tr(label);
+
+    var button = DuScriptUI.button(
+        container,
+        showLabel ? label : "",
+        w12_heart,
+        label
+    );
+
+    button.onClick = function ()
+    {
+        DuSystem.openURL( DuESF.donateURL );
+    }
+    button.onAltClick = function ()
+    {
+        DuSystem.openURL( 'http://patreon.com/duduf' );
+    }
+
+    return button;
+}

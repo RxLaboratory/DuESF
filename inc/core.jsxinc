@@ -98,6 +98,11 @@ DuESF.bugReportURL = '';
  */
 DuESF.featureRequestURL = '';
 /**
+ * The url for donations, support, like...
+ * @type {string}
+ */
+DuESF.donateURL = 'http://donate.rxlab.info';
+/**
  * The url about the script
  * @type {string}
  */

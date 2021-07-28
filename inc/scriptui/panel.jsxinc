@@ -909,6 +909,9 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
         helpButton.alignment = ['left', 'fill'];
     }
 
+    var donateButton = DuScriptUI.addDonateButton( panel.bottomGroup, false);
+    donateButton.alignment = ['left', 'fill'];
+
     var versionButton = DuScriptUI.versionButton(
         panel.bottomGroup
         );
