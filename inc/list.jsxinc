@@ -541,6 +541,7 @@ DuList.prototype.merge = function ( arr )
  * Note that to the contrary of the <code>Array.concat()</code> method, this does not create a new list, but modifies the current one in place.<br />
  * The internal list may be converted to an Array if needed.
  * @param {any[]} arr The other array.
+ * @param {function} [comparisonFunction] A function which compares two values which returns true if the values are considered the same.
  * @return {int} The new length of the list.
  */
 DuList.prototype.mergeUnique = function ( arr, comparisonFunction )
@@ -593,6 +594,39 @@ DuList.prototype.join = function( separator )
 		str += item.name;
 	});
 	return str;
+}
+
+/**
+ * Replaces all occurences of a value with another value.<br />
+ * The internal list may be converted to an Array if needed.
+ * @param {any} what The current value
+ * @param {any} with The new value
+ * @param {function} [comparisonFunction] A function which compares two values which returns true if the values are considered the same.
+ * @returns {int} The number of occurences which were updated.
+ */
+DuList.prototype.replace = function (previousValue, newValue, comparisonFunction)
+{
+	this.convertToArray();
+
+	var useFunction = typeof comparisonFunction !== 'undefined';
+
+	var count = 0;
+
+	for (var i = 0, n  = this.length(); i < n; i++)
+	{
+		if (!useFunction && this.at(i) == previousValue)
+		{
+			this.list[i] = newValue;
+			count++;
+		}
+		else if (useFunction && comparisonFunction( this.at(i), previousValue) )
+		{
+			this.list[i] = newValue;
+			count++;
+		}
+	}
+
+	return count;
 }
 
 // ================ ITERATOR METHODS ================
