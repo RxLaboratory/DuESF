@@ -24,4 +24,5 @@
 #include "inc/xmp.jsxinc"
 #include "inc/zip.jsxinc"
 #include "inc/oca.jsxinc"
+#include "inc/url.jsxinc"
 #include "inc/scriptui/core.jsxinc"
