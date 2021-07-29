@@ -739,6 +739,18 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
 
     DuScriptUI.separator( rootSettingsGroup );
 
+    panel.settingsGroup.updateButton = DuScriptUI.button(
+        rootSettingsGroup,
+        DuScriptUI.String.CHECK_UPDATE,
+        DuScriptUI.Icon.DOWNLOAD,
+        DuScriptUI.String.CHECK_UPDATE,
+        false,
+        'row',
+        'center'
+    )
+
+    DuScriptUI.separator( rootSettingsGroup );
+
     var validGroup = DuScriptUI.group( rootSettingsGroup, 'row');
 
     panel.settingsGroup.backButton = DuScriptUI.button(
@@ -842,6 +854,11 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
         DuESF.scriptSettings.reset();
         panel.settingsGroup.reset();
         panel.onResetSettings();
+    }
+
+    panel.settingsGroup.updateButton.onClick = function()
+    {
+        DuScriptUI.checkUpdate(undefined, undefined, true);
     }
 
     // == Bottom Line

@@ -13,6 +13,7 @@ DuScriptUI.String = {
     BUG_REPORT: "Bug report",
     BUG_REPORT_TIP: "Bug report\nTell us what's wrong!",
     CANCEL: "Cancel",
+    CHECK_UPDATE: "Check for updates",
     COLOR_HIGHLIGHT_TIP: "Set the highlight color.",
     CUSTOM: "Custom",
     CUSTOM_COLOR_TIP: "Select a custom color",
