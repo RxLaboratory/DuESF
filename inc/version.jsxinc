@@ -166,3 +166,73 @@ DuVersion.compare = function (vA, vB)
 
 	return vABuildString > vBBuildString;
 }
+
+/**
+ * Information got from an update query on a RxVersion server, as returned by {@link DuVersion.checkUpdate DuVersion.checkUpdate()}.
+ * @typedef {Object} DuVersion~UpdateReply
+ * @property {Boolean} update Wether this script needs an update.
+ * @property {string} version The available version.
+ * @property {string} name The name of the script.
+ * @property {string} description A description of the version.
+ * @property {string} downloadURL The link to download the current version.
+ * @property {string} changelogURL The link to the changelog.
+ * @property {string} donateURL The link to make a donation.
+ * @property {string} date The date of the version, in the form "yyyy-MM-dd hh:mm:ss".
+ * @property {string} message Information about success/errors.
+ * @property {Boolean} success false if the query failed and the version could not be retrieved.
+ * @property {Boolean} accepted false if the query was wrong or the server did not recognize it. Should always be true.
+
+/**
+ * Checks if a new version is available for the current script,<br/>
+ * using the DuESF.rxVersionURL if it is set.
+ * @returns {DuVersion~UpdateReply|null} An {@link DuVersion~UpdateReply} or null if the server could not be reached.
+ */
+DuVersion.checkUpdate = function()
+{
+	if ( DuESF.rxVersionURL == '' ) return null;
+	var co = new Socket;
+	co.encoding = 'UTF-8';
+	// No need for more than 2 seconds for just checking updates.
+	co.timeout = 2;
+    var url = DuESF.rxVersionURL.replace('http://','').replace('https://','').split('/');
+    var baseUrl = url.shift();
+	var fullUrl = baseUrl  + ':80';
+    if ( co.open( fullUrl ) )
+    {
+        // Build request
+		var os;
+		if (DuESF.mac) os = 'mac';
+        else os = 'win';
+
+		var args = {
+			"getVersion": "",
+			"name": DuESF.scriptName,
+			"version": DuESF.scriptVersion.fullVersion,
+			"os": os,
+			"osVersion": DuSystem.osVersion,
+			"host": DuESF.host,
+			"hostVersion": DuESF.hostVersion.fullVersion
+		}
+        var request = DuURL.buildGET( baseUrl, url, args );
+		var reply = '';
+		if ( co.writeln( request ) ) {
+        	reply = co.read();
+    	}
+
+		co.close();
+
+		// Sanitize reply (strip http headers, and parse)
+		reply = reply.substring( reply.indexOf('{'), reply.lastIndexOf('}')+1 );
+
+		try {
+			reply = JSON.parse(reply);
+		}
+		catch (e) {
+			if (DuESF.debug) alert(e);
+		}
+		
+		return reply;
+    }
+
+	return null;
+}

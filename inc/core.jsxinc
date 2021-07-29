@@ -133,6 +133,11 @@ DuESF.companyURL = 'https://rxlaboratory.org';
  */
 DuESF.companyIcon = '';
 /**
+ * The URL to a rxVersion server used to check for updates
+ * @type {string}
+ */
+DuESF.rxVersionURL = '';
+/**
  * The current DuESF File
  * @readonly
  * @memberof DuESF
@@ -167,7 +172,7 @@ DuESF.scriptFirstRun = true;
  * @enum {string}
  */
 DuESF.HostApplication = {
-    AFTER_EFFECTS: 'aftereffects',
+    AFTER_EFFECTS: 'after-effects',
     ILLUSTRATOR: 'illustrator',
     PHOTOSHOP: 'photoshop',
     INDESIGN: 'indesign'
@@ -181,7 +186,6 @@ DuESF.host = null;
  * The version of the host application
  */
 DuESF.hostVersion = new DuVersion();
-
 /**
  * This method has to be called once at the very beginning of the script, just after the inclusion of DuESF <code>#include DuESF.jsxinc</code>
  * @param {DuESF.host} hostApplication - The host application of the script.

@@ -133,7 +133,7 @@ DuScriptUI.addDonateButton = function ( container, showLabel )
 {
     showLabel = def(showLabel, false);
 
-    var label = "I ♥ " + DuESF.scriptName;
+    var label = "I \u2665 " + DuESF.scriptName;
     label = tr(label);
 
     var button = DuScriptUI.button(

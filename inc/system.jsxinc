@@ -20,6 +20,14 @@ var DuSystem = {};
         * @type {boolean}
         */
     DuSystem.win = !DuSystem.mac ;
+
+    /**
+        * A string identifying the version of the OS; may vary depending on the host application
+        * @memberof DuSystem
+        * @readonly
+        * @type {string}
+        */
+    DuSystem.osVersion = $.os.replace('Windows/','').replace('Windows','').replace('Mac OS','').replace('Mac','');
 })();
 
 /**
