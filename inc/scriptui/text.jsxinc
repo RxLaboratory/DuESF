@@ -202,10 +202,9 @@ DuScriptUI.editText = function( container, text, prefix, suffix, placeHolder, he
  * @param {bool} [multiline] - Set this to true to add a multiline text. Auto detected by default if the text contains the newline character.
  * @return {StaticText} The ScriptUI StaticText created.
  */
-DuScriptUI.staticText = function( container, text, color, helpTip, translatable, multiline )
+DuScriptUI.staticText = function( container, text, color, translatable, mline )
 {
-    helpTip = def(helpTip, '');
-    multiline = def(multiline, text.indexOf("\n") >= 0 )
+    mline = def(mline, text.indexOf("\n") >= 0 )
     translatable = def(translatable, true);
     color = def(color, DuColor.Color.APP_TEXT_COLOR.darker(130) );
 
@@ -213,12 +212,10 @@ DuScriptUI.staticText = function( container, text, color, helpTip, translatable,
 
     var t = container.add( 'statictext', undefined, text,
     {
-        multiline: multiline
+        multiline: mline
     } );
 
     DuScriptUI.setTextColor( t, color );
-
-    t.helpTip = helpTip;
 
     t.setText = function (txt) { t.text = txt; };
 
