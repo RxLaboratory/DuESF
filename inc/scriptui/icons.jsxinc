@@ -34,6 +34,8 @@
 #include "icons/w16_standard.png.jsxinc"
 #include "icons/w16_expert.png.jsxinc"
 #include "icons/w16_placeholder.png.jsxinc"
+#include "icons/w16_download.png.jsxinc"
+#include "icons/w16_list.png.jsxinc"
 
 /**
  * The list of available icons.
@@ -51,6 +53,7 @@ DuScriptUI.Icon = {
     BUG_REPORT: w12_bugreport,
     CHECK: w12_check,
     CLOSE: w12_close,
+    DOWNLOAD: w16_download,
     EXPERT: w16_expert,
     EYE_DROPPER: w12_eye_dropper,
     FEATURE: w12_feature,
@@ -60,6 +63,7 @@ DuScriptUI.Icon = {
     HEART: w12_heart,
     HELP: w12_help,
     LANGUAGE: w16_language,
+    LIST: w16_list,
     MENU: w12_menu,
     NEXT: w12_next,
     OPTIONS: w12_options,
