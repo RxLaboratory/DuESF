@@ -91,62 +91,6 @@ DuScriptUI.mainPanel = function( container, scriptName, contentAlignment, bless 
     bottomMargin.maximumSize.height = bottomMargin.minimumSize.height = bottomMargin.preferredSize.height = DuScriptUI.defaultMargins;
     bottomMargin.alignment = [ 'fill', 'bottom' ];
 
-    myPal.refreshUI = function( scriptFile )
-    {
-
-        function refresh ()
-        {
-            var ok = false;
-            DuScriptUI.dimControls();
-            // Remove everything
-            for ( var i = myPal.children.length - 1; i >= 0; i-- )
-            {
-                myPal.remove( this.children[ i ] );
-            }
-
-            // delete DuESF
-            DuESF.delete();
-
-            // Run the scriptFile
-            try
-            {
-                ok = true;
-                $.evalFile( scriptFile );
-            }
-            catch ( err )
-            {
-                ok = false;
-                //add debug info
-                if ( DuESF.debug )
-                {
-                    myPal.add( 'statictext', undefined, err.fileName,
-                    {
-                        multiline: true
-                    } );
-                    myPal.add( 'statictext', undefined, err.message,
-                    {
-                        multiline: true
-                    } );
-                    myPal.add( 'statictext', undefined, "on line" + err.line );
-                    //add a refresh button
-                    var button = myPal.add( 'button', undefined, "Refresh UI" );
-                    button.onClick = function()
-                    {
-                        myPal.refreshUI( scriptFile )
-                    };
-                }
-            }
-
-            // Recalculate UI
-            myPal.layout.layout( true );
-            myPal.layout.resize();
-
-            return ok;
-        }
-
-        return refresh.call( myPal );
-    }
-
     myPal.addEventListener( "mouseover", DuScriptUI.dimControls );
     topMargin.addEventListener( "mouseover", DuScriptUI.dimControls );
     leftMargin.addEventListener( "mouseover", DuScriptUI.dimControls );
@@ -942,9 +886,59 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
         refreshButton.maximumSize = [ 20, 20 ];
         refreshButton.onClick = function()
         {
-            panel.refreshUI( thisScriptFile );
+            DuScriptUI.refreshPanel( panel, scriptFile );
         };
     }
 
     return panel;
+}
+
+DuScriptUI.refreshPanel = function( panel, scriptFile )
+{
+    function refresh ()
+    {
+        var ok = false;
+        DuScriptUI.dimControls();
+        // Remove everything
+        for ( var i = panel.children.length - 1; i >= 0; i-- )
+        {
+            panel.remove( this.children[ i ] );
+        }
+
+        // Run the scriptFile
+        try
+        {
+            ok = true;
+            $.evalFile( scriptFile );
+        }
+        catch ( err )
+        {
+            ok = false;
+            //add debug info
+            if ( DuESF.debug )
+            {
+                panel.add( 'statictext', undefined, err.fileName,
+                {
+                    multiline: true
+                } );
+                panel.add( 'statictext', undefined, err.message,
+                {
+                    multiline: true
+                } );
+                panel.add( 'statictext', undefined, "on line" + err.line );
+                //add a refresh button
+                var button = panel.add( 'button', undefined, "Refresh UI" );
+                button.onClick = function()
+                {
+                    panel.refreshUI( scriptFile )
+                };
+            }
+        }
+
+        // Recalculate UI
+        panel.layout.layout( true );
+        panel.layout.resize();
+        return ok;
+    }
+    return refresh.call( panel );
 }
