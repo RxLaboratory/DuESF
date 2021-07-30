@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Namespace: DuDate</title>
+    <title>Namespace: DuURL</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -1852,7 +1852,7 @@
     </ul>
 </div>
     <div class="main">
-        <h1 class="page-title" data-filename="DuDate.html">Namespace: DuDate</h1>
+        <h1 class="page-title" data-filename="DuURL.html">Namespace: DuURL</h1>
         
 
 
@@ -1861,7 +1861,7 @@
     
 <header>
     <h2>
-    DuDate
+    DuURL
     </h2>
     
 </header>  
@@ -1872,7 +1872,7 @@
     
     
         
-            <div class="description">Date related methods</div>
+            <div class="description">Methods to manage URLS</div>
         
         
         
@@ -1916,6 +1916,55 @@
     
     
     
+        <h3 class="subsection-title">Members</h3>
+        
+        <dl>
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id=".EscapedChars"><span class="type-signature static">static</span>DuURL.EscapedChars</h4>
+    </div>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        The list of escaped characters in URLs
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+</dd>
+
+        </dl>
+    
     
     
         <h3 class="subsection-title">Methods</h3>
@@ -1924,14 +1973,14 @@
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id=".getMonth">
+        <h4 class="name" id=".buildGET">
             
-            <span class="type-signature static">static</span>DuDate.getMonth<span class="signature">(string)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{int}</span>
+            <span class="type-signature static">static</span>DuURL.buildGET<span class="signature">(host, <span class="optional">subfolders</span>, <span class="optional">argsArray</span>, <span class="optional">httpVersion</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{string}</span>
         </h4>
     
         
         <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5196
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 6914
         </div>
         
     </div>
@@ -1942,7 +1991,267 @@
     
     
     <div class="description">
-        Gets the month number from a literal localized name. 0 is january, 11 is december
+        Builds a HTTP GET request. The user-agent is named after DuESF.scriptName.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		<th>Default</th>
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>host</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                    
+                        
+                    
+                
+                The host, without port, without http part; for example: "duduf.com" or "version.rxlab.io"</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>subfolders</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                The subfolders.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>argsArray</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                An associative array with key/value pairs. Values will be escaped.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>httpVersion</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    "1.1"
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                An associative array with key/value pairs. Values will be escaped.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        string
+                        
+                    
+            </td>
+            <td class="description last">The query ready to be posted with a socket</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id=".buildRequest">
+            
+            <span class="type-signature static">static</span>DuURL.buildRequest<span class="signature">(arr)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{string}</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 6891
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Builds a query, made of "key=value" pairs.
     </div>
     
 
@@ -1973,7 +2282,152 @@
 	
         <tr>
             
-                <td class="name"><code>string</code></td>
+                <td class="name"><code>arr</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                An associative array with key/value pairs. Values will be escaped.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        string
+                        
+                    
+            </td>
+            <td class="description last">The query, with the leading ?.</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id=".escape">
+            
+            <span class="type-signature static">static</span>DuURL.escape<span class="signature">(str)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{string}</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 6877
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Escapes common characters from a string to be included in a GET request URL.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>str</code></td>
             
             
             <td class="type">
@@ -1989,152 +2443,7 @@
             
             <td class="description last">
                 
-                The month name</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        int
-                        
-                    
-            </td>
-            <td class="description last">The month number</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id=".getMonthName">
-            
-            <span class="type-signature static">static</span>DuDate.getMonthName<span class="signature">(string)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{string}</span>
-        </h4>
-    
-        
-        <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5213
-        </div>
-        
-    </div>
-
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Gets the month name from an index. 0 is january, 11 is december
-    </div>
-    
-
-    
-    
-    
-    
-    
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>string</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">int</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                The month index</td>
+                The string to escape.</td>
         </tr>
 	
 	
@@ -2199,159 +2508,7 @@
                         
                     
             </td>
-            <td class="description last">The month name</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id=".toString">
-            
-            <span class="type-signature static">static</span>DuDate.toString<span class="signature">(date)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{string}</span>
-        </h4>
-    
-        
-        <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 5227
-        </div>
-        
-    </div>
-
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Returns a pretty formatted string representing the date
-    </div>
-    
-
-    
-    
-    
-    
-    
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>date</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Date</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                The date</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-todo">TODO</dt>
-    <dd class="tag-todo">
-        <ul>
-            <li>format option</li>
-        </ul>
-    </dd>
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        string
-                        
-                    
-            </td>
-            <td class="description last">The date</td>
+            <td class="description last">The escaped string.</td>
         </tr>
     
     </tbody>
