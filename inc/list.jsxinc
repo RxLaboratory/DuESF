@@ -540,17 +540,18 @@ DuList.prototype.merge = function ( arr )
  * Will only add items if they're not already in the list.<br />
  * Note that to the contrary of the <code>Array.concat()</code> method, this does not create a new list, but modifies the current one in place.<br />
  * The internal list may be converted to an Array if needed.
- * @param {any[]} arr The other array.
+ * @param {any[]|DuList} arr The other array/list.
  * @param {function} [comparisonFunction] A function which compares two values which returns true if the values are considered the same.
  * @return {int} The new length of the list.
  */
 DuList.prototype.mergeUnique = function ( arr, comparisonFunction )
 {
+	arr = new DuList(arr);
 	this.convertToArray();
 
-	for(var i = 0, n = arr.length; i < n; i++ )
+	for(var i = 0, n = arr.length(); i < n; i++ )
 	{
-		this.pushUnique(comparisonFunction, arr[i] );
+		this.pushUnique(comparisonFunction, arr.at(i) );
 	}
 
 	return this.list.length;
