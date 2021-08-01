@@ -58,7 +58,7 @@ DuString.replace = function (string, find, replace, caseSensitive)
 }
 
 /**
-	* Replaces all occurences of "{#}" in the string by the args. Uses "?" if there are less args than occurences of "{#}".
+	* Replaces all occurences of "{#}" in the string by the args.
 	* @memberof DuString
 	* @param {string}	string			- The original string
 	* @param {string[]}	args			- The arguments
@@ -70,15 +70,9 @@ DuString.args = function (string, args)
     while(str.indexOf("{#}") !== -1)
 	{
 		// While there is stuff to format
-		if(args.length < 1)
-		{ // If no more args, replace with "?"
-			str = str.replace("{#}", "?"); // Will replace the first occurence
-		}
-		else
-		{
-			var arg = args.shift(); // Take the first arg and remove it
-			str = str.replace("{#}", arg);
-		}
+		if(args.length < 1) break;
+		var arg = args.shift(); // Take the first arg and remove it
+		str = str.replace("{#}", arg);
 	}
     return str;
 }

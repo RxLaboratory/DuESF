@@ -12,7 +12,11 @@ DuScriptUI.versionButton = function( container, image )
         container,
         'v' + DuESF.scriptVersion.fullVersion,
         image,
-        DuESF.companyName + '\n' + DuESF.scriptName + ' v' + DuESF.scriptVersion.fullVersion
+        DuESF.companyName + '\n' + DuESF.scriptName + ' v' + DuESF.scriptVersion.fullVersion,
+        false,
+        undefined,
+        undefined,
+        false
     )
 
     button.bgColor = DuColor.Color.TRANSPARENT;
@@ -134,13 +138,16 @@ DuScriptUI.addDonateButton = function ( container, showLabel )
     showLabel = def(showLabel, false);
 
     var label = "I \u2665 " + DuESF.scriptName;
-    label = tr(label);
 
     var button = DuScriptUI.button(
         container,
         showLabel ? label : "",
         w12_heart,
-        label
+        label,
+        false,
+        undefined,
+        undefined,
+        false
     );
 
     button.onClick = function ()
@@ -177,7 +184,7 @@ DuScriptUI.askLanguage = function ( callback, ui )
     var languages = DuTranslator.getPrettyNames();
     var languageCount = languages.length;
 
-    if (currentLanguageName != '' || languageCount == 0)
+    if (currentLanguageName != '' || languageCount <= 1)
     {
         callback()
         return;

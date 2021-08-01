@@ -48,15 +48,17 @@ DuScriptUI.group = function( container, orientation )
  * @param {string} [name] - The name displayed
  * @param {boolean} [checkable=false] - When true, adds a checkbox to the separator
  * @param {boolean} [drawLine=true] - Draws a line when there is no name. When false, the separator is an empty space
+ * @param {boolean} [translatable=true] - If false, the name won't be translated
  * @return {DuSeparator} The separator
  */
-DuScriptUI.separator = function( container, name, checkable, drawLine )
+DuScriptUI.separator = function( container, name, checkable, drawLine, translatable )
 {
     name = def(name, '' );
     checkable = def( checkable, false );
     drawLine = def( drawLine, true );
+    translatable = def(translatable, true);
 
-    name = tr( name );
+    if(translatable) name = tr( name );
 
     var separator = DuScriptUI.group( container, "row" );
     separator.margins = DuScriptUI.defaultMargins;

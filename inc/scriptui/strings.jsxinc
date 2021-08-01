@@ -45,5 +45,7 @@ DuScriptUI.String = {
     STANDARD: "Standard",
     STANDARD_UI_TIP: "The standard not-too-big UI.",
     EXPERT: "Expert",
+    EXPORT_TRANSLATION: "Export translation file",
+    EXPORT_TRANSLATION_TIP: "Export a translation file to be edited with DuTranslator.",
     EXPERT_UI_TIP: "The smallest UI, for expert users."
 }

@@ -510,23 +510,30 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
     rootSettingsGroup.visible = false;
     panel.settingsGroup = DuScriptUI.group(rootSettingsGroup, 'column');
     panel.settingsGroup.alignment = ['fill', 'top'];
-    var settingsTitle = DuScriptUI.separator( panel.settingsGroup, DuESF.scriptName + ' ' + DuScriptUI.String.SETTINGS );
+    var settingsTitle = DuScriptUI.separator( panel.settingsGroup, tr( '{#} ' + DuScriptUI.String.SETTINGS, undefined, DuESF.scriptName), false, true, false );
 
     panel.hasCommonSettings = false;
     panel.addCommonSettings = function()
     {
         if (panel.hasCommonSettings) return;
         panel.hasCommonSettings = true;
+
+        var common  = def(DuESF.scriptSettings.data.common, {});
+        var debug = def( common.debug, false);
+
         // Add default settings
         // language
         // Prepare languages, count how many there are, etc
         DuTranslator.getAvailable();
         var languages = DuTranslator.getPrettyNames();
         var languageCount = languages.length;
-        if (languageCount > 0)
+
+        var languageGroup = DuScriptUI.group(panel.settingsGroup, 'row');
+
+        if (languageCount > 1)
         {
             panel.settingsGroup.languageSelector = DuScriptUI.selector(
-                panel.settingsGroup,
+                languageGroup,
                 DuScriptUI.String.LANGUAGE_TIP
             )
 
@@ -540,6 +547,41 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
 
             panel.settingsGroup.languageSelector.setCurrentIndex(0);
         }
+        
+        if (debug)
+        {
+            var languageExportLabel = DuScriptUI.String.EXPORT_TRANSLATION;
+            if (panel.settingsGroup.languageSelector) languageExportLabel = '';
+            panel.settingsGroup.exportTranslationButton = DuScriptUI.button(
+                languageGroup,
+                languageExportLabel,
+                DuScriptUI.Icon.LANGUAGE_FILE,
+                DuScriptUI.String.EXPORT_TRANSLATION_TIP
+            )
+
+            panel.settingsGroup.exportTranslationButton.onClick = function() {
+                // Collect registered strings, add them to the list
+                var strs = new DuList();
+                for (str in DuScriptUI.String)
+                {
+                    if (DuScriptUI.String.hasOwnProperty(str))
+                    {
+                        strs.pushUnique( undefined, DuScriptUI.String[str]);
+                    }
+                }
+
+                DuTranslator.originalStrings.mergeUnique(strs);
+                
+                if (DuTranslator.originalStrings.length() == 0) return;
+
+                //Ask for file
+                var file = File.saveDialog ("Export translation File", "JSON: *.json");
+                if (!file) return;
+
+                DuTranslator.generateTranslationFile(file);
+            }
+        }
+
         // settings file
         panel.settingsGroup.fileButton = DuScriptUI.fileSelector (
             panel.settingsGroup,
@@ -663,14 +705,15 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
             panel.settingsGroup.colorSelector.customColor = customColor;
 
             // Language
-            for (var i = 0 , num = panel.settingsGroup.languageSelector.items.length; i < num; i++)
-            {
-                if (panel.settingsGroup.languageSelector.items[i][0] == currentLanguageName)
+            if (panel.settingsGroup.languageSelector)
+                for (var i = 0 , num = panel.settingsGroup.languageSelector.items.length; i < num; i++)
                 {
-                    panel.settingsGroup.languageSelector.setCurrentIndex(i);
-                    break;
+                    if (panel.settingsGroup.languageSelector.items[i][0] == currentLanguageName)
+                    {
+                        panel.settingsGroup.languageSelector.setCurrentIndex(i);
+                        break;
+                    }
                 }
-            }
 
             // Debug mode
             panel.settingsGroup.debugButton.setChecked( debug );

@@ -10,10 +10,10 @@
  */
 function DuTranslation(source,translation,comment,context,contextId)
 {
-	if (typeof translation === 'undefined') translation = '';
-	if (typeof comment === 'undefined') comment = '';
-	if (typeof context === 'undefined') context = '';
-	if (typeof contextId === 'undefined') contextId = 0;
+	translation = def(translation, tr(source) );
+	comment = def(comment, '');
+	context = def(context, '');
+	contextId = def(contextId, 0);
 	/**
 		* The source string
 		* @memberof DuTranslation.prototype
@@ -332,23 +332,24 @@ DuTranslator.setPrettyLanguage = function (languageName)
 /**
  * Creates a file for translation with the given base strings.
  * @memberof DuTranslator
- * @param {DuTranslation[]|strings} [translations=DuTranslator.localizedStrings] - The translations or source strings to be included in the translation file.
+ * @param {DuTranslation[]|DuList.<string>|string[]} [translations=DuTranslator.originalStrings] - The translations or source strings to be included in the translation file.
  * @param {File|string} file - The file or URI
- * @param {string} [appName="dutranslator"] - A name for the app using this translation file.
- * @param {string} [version="0.0"] - A version (as a string) for this translation file or app.
+ * @param {string} [appName=DuESF.scriptName] - A name for the app using this translation file.
+ * @param {string} [version=DuESF.scriptVersion.fullVersion] - A version (as a string) for this translation file or app.
  * @param {string} [languageId=DuTranslator.current] - A version (as a string) for this translation file or app.
  * @param {string} [languageName=DuTranslator.currentName] - A version (as a string) for this translation file or app.
  */
 DuTranslator.generateTranslationFile = function (file,translations,appName,version,languageId,languageName)
 {
 	if (!(file instanceof File)) file = new File(file);
-	if (typeof translations === 'undefined') translations = DuTranslator.localizedStrings;
-	if (typeof appName === 'undefined') appName = 'dutranslator';
-	else appName = appName.toLowerCase();
-	if (typeof version === 'undefined') version = '0.0';
-	if (typeof languageId === 'undefined') languageId = DuTranslator.current;
-	if (typeof languageName === 'undefined') languageName = DuTranslator.currentName;
-	if (!translations.length) return;
+	translations = def(translations, DuTranslator.originalStrings);
+	appName = def( appName, DuESF.scriptName);
+	version = def(version, DuESF.scriptVersion.fullVersion);
+	languageId = def( languageId, DuTranslator.current);
+	languageName = def( languageName, DuTranslator.currentName );
+
+	if(translations instanceof DuList) translations = translations.list;
+	if (translations.length == 0) return;
 
 	//if translations is an array of strings, convert to translations
 	if (typeof translations[0] === 'string') translations = DuTranslator.generateTranslations(translations);
@@ -370,18 +371,19 @@ DuTranslator.generateTranslationFile = function (file,translations,appName,versi
 /**
  * Converts an Array of strings to an Array of empty translations
  * @memberof DuTranslator
- * @param {string[]} strings - The base strings to convert.
- * @return {DuTranslation[]} The empty translations
+ * @param {string[]|DuList.<string>} strings - The base strings to convert.
+ * @return {string[]} The empty translations
  */
 DuTranslator.generateTranslations = function (strings)
 {
-	DuList.removeDuplicates(strings);
-	var translations = [];
-	for (var i = 0, num = strings.length; i < num ; i++)
+	strings = new DuList(strings);
+	strings.removeDuplicates();
+	var translations = new DuList();
+	for (var i = 0, num = strings.length(); i < num ; i++)
 	{
-		translations.push(new DuTranslation(strings[i]));
+		translations.push(new DuTranslation(strings.at(i)));
 	}
-	return translations;
+	return translations.list;
 }
 
 /**
@@ -414,7 +416,7 @@ function tr(str, context, args)
 	var languageNumber = -1;
 	var res = str;
 
-	DuTranslator.originalStrings.pushUnique( str );
+	DuTranslator.originalStrings.pushUnique( undefined, str );
 
 	//a function to get the translation id from a given string
 	function getTranslationId( stri, noCapsNorSpaces )
@@ -465,19 +467,7 @@ function tr(str, context, args)
 	}
 
 	// Args process
-	while(res.indexOf("{#}") !== -1)
-	{
-		// While there is stuff to format
-		if(args.length < 1)
-		{ // If no more args, replace with ?
-			res = res.replace("{#}", "?"); // Will replace the first occurence
-		}
-		else
-		{
-			var arg = args.shift(); // Take the first arg and remove it
-			res = res.replace("{#}", arg);
-		}
-	}
+	res = DuString.args(res, args);
 
 	return res;
 }
