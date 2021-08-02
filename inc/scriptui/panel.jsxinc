@@ -552,12 +552,16 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
         {
             var languageExportLabel = DuScriptUI.String.EXPORT_TRANSLATION;
             if (panel.settingsGroup.languageSelector) languageExportLabel = '';
+
             panel.settingsGroup.exportTranslationButton = DuScriptUI.button(
                 languageGroup,
                 languageExportLabel,
                 DuScriptUI.Icon.LANGUAGE_FILE,
                 DuScriptUI.String.EXPORT_TRANSLATION_TIP
-            )
+            );
+
+            if (panel.settingsGroup.languageSelector)
+                panel.settingsGroup.exportTranslationButton.alignment = ['right','fill'];
 
             panel.settingsGroup.exportTranslationButton.onClick = function() {
                 // Collect registered strings, add them to the list

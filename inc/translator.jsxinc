@@ -348,7 +348,7 @@ DuTranslator.generateTranslationFile = function (file,translations,appName,versi
 	languageId = def( languageId, DuTranslator.current);
 	languageName = def( languageName, DuTranslator.currentName );
 
-	if(translations instanceof DuList) translations = translations.list;
+	if (translations instanceof DuList) translations = translations.list;
 	if (translations.length == 0) return;
 
 	//if translations is an array of strings, convert to translations
@@ -381,7 +381,13 @@ DuTranslator.generateTranslations = function (strings)
 	var translations = new DuList();
 	for (var i = 0, num = strings.length(); i < num ; i++)
 	{
-		translations.push(new DuTranslation(strings.at(i)));
+		var str = strings.at(i);
+		var trnltn = new DuTranslation(str);
+		if (typeof str.args !== 'undefined')
+		{
+			trnltn.comment = "{#} placeholder: " + str.args.join(', ');
+		}
+		translations.push(trnltn);
 	}
 	return translations.list;
 }
@@ -415,8 +421,8 @@ function tr(str, context, args)
 
 	var languageNumber = -1;
 	var res = str;
-
-	DuTranslator.originalStrings.pushUnique( undefined, str );
+	res.args = args;
+	DuTranslator.originalStrings.pushUnique( undefined, res );
 
 	//a function to get the translation id from a given string
 	function getTranslationId( stri, noCapsNorSpaces )
