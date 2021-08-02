@@ -1,0 +1,366 @@
+/**
+ * Methods to load and create OCO Documents and armatures
+ * @namespace
+ */
+var DuOCO = {};
+
+/**
+ * Types of OCO armatures
+ * @enum {string}
+ */
+DuOCO.Type = {
+    /**
+     * A meta-rig, used to automatically create a default armature to be used with an auto-rig.
+     */
+    META: 'meta',
+    /**
+     * An actual (rigged) character.
+     */
+    CHARACTER: 'character'
+}
+
+/**
+ * Predefined limbs
+ * @enum {string}
+ */
+DuOCO.Limb = {
+    SPINE: 'spine',
+    ARM: 'arm',
+    LEG: 'leg',
+    WING: 'wing',
+    FIN: 'fin',
+    HAIR: 'hair',
+    TAIL: 'tail',
+    CUSTOM: 'custom'
+}
+
+/**
+ * Types of limbs
+ * @enum {string}
+ */
+DuOCO.LimbType = {
+    PLANTIGRADE: 'plantigrade',
+    DIGITIGRADE: 'digitigrade',
+    UNGULATE: 'ungulate',
+    CUSTOM: 'custom'
+}
+
+/**
+ * Sides for the limbs Use these with {@link DuOCO.Location} to differenciate similar limbs,<br />
+ * for example, a leg can be Front-Right, Front-Left, Back-Right, Back-Left, etc.
+ * @enum {string}
+ */
+DuOCO.Side = {
+    LEFT: 'L',
+    RIGHT: 'R',
+    NONE: ''
+}
+
+/**
+ * Locations for the limbs. Use these with {@link DuOCO.Side} to differenciate similar limbs,<br />
+ * for example, a leg can be Front-Right, Front-Left, Back-Right, Back-Left, etc.
+ * @enum {string}
+ */
+DuOCO.Location = {
+    FRONT: 'Fr',
+    BACK: 'Bk',
+    TAIL: 'Tl',
+    MIDDLE: 'Md',
+    ABOVE: 'T',
+    UNDER: 'U',
+    NONE: ''
+}
+
+/**
+ * Gets the boundaries of an armature (a chain of bones)
+ * @param {DuOCOBone[]} armature The chain of bones
+ * @returns {float[]} [left, top, right, bottom]
+ */
+DuOCO.getBounds = function ( armature )
+{
+    var left = 9999;
+    var right = -9999;
+    var top = 9999;
+    var bottom = -9999;
+
+    for (var i = 0, n = armature.length; i < n; i++)
+    {
+        var b = armature[i];
+        // Check current bone
+        if (b.x < left) left = b.x;
+        if (b.x > right) right = b.x;
+        if (b.y < bottom) bottom = b.y;
+        if (b.y > top) top = b.y;
+        // Check children
+        var childBounds = DuOCO.getBounds( b.children );
+        if (childBounds[0] < left) left = childBounds[0];
+        if (childBounds[1] < top) top = childBounds[1];
+        if (childBounds[2] < right) right = childBounds[2];
+        if (childBounds[3] < bottom) bottom = childBounds[3];
+        // Check other limbs
+        for ( var j = 0, nL = b.limbs.length; j < nL; j++ )
+        {
+            var limbBounds = b.limbs[i].bounds();
+            if (limbBounds[0] < left) left = limbBounds[0];
+            if (limbBounds[1] < top) top = limbBounds[1];
+            if (limbBounds[2] < right) right = limbBounds[2];
+            if (limbBounds[3] < bottom) bottom = limbBounds[3];
+        }
+    }
+
+    return [left, top, right, bottom];
+}
+
+/**
+ * Creates a new OCO Document.
+ * @class
+ * @classdesc An Open Cut-Out character or meta-rig document.
+ * @param {string} name The name of the character or the meta rig
+ */
+function DuOCODoc(name)
+{
+    /**
+     * The type of this OCO Doc
+     * @name type
+     * @memberof DuOCODoc
+     * @type {string}
+     */
+    this.type = DuOCO.Type.META;
+    /**
+     * The name of this OCO Doc
+     * @name name
+     * @memberof DuOCODoc
+     * @type {string}
+     */
+    this.name = name;
+    /**
+     * The height of the character. Should always be 1!
+     * @name height
+     * @memberof DuOCODoc
+     * @type {float}
+     */
+    this.height = 185.0;
+    /**
+     * The width of the character.
+     * @name width
+     * @memberof DuOCODoc
+     * @type {float}
+     */
+    this.width = 60.0,
+    /**
+     * The coordinates of the center of mass of the character. [X, Y].
+     * @name centerOfMass
+     * @memberof DuOCODoc
+     * @type {float[]}
+     */
+    this.centerOfMass = [0.0, 111.0];
+    /**
+     * The limbs/ Armatures
+     * @name limbs
+     * @memberof DuOCOLimb
+     * @type {DuOCOLimb[]}
+     */
+    this.limbs = [];
+    this.resolution = [1920,1080];
+    this.world = [960,100];
+    this.pixelsPerCm = 4.22;
+}
+
+/**
+ * Gets the boundaries of the doc
+ * @returns {float[]} [left, top, right, bottom]
+ */
+DuOCODoc.prototype.bounds = function ()
+{
+    var left = 9999;
+    var right = -9999;
+    var top = 9999;
+    var bottom = -9999;
+
+    for (var i = 0, n = this.limbs.length; i < n; i++)
+    {
+        var limbBounds = this.limbs[i].bounds();
+        if (limbBounds[0] < left) left = limbBounds[0];
+        if (limbBounds[1] < top) top = limbBounds[1];
+        if (limbBounds[2] < right) right = limbBounds[2];
+        if (limbBounds[3] < bottom) bottom = limbBounds[3];
+    }
+
+    return [left, top, right, bottom];
+}
+
+/**
+ * Updates the width and height of the character, according to the content.<br />
+ * This method should be called each time a limb/bone is added/removed/edited and the bounds may change.
+ */
+DuOCODoc.prototype.updateSize = function()
+{
+    // Update doc width & height
+    var bounds = this.bounds();
+    // right - left
+    this.width = this.bounds[2] - this.bounds[0];
+    // top - bottom
+    this.height = this.bounds[1] - this.bounds[3];
+}
+
+/**
+ * Creates a new limb and adds it to the doc
+ * @param {DuOCO.Limb} [limb=DuOCO.Limb.CUSTOM] A Predefined limb
+ * @return {DuOCOLimb} The new limb
+ */
+DuOCODoc.prototype.newLimb = function( limb )
+{
+    var l = new DuOCOLimb( limb );
+    this.limbs.push(l);
+    return l;
+}
+
+/**
+ * Creates a new OCO Limb.
+ * @class
+ * @classdesc A limb contained in an OCO Doc.
+ * @param {DuOCO.Limb} [limb=DuOCO.Limb.CUSTOM] A Predefined limb
+ */
+function DuOCOLimb(limb)
+{
+    /**
+     * The predefined limb
+     * @name limb
+     * @memberof DuOCOLimb
+     * @type {DuOCO.Limb}
+     */
+    this.limb = def(limb, DuOCO.Limb.CUSTOM);
+    /**
+     * The type of the limb
+     * @name type
+     * @memberof DuOCOLimb
+     * @type {DuOCO.LimbType}
+     */
+    this.type = DuOCO.LimbType.CUSTOM;
+    /**
+     * The sided of the limb
+     * @name side
+     * @memberof DuOCOLimb
+     * @type {DuOCO.Side}
+     */
+    this.side = DuOCO.Side.NONE;
+    /**
+     * The location of the limb
+     * @name location
+     * @memberof DuOCOLimb
+     * @type { DuOCO.Location}
+     */
+    this.location = DuOCO.Location.NONE;
+    /**
+     * The bones of the limb
+     * @name location
+     * @memberof DuOCOLimb
+     * @type {DuOCOBone[]}
+     */
+    this.armature = [];
+}
+
+/**
+ * Gets the boundaries of the limb
+ * @returns {float[]} [left, top, right, bottom]
+ */
+DuOCOLimb.prototype.bounds = function( )
+{
+    return DuOCO.getBounds( this.armature );
+}
+
+/**
+ * Creates a new chain of bones and adds it to the limb.
+ * @param {string} name The name of the bones (will increment if needed)
+ * @param {int} [num=2] The number of bones in the chain
+ * @param {float} [length=100.0] The length in centimeters
+ * @returns {DuOCOBone} The root bone of the new chain
+ */
+DuOCOLimb.prototype.newArmature = function( num, name, length )
+{
+    num = def(num, 2);
+    length = def(length, 100.0);
+    var boneLength = length / (num-1);
+
+    var x = -length / 2;
+    var b = null;
+    var root = null;
+    var names = [];
+
+    for (var i = 0; i < num; i++)
+    {
+        var boneName = DuString.generateUnique(name, names);
+        var bone = new DuOCOBone( boneName );
+        names.push(boneName);
+        bone.y = 100;
+        bone.x = x;
+
+        if (b != null)
+        {
+            b.children.push( bone );
+            bone.attached = true;
+        }
+        else
+        {
+            this.armature.push( bone );
+            root = bone;
+        }
+
+        x += boneLength;
+        b = bone;
+    }
+
+    return root;
+}
+
+/**
+ * Creates a new OCO Bone.
+ * @class
+ * @classdesc A bone contained in an OCO Limb.
+ * @param {string} name The name
+ */
+function DuOCOBone(name)
+{
+    /**
+     * The name of the bone
+     * @name name
+     * @memberof DuOCOBone
+     * @type {string}
+     */
+    this.name = name;
+    /**
+     * The x coordinate of the bone
+     * @name x
+     * @memberof DuOCOBone
+     * @type {float}
+     */
+    this.x = 0.0;
+    /**
+     * The y coordinate of the bone
+     * @name y
+     * @memberof DuOCOBone
+     * @type {float}
+     */
+    this.y = 0.0;
+    /**
+     * true if this bone is attached to its parent.
+     * @name attached
+     * @memberof DuOCOBone
+     * @type {Boolean}
+     */
+    this.attached = false;
+    /**
+     * The child bones.
+     * @name children
+     * @memberof DuOCOBone
+     * @type {DuOCOBone[]}
+     */
+    this.children = [];
+    /**
+     * The child limbs.
+     * @name limbs
+     * @memberof DuOCOBone
+     * @type {DuOCOLimb[]}
+     */
+    this.limbs = [];
+}
