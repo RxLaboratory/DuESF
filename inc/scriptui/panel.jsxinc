@@ -446,7 +446,7 @@ DuScriptUI.showUI = function( ui, enterRunTime )
  * @property {Group} settingsGroup - The ScriptUI group where to add the UI for the settings of the script.
  * @property {Group} mainGroup - The ScriptUI group where to add the main UI of the script.
  * @property {DuScriptPanel~onApplySettings} onApplySettings Called when the apply settings button is clicked.
- * @property {DuScriptPanel~onResetSettings} onApplySettings Called when the reset (default) settings button is clicked.
+ * @property {DuScriptPanel~onResetSettings} onResetSettings Called when the reset (default) settings button is clicked.
  */
 
 /**
