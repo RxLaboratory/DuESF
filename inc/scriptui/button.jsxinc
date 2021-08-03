@@ -254,9 +254,9 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
     }
 
     //add events
-    duButton.addEventListener( 'click', function( e )
+    mainGroup.addEventListener( 'click', function( e )
     {
-        if(e.view.parent != duButton) return;
+        if(e.view.parent != mainGroup) return;
         
         if ( e.shiftKey ) duButton.shiftClicked();
         else if ( e.altKey && e.ctrlKey ) duButton.ctrlAltClicked();
