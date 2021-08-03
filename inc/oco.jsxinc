@@ -66,7 +66,7 @@ DuOCO.Location = {
     BACK: 'Bk',
     TAIL: 'Tl',
     MIDDLE: 'Md',
-    ABOVE: 'T',
+    ABOVE: 'A',
     UNDER: 'U',
     NONE: ''
 }
@@ -206,11 +206,13 @@ DuOCODoc.prototype.updateSize = function()
 /**
  * Creates a new limb and adds it to the doc
  * @param {DuOCO.Limb} [limb=DuOCO.Limb.CUSTOM] A Predefined limb
+ * @param {DuOCO.Side} [side=DuOCO.Side.NONE] - The side of the limb
+ * @param {DuOCO.Location} [location=DuOCO.Location.NONE] - The location of the limb
  * @return {DuOCOLimb} The new limb
  */
-DuOCODoc.prototype.newLimb = function( limb )
+DuOCODoc.prototype.newLimb = function( limb, side, location )
 {
-    var l = new DuOCOLimb( limb );
+    var l = new DuOCOLimb( limb, side, location );
     this.limbs.push(l);
     return l;
 }
@@ -220,8 +222,10 @@ DuOCODoc.prototype.newLimb = function( limb )
  * @class
  * @classdesc A limb contained in an OCO Doc.
  * @param {DuOCO.Limb} [limb=DuOCO.Limb.CUSTOM] A Predefined limb
+ * @param {DuOCO.Side} [side=DuOCO.Side.NONE] - The side of the limb
+ * @param {DuOCO.Location} [location=DuOCO.Location.NONE] - The location of the limb
  */
-function DuOCOLimb(limb)
+function DuOCOLimb(limb, side, location )
 {
     /**
      * The predefined limb
@@ -243,14 +247,14 @@ function DuOCOLimb(limb)
      * @memberof DuOCOLimb
      * @type {DuOCO.Side}
      */
-    this.side = DuOCO.Side.NONE;
+    this.side = def( side, DuOCO.Side.NONE);
     /**
      * The location of the limb
      * @name location
      * @memberof DuOCOLimb
      * @type { DuOCO.Location}
      */
-    this.location = DuOCO.Location.NONE;
+    this.location = def( location, DuOCO.Location.NONE);
     /**
      * The bones of the limb
      * @name location
@@ -276,7 +280,7 @@ DuOCOLimb.prototype.bounds = function( )
  * @param {float} [length=100.0] The length in centimeters
  * @returns {DuOCOBone} The root bone of the new chain
  */
-DuOCOLimb.prototype.newArmature = function( num, name, length )
+DuOCOLimb.prototype.newArmature = function( name, num, length )
 {
     num = def(num, 2);
     length = def(length, 100.0);
