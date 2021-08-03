@@ -193,7 +193,7 @@ DuScriptUI.popUp = function( title, alignment, modal )
 
     //add stroke around
     function drawBorder ( drawState ) {
-        var g = this.graphics;
+        /*var g = this.graphics;
         var c = DuColor.Color.DARK_GREY;
 
         var pen = g.newPen( g.PenType.SOLID_COLOR, c, 1 );
@@ -216,7 +216,7 @@ DuScriptUI.popUp = function( title, alignment, modal )
             g.lineTo (this.size.width, this.size.height);
         }
 
-        g.strokePath( pen );
+        g.strokePath( pen );*/
     };
 
     //create margins to dim buttons
