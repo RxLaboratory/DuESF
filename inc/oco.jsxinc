@@ -51,8 +51,8 @@ DuOCO.LimbType = {
  * @enum {string}
  */
 DuOCO.Side = {
-    LEFT: 'L',
-    RIGHT: 'R',
+    LEFT: DuScriptUI.String.LEFT_SHORT,
+    RIGHT: DuScriptUI.String.RIGHT_SHORT,
     NONE: ''
 }
 
@@ -62,12 +62,12 @@ DuOCO.Side = {
  * @enum {string}
  */
 DuOCO.Location = {
-    FRONT: 'Fr',
-    BACK: 'Bk',
-    TAIL: 'Tl',
-    MIDDLE: 'Md',
-    ABOVE: 'A',
-    UNDER: 'U',
+    FRONT: DuScriptUI.String.FRONT_SHORT,
+    BACK: DuScriptUI.String.BACK_SHORT,
+    TAIL: DuScriptUI.String.TAIL_SHORT,
+    MIDDLE: DuScriptUI.String.MIDDLE_SHORT,
+    ABOVE: DuScriptUI.String.ABOVE_SHORT,
+    UNDER: DuScriptUI.String.UNDER_SHORT,
     NONE: ''
 }
 

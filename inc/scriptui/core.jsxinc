@@ -4,9 +4,9 @@
     */
 var DuScriptUI = {}
 
+#include "strings.jsxinc"
 #include "icons.jsxinc"
 #include "panel.jsxinc"
-#include "strings.jsxinc"
 #include "button.jsxinc"
 #include "help.jsxinc"
 #include "style.jsxinc"
