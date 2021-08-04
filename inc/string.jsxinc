@@ -61,11 +61,14 @@ DuString.replace = function (string, find, replace, caseSensitive)
 	* Replaces all occurences of "{#}" in the string by the args.
 	* @memberof DuString
 	* @param {string}	string			- The original string
-	* @param {string[]}	args			- The arguments
+	* @param {string[]|string}	args			- The arguments
 	* @return {string}	The new string
 	*/
 DuString.args = function (string, args)
 {
+	args = def(args, []);
+	if (typeof args === 'string' || args instanceof String) args = [args];
+
     var str = string;
     while(str.indexOf("{#}") !== -1)
 	{
