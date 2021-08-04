@@ -25,5 +25,5 @@
 #include "inc/zip.jsxinc"
 #include "inc/oca.jsxinc"
 #include "inc/url.jsxinc"
-#include "inc/oco.jsxinc"
 #include "inc/scriptui/core.jsxinc"
+#include "inc/oco.jsxinc"
