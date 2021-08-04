@@ -566,11 +566,13 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
             panel.settingsGroup.exportTranslationButton.onClick = function() {
                 // Collect registered strings, add them to the list
                 var strs = new DuList();
-                for (str in DuScriptUI.String)
+                for (key in DuScriptUI.String)
                 {
-                    if (DuScriptUI.String.hasOwnProperty(str))
+                    if (DuScriptUI.String.hasOwnProperty(key))
                     {
-                        strs.pushUnique( undefined, DuScriptUI.String[str]);
+                        var str = DuScriptUI.String[key];
+                        str.context = key;
+                        strs.pushUnique( undefined, str);
                     }
                 }
 
@@ -780,6 +782,7 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
         if (!panel.hasCommonSettings)
         {
             panel.onApplySettings();
+            alert(tr(DuScriptUI.String.APPLY_SETTINGS_ALERT));
             return;
         }
         // Update and Save settings

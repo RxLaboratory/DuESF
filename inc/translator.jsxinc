@@ -352,7 +352,7 @@ DuTranslator.generateTranslationFile = function (file,translations,appName,versi
 	if (translations.length == 0) return;
 
 	//if translations is an array of strings, convert to translations
-	if (typeof translations[0] === 'string') translations = DuTranslator.generateTranslations(translations);
+	translations = DuTranslator.generateTranslations(translations);
 
 	var data = {};
 	data[appName] = [];
@@ -379,15 +379,24 @@ DuTranslator.generateTranslations = function (strings)
 	strings = new DuList(strings);
 	strings.removeDuplicates();
 	var translations = new DuList();
+
 	for (var i = 0, num = strings.length(); i < num ; i++)
 	{
 		var str = strings.at(i);
-		var trnltn = new DuTranslation(str);
-		if (typeof str.args !== 'undefined')
+		if (typeof str === 'string')
 		{
-			trnltn.comment = "{#} placeholder: " + str.args.join(', ');
+			var trnltn = new DuTranslation(str);
+			if (typeof str.context !== 'undefined')
+			{
+				trnltn.context = str.context;
+			}
+			if (typeof str.args !== 'undefined')
+			{
+				trnltn.comment = "{#} placeholder: " + str.args.join(', ');
+			}
+			translations.push(trnltn);
 		}
-		translations.push(trnltn);
+		else translations.push(str);		
 	}
 	return translations.list;
 }
@@ -407,17 +416,13 @@ DuTranslator.generateTranslations = function (strings)
  */
 function tr(str, context, args)
 {
-	// Default args
-	var useContextId = true;
+	context = def(context, -1);
 	if ( DuDebug.checkVar( str, 'str', 'string', "DuTranslator::tr()" ) !== true ) return str;
-
 	if (str == '') return str;
 
+	var useContextId = true;
 	if (typeof context === 'string' || context instanceof String) useContextId = false;
-	if (typeof context === 'undefined') context = -1;
 	else if (context < 0) context = -1;
-	if (typeof args === 'undefined') args = [];
-	if (typeof args === 'string' || args instanceof String) args = [args];
 
 	var languageNumber = -1;
 	var res = str;
@@ -434,10 +439,11 @@ function tr(str, context, args)
 			var localizedString = DuTranslator.localizedStrings[i];
 			var testString = localizedString["source"];
 			if (noCapsNorSpaces) testString = testString.replace(/[\s\n\r]+/g,'');
-			if( testString == stri)
+			// Check context
+			if( testString == stri && context !== -1)
 			{
 				// Check context
-				if (useContextId && context > -1)
+				if (useContextId && context > 0)
 				{
 					if (localizedString["contextId"] == context)
 					{
