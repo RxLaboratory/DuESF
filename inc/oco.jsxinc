@@ -42,6 +42,7 @@ DuOCO.LimbType = {
     PLANTIGRADE: 'plantigrade',
     DIGITIGRADE: 'digitigrade',
     UNGULATE: 'ungulate',
+    ARTHROPOD: 'arthropod',
     CUSTOM: 'custom'
 }
 
