@@ -14,6 +14,8 @@
  */
 function DuColor( floatRGBA )
 {
+	floatRGBA = def(floatRGBA, [0,0,0,0]);
+	
 	this.red = floatRGBA[0];
 	if (this.red < 0) this.red = 0;
 	if (!jstype( (this.red ) == 'number') ) this.red = 0;
