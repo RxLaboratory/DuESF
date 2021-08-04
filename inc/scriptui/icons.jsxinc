@@ -38,6 +38,7 @@
 #include "icons/w16_list.png.jsxinc"
 #include "icons/w16_language_file.png.jsxinc"
 #include "icons/w16_random.png.jsxinc"
+#include "icons/w16_eye_dropper.png.jsxinc"
 
 /**
  * The list of available icons.
@@ -58,6 +59,7 @@ DuScriptUI.Icon = {
     DOWNLOAD: w16_download,
     EXPERT: w16_expert,
     EYE_DROPPER: w12_eye_dropper,
+    EYE_DROPPER_BIG: w16_eye_dropper,
     FEATURE: w12_feature,
     FILE: w12_file,
     FOLDER: w12_folder,
