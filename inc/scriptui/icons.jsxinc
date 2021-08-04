@@ -37,6 +37,7 @@
 #include "icons/w16_download.png.jsxinc"
 #include "icons/w16_list.png.jsxinc"
 #include "icons/w16_language_file.png.jsxinc"
+#include "icons/w16_random.png.jsxinc"
 
 /**
  * The list of available icons.
@@ -73,6 +74,7 @@ DuScriptUI.Icon = {
     PINNED: w12_pinned,
     PLACEHOLDER: w16_placeholder,
     RAINBOX_RED: w8_rx_red,
+    RANDOM: w16_random,
     RESET: w12_reset,
     ROOKIE: w16_rookie,
     RX_PURPLE: w8_rx_purple,

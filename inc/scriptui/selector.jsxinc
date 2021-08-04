@@ -79,8 +79,8 @@
 /**
  * Creates a drop down selector, using image buttons
  * @param {Window|Panel|Group} container - The ScriptUI Object which will contain and display the selector.
- * @param {bool} [helpTip] - The help tip to show on the selector
- * @return {Selector} - The selector
+ * @param {string} [helpTip] - The help tip to show on the selector
+ * @return {DuSelector} - The selector
  */
 DuScriptUI.selector = function( container, helpTip )
 {

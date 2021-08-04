@@ -48,5 +48,6 @@ DuScriptUI.String = {
     EXPORT_TRANSLATION: "Export translation file",
     EXPORT_TRANSLATION_TIP: "Export a translation file to be edited with DuTranslator.",
     EXPERT_UI_TIP: "The smallest UI, for expert users.",
-    APPLY_SETTINGS_ALERT: "You may need to restart the script for all changes to take effect."
+    APPLY_SETTINGS_ALERT: "You may need to restart the script for all changes to take effect.",
+    RANDOM_TIP: "Set a random value."
 }
