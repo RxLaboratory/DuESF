@@ -194,6 +194,8 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
             w12_check,
             text
             )
+
+        duButton.optionsButton.onClick = function () { duButton.clicked(); };
     }
 
     //events
