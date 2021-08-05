@@ -76,7 +76,7 @@ DuBinary.prototype.toFile = function( outputFileName, onlyAtFirstRun )
 
     // performance
     // do not extract if the file exists and we're not in the first run (or debug mode)
-    if (file.exists && !DuESF.scriptFirstRun && !DuESF.debug)
+    if (file.exists && !DuESF.scriptFirstRun && !DuESF.debug && onlyAtFirstRun)
     {
         return file;
     }
