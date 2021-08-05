@@ -118,7 +118,6 @@ DuSettings.init = function() {
 	var common  = def(DuESF.scriptSettings.data.common, {});
 	var highlightSelection = def( common.highlightSelection, 0);
 	var highlightColor = new DuColor( def( common.highlightColor, DuColor.Color.APP_HIGHLIGHT_COLOR ) );
-	var currentLanguageName = def( common.currentLanguageName, 'Esperanto');
 	var debug = def( common.debug, false);
 
 	// Debug mode
@@ -130,9 +129,4 @@ DuSettings.init = function() {
 	else if (highlightSelection == 2) DuColor.Color.APP_HIGHLIGHT_COLOR = DuColor.Color.RAINBOX_RED;
 	else if (highlightSelection == 3) DuColor.Color.APP_HIGHLIGHT_COLOR = DuColor.Color.AE_ORANGE;
 	else DuColor.Color.APP_HIGHLIGHT_COLOR = highlightColor;
-
-	// Load languages
-	DuTranslator.init();
-	DuTranslator.getAvailable();
-	DuTranslator.setPrettyLanguage( currentLanguageName );
 }
