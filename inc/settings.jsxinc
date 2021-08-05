@@ -132,6 +132,7 @@ DuSettings.init = function() {
 	else DuColor.Color.APP_HIGHLIGHT_COLOR = highlightColor;
 
 	// Load languages
+	DuTranslator.init();
 	DuTranslator.getAvailable();
 	DuTranslator.setPrettyLanguage( currentLanguageName );
 }

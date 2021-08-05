@@ -251,7 +251,7 @@ DuESF.init = function( hostApplication, scriptName, scriptVersion, companyName )
     // Everything which needs to be initialized once we have our info
     DuFolder.init();
     DuSettings.init();
-    DuTranslator.init();
+    //DuTranslator.init(); // Called in settings
 
     // check if this script has already been run once
     // Check the version from latest run

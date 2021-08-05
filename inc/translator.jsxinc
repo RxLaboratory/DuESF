@@ -172,7 +172,6 @@ DuTranslator.getAvailable = function ()
 		"file": undefined
 	};
 
-
 	var folder = new Folder(DuTranslator.Settings.folder);
 
 	// Get the list of translations
@@ -282,7 +281,6 @@ DuTranslator.getPrettyNames = function()
  */
 DuTranslator.setLanguage = function (languageId)
 {
-
 	for (var langId in DuTranslator.languages)
 	{
 		if (langId == languageId)
@@ -322,8 +320,8 @@ DuTranslator.setLanguage = function (languageId)
  */
 DuTranslator.setPrettyLanguage = function (languageName)
 {
-
 	var langId = DuTranslator.getLanguageId(languageName);
+	
 	if(langId == 1) return -1;
 
 	return DuTranslator.setLanguage(langId);
@@ -418,7 +416,6 @@ DuTranslator.generateTranslations = function (strings,mergeScriptuiStrings)
 		else translations.pushUnique(compareTranslation, str);		
 	}
 
-	alert(translations.length());
 	return translations.list;
 }
 
@@ -455,33 +452,18 @@ function tr(str, context, args)
 	{
 		noCapsNorSpaces = def (noCapsNorSpaces, false);
 
-		for (var i = 0 ; i < DuTranslator.localizedStrings.length ; i++)
+		for (var i = 0, n = DuTranslator.localizedStrings.length ; i < n ; i++)
 		{
 			var localizedString = DuTranslator.localizedStrings[i];
 			var testString = localizedString["source"];
 			if (noCapsNorSpaces) testString = testString.replace(/[\s\n\r]+/g,'');
+
+			if (testString != stri) continue;
+
+			if (context === -1) return i;
 			// Check context
-			if( testString == stri && context !== -1)
-			{
-				// Check context
-				if (useContextId && context > 0)
-				{
-					if (localizedString["contextId"] == context)
-					{
-						return i;
-					}
-				}
-				else if(!useContextId)
-				{
-					if (localizedString["context"] == context)
-					{
-						return i;
-					}
-				}
-				else {
-					return i;
-				}
-			}
+			if (useContextId && localizedString["contextId"] === context) return i;
+			else if (localizedString["context"] === context) return i;
 		}
 
 		return -1;
@@ -507,6 +489,7 @@ function tr(str, context, args)
 
 // Low-level undocumented function. Called by DuESF.init()
 DuTranslator.init = function() {
+	DuTranslator.Settings.name = DuESF.scriptName;
 	DuTranslator.Settings.folder = DuESF.scriptSettings.file.parent.absoluteURI + '/';
 	DuTranslator.Settings.prefix = DuESF.scriptName;
 }

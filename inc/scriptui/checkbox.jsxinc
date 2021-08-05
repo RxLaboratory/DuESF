@@ -64,6 +64,7 @@ DuScriptUI.checkBox = function( container, text, image, helpTip, textChecked, im
     //translate text and helptip
     text = tr( text );
     helpTip = tr( helpTip );
+    textChecked = tr( textChecked );
 
     //create ui
     var duCheckBox = container.add( 'group' );
