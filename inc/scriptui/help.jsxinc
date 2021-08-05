@@ -241,7 +241,7 @@ DuScriptUI.askLanguage = function ( callback, ui )
  * Checks if the script can be updated
  * @param {function} [callback] - The function to execute when the user has clicked on the "dismiss" button.
  * @param {Panel|Window} [ui]	- A container to display the UI. A modal Dialog is created if omitted
- * @param {Boolean} [showAlert] Wether to show an alert if the check failed or if the version is up-to-date.
+ * @param {Boolean} [showAlert] Whether to show an alert if the check failed or if the version is up-to-date.
  */
 DuScriptUI.checkUpdate = function ( callback, ui, showAlert )
 {

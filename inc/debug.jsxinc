@@ -89,7 +89,7 @@ DuDebug.safeRun = function (callback)
 /**
  * Inspects a javascript object and outputs all of its attributes
  * @param {object} obj - The object to inspect.
- * @param {boolean} [ownProperties=true] - Wether to inspect only the own properties of the object.
+ * @param {boolean} [ownProperties=true] - Whether to inspect only the own properties of the object.
  * @return {string} The report. 
  */
 DuDebug.inspect = function(obj, ownProperties)

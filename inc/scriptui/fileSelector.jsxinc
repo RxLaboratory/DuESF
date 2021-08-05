@@ -25,7 +25,7 @@
  * Creates a folder selector with a field for the path and a browse button<br />
  * @param {Window|Panel|Group} container - The ScriptUI Object which will contain and display the panel.
  * @param {string} [text="Browse..."] - The text to display on the button.
- * @param {boolean} [textField=true] - Wether to show the text field for the path.
+ * @param {boolean} [textField=true] - Whether to show the text field for the path.
  * @param {string} [helpTip=''] - The helptip for this control.
  * @param {string} [orientation='row'] - The orientation of the control (button+edittext).
  * @return {DuFolderSelector} The control.
@@ -121,7 +121,7 @@ DuScriptUI.folderSelector = function ( container, text, textField, helpTip, orie
  * Creates a file selector with a field for the path and a browse button.
  * @param {Window|Panel|Group} container - The ScriptUI Object which will contain and display the panel.
  * @param {string} [text="Browse..."] - The text to display on the button.
- * @param {boolean} [textField=true] - Wether to show the text field for the path.
+ * @param {boolean} [textField=true] - Whether to show the text field for the path.
  * @param {string} [helpTip=''] - The helptip for this control.
  * @param {string|DuBinary} [image] - The image to use as an icon; a "file" icon by default.
  * @param {string} [mode='open'] - The open mode, either 'open' or 'save'.

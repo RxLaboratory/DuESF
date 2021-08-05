@@ -470,8 +470,8 @@ DuScriptUI.showUI = function( ui, enterRunTime )
 /**
  * Creates the main panel of a script
  * @param {Panel|null} container - The container ('this' in the root of the calling script), either a Panel (when launched from the 'Window' menu) or null (when launched from 'file/scripts/run...')
- * @param {bool} [addSettingsButton=true] - Wether to create a button to open the settings or not
- * @param {bool} [addHelpButton=false] - Wether to create a button to open the help panel or not
+ * @param {bool} [addSettingsButton=true] - Whether to create a button to open the settings or not
+ * @param {bool} [addHelpButton=false] - Whether to create a button to open the help panel or not
  * @param {File} [scriptFile] - The main script file, needed for the refresh button in debug mode
  * @return {DuScriptPanel} The panel created, either a ScriptUI Panel or a ScriptUI Window.
  * @example

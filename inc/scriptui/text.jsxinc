@@ -63,7 +63,7 @@
  * @param {string} [suffix=""] - A text suffix to display.
  * @param {string} [placeHolder=""] - A place holder default text.
  * @param {string} [helpTip=""] The helpTip of this control
- * @param {bool} [translatable=true] Wether to translate the texts of this control
+ * @param {bool} [translatable=true] Whether to translate the texts of this control
  * @return {DuEditText}	The custom Group containing the edit text.
  */
 DuScriptUI.editText = function( container, text, prefix, suffix, placeHolder, helpTip, translatable )

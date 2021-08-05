@@ -85,7 +85,7 @@ DuString.args = function (string, args)
  * @memberof DuString
  * @param {string}	str 	The string to check
  * @param {string}	suffix	The suffix
- * @return {bool}	Wether the string ends with the given suffix or not
+ * @return {bool}	Whether the string ends with the given suffix or not
  */
 DuString.endsWith = function (str, suffix)
 {

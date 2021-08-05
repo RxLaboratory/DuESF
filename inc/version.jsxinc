@@ -170,7 +170,7 @@ DuVersion.compare = function (vA, vB)
 /**
  * Information got from an update query on a RxVersion server, as returned by {@link DuVersion.checkUpdate DuVersion.checkUpdate()}.
  * @typedef {Object} DuVersion~UpdateReply
- * @property {Boolean} update Wether this script needs an update.
+ * @property {Boolean} update Whether this script needs an update.
  * @property {string} version The available version.
  * @property {string} name The name of the script.
  * @property {string} description A description of the version.

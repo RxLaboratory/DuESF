@@ -22,7 +22,7 @@ DuScriptUI.String = {
     CHECK_UPDATE: "Check for updates",
     COLOR_HIGHLIGHT_TIP: "Set the highlight color.",
     CUSTOM: "Custom",
-    CUSTOM_COLOR_TIP: "Select a custom color",
+    CUSTOM_COLOR_TIP: "Select a custom color.",
     CLOSE_SETTINGS: "Close settings",
     DEFAULT: "Default",
     DEV_MODE: "Dev and Debug mode",
