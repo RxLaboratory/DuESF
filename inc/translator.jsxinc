@@ -405,7 +405,6 @@ DuTranslator.generateTranslations = function (strings,mergeScriptuiStrings)
 		}
 	}
 
-	alert(strings.length());
 	for (var i = 0, num = strings.length(); i < num ; i++)
 	{
 		var str = strings.at(i);

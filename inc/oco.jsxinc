@@ -64,7 +64,7 @@ DuOCO.Side = {
  */
 DuOCO.Location = {
     FRONT: DuScriptUI.String.FRONT_SHORT,
-    BACK: DuScriptUI.String.BACK_SHORT,
+    BACK: DuScriptUI.String.BACK_LOCATION_SHORT,
     TAIL: DuScriptUI.String.TAIL_SHORT,
     MIDDLE: DuScriptUI.String.MIDDLE_SHORT,
     ABOVE: DuScriptUI.String.ABOVE_SHORT,

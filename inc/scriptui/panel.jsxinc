@@ -733,7 +733,7 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
 
     panel.settingsGroup.backButton = DuScriptUI.button(
         validGroup,
-        DuScriptUI.String.BACK,
+        DuScriptUI.String.BACK_PREVIOUS,
         w12_back,
         DuScriptUI.String.CLOSE_SETTINGS,
         false,
