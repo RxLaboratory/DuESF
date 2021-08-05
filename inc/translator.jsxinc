@@ -338,8 +338,9 @@ DuTranslator.setPrettyLanguage = function (languageName)
  * @param {string} [version=DuESF.scriptVersion.fullVersion] - A version (as a string) for this translation file or app.
  * @param {string} [languageId=DuTranslator.current] - A version (as a string) for this translation file or app.
  * @param {string} [languageName=DuTranslator.currentName] - A version (as a string) for this translation file or app.
+ * @param {Boolean} [mergeScriptuiStrings=true] - Merges the strings declared in DuScriptui to the translations.
  */
-DuTranslator.generateTranslationFile = function (file,translations,appName,version,languageId,languageName)
+DuTranslator.generateTranslationFile = function (file,translations,appName,version,languageId,languageName,mergeScriptuiStrings)
 {
 	if (!(file instanceof File)) file = new File(file);
 	translations = def(translations, DuTranslator.originalStrings);
@@ -352,7 +353,7 @@ DuTranslator.generateTranslationFile = function (file,translations,appName,versi
 	if (translations.length == 0) return;
 
 	//if translations is an array of strings, convert to translations
-	translations = DuTranslator.generateTranslations(translations);
+	translations = DuTranslator.generateTranslations(translations, mergeScriptuiStrings);
 
 	var data = {};
 	data[appName] = [];
@@ -372,32 +373,53 @@ DuTranslator.generateTranslationFile = function (file,translations,appName,versi
  * Converts an Array of strings to an Array of empty translations
  * @memberof DuTranslator
  * @param {string[]|DuList.<string>} strings - The base strings to convert.
- * @return {string[]} The empty translations
+ * @param {Boolean} [mergeScriptuiStrings=true] - Merges the strings declared in DuScriptui to the translations.
+ * @return {string[]} The translations
  */
-DuTranslator.generateTranslations = function (strings)
+DuTranslator.generateTranslations = function (strings,mergeScriptuiStrings)
 {
+	mergeScriptuiStrings = def(mergeScriptuiStrings, true);
 	strings = new DuList(strings);
-	strings.removeDuplicates();
 	var translations = new DuList();
 
+	function compareTranslation(trA, trB)
+	{
+		if (trA.source != trB.source) return false;
+		if (trA.context == '') return true;
+		if (trB.context == '') return true;
+		return trA.context == trB.context;
+	}
+
+	if (mergeScriptuiStrings)
+	{
+		// Collect registered strings, add them to the list
+		for (key in DuScriptUI.String)
+		{
+			if (DuScriptUI.String.hasOwnProperty(key))
+			{
+				var str = DuScriptUI.String[key];
+				var trnltn = new DuTranslation(str);
+				trnltn.context = key;
+				translations.pushUnique( compareTranslation, trnltn);
+			}
+		}
+	}
+
+	alert(strings.length());
 	for (var i = 0, num = strings.length(); i < num ; i++)
 	{
 		var str = strings.at(i);
 		if (typeof str === 'string')
 		{
 			var trnltn = new DuTranslation(str);
-			if (typeof str.context !== 'undefined')
-			{
-				trnltn.context = str.context;
-			}
-			if (typeof str.args !== 'undefined')
-			{
-				trnltn.comment = "{#} placeholder: " + str.args.join(', ');
-			}
-			translations.push(trnltn);
+			if (typeof str.context !== 'undefined') trnltn.context = str.context;
+			if (typeof str.args !== 'undefined') trnltn.comment = "{#} placeholder: " + str.args.join(', ');
+			translations.pushUnique(compareTranslation, trnltn);
 		}
-		else translations.push(str);		
+		else translations.pushUnique(compareTranslation, str);		
 	}
+
+	alert(translations.length());
 	return translations.list;
 }
 

@@ -564,22 +564,7 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
                 panel.settingsGroup.exportTranslationButton.alignment = ['right','fill'];
 
             panel.settingsGroup.exportTranslationButton.onClick = function() {
-                // Collect registered strings, add them to the list
-                var strs = new DuList();
-                for (key in DuScriptUI.String)
-                {
-                    if (DuScriptUI.String.hasOwnProperty(key))
-                    {
-                        var str = DuScriptUI.String[key];
-                        str.context = key;
-                        strs.pushUnique( undefined, str);
-                    }
-                }
-
-                DuTranslator.originalStrings.mergeUnique(strs);
-                
-                if (DuTranslator.originalStrings.length() == 0) return;
-
+               
                 //Ask for file
                 var file = File.saveDialog ("Export translation File", "JSON: *.json");
                 if (!file) return;
