@@ -215,13 +215,24 @@ DuVersion.checkUpdate = function()
 		}
         var request = DuURL.buildGET( baseUrl, url, args );
 		var reply = '';
+
 		if ( co.writeln( request ) ) {
-        	reply = co.read();
+			// Wait for the closing } or timeout
+			// timeout in 2 seconds
+			var now = new Date().getTime();
+			var timeout = now + 2000;
+			while ( (reply == '' || reply.lastIndexOf('}') < reply.indexOf('{') ) && now < timeout)
+			{
+				$.sleep(100);
+				now = new Date().getTime();
+				reply += co.read();
+			}
     	}
 
 		co.close();
 
 		// Sanitize reply (strip http headers, and parse)
+		if (DuESF.debug) alert(reply);
 		reply = reply.substring( reply.indexOf('{'), reply.lastIndexOf('}')+1 );
 
 		try {

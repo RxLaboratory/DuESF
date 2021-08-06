@@ -258,7 +258,7 @@ DuScriptUI.checkUpdate = function ( callback, ui, showAlert )
     var latestUpdateCheck = def( DuESF.scriptSettings.data.common.latestUpdateCheck, 0);
     var now = Date.now();
     // 24h
-    if (now - latestUpdateCheck < 86400000 && !showAlert) return callback();
+    if (now - latestUpdateCheck < 86400000 && !showAlert && !DuESF.debug) return callback();
     DuESF.scriptSettings.data.common.latestUpdateCheck = now;
     DuESF.scriptSettings.save();
 
