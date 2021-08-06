@@ -304,6 +304,18 @@ DuTranslator.setLanguage = function (languageId)
 			var translations = jsonData[DuTranslator.Settings.name][1]["translations"];
 			DuTranslator.localizedStrings = translations;
 
+			// Translate UI
+
+			for (key in DuScriptUI.String)
+			{
+				if (DuScriptUI.String.hasOwnProperty(key))
+				{
+					var str = DuScriptUI.String[key];
+					DuScriptUI.String[key] = tr(str, key);
+					DuScriptUI.String[key].translated = true;
+				}
+			}
+
 			return 0;
 
 		}
@@ -437,6 +449,8 @@ function tr(str, context, args)
 	context = def(context, -1);
 	if ( DuDebug.checkVar( str, 'str', 'string', "DuTranslator::tr()" ) !== true ) return str;
 	if (str == '') return str;
+	// Already translated
+	if (str.translated) return str;
 
 	var useContextId = true;
 	if (typeof context === 'string' || context instanceof String) useContextId = false;
