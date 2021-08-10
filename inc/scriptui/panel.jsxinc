@@ -767,9 +767,10 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
         if (!panel.hasCommonSettings)
         {
             panel.onApplySettings();
-            alert(tr(DuScriptUI.String.APPLY_SETTINGS_ALERT));
             return;
         }
+        alert(DuScriptUI.String.APPLY_SETTINGS_ALERT);
+
         // Update and Save settings
         DuESF.scriptSettings.data.common = def( DuESF.scriptSettings.data.common, {} );
 
