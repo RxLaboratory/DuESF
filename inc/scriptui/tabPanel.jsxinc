@@ -107,10 +107,26 @@ DuScriptUI.tabPanel = function( container, tabOrientation )
         text = def( text, '');
         image = def (image, '');
 
+        var commonSettings = def( DuESF.scriptSettings.data.common, {} );
+        var uiMode = def(commonSettings.uiMode, 0);
+        if (uiMode >= 1 && image != '') text = '';
+
+        // If this button and the previous one have a label, add a spacer
+        if (panel.buttons.length > 0)
+        {
+            var prevButton = panel.buttons[panel.buttons.length-1];
+            if (prevButton.label) if (prevButton.label.text != '' && text != '')
+            {
+                var spacer = panel.buttonsGroup.add('group');
+                spacer.spacing = 0;
+                spacer.margins = 0;
+                spacer.minimumSize = [5,-1];
+            }
+        }
+
         //adds the new button
         var button = DuScriptUI.checkBox( panel.buttonsGroup, text, image, helpTip, undefined, undefined, panel.tabOrientation, true );
-
-        button.index = panel.tabs.length;
+        button.index = panel.tabs.length;       
         panel.buttons.push( button );
 
         //adds the new tab
