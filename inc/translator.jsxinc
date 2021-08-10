@@ -250,7 +250,7 @@ DuTranslator.getLanguageId = function(prettyName)
 	{
 		if(DuTranslator.languages[langId]["name"] == prettyName) return langId;
 	}
-	return 1;
+	return '';
 }
 
 /**
@@ -274,10 +274,7 @@ DuTranslator.getPrettyNames = function()
 /**
  * Set the current language
  * @param {string} languageId - The id of the language to set
- * @return {int} success code<br />
- * 0	Everything went ok<br />
- * 1	The file linked to the given id can't be opened<br />
- * 2	The json content doesn't match a translation file
+ * @return {Boolean} Success
  */
 DuTranslator.setLanguage = function (languageId)
 {
@@ -288,53 +285,63 @@ DuTranslator.setLanguage = function (languageId)
 			DuTranslator.current = languageId;
 			DuTranslator.currentName = DuTranslator.getPrettyName(languageId);
 
-			if(languageId == DuTranslator.Settings.originalLanguageId) return 0;  // Default language, no translation
+			// Reinit
+			DuTranslator.originalStrings = new DuList();
+			DuScriptUI.String.Original = def( DuScriptUI.String.Original, [] );
+			for (key in DuScriptUI.String)
+			{
+				if (DuScriptUI.String.Original.hasOwnProperty(key))
+				{
+					DuScriptUI.String[key] = DuScriptUI.String.Original[key];
+				}
+			}
 
-			// Parse process
+			// Load translation file
+			if (languageId == DuTranslator.Settings.originalLanguageId)
+			{
+				DuTranslator.localizedStrings = [];
+			}
+			else
+			{
+				var fPath = DuTranslator.languages[langId]["file"];
+				var file = new File(fPath);
 
-			var fPath = DuTranslator.languages[langId]["file"];
-			var file = new File(fPath);
+				var jsonData = DuFile.parseJSON(file);
 
-			var jsonData = DuFile.parseJSON(file);
+				if(!jsonData[DuTranslator.Settings.name] ||
+					jsonData[DuTranslator.Settings.name].length != 2 ||
+					!jsonData[DuTranslator.Settings.name][1]["translations"]) return 2; // Wrong json format
 
-			if(!jsonData[DuTranslator.Settings.name] ||
-				jsonData[DuTranslator.Settings.name].length != 2 ||
-				!jsonData[DuTranslator.Settings.name][1]["translations"]) return 2; // Wrong json format
-
-			var translations = jsonData[DuTranslator.Settings.name][1]["translations"];
-			DuTranslator.localizedStrings = translations;
+				var translations = jsonData[DuTranslator.Settings.name][1]["translations"];
+				DuTranslator.localizedStrings = translations;
+			}
 
 			// Translate UI
-
 			for (key in DuScriptUI.String)
 			{
 				if (DuScriptUI.String.hasOwnProperty(key))
 				{
 					var str = DuScriptUI.String[key];
 					DuScriptUI.String[key] = tr(str, key);
-					DuScriptUI.String[key].translated = true;
+					DuScriptUI.String.Original[key] = str;
 				}
 			}
 
-			return 0;
-
+			return true;
 		}
 	}
+	return false;
 }
 
 /**
  * Set the current language with a given pretty name
  * @param {string} languageName - The pretty name of the language to set
- * @return {int} success code<br />
- * 0	Everything went ok<br />
- * -1   Can't find any language with the given pretty name<br />
- * >0  Call to setLanguage(languageId) failed
+ * @return {Boolean} Success
  */
 DuTranslator.setPrettyLanguage = function (languageName)
 {
 	var langId = DuTranslator.getLanguageId(languageName);
-	
-	if(langId == 1) return -1;
+	if(langId == '') return false;
 
 	return DuTranslator.setLanguage(langId);
 }
@@ -449,8 +456,8 @@ function tr(str, context, args)
 	context = def(context, -1);
 	if ( DuDebug.checkVar( str, 'str', 'string', "DuTranslator::tr()" ) !== true ) return str;
 	if (str == '') return str;
-	// Already translated
-	if (str.translated) return str;
+
+	DuTranslator.originalStrings.pushUnique( undefined, str );
 
 	var useContextId = true;
 	if (typeof context === 'string' || context instanceof String) useContextId = false;
@@ -458,8 +465,6 @@ function tr(str, context, args)
 
 	var languageNumber = -1;
 	var res = str;
-	res.args = args;
-	DuTranslator.originalStrings.pushUnique( undefined, res );
 
 	//a function to get the translation id from a given string
 	function getTranslationId( stri, noCapsNorSpaces )
