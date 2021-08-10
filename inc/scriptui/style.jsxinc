@@ -1,4 +1,3 @@
-
 /**
  * Resets the layout of the whole ui containing a scriptUI item.
  * @param {ScriptUI} item - The ScriptUI element which needs to be resized
@@ -13,13 +12,18 @@ DuScriptUI.layout = function( item )
  * Changes the color of the text of a ScriptUI Object
  * @param {ScriptUI} text - The ScriptUI Object
  * @param {DuColor} color - The new color
+ * @param {Boolean} [adjusted=false] - lightens the color if the brightness setting of Ae is not set on the darkest one
  */
-DuScriptUI.setTextColor = function( text, color )
+DuScriptUI.setTextColor = function( text, color, adjusted )
 {
     if ( typeof text === 'undefined' ) throw "You must provide a ScriptUI Control to change the color of the text";
+    adjusted = def( adjusted, false );
 
     var g = text.graphics;
-    var textPen = g.newPen( g.PenType.SOLID_COLOR, color.floatRGBA(true), 1 );
+    var c;
+    if (adjusted) c = color.adjusted();
+    else c = color;
+    var textPen = g.newPen( g.PenType.SOLID_COLOR, c.floatRGBA(true), 1 );
     g.foregroundColor = textPen;
 }
 
@@ -27,12 +31,17 @@ DuScriptUI.setTextColor = function( text, color )
  * Changes the color of the background of a ScriptUI Object
  * @param {ScriptUI} uiItem - The ScriptUI Object
  * @param {Array} color - The new color [R,V,B,A] Array
+ * @param {Boolean} [adjusted=true] - lightens the color if the brightness setting of Ae is not set on the darkest one
  */
-DuScriptUI.setBackgroundColor = function( uiItem, color )
+DuScriptUI.setBackgroundColor = function( uiItem, color, adjusted )
 {
     if ( typeof uiItem === 'undefined' ) throw "You must provide a ScriptUI Control to change the color of the background";
+    adjusted = def( adjusted, true );
    
     var g = uiItem.graphics;
-    var brush = g.newBrush( g.BrushType.SOLID_COLOR, color.floatRGBA(true) );
+    var c;
+    if (adjusted) c = color.adjusted();
+    else c = color;
+    var brush = g.newBrush( g.BrushType.SOLID_COLOR, c.floatRGBA(true) );
     g.backgroundColor = brush;
 }

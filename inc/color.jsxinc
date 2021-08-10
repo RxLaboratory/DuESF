@@ -250,6 +250,25 @@ DuColor.prototype.toJSON = function ()
 	return '[' + this.red + ',' + this.green + ',' + this.blue + ',' + this.alpha + ']';
 }
 
+/**
+ * Creates a color adjusted according to the brightness setting of the application.<br />
+ * For now, works only in After Effects
+ * @return The new color
+ */
+DuColor.prototype.adjusted = function( )
+{
+	if (DuESF.host == DuESF.HostApplication.AFTER_EFFECTS)
+	{
+		//gets the main application color
+		var q = app.themeColor( 78 )[ 0 ];
+		//the darkest one is 0.15000000596046
+		q = q - 0.15000000596046;
+		var newColor = this.floatRGBA() + [ q, q, q, 0 ];
+		return new DuColor( newColor );
+	}
+    
+}
+
 // ============== STATIC ===============
 
 /**
