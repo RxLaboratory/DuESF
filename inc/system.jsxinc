@@ -27,7 +27,13 @@ var DuSystem = {};
         * @readonly
         * @type {string}
         */
-    DuSystem.osVersion = $.os.replace('Windows/','').replace('Windows','').replace('Mac OS','').replace('Mac','');
+    DuSystem.osVersion = $.os.toLowerCase()
+        .replace('windows/','')
+        .replace('windows','')
+        .replace('win', '')
+        .replace('mac os','')
+        .replace('macintosh','')
+        .replace('mac','');
 })();
 
 /**

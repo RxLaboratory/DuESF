@@ -201,7 +201,7 @@ DuVersion.checkUpdate = function()
     {
         // Build request
 		var os;
-		if (DuESF.mac) os = 'mac';
+		if (DuSystem.mac) os = 'mac';
         else os = 'win';
 
 		var args = {
