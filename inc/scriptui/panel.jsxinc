@@ -251,7 +251,7 @@ DuScriptUI.popUp = function( title, alignment, modal )
     titleBar.alignment = ['fill','top'];
     DuScriptUI.setBackgroundColor( titleBar, DuColor.Color.DARK_GREY );
     //add pin
-    var pinButton = DuScriptUI.checkBox(titleBar, '', w12_pin, 'Pin window');
+    var pinButton = DuScriptUI.checkBox(titleBar, '', w12_pin, 'Pin window', '', w12_pinned);
     pinButton.alignment = [ 'left', 'center' ];
     //add title
     var titleLabel = titleBar.add('statictext', undefined,  title);
