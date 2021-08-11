@@ -35,6 +35,21 @@ DuOCO.Limb = {
 }
 
 /**
+ * Some bone identifierss
+ * @enum {string}
+ */
+DuOCO.Bone = {
+    CUSTOM: 'custom',
+    TIP: 'tip',
+    CLAVICLE: 'clavicle',
+    HUMERUS: 'humerus',
+    RADIUS: 'radius',
+    CARPUS: 'carpus',
+    FINGER: 'finger',
+    HEEL: 'heel'
+}
+
+/**
  * Types of limbs
  * @enum {string}
  */
@@ -70,6 +85,13 @@ DuOCO.Location = {
     ABOVE: DuScriptUI.String.ABOVE_SHORT,
     UNDER: DuScriptUI.String.UNDER_SHORT,
     NONE: ''
+}
+
+DuOCO.View = {
+    FRONT: 0,
+    LEFT: 1,
+    RIGHT: 2,
+    BACK: 3
 }
 
 /**
@@ -154,7 +176,7 @@ function DuOCODoc(name)
      * @memberof DuOCODoc
      * @type {float[]}
      */
-    this.centerOfMass = [0.0, 111.0];
+    this.centerOfMass = [0.0, 107.0];
     /**
      * The limbs/ Armatures
      * @name limbs
@@ -163,7 +185,7 @@ function DuOCODoc(name)
      */
     this.limbs = [];
     this.resolution = [1920,1080];
-    this.world = [960,100];
+    this.world = [960,980];
     this.pixelsPerCm = 4.22;
 }
 
@@ -216,6 +238,310 @@ DuOCODoc.prototype.newLimb = function( limb, side, location )
     var l = new DuOCOLimb( limb, side, location );
     this.limbs.push(l);
     return l;
+}
+
+/**
+ * Creates a new arm.
+ * @param {DuOCO.LimbType} [type=DuOCO.LimbType.PLANTIGRADE] The type of limb
+ * @param {DuOCO.Side} [side=DuOCO.Side.LEFT] The side
+ * @param {Boolean} [shoulder=false] Whether to create a shoulder
+ * @param {Boolean} [arm=true]  Whether to create an arm / humerus
+ * @param {Boolean} [forearm=true]  Whether to create a forearm
+ * @param {Boolean} [hand=true]  Whether to create a hand
+ * @param {Boolean} [claws=false]  Whether to add claws
+ * @param {float[]} [position] The position of the first bone of the arm
+ * @param {DuOCO.View} [view] The view
+ * @returns {DuOCOLimb} The arm
+ */
+DuOCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, claws, position, view )
+{
+    side = def(side, DuOCO.Side.LEFT);
+    type = def(type, DuOCO.LimbType.PLANTIGRADE);
+
+    shoulder = def( shoulder, false );
+    arm = def( arm, true );
+    forearm = def( forearm, true );
+    hand = def( hand, true );
+    claws = def( claws, false );
+
+    // Unit
+    var u = this.height;
+
+    // type
+    var hum = type == DuOCO.LimbType.PLANTIGRADE && !claws;
+    var plan = type == DuOCO.LimbType.PLANTIGRADE && claws;
+    var dig = type == DuOCO.LimbType.DIGITIGRADE;
+    var ung = type == DuOCO.LimbType.UNGULATE;
+    var art = type == DuOCO.LimbType.ARTHROPOD;
+    if ( !hum && !plan && !dig && !ung && !art ) hum = true;
+
+    // View
+    if (typeof view === 'undefined')
+    {
+        if (type == DuOCO.PLANTIGRADE && !claws) view = DuOCO.View.FRONT;
+        else view = DuOCO.View.RIGHT;
+    }
+
+    // count how many bones we need
+    var num = 1;
+    if ( shoulder ) num++;
+    if ( arm ) num++;
+    if ( forearm ) num++;
+    if ( hand ) num++;
+    if ( claws ) num++;
+
+    if (num == 1) return null;
+
+    // Create limb
+    var limb = this.newLimb( DuOCO.Limb.ARM, side, DuOCO.Location.FRONT );
+    var b = limb.newArmature( DuScriptUI.String.ARM, num );
+
+    // side
+    var s = 1;
+    if ( side == DuOCO.Side.RIGHT && view == DuOCO.View.FRONT ) s = -1;
+    else if ( side == DuOCO.Side.LEFT && view == DuOCO.View.BACK ) s = -1;
+    else if ( view == DuOCO.View.LEFT ) s = -1;  
+
+    // shoulder position
+    var x, y;
+    var ox = 0;
+    var oy = 0;
+    if (hum)
+    {
+        x = s * u * .02;
+        y = u * .78;
+    }
+    else if (plan)
+    {
+        x = s * u * .40;
+        y = u * .92;
+    }
+    else if (dig)
+    {
+        x = s * u * .45;
+        y = u * .86;
+    }
+    else if (ung)
+    {
+        x = s * u * .33;
+        y = u * .80;
+    }
+    else if (art)
+    {
+        x = s * u * .33;
+        y = u * .65;
+    }
+
+    // offset
+    if (typeof position !== 'undefined' )
+    {
+        ox = position[0] - x;
+        oy = position[1] - y;
+    }
+
+    // for each part, set the location
+    if ( shoulder )
+    {
+        b.name = DuScriptUI.String.SHOULDER;
+        b.type = DuOCO.Bone.CLAVICLE;
+        b.x = s * x + ox;
+        b.y = y + oy;
+        if (b.children.length > 0) b = b.children[0];
+    }
+    if ( arm )
+    {
+        b.name = DuScriptUI.String.ARM;
+        b.type = DuOCO.Bone.HUMERUS;
+        if (hum)
+        {
+            b.x = s * u * .12 + ox;
+            b.y = u * .77 + oy;
+        }
+        else if (plan)
+        {
+            b.x = s * u * .48 + ox;
+            b.y = u*.74 + oy;
+        }
+        else if (dig)
+        {
+            b.x = s * u * .45 + ox;
+            b.y = u*.66 + oy;
+        }
+        else if (ung)
+        {
+            b.x = s * u * .35 + ox;
+            b.y = u*.63 + oy;
+        }
+        else if (art)
+        {
+            b.x = s * u * .24 + ox;
+            b.y = u*.45 + oy;
+        }
+        if (b.children.length > 0) b = b.children[0];
+    }
+    if ( forearm )
+    {
+        b.name = DuScriptUI.String.FOREARM;
+        b.type = DuOCO.Bone.RADIUS;
+        if (hum)
+        {
+            b.x = s * u * .15 + ox;
+            b.y = u *.65 + oy;
+        }
+        else if (plan)
+        {
+            b.x = s * u * .36 + ox;
+            b.y = u*.44 + oy;
+        }
+        else if (dig)
+        {
+            b.x = s * u * .21 + ox;
+            b.y = u*.45 + oy;
+        }
+        else if (ung)
+        {
+            b.x = s * u * .21 + ox;
+            b.y = u*.31 + oy;
+        }
+        else if (art)
+        {
+            b.x = s * u * .55 + ox;
+            b.y = u*.80 + oy;
+        }
+        if (b.children.length > 0) b = b.children[0];
+    }
+    if ( hand )
+    {
+        b.name = DuScriptUI.String.HAND;
+        b.type = DuOCO.Bone.CARPUS;
+        if (hum)
+        {
+            b.x = s * u * .12 + ox;
+            b.y = u * .51 + oy;
+        }
+        else if (plan)
+        {
+            b.x = s * u * .38 + ox;
+            b.y = u*.05 + oy;
+        }
+        else if (dig)
+        {
+            b.x = s * u * .45 + ox;
+            b.y = u*.14 + oy;
+        }
+        else if (ung)
+        {
+            b.x = s * u * .19 + ox;
+            b.y = u*.13 + oy;
+        }
+        else if (art)
+        {
+            b.x = s * u * .77 + ox;
+            b.y = u*.28 + oy;
+        }
+        if (b.children.length > 0) b = b.children[0];
+    }
+    if ( claws )
+    {
+        b.name = DuScriptUI.String.CLAWS;
+        b.type = DuOCO.Bone.FINGER;
+        if (plan)
+        {
+            b.x = s * u * .455 + ox;
+            b.y = u*.035 + oy;
+        }
+        else if (dig)
+        {
+            b.x = s * u * .49 + ox;
+            b.y = u*.03 + oy;
+        }
+        else if (ung)
+        {
+            b.x = s * u * .19 + ox;
+            b.y = u*.07 + oy;
+        }
+        else if (art)
+        {
+            b.x = s * u * .86 + ox;
+            b.y = u*.07 + oy;
+        }
+        if (b.children.length > 0) b = b.children[0];
+    }
+    // Tip
+    b.name = DuScriptUI.String.ARM + '_' + DuScriptUI.String.TIP_BONE;
+    b.type = DuOCO.Bone.TIP;
+    if (hum)
+    {
+        b.x = s * u * .08 + ox;
+        b.y = u * .42 + oy;
+    }
+    else if (plan)
+    {
+        b.x = s * u * .585 + ox;
+        b.y = 0 + oy;
+    }
+    else if (dig)
+    {
+        b.x = s * u * .59 + ox;
+        b.y = u*.03 + oy;
+    }
+    else if (ung)
+    {
+        b.x = s * u * .21 + ox;
+        b.y = oy;
+    }
+    else if (art)
+    {
+        b.x = s * u * .93 + ox;
+        b.y = oy;
+    }
+
+    //Heel
+    if (plan)
+    {
+        var heelBone = new DuOCOBone( DuScriptUI.String.HEEL );
+        heelBone.type = DuOCO.Bone.HEEL;
+        heelBone.x = s * u * .38 + ox;
+        heelBone.y = 0 + oy;
+        b.children.push(heelBone);
+    }
+
+    return limb;
+}
+
+/**
+ * Converts a doc coordinate in centimeters to pixel coordinates
+ * @param {float[]} point The coordinate to convert
+ * @returns {int[]} The coordinates in pixels relative to the comp
+ */
+DuOCODoc.prototype.toPixels = function( point )
+{
+    // First, convert to pixels
+    var x = point[0]*this.pixelsPerCm;
+    // minus because in 2D apps, 0 is top
+    var y = -point[1]*this.pixelsPerCm;
+    // We're relative to the world, add its coordinates
+    x += this.world[0];
+    y += this.world[1];
+    return [x, y];
+}
+
+/**
+ * Converts a pixel coordinate in pixels to centimeters doc coordinates
+ * @param {int[]} point The coordinate to convert
+ * @returns {float[]} The coordinates in centimeters relative to the doc
+ */
+DuOCODoc.prototype.fromPixels = function( point )
+{
+    var x = point[0];
+    var y = point[1];
+    // We're relative to the world, remove its coordinates
+    x -= this.world[0];
+    y -= this.world[1];
+    // Convert to cm
+    x /= this.pixelsPerCm;
+    y /= this.pixelsPerCm;
+    return [x, y];
 }
 
 /**
@@ -279,7 +605,7 @@ DuOCOLimb.prototype.bounds = function( )
  * @param {string} name The name of the bones (will increment if needed)
  * @param {int} [num=2] The number of bones in the chain
  * @param {float} [length=100.0] The length in centimeters
- * @returns {DuOCOBone} The root bone of the new chain
+ * @return {DuOCOBone} The root bone.
  */
 DuOCOLimb.prototype.newArmature = function( name, num, length )
 {
@@ -368,4 +694,11 @@ function DuOCOBone(name)
      * @type {DuOCOLimb[]}
      */
     this.limbs = [];
+    /**
+     * The type of bone.
+     * @name type
+     * @memberof DuOCOBone
+     * @type {DuOCO.Bone}
+     */
+    this.type = DuOCO.Bone.CUSTOM;
 }
