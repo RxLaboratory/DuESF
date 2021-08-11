@@ -355,7 +355,7 @@ DuScriptUI.popUp = function( title, alignment, modal )
 
     function esc(e)
     {
-        if ( e.keyName == "Escape") hidePopup();
+        if ( e.keyName == "Escape") { hidePopup(); }
     }
 
     function hidePopup()
