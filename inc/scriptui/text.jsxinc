@@ -8,6 +8,7 @@
  * Use {@link DuScriptUI.editText} to create a Nice EditText.<br />
  * The Nice EditText inherits the Group object from ScriptUI and has all of its properties and methods.
  * @property {string} text - Read-Only | The text displayed
+ * @property {DuColor} textColor - The color of the text
  * @property {DuEditText~onActivate} onActivate - Function to execute when activated
  * @property {DuEditText~onDeactivate} onDeactivate - Function to execute when deactivated
  * @property {DuEditText~onChange} onChange - Function to execute when text changed
@@ -99,6 +100,7 @@ DuScriptUI.editText = function( container, text, prefix, suffix, placeHolder, he
     niceEditText.edit.helpTip = helpTip;
     niceEditText.prefix = prefix;
     niceEditText.suffix = suffix;
+    niceEditText.textColor = DuColor.Color.APP_HIGHLIGHT_COLOR;
 
     niceEditText.text = text;
     niceEditText.editing = false;
@@ -126,12 +128,12 @@ DuScriptUI.editText = function( container, text, prefix, suffix, placeHolder, he
         var staticText = '';
         if ( niceEditText.edit.text == '' && niceEditText.placeHolder != '' )
         {
-            DuScriptUI.setTextColor( niceEditText.static, DuColor.Color.APP_HIGHLIGHT_COLOR.darker(150) );
+            DuScriptUI.setTextColor( niceEditText.static, niceEditText.textColor.darker(150) );
             staticText = niceEditText.placeHolder;
         }
         else
         {
-            if ( niceEditText.placeHolder != '' ) DuScriptUI.setTextColor( niceEditText.static, DuColor.Color.APP_HIGHLIGHT_COLOR );
+            if ( niceEditText.placeHolder != '' ) DuScriptUI.setTextColor( niceEditText.static, niceEditText.textColor );
             staticText = niceEditText.edit.text;
         }
         niceEditText.static.text = niceEditText.prefix + staticText + niceEditText.suffix;
