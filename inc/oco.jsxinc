@@ -291,7 +291,7 @@ DuOCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, 
     // View
     if (typeof view === 'undefined')
     {
-        if (type == DuOCO.PLANTIGRADE && !claws) view = DuOCO.View.FRONT;
+        if (type == DuOCO.LimbType.PLANTIGRADE && !claws) view = DuOCO.View.FRONT;
         else view = DuOCO.View.RIGHT;
     }
 
@@ -367,7 +367,7 @@ DuOCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, 
     {
         b.name = DuScriptUI.String.SHOULDER;
         b.type = DuOCO.Bone.CLAVICLE;
-        b.x = s * x + ox;
+        b.x = x + ox;
         b.y = y + oy;
         if (b.children.length > 0) b = b.children[0];
     }
@@ -619,7 +619,7 @@ DuOCODoc.prototype.newLeg = function( type, side, thigh, calf, foot, claws, posi
     // View
     if (typeof view === 'undefined')
     {
-        if (type == DuOCO.PLANTIGRADE && !claws) view = DuOCO.View.FRONT;
+        if (type == DuOCO.LimbType.PLANTIGRADE) view = DuOCO.View.FRONT;
         else view = DuOCO.View.RIGHT;
     }
 
@@ -638,6 +638,7 @@ DuOCODoc.prototype.newLeg = function( type, side, thigh, calf, foot, claws, posi
 
     // side
     var s = 1;
+
     if ( side == DuOCO.Side.RIGHT && view == DuOCO.View.FRONT ) s = -1;
     else if ( side == DuOCO.Side.LEFT && view == DuOCO.View.BACK ) s = -1;
     else if ( view == DuOCO.View.LEFT ) s = -1;
@@ -674,7 +675,7 @@ DuOCODoc.prototype.newLeg = function( type, side, thigh, calf, foot, claws, posi
     {
         b.name = DuScriptUI.String.THIGH;
         b.type = DuOCO.Bone.FEMUR;
-        b.x = s * x + ox;
+        b.x = x + ox;
         b.y = y + oy;
         if (b.children.length > 0) b = b.children[0];
     }
