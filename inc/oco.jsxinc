@@ -46,7 +46,11 @@ DuOCO.Bone = {
     RADIUS: 'radius',
     CARPUS: 'carpus',
     FINGER: 'finger',
-    HEEL: 'heel'
+    HEEL: 'heel',
+    FEMUR: 'femur',
+    TIBIA: 'tibia',
+    TARSUS: 'tarsus',
+    TOE: 'toe'
 }
 
 /**
@@ -568,6 +572,197 @@ DuOCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, 
         heelBone.type = DuOCO.Bone.HEEL;
         heelBone.x = s * u * .38 + ox;
         heelBone.y = 0 + oy;
+        b.children.push(heelBone);
+    }
+
+    return limb;
+}
+
+/**
+ * Creates a new leg.
+ * @param {DuOCO.LimbType} [type=DuOCO.LimbType.PLANTIGRADE] The type of limb
+ * @param {DuOCO.Side} [side=DuOCO.Side.LEFT] The side
+ * @param {Boolean} [thigh=true]  Whether to create a thigh
+ * @param {Boolean} [calf=true]  Whether to create a calf
+ * @param {Boolean} [foot=true]  Whether to create a foot
+ * @param {Boolean} [claws=false]  Whether to add claws
+ * @param {float[]} [position] The position of the first bone of the arm.<br />
+ * If omitted, computed automatically according to the current character in the doc.
+ * @param {DuOCO.Location} [location=DuOCO.Location.BACK] The location of the limb
+ * @param {DuOCO.View} [view] The view
+ * @returns {DuOCOLimb} The arm
+ */
+DuOCODoc.prototype.newLeg = function( type, side, thigh, calf, foot, claws, position, location, view )
+{
+    side = def(side, DuOCO.Side.LEFT);
+    type = def(type, DuOCO.LimbType.PLANTIGRADE);
+    location = def(location, DuOCO.Location.BACK);
+
+    thigh = def( thigh, true );
+    calf = def( calf, true );
+    foot = def( foot, true );
+    claws = def( claws, false );
+
+    // Unit
+    var u = this.height;
+
+    // type
+    var plan = type == DuOCO.LimbType.PLANTIGRADE;
+    var dig = type == DuOCO.LimbType.DIGITIGRADE;
+    var ung = type == DuOCO.LimbType.UNGULATE;
+    if ( !plan && !dig && !ung ) hum = true;
+
+    // View
+    if (typeof view === 'undefined')
+    {
+        if (type == DuOCO.PLANTIGRADE && !claws) view = DuOCO.View.FRONT;
+        else view = DuOCO.View.RIGHT;
+    }
+
+    // count how many bones we need
+    var num = 1;
+    if ( thigh ) num++;
+    if ( calf ) num++;
+    if ( foot ) num++;
+    if ( claws ) num++;
+
+    if (num == 1) return null;
+
+    // Create limb
+    var limb = this.newLimb( DuOCO.Limb.LEG, side, location );
+    var b = limb.newArmature( DuScriptUI.String.LEG, num );
+
+    // side
+    var s = 1;
+    if ( side == DuOCO.Side.RIGHT && view == DuOCO.View.FRONT ) s = -1;
+    else if ( side == DuOCO.Side.LEFT && view == DuOCO.View.BACK ) s = -1;
+    else if ( view == DuOCO.View.LEFT ) s = -1;
+
+    // thigh position
+    var x, y;
+    var ox = 0;
+    var oy = 0;
+    if (plan)
+    {
+        x = s * u * .04;
+        y = u * .53;
+    }
+    else if (dig)
+    {
+        x = s * u * -.45;
+        y = u * .73;
+    }
+    else if (ung)
+    {
+        x = s * u * -.26;
+        y = u * .69;
+    }
+
+    // offset
+    if (typeof position !== 'undefined' )
+    {
+        ox = position[0] - x;
+        oy = position[1] - y;
+    }
+
+    // for each part, set the location
+    if ( thigh )
+    {
+        b.name = DuScriptUI.String.THIGH;
+        b.type = DuOCO.Bone.FEMUR;
+        b.x = s * x + ox;
+        b.y = y + oy;
+        if (b.children.length > 0) b = b.children[0];
+    }
+    if ( calf )
+    {
+        b.name = DuScriptUI.String.CALF;
+        b.type = DuOCO.Bone.TIBIA;
+        if (plan)
+        {
+            b.x = s * u * .05 + ox;
+            b.y = u*.28 + oy;
+        }
+        else if (dig)
+        {
+            b.x = s * u * -.16 + ox;
+            b.y = u*.54 + oy;
+        }
+        else if (ung)
+        {
+            b.x = s * u * -.2 + ox;
+            b.y = u*.52 + oy;
+        }
+        if (b.children.length > 0) b = b.children[0];
+    }
+    if ( foot )
+    {
+        b.name = DuScriptUI.String.FOOT;
+        b.type = DuOCO.Bone.TARSUS;
+        if (plan)
+        {
+            b.x = s * u * .036 + ox;
+            b.y = u*.027 + oy;
+        }
+        else if (dig)
+        {
+            b.x = s * u * -.5 + ox;
+            b.y = u*.24 + oy;
+        }
+        else if (ung)
+        {
+            b.x = s * u * -.38 + ox;
+            b.y = u*.33 + oy;
+        }
+        if (b.children.length > 0) b = b.children[0];
+    }
+    if ( claws )
+    {
+        b.name = DuScriptUI.String.CLAWS;
+        b.type = DuOCO.Bone.TOE;
+        if (plan)
+        {
+            b.x = s * u * .10 + ox;
+            b.y = u*.0125 + oy;
+        }
+        else if (dig)
+        {
+            b.x = s * u * -.37 + ox;
+            b.y = u*.03 + oy;
+        }
+        else if (ung)
+        {
+            b.x = s * u * -.37 + ox;
+            b.y = u*.08 + oy;
+        }
+        if (b.children.length > 0) b = b.children[0];
+    }
+    // Tip
+    b.name = DuScriptUI.String.ARM + '_' + DuScriptUI.String.TIP_BONE;
+    b.type = DuOCO.Bone.TIP;
+    if (plan)
+    {
+        b.x = s * u * .145 + ox;
+        b.y = oy;
+    }
+    else if (dig)
+    {
+        b.x = s * u * -.25 + ox;
+        b.y = oy;
+    }
+    else if (ung)
+    {
+        b.x = s * u * -.34 + ox;
+        b.y = oy;
+    }
+
+    //Heel
+    if (plan && claws)
+    {
+        var heelBone = new DuOCOBone( DuScriptUI.String.HEEL );
+        heelBone.type = DuOCO.Bone.HEEL;
+        heelBone.x = s * u * .01 + ox;
+        heelBone.y = oy;
         b.children.push(heelBone);
     }
 
