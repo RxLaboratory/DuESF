@@ -38,11 +38,13 @@ DuScriptUI.String = {
     EXPORT_TRANSLATION_TIP: "Export a translation file to be edited with DuTranslator.",
     FEATURE_REQUEST: "Feature request",
     FEATURE_REQUEST_TIP: "Feature request\nRequest something new.",
+    FIN: "Fin",
     FOOT: "Foot",
     FOREARM: "Forearm",
     FRONT: "Front",
     FRONT_SHORT: "Fr",
     GROUPS: "Groups",
+    HAIR: "Hair",
     HAND: "Hand",
     HEAD: "Head",
     HEEL: "Heel",
@@ -89,6 +91,7 @@ DuScriptUI.String = {
     SETTINGS_FILE_TIP: "Set the location of the settings file.",
     SHOULDER: "Shoulder",
     SIZE: "Size",
+    SNAKE_SPINE: "Snake spine",
     SPINE: "Spine",
     STANDARD: "Standard",
     STANDARD_UI_TIP: "The standard not-too-big UI.",
@@ -100,5 +103,6 @@ DuScriptUI.String = {
     TOES: "Toes",
     UI_MODE_TIP: "Select the UI mode.",
     UNDER: "Under",
-    UNDER_SHORT: "Un"
+    UNDER_SHORT: "Un",
+    WING: "Wing"
 }
