@@ -50,7 +50,11 @@ DuOCO.Bone = {
     FEMUR: 'femur',
     TIBIA: 'tibia',
     TARSUS: 'tarsus',
-    TOE: 'toe'
+    TOE: 'toe',
+    HIPS: 'hips',
+    SPINE: 'spine',
+    NECK: 'neck',
+    SKULL: 'skull'
 }
 
 /**
@@ -590,7 +594,7 @@ DuOCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, 
  * If omitted, computed automatically according to the current character in the doc.
  * @param {DuOCO.Location} [location=DuOCO.Location.BACK] The location of the limb
  * @param {DuOCO.View} [view] The view
- * @returns {DuOCOLimb} The arm
+ * @returns {DuOCOLimb} The leg
  */
 DuOCODoc.prototype.newLeg = function( type, side, thigh, calf, foot, claws, position, location, view )
 {
@@ -765,6 +769,106 @@ DuOCODoc.prototype.newLeg = function( type, side, thigh, calf, foot, claws, posi
         heelBone.y = oy;
         b.children.push(heelBone);
     }
+
+    return limb;
+}
+
+/**
+ * Creates a new spine.
+ * @param {Boolean} [head=true]  Whether to create a head
+ * @param {int} [neck=1] Number of neck bones
+ * @param {int} [spine=2] Number of spine bones
+ * @param {Boolean} [hips=true]  Whether to create hips
+ * @param {float[]} [position] The position of the first bone of the arm.<br />
+ * If omitted, computed automatically according to the current character in the doc.
+ * @param {DuOCO.View} [view] The view
+ * @returns {DuOCOLimb} The spine
+ */
+DuOCODoc.prototype.newSpine = function( head, neck, spine, hips, position )
+{
+    head = def( head, true );
+    neck = def( neck, 1 );
+    spine = def( spine, 2 );
+    hips = def( hips, false );
+
+    // Unit
+    var u = this.height;
+
+    // count how many bones we need
+    var num = 1;
+    if ( head ) num++;
+    num += neck;
+    num += spine;
+    if ( hips ) num++;
+
+    if (num == 1) return null;
+
+    // Create limb
+    var limb = this.newLimb( DuOCO.Limb.LEG, DuOCO.Side.NONE, DuOCO.Location.NONE );
+    var b = limb.newArmature( DuScriptUI.String.SPINE, num );
+
+    // hips position
+    var ox = 0;
+    var oy = 0;
+    var x = 0;
+    var y = u * .53;
+
+    // offset
+    if (typeof position !== 'undefined' )
+    {
+        ox = position[0] - x;
+        oy = position[1] - y;
+    }
+
+    // for each part, set the location
+    if ( hips )
+    {
+        b.name = DuScriptUI.String.HIPS;
+        b.type = DuOCO.Bone.HIPS;
+        b.x = x + ox;
+        b.y = y + oy;
+        if (b.children.length > 0) b = b.children[0];
+    }
+    if (spine > 0)
+    {
+        var spineLength = u*.27 / spine;
+        var spineStart = u*.56;
+        for (var i = 0; i < spine; i++)
+        {
+            b.name = DuScriptUI.String.SPINE;
+            b.type = DuOCO.Bone.SPINE;
+            b.y = spineStart + i*spineLength + oy;
+            b.x = ox;
+            if (b.children.length > 0) b = b.children[0];
+        }
+    }
+    if (neck > 0)
+    {
+        var neckLength = u*.06 / neck;
+        var neckStart = u*.83;
+        for (var i = 0; i < neck; i++)
+        {
+            b.name = DuScriptUI.String.NECK;
+            b.type = DuOCO.Bone.NECK;
+            b.y = neckStart + i*neckLength + oy;
+            b.x = ox;
+            if (b.children.length > 0) b = b.children[0];
+        }
+    }  
+    if ( head )
+    {
+        b.name = DuScriptUI.String.HEAD;
+        b.type = DuOCO.Bone.SKULL;
+        b.x = ox;
+        b.y = u*.89 + oy;
+        if (b.children.length > 0) b = b.children[0];
+    }
+
+    // Tip
+    b.name = DuScriptUI.String.SPINE + '_' + DuScriptUI.String.TIP_BONE;
+    b.type = DuOCO.Bone.TIP;
+    b.x = ox;
+    b.y = u + oy;
 
     return limb;
 }
