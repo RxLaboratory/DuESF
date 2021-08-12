@@ -249,14 +249,17 @@ DuOCODoc.prototype.newLimb = function( limb, side, location )
  * @param {Boolean} [forearm=true]  Whether to create a forearm
  * @param {Boolean} [hand=true]  Whether to create a hand
  * @param {Boolean} [claws=false]  Whether to add claws
- * @param {float[]} [position] The position of the first bone of the arm
+ * @param {float[]} [position] The position of the first bone of the arm.<br />
+ * If omitted, computed automatically according to the current character in the doc.
+ * @param {DuOCO.Location} [location=DuOCO.Location.FRONT] The location of the limb
  * @param {DuOCO.View} [view] The view
  * @returns {DuOCOLimb} The arm
  */
-DuOCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, claws, position, view )
+DuOCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, claws, position, location, view )
 {
     side = def(side, DuOCO.Side.LEFT);
     type = def(type, DuOCO.LimbType.PLANTIGRADE);
+    location = def(location, DuOCO.Location.FRONT);
 
     shoulder = def( shoulder, false );
     arm = def( arm, true );
@@ -293,7 +296,7 @@ DuOCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, 
     if (num == 1) return null;
 
     // Create limb
-    var limb = this.newLimb( DuOCO.Limb.ARM, side, DuOCO.Location.FRONT );
+    var limb = this.newLimb( DuOCO.Limb.ARM, side, location );
     var b = limb.newArmature( DuScriptUI.String.ARM, num );
 
     // side
