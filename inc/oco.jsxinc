@@ -275,8 +275,10 @@ DuOCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, 
     var plan = type == DuOCO.LimbType.PLANTIGRADE && claws;
     var dig = type == DuOCO.LimbType.DIGITIGRADE;
     var ung = type == DuOCO.LimbType.UNGULATE;
-    var art = type == DuOCO.LimbType.ARTHROPOD;
-    if ( !hum && !plan && !dig && !ung && !art ) hum = true;
+    var artF = type == DuOCO.LimbType.ARTHROPOD && location != DuOCO.Location.MIDDLE && location != DuOCO.Location.BACK;
+    var artM = type == DuOCO.LimbType.ARTHROPOD && location == DuOCO.Location.MIDDLE;
+    var artB = type == DuOCO.LimbType.ARTHROPOD && location == DuOCO.Location.BACK;
+    if ( !hum && !plan && !dig && !ung && !artF && !artM && !artB ) hum = true;
 
     // View
     if (typeof view === 'undefined')
@@ -329,10 +331,20 @@ DuOCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, 
         x = s * u * .33;
         y = u * .80;
     }
-    else if (art)
+    else if (artF)
     {
         x = s * u * .33;
         y = u * .65;
+    }
+    else if (artM)
+    {
+        x = s * u * .09;
+        y = u * .50;
+    }
+    else if (artB)
+    {
+        x = s * u * -.03;
+        y = u * .48;
     }
 
     // offset
@@ -375,10 +387,20 @@ DuOCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, 
             b.x = s * u * .35 + ox;
             b.y = u*.63 + oy;
         }
-        else if (art)
+        else if (artF)
         {
             b.x = s * u * .24 + ox;
             b.y = u*.45 + oy;
+        }
+        else if (artM)
+        {
+            b.x = s * u * -.01 + ox;
+            b.y = u*.44 + oy;
+        }
+        else if (artB)
+        {
+            b.x = s * u * -.17 + ox;
+            b.y = u*.43 + oy;
         }
         if (b.children.length > 0) b = b.children[0];
     }
@@ -406,10 +428,20 @@ DuOCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, 
             b.x = s * u * .21 + ox;
             b.y = u*.31 + oy;
         }
-        else if (art)
+        else if (artF)
         {
             b.x = s * u * .55 + ox;
             b.y = u*.80 + oy;
+        }
+        else if (artM)
+        {
+            b.x = s * u * -.08 + ox;
+            b.y = u*.82 + oy;
+        }
+        else if (artB)
+        {
+            b.x = s * u * -.44 + ox;
+            b.y = u*.92 + oy;
         }
         if (b.children.length > 0) b = b.children[0];
     }
@@ -437,10 +469,20 @@ DuOCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, 
             b.x = s * u * .19 + ox;
             b.y = u*.13 + oy;
         }
-        else if (art)
+        else if (artF)
         {
             b.x = s * u * .77 + ox;
             b.y = u*.28 + oy;
+        }
+        else if (artM)
+        {
+            b.x = s * u * -.17 + ox;
+            b.y = u*.42 + oy;
+        }
+        else if (artB)
+        {
+            b.x = s * u * -.77 + ox;
+            b.y = u*.47 + oy;
         }
         if (b.children.length > 0) b = b.children[0];
     }
@@ -463,9 +505,19 @@ DuOCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, 
             b.x = s * u * .19 + ox;
             b.y = u*.07 + oy;
         }
-        else if (art)
+        else if (artF)
         {
             b.x = s * u * .86 + ox;
+            b.y = u*.07 + oy;
+        }
+        else if (artM)
+        {
+            b.x = s * u * -.25 + ox;
+            b.y = u*.07 + oy;
+        }
+        else if (artB)
+        {
+            b.x = s * u * -.98 + ox;
             b.y = u*.07 + oy;
         }
         if (b.children.length > 0) b = b.children[0];
@@ -493,9 +545,19 @@ DuOCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, 
         b.x = s * u * .21 + ox;
         b.y = oy;
     }
-    else if (art)
+    else if (artF)
     {
         b.x = s * u * .93 + ox;
+        b.y = oy;
+    }
+    else if (artM)
+    {
+        b.x = s * u * -.31 + ox;
+        b.y = oy;
+    }
+    else if (artB)
+    {
+        b.x = s * u * -1.06 + ox;
         b.y = oy;
     }
 
