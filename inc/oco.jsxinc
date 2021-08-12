@@ -605,7 +605,8 @@ DuOCODoc.prototype.fromPixels = function( point )
     y -= this.world[1];
     // Convert to cm
     x /= this.pixelsPerCm;
-    y /= this.pixelsPerCm;
+    // Y coordinate is at bottm in OCO, top in 2D docs
+    y /= -this.pixelsPerCm;
     return [x, y];
 }
 
