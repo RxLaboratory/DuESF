@@ -778,7 +778,6 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
             panel.onApplySettings();
             return;
         }
-        alert(DuScriptUI.String.APPLY_SETTINGS_ALERT);
 
         // Update and Save settings
         DuESF.scriptSettings.data.common = def( DuESF.scriptSettings.data.common, {} );
@@ -835,6 +834,10 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
         rootSettingsGroup.visible = false;
 
         panel.onApplySettings();
+
+        // Restart script
+        var ok = DuScriptUI.refreshPanel( panel, scriptFile );
+        if (!ok) alert(DuScriptUI.String.APPLY_SETTINGS_ALERT);
     }
 
     panel.settingsGroup.resetButton.onClick = function()
@@ -940,49 +943,17 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
 
 DuScriptUI.refreshPanel = function( panel, scriptFile )
 {
-    function refresh ()
+    return DuScriptUI.refreshWindow( panel, scriptFile );
+}
+
+DuScriptUI.refreshWindow = function ( win, scriptFile )
+{
+    // If Panel is a window, close, and run script again
+    if( win instanceof Window && scriptFile.exists)
     {
-        var ok = false;
-        DuScriptUI.dimControls();
-        // Remove everything
-        for ( var i = panel.children.length - 1; i >= 0; i-- )
-        {
-            panel.remove( this.children[ i ] );
-        }
-
-        // Run the scriptFile
-        try
-        {
-            ok = true;
-            $.evalFile( scriptFile );
-        }
-        catch ( err )
-        {
-            ok = false;
-            //add debug info
-            if ( DuESF.debug )
-            {
-                panel.add( 'statictext', undefined, err.fileName,
-                {
-                    multiline: true
-                } );
-                panel.add( 'statictext', undefined, err.message,
-                {
-                    multiline: true
-                } );
-                panel.add( 'statictext', undefined, "on line" + err.line );
-                //add a refresh button
-                var button = panel.add( 'button', undefined, "Refresh UI" );
-                button.onClick = function()
-                {
-                    panel.refreshUI( scriptFile )
-                };
-            }
-        }
-
-        // Recalculate UI
-        DuScriptUI.layout( panel );
-        return ok;
+        win.close();
+        $.evalFile( scriptFile );
+        return true;
     }
-    return refresh.call( panel );
+    return false;
 }
