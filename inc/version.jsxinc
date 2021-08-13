@@ -216,6 +216,16 @@ DuVersion.checkUpdate = function()
         var request = DuURL.buildGET( baseUrl, url, args );
 		var reply = '';
 
+		DuDebug.log( "Version check - Sys Info\r\n" +
+			"Script: " + DuESF.scriptName + '\r\n' +
+			"Script Version: " + DuESF.scriptVersion.fullVersion + '\r\n' +
+			"OS: " + os + '\r\n' +
+			"OS Version: " + DuSystem.osVersion + '\r\n' +
+			"Host: " + DuESF.host + '\r\n' +
+			"Host Version: " + DuESF.hostVersion.fullVersion + '\r\n\r\n' +
+			"Request: " + request
+			);
+
 		if ( co.writeln( request ) ) {
 			// Wait for the closing } or timeout
 			// timeout in 2 seconds
@@ -232,7 +242,7 @@ DuVersion.checkUpdate = function()
 		co.close();
 
 		// Sanitize reply (strip http headers, and parse)
-		if (DuESF.debug) alert(reply);
+		DuDebug.log( "Version check - Reply\r\n" + reply );
 		reply = reply.substring( reply.indexOf('{'), reply.lastIndexOf('}')+1 );
 
 		try {

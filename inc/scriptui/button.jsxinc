@@ -171,7 +171,6 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
     duButton.onAltClick = function() {};
     duButton.onCtrlAltClick = function() {};
     duButton.onCtrlClick = function() {};
-    duButton.clickTime = 0;
 
     // Options button
     if (addOptionsPanel) {
@@ -240,7 +239,7 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
     duButton.dim = function()
     {
         DuScriptUI.setBackgroundColor( mainGroup, duButton.bgColor );
-        if(duButton.label) DuScriptUI.setTextColor( mainGroup, duButton.textColor );
+        if (duButton.label) DuScriptUI.setTextColor( mainGroup, duButton.textColor );
     }
 
     duButton.setBackgroundColor = function(color)
@@ -267,19 +266,7 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
         else duButton.clicked();
     }, true );
     
-    duButton.addEventListener( "mouseover", duButton.highlight );
-    if (duButton.label) duButton.label.addEventListener( "mouseover", duButton.highlight );
-    if (duButton.fillerL) duButton.fillerL.addEventListener( "mouseover", duButton.highlight );
-    if (duButton.fillerR) duButton.fillerR.addEventListener( "mouseover", duButton.highlight );
-    if (duButton.fillerM) duButton.fillerM.addEventListener( "mouseover", duButton.highlight );
-    if (duButton.image) duButton.image.addEventListener( "mouseover", duButton.highlight );
-    if (duButton.imageGroup) duButton.imageGroup.addEventListener( "mouseover", duButton.highlight );
-
-    // Align icons
-    duButton.resize = function()
-    {
-        duButton.fillerL.size = [ duButton.size.width / 4, duButton.size.height ];
-    }
+    mainGroup.addEventListener( "mouseover", duButton.highlight );
 
     duButton.dim();
 

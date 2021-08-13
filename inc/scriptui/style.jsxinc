@@ -1,9 +1,13 @@
 /**
  * Resets the layout of the whole ui containing a scriptUI item.
  * @param {ScriptUI} item - The ScriptUI element which needs to be resized
+ * @param {Boolean} [force] - Needs to be true if you need to layout before <code>DuESF.state</code> is <code>DuESF.State.RUNTIME</code>.<br />
+ * That should be the case only for the main UI; Note that you should not need it anyway, {@link DuScriptUI.showUI} does that for you.
  */
-DuScriptUI.layout = function( item )
+DuScriptUI.layout = function( item, force )
 {
+    force = def( force, false );
+    if (DuESF.state != DuESF.State.RUNTIME && !force) return;
     item.layout.layout( true );
     item.layout.resize();
 }

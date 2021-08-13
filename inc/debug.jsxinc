@@ -32,7 +32,7 @@ DuDebug.LogLevel =
  */
 DuDebug.log = function (message,level)
 {
-	if ( DuDebug.DuDebugLog != null ) DuDebug.DuDebugLog.log( message,level );
+	if ( DuDebug.debugLog != null ) DuDebug.debugLog.log( message,level );
 }
 
 /**
@@ -123,12 +123,10 @@ DuDebug.throwTypeError = function (variable, varName, varType, functionName)
 
 	var e = 'TypeError:\n';
 	if (functionName != '') e += "in function " + functionName + "\n";
-	e += "\n" + varName + " should be of the type " + varType + "\n";
-	e += "but it is of the type " + jstype(variable);
-	if (typeof variable !== 'undefined') try { e += "and has value: " + variable.toString(); } catch(e) {};
-	
-	if (DuESF.debug) alert(e);
-	
+	e += "\n" + varName + " should be of type " + varType + "\n";
+	e += "but it is of type " + jstype(variable);
+	if (typeof variable !== 'undefined') try { e += " and has value: " + variable.toSource(); } catch(e) {};
+		
 	DuDebug.log(e, DuDebug.LogLevel.CRITICAL);
 
 	return e;
@@ -153,8 +151,6 @@ DuDebug.throwUndefinedError = function( varName, functionName )
 	var e = 'UndefinedError:\n';
 	if (functionName != '') e += "in function " + functionName + "\n";
 	e += "\n" + varName + " cannot be undefined.";
-
-	if (DuESF.debug) alert(e);
 
 	DuDebug.log(e, DuDebug.LogLevel.CRITICAL);
 
@@ -185,8 +181,6 @@ DuDebug.throwError = function( message, functionName, error )
 		var file = new File(error.fileName);
 		e += 'In file\n\n' + file.name + '\n\nlocated in:\n' + file.parent.fsName + '\n\nat line ' + error.line + '\n\n' + error.description;
 	}
-
-	if (DuESF.debug) alert(e);
 
 	DuDebug.log(e, DuDebug.LogLevel.CRITICAL);
 
@@ -223,7 +217,8 @@ DuDebug.checkVar = function ( variable, varName, varType, functionName )
  * Constructs a new debug logger
  * @class DuDebugLog
  * @classdesc A logger for debugging purposes: writes debug messages to a file, with date and type
- * @param	{string|File} pathOrFile - The log file.
+ * @param	{string|File} [pathOrFile] - The log file. By default, located next to the script settings file
+ * (if constructed <strong>after</strong> {@link DuESF.init()}).
  * @param	{boolean} [clear=true] - Whether to clear the previous log file before starting
  * @param	{DuDebug.LogLevel}	[logLevel=DuDebug.LogLevel.DEBUG] -  The log level.
  * @param	{boolean}	[enabled=DuESF.debug] -  true to enable the log and start recording
@@ -239,6 +234,12 @@ function DuDebugLog(pathOrFile,clear,logLevel,enabled)
 	 * @type {File}
 	 */
 	this.file = null;
+
+	if (typeof pathOrFile === 'undefined')
+	{
+		var folder = DuESF.scriptSettings.file.parent;
+		pathOrFile = new File( folder.absoluteURI + '/' + DuESF.scriptName + '_debug_log.txt');
+	}
 
 	if (!(pathOrFile instanceof File)) this.file = new File(pathOrFile);
 	else this.file = pathOrFile;
@@ -263,19 +264,15 @@ function DuDebugLog(pathOrFile,clear,logLevel,enabled)
 	this.enabled = def( enabled, DuESF.debug );
 
 	clear = def (clear, true);
-	var openOption = 'a';
-	if (clear || !this.file.exists) openOption = 'w';
+	var append = !clear && this.file.exists;
 
 	if (this.level <= DuDebug.LogLevel.DEBUG)
 	{
-		DuDebug.safeRun( function() {
-			if (this.file.open(openOption))
-			{
-				var currentDate = new Date();
-				this.file.writeln('[' + currentDate.toString() + '] == Debugger started. ==');
-				this.file.close();
-			}
-		});	
+		var currentDate = new Date();
+		DuFile.writeln (
+			this.file,
+			'[' + currentDate.toString() + '] == Debugger started. ==',
+			append );
 	}
 
 	this.elapsed = 0;
@@ -296,17 +293,16 @@ DuDebugLog.prototype.log = function (message,level)
 	if (!this.enabled) return;
 	if (level < this.level) return;
 
-	DuDebug.safeRun( function(){
-		if (!this.file.open('a')) return;
+	var currentDate = new Date();
+	var levelString = " || Debug info || ";
+	if (level == DuDebug.LogLevel.WARNING) levelString = " || Warning || ";
+	else if (level == DuDebug.LogLevel.CRITICAL) levelString = " || Critical || ";
+	else if (level == DuDebug.LogLevel.FATAL) levelString = " || Fatal || ";
 
-		var currentDate = new Date();
-		var levelString = " || Debug info || ";
-		if (level == DuDebug.LogLevel.WARNING) levelString = " || Warning || ";
-		else if (level == DuDebug.LogLevel.CRITICAL) levelString = " || Critical || ";
-		else if (level == DuDebug.LogLevel.FATAL) levelString = " || Fatal || ";
-		this.file.writeln('[' + currentDate.toString() + ']' + levelString + message );
-		this.file.close();
-	});
+	DuFile.writeln (
+			this.file,
+			'[' + currentDate.toString() + ']' + levelString + message,
+			true );
 }
 
 /**

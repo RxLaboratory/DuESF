@@ -83,6 +83,38 @@ DuFile.write = function(file, content, append, encoding)
 }
 
 /**
+	* Writes a line in a text file
+	* @param {File}	 file	- The file
+	* @param {string}	 content	- The content to write
+	* @param {boolean}	 [append=false]	- Appends instead of replacing
+	* @param {string}	 [encoding='UTF-8']	- The text encoding
+    * @return {boolean} true if the file has been correctly written
+*/
+DuFile.writeln = function(file, content, append, encoding)
+{
+	append = def(append, false);
+	encoding = def(encoding, 'UTF-8');
+	//open and parse file
+	file.encoding = encoding;
+	var mode = 'w';
+	if (append) mode = 'a';
+	
+	try
+	{
+		if (!file.open(mode)) return false;
+		file.writeln(content);
+		file.close();
+		return true;
+	}
+	catch (e)
+	{
+		DuDebug.throwError( "Can't write file" , 'DuFile.write', e);
+	}
+	
+    return false;
+}
+
+/**
 	* Parses a JSON file
 	* @param {File}	 file	- The file
 	* @return {Object|null} The content or null if the file couldn't be parsed

@@ -260,6 +260,9 @@ DuESF.init = function( hostApplication, scriptName, scriptVersion, companyName )
         var prevVersion =  DuESF.settings.data.version;
         if ( prevVersion == scriptVersion ) DuESF.scriptFirstRun = false;
     }
+
+    // Create a debug log
+    if (DuESF.debug) DuDebug.debugLog = new DuDebugLog();
 }
 
 /**
@@ -270,6 +273,8 @@ DuESF.enterRunTime = function()
     DuESF.settings.data.version = DuESF.scriptVersion.fullVersion;
     DuESF.settings.save();
     DuESF.state = DuESF.State.RUNTIME;
+
+    DuDebug.log( "DuESF: Runtime!" );
 }
 
 /**

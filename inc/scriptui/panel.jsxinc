@@ -294,8 +294,7 @@ DuScriptUI.popUp = function( title, alignment, modal )
             var x = e.screenX - e.clientX;
             var y = e.screenY - e.clientY;
             //we need a layout and resize to get the window frame size
-            popup.layout.layout( true );
-            popup.layout.resize( );
+            DuScriptUI.layout( popup );
             var location = [x,y];
             location = DuScriptUI.moveInsideScreen( [x, y], popup.frameSize );
             popup.location = location;
@@ -406,10 +405,9 @@ DuScriptUI.showUI = function( ui, enterRunTime )
 
     DuDebug.log( "DuScriptUI.showUI" );
 
-    DuDebug.log( "DuScriptUI.showUI: Defining layout" );
-    ui.layout.layout( true );
-    DuDebug.log( "DuScriptUI.showUI: Resizing" );
-    ui.layout.resize();
+    DuDebug.log( "DuScriptUI.showUI: Defining layout & resize" );
+    DuScriptUI.layout( ui, true );
+    DuDebug.log( "DuScriptUI.showUI: Layout OK" );
     ui.onResizing = ui.onResize = function()
     {
         try
@@ -429,10 +427,21 @@ DuScriptUI.showUI = function( ui, enterRunTime )
         ui.show();
         DuDebug.log( "DuScriptUI.showUI: Window visible." );
     }
+    DuDebug.log( "DuScriptUI.showUI: UI shown" );
 
     DuScriptUI.uiShown = true;
-
+    
     if (enterRunTime) DuESF.enterRunTime();
+
+    // Build tabs
+    for (var i = 0, n = DuScriptUI.allTabs.length; i < n; i++)
+    {
+        var tab = DuScriptUI.allTabs[i];
+        if ( !tab.activated ) continue;
+        tab.duBuild();
+        tab.visible = true;
+        tab.tabActivated();
+    }
 }
 
 /**
@@ -972,8 +981,7 @@ DuScriptUI.refreshPanel = function( panel, scriptFile )
         }
 
         // Recalculate UI
-        panel.layout.layout( true );
-        panel.layout.resize();
+        DuScriptUI.layout( panel );
         return ok;
     }
     return refresh.call( panel );

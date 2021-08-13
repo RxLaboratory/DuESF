@@ -78,12 +78,10 @@ DuFolder.getFiles = function (folder,filter)
 // Low-level undocumented function. Called by DuESF.init()
 DuFolder.init = function()
 {
-
 	DuFolder.duesfData = new Folder( DuPath.join( [
 		DuFolder.userData.absoluteURI,
 		DuESF.companyName,
 		'AdobeScripts',
 		DuESF.scriptName
 		] ) );
-
 }

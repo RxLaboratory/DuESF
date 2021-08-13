@@ -1,4 +1,3 @@
-
 /**
  * @class
  * @name DuTabPanel
@@ -133,12 +132,24 @@ DuScriptUI.tabPanel = function( container, tabOrientation )
         var tab = DuScriptUI.group( panel.mainGroup, 'column' );
         tab.alignment = [ 'fill', 'fill' ];
         tab.visible = false;
+        tab.activated = false;
 
         //the onActivate callBack
         tab.tabActivated = function() {};
         tab.tabDeActivated = function() {};
         //the build callBack
         tab.build = function( theTab ) {};
+        tab.duBuild = function() { 
+            if ( tab.built ) return;
+            DuDebug.log( "TabPanel - Building Tab: " + tab.name + ' ' + tab.index );
+            tab.build( tab );
+            //resize everything
+            DuDebug.log( "TabPanel - Tab Built, Layout..." );
+            DuScriptUI.layout( tab );
+
+            DuDebug.log( "TabPanel - Tab ready." );
+            tab.built = true;
+        }
         tab.built = false;
 
         tab.scriptUIPanel = "";
@@ -147,6 +158,7 @@ DuScriptUI.tabPanel = function( container, tabOrientation )
 
         //add to the list
         tab.index = panel.tabs.length;
+        tab.name = text;
         panel.tabs.push( tab );
 
         DuScriptUI.allTabs.push( tab );
@@ -161,6 +173,8 @@ DuScriptUI.tabPanel = function( container, tabOrientation )
 
     panel.setCurrentIndex = function( index )
     {
+        index = def( index, panel.index );
+
         var numTabs = panel.tabs.length;
 
         if ( numTabs == 0 ) return;
@@ -168,27 +182,23 @@ DuScriptUI.tabPanel = function( container, tabOrientation )
         //hide all tabs
         for ( var i = 0; i < numTabs; i++ )
         {
-            var visible = i == index;
             var tab = panel.tabs[ i ];
-            if ( visible )
+            tab.activated = i == index;
+            // Build only AFTER main UI has been shown, this improves performance
+            // DuScriptUI.showUI will build visible tabs
+            if ( tab.activated && DuScriptUI.uiShown )
             {
-                if ( !tab.built )
-                {
-                    tab.build( tab );
-                    //resize everything
-                    if ( DuScriptUI.uiShown ) DuScriptUI.layout( tab );
-                    tab.built = true;
-                }
+                tab.duBuild();
                 tab.visible = true;
                 tab.tabActivated();
             }
-            else
+            if ( !tab.activated )
             {
                 tab.visible = false;
                 tab.tabDeActivated();
             }
 
-            panel.buttons[ i ].setChecked( visible );
+            panel.buttons[ i ].setChecked( tab.activated );
         }
 
         if ( index >= 0 && index < numTabs ) panel.index = index;
