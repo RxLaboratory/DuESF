@@ -36,6 +36,8 @@ DuScriptUI.String = {
     EXPERT_UI_TIP: "The smallest UI, for expert users.",
     EXPORT_TRANSLATION: "Export translation file",
     EXPORT_TRANSLATION_TIP: "Export a translation file to be edited with DuTranslator.",
+    FEATHER: "Feather",
+    FEATHERS: "Feathers",
     FEATURE_REQUEST: "Feature request",
     FEATURE_REQUEST_TIP: "Feature request\nRequest something new.",
     FIN: "Fin",

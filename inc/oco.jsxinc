@@ -31,6 +31,7 @@ DuOCO.Limb = {
     FIN: 'fin',
     HAIR: 'hair',
     TAIL: 'tail',
+    WING: 'wing',
     CUSTOM: 'custom'
 }
 
@@ -57,7 +58,8 @@ DuOCO.Bone = {
     SKULL: 'skull',
     TAIL_ROOT: 'tail1',
     TAIL_MID: 'tail2',
-    TAIL_END: 'tail3'
+    TAIL_END: 'tail3',
+    FEATHER: 'feather'
 }
 
 /**
@@ -102,7 +104,9 @@ DuOCO.View = {
     FRONT: 0,
     LEFT: 1,
     RIGHT: 2,
-    BACK: 3
+    BACK: 3,
+    TOP: 4,
+    BOTTOM: 5
 }
 
 /**
@@ -911,6 +915,173 @@ DuOCODoc.prototype.newTail = function( numBones )
 
     b.name = DuScriptUI.String.TAIL + '_' + DuScriptUI.String.TIP_BONE;
     b.type = DuOCO.Bone.TIP;
+
+    return limb;
+}
+
+/**
+ * Creates a new wing.
+ * @param {DuOCO.Side} [side=DuOCO.Side.LEFT] The side
+ * @param {Boolean} [arm=true]  Whether to create an arm / humerus
+ * @param {Boolean} [forearm=true]  Whether to create a forearm
+ * @param {Boolean} [hand=true]  Whether to create a hand
+ * @param {int} [feathers=5]  Number of feathers
+ * @param {float[]} [position] The position of the first bone of the arm.<br />
+ * If omitted, computed automatically according to the current character in the doc.
+ * @param {DuOCO.View} [view=DuOCO.View.TOP] The view
+ * @returns {DuOCOLimb} The spine
+ */
+DuOCODoc.prototype.newWing = function( side, arm, forearm, hand, feathers, position, view )
+{
+    side = def(side, DuOCO.Side.LEFT);
+    view = def(view, DuOCO.View.TOP);
+
+    arm = def( arm, true );
+    forearm = def( forearm, true );
+    hand = def( hand, true );
+    feathers = def( feathers, 5 );
+
+    // Unit
+    var u = this.height;
+
+    // count how many bones we need
+    var num = 1;
+    if (arm) num++;
+    if (forearm) num++;
+    if (hand) num++;
+
+    if (num == 1) return null;
+
+    // Create limb
+    var limb = this.newLimb( DuOCO.Limb.WING, side, DuOCO.Location.NONE );
+    var b = limb.newArmature( DuScriptUI.String.WING, num );
+
+    // side
+    var s = 1;
+    if ( side == DuOCO.Side.RIGHT && (view == DuOCO.View.TOP || view == DuOCO.View.BACK) ) s = -1;
+    else if ( side == DuOCO.Side.LEFT && (view == DuOCO.View.BOTTOM || view == DuOCO.View.FRONT) ) s = -1;
+    else if ( view == DuOCO.View.LEFT ) s = -1;
+
+    // arm position
+    var x, y;
+    if ( view == DuOCO.View.TOP || view == DuOCO.View.BOTTOM )
+    {
+        x = s * u * -.12;
+        y = u * .64;
+    }
+    else return limb; // not supported yet
+    var ox = 0;
+    var oy = 0;
+
+    // offset
+    if (typeof position !== 'undefined' )
+    {
+        ox = position[0] - x;
+        oy = position[1] - y;
+    }
+
+    // We need to keep the parents of the feathers
+    var parent1, parent2;
+
+    // for each part, set the location
+    if ( arm )
+    {
+        b.name = DuScriptUI.String.ARM;
+        b.type = DuOCO.Bone.HUMERUS;
+        b.x = x + ox;
+        b.y = y + oy;
+
+        if (!forearm && !hand)
+        {
+            parent1 = b;
+            parent2 = b;
+        }
+
+        if (b.children.length > 0) b = b.children[0];
+    }
+    if (forearm)
+    {
+        b.name = DuScriptUI.String.FOREARM;
+        b.type = DuOCO.Bone.RADIUS;
+        b.x = s * u * -.22 + ox;
+        b.y = u * .53 + oy;
+
+        parent1 = b;
+        if (!hand) parent2 = b;
+
+        if (b.children.length > 0) b = b.children[0];
+    }
+    if (hand)
+    {
+        b.name = DuScriptUI.String.HAND;
+        b.type = DuOCO.Bone.CARPUS;
+        b.x = s * u * -.37 + ox;
+        b.y = u * .64 + oy;
+
+        parent2 = b;
+        if (!forearm) parent1 = b;
+
+        if (b.children.length > 0) b = b.children[0];
+    }
+
+    // Tip
+    b.name = DuScriptUI.String.WING + '_' + DuScriptUI.String.TIP_BONE;
+    b.type = DuOCO.Bone.TIP;
+    b.x = s * u * -.53 + ox;
+    b.y = u * .66 + oy;
+
+    // Add Feathers
+    if (feathers == 0) return limb;
+
+    function createFeather( xr, yr, xt, yt, p )
+    {
+        var boneName = DuString.generateUnique(DuScriptUI.String.FEATHER, names);
+        b = new DuOCOBone( boneName );
+        b.type = DuOCO.Bone.FEATHER;
+        b.x = s * u * xr + ox;
+        b.y = u * yr + oy;
+
+        // tip
+        var boneName = DuString.generateUnique(DuScriptUI.String.FEATHER + '_' + DuScriptUI.String.TIP_BONE, names);
+        var bt = new DuOCOBone( boneName );
+        bt.type = DuOCO.Bone.TIP;
+        bt.x = s * u * xt + ox;
+        bt.y = u * yt + oy;
+
+
+        bt.attached = true;
+
+        b.children.push(bt);
+        p.children.push(b);
+    }
+
+    var names = [];
+    // Single one, add in the middle
+    if (feathers == 1)
+    {
+        createFeather( -.38, .63, -.56, .28, parent1 );
+        return limb;
+    }
+
+    for (var i = 0, n = feathers; i < n; i++)
+    {
+        if ( i < n/2)
+        {
+            var x = DuMath.linear( i, 0, n/2, -.54, -.38);
+            var y = DuMath.linear( i, 0, n/2, .66, .63);
+            var xt = DuMath.linear( i, 0, n/2, -.96, -.56);
+            var yt = DuMath.linear( i, 0, n/2, .62, .28);
+            createFeather( x, y, xt, yt, parent2 );
+        }
+        else 
+        {
+            var x = DuMath.linear( i, n/2, n-1, -.38, -.22);
+            var y = DuMath.linear( i, n/2, n-1, .63, .51);
+            var xt = DuMath.linear( i, n/2, n-1, -.56, -.08);
+            var yt = DuMath.linear( i, n/2, n-1, .28, .39);
+            createFeather( x, y, xt, yt, parent1 );
+        }
+    }
 
     return limb;
 }
