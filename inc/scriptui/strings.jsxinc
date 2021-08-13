@@ -41,6 +41,8 @@ DuScriptUI.String = {
     FEATURE_REQUEST: "Feature request",
     FEATURE_REQUEST_TIP: "Feature request\nRequest something new.",
     FIN: "Fin",
+    FISHBONE: "Fishbone",
+    FISHBONES: "Fishbones",
     FOOT: "Foot",
     FOREARM: "Forearm",
     FRONT: "Front",

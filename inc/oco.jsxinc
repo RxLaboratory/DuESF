@@ -33,6 +33,7 @@ DuOCO.Limb = {
     TAIL: 'tail',
     WING: 'wing',
     SNAKE_SPINE: 'snakeSpine',
+    FIN: 'fin',
     CUSTOM: 'custom'
 }
 
@@ -63,7 +64,9 @@ DuOCO.Bone = {
     FEATHER: 'feather',
     SNAKE_SPINE_ROOT: 'snakeSpine1',
     SNAKE_SPINE_MID: 'snakeSpine2',
-    SNAKE_SPINE_END: 'snakeSpine3'
+    SNAKE_SPINE_END: 'snakeSpine3',
+    FIN: 'fin',
+    FIN_FISHBONE: 'finBone'
 }
 
 /**
@@ -933,7 +936,7 @@ DuOCODoc.prototype.newTail = function( numBones )
  * @param {float[]} [position] The position of the first bone of the arm.<br />
  * If omitted, computed automatically according to the current character in the doc.
  * @param {DuOCO.View} [view=DuOCO.View.TOP] The view
- * @returns {DuOCOLimb} The spine
+ * @returns {DuOCOLimb} The wing
  */
 DuOCODoc.prototype.newWing = function( side, arm, forearm, hand, feathers, position, view )
 {
@@ -1096,7 +1099,7 @@ DuOCODoc.prototype.newWing = function( side, arm, forearm, hand, feathers, posit
  * @param {int} [spine=5] Number of spine bones
  * @param {float[]} [position] The position of the first bone of the arm.<br />
  * If omitted, computed automatically according to the current character in the doc.
- * @returns {DuOCOLimb} The spine
+ * @returns {DuOCOLimb} The snake spine
  */
 DuOCODoc.prototype.newSnakeSpine = function( head, spine, position )
 {
@@ -1167,6 +1170,104 @@ DuOCODoc.prototype.newSnakeSpine = function( head, spine, position )
         bt.attached = true;
 
         b.children.push(bt);
+    }
+
+    return limb;
+}
+
+/**
+ * Creates a new fin.
+ * @param {int} [fishbones=5]  Number of feathers
+ * @param {float[]} [position] The position of the first bone of the arm.<br />
+ * If omitted, computed automatically according to the current character in the doc.
+ * @param {DuOCO.View} [view=DuOCO.View.RIGHT] The view
+ * @returns {DuOCOLimb} The fin
+ */
+DuOCODoc.prototype.newFin = function( side, fishbones, view )
+{
+    side = def(side, DuOCO.Side.LEFT);
+    view = def(view, DuOCO.View.RIGHT);
+
+    fishbones = def( fishbones, 5 );
+
+    // Unit
+    var u = this.height;
+
+    // Create limb
+    var limb = this.newLimb( DuOCO.Limb.FIN, side, DuOCO.Location.NONE );
+
+    // side
+    var s = 1;
+    if ( side == DuOCO.Side.RIGHT && (view == DuOCO.View.TOP || view == DuOCO.View.BACK) ) s = -1;
+    else if ( side == DuOCO.Side.LEFT && (view == DuOCO.View.BOTTOM || view == DuOCO.View.FRONT) ) s = -1;
+    else if ( view == DuOCO.View.LEFT ) s = -1;
+
+    // arm position
+    var x = s * u * -.17;
+    var y = u * .47;
+    var ox = 0;
+    var oy = 0;
+
+    // offset
+    if (typeof position !== 'undefined' )
+    {
+        ox = position[0] - x;
+        oy = position[1] - y;
+    }
+
+    // Create root
+    var rootBone = new DuOCOBone( DuScriptUI.String.FIN );
+    rootBone.type = DuOCO.Bone.FIN;
+    rootBone.x = x + ox;
+    rootBone.y = y + oy;
+    limb.armature.push(rootBone);
+    // Tip
+    var bt = new DuOCOBone( DuScriptUI.String.FIN + '_' + DuScriptUI.String.TIP_BONE );
+    bt.type = DuOCO.Bone.TIP;
+    bt.x = s * u * -.24 + ox;
+    bt.y = u * .62 + oy;
+    bt.attached = true;
+    rootBone.children.push(bt);
+
+    // Add FishBones
+    if (fishbones == 0) return limb;
+
+    var names = [];
+
+    function createFishbone( xr, yr, xt, yt )
+    {
+        var boneName = DuString.generateUnique(DuScriptUI.String.FISHBONE, names);
+        b = new DuOCOBone( boneName );
+        b.type = DuOCO.Bone.FIN_FISHBONE;
+        b.x = s * u * xr + ox;
+        b.y = u * yr + oy;
+
+        // tip
+        var boneName = DuString.generateUnique(DuScriptUI.String.FISHBONE + '_' + DuScriptUI.String.TIP_BONE, names);
+        var bt = new DuOCOBone( boneName );
+        bt.type = DuOCO.Bone.TIP;
+        bt.x = s * u * xt + ox;
+        bt.y = u * yt + oy;
+        bt.attached = true;
+
+        b.children.push(bt);
+        rootBone.children.push(b);
+    }
+
+    // Single one, add in the middle
+    if (fishbones == 1)
+    {
+        createFishbone( -.22, .43, -.77, .60 );
+        return limb;
+    }
+
+    for (var i = 0, n = fishbones; i < n; i++)
+    {
+        var x = DuMath.linear( i, 0, n-1, -.24, -.15);
+        var y = DuMath.linear( i, 0, n-1, .63, .41);
+        var xt = DuMath.linear( i, 0, n-1, -.82, -.17);
+        var yt = DuMath.linear( i, 0, n-1, .60, .29);
+        createFishbone( x, y, xt, yt );
     }
 
     return limb;
