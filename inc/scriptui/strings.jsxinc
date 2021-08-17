@@ -79,6 +79,7 @@ DuScriptUI.String = {
     NONE: "None",
     NORMAL_MODE: "Normal mode",
     NOSE: "Normal mode",
+    NULL_OBJECT: "Null",
     OK: "OK",
     OPACITY: "Opacity",
     PATH: "Path",
