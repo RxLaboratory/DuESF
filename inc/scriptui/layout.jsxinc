@@ -60,9 +60,8 @@ DuScriptUI.separator = function( container, name, checkable, drawLine, translata
 
     if(translatable) name = tr( name );
 
-    var separator = DuScriptUI.group( container, "row" );
-    separator.margins = DuScriptUI.defaultMargins;
-    separator.alignment = [ 'fill', 'top' ];
+    var separator = DuScriptUI.group( container );
+    separator.margins = 0;
     separator.checkable = checkable;
 
     separator.label = null;
@@ -76,6 +75,16 @@ DuScriptUI.separator = function( container, name, checkable, drawLine, translata
     else if ( drawLine )
     {
         DuScriptUI.setBackgroundColor( separator, DuColor.Color.ABYSS_GREY );
+        if (container.orientation == 'row')
+        {
+            separator.alignment = ['left', 'fill'];
+            separator.minimumSize = [3,-1];
+        }
+        else
+        {
+            separator.alignment = [ 'fill', 'top' ];
+            separator.minimumSize = [-1,3];
+        }
     }
 
     separator.addEventListener( "mouseover", DuScriptUI.dimControls );
