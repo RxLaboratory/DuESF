@@ -75,6 +75,7 @@ DuScriptUI.String = {
     MIDDLE: "Middle",
     MIDDLE_SHORT: "Md",
     MOUTH: "Mouth",
+    NAME: "Name",
     NECK: "Neck",
     NEXT: "Next",
     NONE: "None",
