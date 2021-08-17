@@ -93,6 +93,7 @@ DuScriptUI.selector = function( container, helpTip )
     selector.spacing = 0;
     selector.alignment = [ 'fill', 'top' ];
     selector.alignChildren = [ 'center', 'center' ];
+    selector.freeze = false;
 
     selector.mainGroup = selector.add( 'group' );
     selector.mainGroup.orientation = 'row';
@@ -227,7 +228,7 @@ DuScriptUI.selector = function( container, helpTip )
 
         selector.text = item[ 0 ];
 
-        if (!quiet) selector.onChange();
+        if (!quiet && !selector.freeze) selector.onChange();
     }
 
     selector.setCurrentText = function( text )

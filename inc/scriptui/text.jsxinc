@@ -101,6 +101,7 @@ DuScriptUI.editText = function( container, text, prefix, suffix, placeHolder, he
     niceEditText.prefix = prefix;
     niceEditText.suffix = suffix;
     niceEditText.textColor = DuColor.Color.APP_HIGHLIGHT_COLOR;
+    niceEditText.freeze = false;
 
     niceEditText.text = text;
     niceEditText.editing = false;
@@ -128,7 +129,7 @@ DuScriptUI.editText = function( container, text, prefix, suffix, placeHolder, he
         var staticText = '';
         if ( niceEditText.edit.text == '' && niceEditText.placeHolder != '' )
         {
-            DuScriptUI.setTextColor( niceEditText.static, niceEditText.textColor.darker(150) );
+            DuScriptUI.setTextColor( niceEditText.static, niceEditText.textColor.darker(200) );
             staticText = niceEditText.placeHolder;
         }
         else
@@ -141,12 +142,12 @@ DuScriptUI.editText = function( container, text, prefix, suffix, placeHolder, he
         niceEditText.edit.visible = false;
         niceEditText.static.visible = true;
         niceEditText.edit.active = false;
-        niceEditText.onChange();
+        if (!niceEditText.freeze) niceEditText.onChange();
     }
     niceEditText.changing = function()
     {
         niceEditText.text = niceEditText.edit.text;
-        niceEditText.onChanging();
+        if (!niceEditText.freeze) niceEditText.onChanging();
     }
 
     niceEditText.setText = function( text )
@@ -177,12 +178,12 @@ DuScriptUI.editText = function( container, text, prefix, suffix, placeHolder, he
 
     niceEditText.edit.onActivate = function()
     {
-        niceEditText.onActivate();
+        if (!niceEditText.freeze) niceEditText.onActivate();
     }
     niceEditText.edit.onDeactivate = function()
     {
-        niceEditText.changed();
-        niceEditText.onDeactivate();
+        if (!niceEditText.freeze) niceEditText.changed();
+        if (!niceEditText.freeze) niceEditText.onDeactivate();
     }
     niceEditText.edit.onChange = niceEditText.changed;
     niceEditText.edit.onChanging = niceEditText.changing;
