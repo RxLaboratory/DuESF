@@ -203,6 +203,14 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
     //events
     duButton.clicked = function()
     {
+        if ( addOptionsPanel )
+        {
+            if (!duButton.optionsPopup.built)
+            {
+                duButton.optionsPopup.build();
+                duButton.optionsPopup.built = true;
+            }
+        }
         DuDebug.safeRun(duButton.onClick);
     }
 
