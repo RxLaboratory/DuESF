@@ -150,7 +150,7 @@ DuColor.prototype.hexA = function()
  * Returns the HSL values
  * @return {float[]} the HSL
  */
-DuColor.prototype.toFloatHSL = function()
+DuColor.prototype.floatHSL = function()
 {
 	var r = this.red;
 	var g = this.blue;
@@ -183,9 +183,9 @@ DuColor.prototype.toFloatHSL = function()
  * Returns the HSLA values
  * @return {float[]} the HSL
  */
-DuColor.prototype.toFloatHSLA = function()
+DuColor.prototype.floatHSLA = function()
 {
-	var hsla = this.toFloatHSL();
+	var hsla = this.floatHSL();
 	hsla.push( this.alpha );
     return hsla;
 }
