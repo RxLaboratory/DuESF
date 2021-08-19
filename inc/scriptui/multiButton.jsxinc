@@ -10,8 +10,16 @@
  * @property {StaticText} label - The current text
  * @property {DuButton[]} buttons  - The buttons
  * @property {string} text  - The current text
+ * @property {DuMultiButton~build} build - You can use this callback to add a function which builds the UI of the popup, it will be called on first display.
  */
 
+/**
+ * You can use this callback to add a function which builds the content of the popup, it will be called on first display.<br />
+ * This allows a faster startup of your script by delaying the creation of the tabs which are hidden at startup.<br />
+ * You can use <code>this.addButton</code> to add buttons in the popup.
+ * @callback DuMultiButton~build
+ * @memberof DuMultiButton
+ */
 /**
  * Creates a multi button popup
  * @param {Window|Panel|Group} container - The ScriptUI Object which will contain and display the multi button.
@@ -93,6 +101,9 @@ DuScriptUI.multiButton = function( container, text, image, helpTip )
     multiButton.popup.buttons.margins = 0;
     multiButton.popup.buttons.spacing = 0;
     multiButton.popup.hide();
+
+    multiButton.build = function() {};
+    multiButton.built = false;
     
     //add default button
     multiButton.buttons = [];
@@ -128,6 +139,12 @@ DuScriptUI.multiButton = function( container, text, image, helpTip )
 
     multiButton.clicked = function( e )
     {
+        if (!multiButton.built)
+        {
+            multiButton.build();
+            multiButton.built = true;
+        }
+
         var x = e.screenX - e.clientX;
         var y = e.screenY - e.clientY;
         multiButton.popup.location = [ x, y ];

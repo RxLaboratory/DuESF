@@ -10,7 +10,8 @@
  * @property {string} helpLink - A URL to a help page, shown on shift click on the button.
  * @property {Image} image - The scriptui object representing the image.
  * @property {StaticText} label - The label
- * @property {DuPopup} optionsPanel - A panel for options
+ * @property {DuPopup} optionsPopup - A popup for .
+ * @property {Group} optionsPanel - The ScriptUI Group where to add the options (child of the popup).
  * @property {DuButton~onClick} onClick - The function to execute when the button is clicked
  * @property {DuButton~onAltClick} onAltClick - The function to execute when the button is Alt + clicked
  * @property {DuButton~onCtrlClick} onCtrlClick - The function to execute when the button is Ctrl + clicked
@@ -184,6 +185,7 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
 
         var optionsPanel = DuScriptUI.popUp(text == '' ? 'Options' : text);
         optionsPanel.tieTo(optionsButton);
+        duButton.optionsPopup = optionsPanel;
         duButton.optionsPanel = DuScriptUI.group( optionsPanel.content, 'column');
 
         DuScriptUI.separator( optionsPanel.content );

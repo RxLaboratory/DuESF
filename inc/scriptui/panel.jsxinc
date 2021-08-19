@@ -110,8 +110,16 @@ DuScriptUI.mainPanel = function( container, scriptName, contentAlignment, bless 
  * The DuPopup inherits the Window object from ScriptUI and has all of its properties and methods.
  * @property {Group} content - The ScriptUI group where the new controls must be added. Do not add any control directly inside the DuPopup.
  * @property {boolean} pinned - true if this popup is "pinned", which means it won't hide when the user clicks outside of the window.
+ * @property {DuPopup~build} build - You can use this callback to add a function which builds the UI of the popup, it will be called on first display.
  */
 
+/**
+ * You can use this callback to add a function which builds the UI of the popup, it will be called on first display.<br />
+ * This allows a faster startup of your script by delaying the creation of the tabs which are hidden at startup.<br />
+ * You can add controls in the <code>this.content</code> object.
+ * @callback DuPopup~build
+ * @memberof DuPopup
+ */
 /**
  * Ties the popup to a ui control. The popup will be shown just above the control when it is clicked.<br />
  * The control must have an addEventListener method.
@@ -281,6 +289,9 @@ DuScriptUI.popUp = function( title, alignment, modal )
 
     popup.block = false;
 
+    popup.build = function( contentGroup ) {};
+    popup.built = false;
+
     popup.tieTo = function (control)
     {
         control.addEventListener( 'click', function(e) {
@@ -291,6 +302,13 @@ DuScriptUI.popUp = function( title, alignment, modal )
                 popup.block = false;
                 return;
             }
+
+            if ( !popup.built )
+            {
+                popup.build( );
+                popup.built = true;
+            }
+
             var x = e.screenX - e.clientX;
             var y = e.screenY - e.clientY;
             //we need a layout and resize to get the window frame size
