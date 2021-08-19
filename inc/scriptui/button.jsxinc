@@ -112,8 +112,7 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
     mainGroup.alignment = ['fill', 'fill'];
     mainGroup.margins = 0;
 
-    if (text != '' && image == '') duButton.bgColor = DuColor.Color.ABYSS_GREY;
-    else duButton.bgColor = DuColor.Color.TRANSPARENT;
+    duButton.bgColor = DuColor.Color.TRANSPARENT;
     duButton.textColor = DuColor.Color.APP_TEXT_COLOR;   
 
     //Add fillers to be able to click anywhere on the button
