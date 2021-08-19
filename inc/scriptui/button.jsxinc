@@ -187,6 +187,8 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
         optionsPanel.tieTo(optionsButton);
         duButton.optionsPanel = DuScriptUI.group( optionsPanel.content, 'column');
 
+        DuScriptUI.separator( optionsPanel.content );
+
         duButton.optionsButton = DuScriptUI.button(
             optionsPanel.content,
             text,
