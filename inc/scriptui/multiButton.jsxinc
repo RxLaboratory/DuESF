@@ -1,0 +1,159 @@
+
+/**
+ * @class
+ * @name DuMultiButton
+ * @classdesc For use with {@link DuScriptUI}.<br />
+ * A multi button popup.<br />
+ * This is not a real class, and cannot be instanciated.<br />
+ * Use {@link DuScriptUI.multiButton} to create a DuMultiButton.<br />
+ * The DuMultiButton inherits the Group object from ScriptUI and has all of its properties and methods.
+ * @property {StaticText} label - The current text
+ * @property {DuButton[]} buttons  - The buttons
+ * @property {string} text  - The current text
+ */
+
+/**
+ * Creates a multi button popup
+ * @param {Window|Panel|Group} container - The ScriptUI Object which will contain and display the multi button.
+ * @param {string} [text] - The text.
+ * @param {string|DuBInary} [image] - The path to the icon (or a PNG as a string representation). Default: empty string
+ * @param {string} [helpTip] - The help tip to show on the multi button
+ * @return {DuSelector} - The multiButton
+ */
+DuScriptUI.multiButton = function( container, text, image, helpTip )
+{
+    text = def(text, '');
+    text = tr(text) + '...';
+    helpTip = def(helpTip, '');
+    helpTip = tr(helpTip);
+    image = def(image, '');
+
+    var multiButton = container.add( 'group' );
+    multiButton.orientation = 'row';
+    multiButton.spacing = 0;
+    multiButton.alignment = [ 'fill', 'top' ];
+    multiButton.alignChildren = [ 'center', 'center' ];
+
+    multiButton.mainGroup = multiButton.add( 'group' );
+    multiButton.mainGroup.orientation = 'row';
+    multiButton.mainGroup.margins = 1;
+    multiButton.mainGroup.spacing = 4;
+    multiButton.mainGroup.alignment = [ 'fill', 'fill' ];
+    multiButton.mainGroup.alignChildren = [ 'center', 'center' ];
+    multiButton.helpTip = helpTip;
+
+    //the menu button
+    multiButton.menuButton = multiButton.mainGroup.add( 'image', undefined, DuScriptUI.Icon.MORE.binAsString );
+    multiButton.menuButton.alignment = [ 'left', 'center' ];
+    multiButton.menuButton.helpTip = helpTip;
+
+    //the image
+    if (image != '')
+    {
+        var iconGroup = multiButton.mainGroup.add('group');
+        iconGroup.minimumSize = [20,20];
+        iconGroup.margins = 2;
+        iconGroup.alignment = ['left', 'fill'];
+        if (image instanceof DuBinary) image = image.binAsString;
+        multiButton.icon = iconGroup.add( 'image', undefined, image );
+        multiButton.icon.alignment = [ 'center', 'center' ];
+        multiButton.icon.helpTip = helpTip;
+    }
+
+    //add fillers to be able to click anywhere on the button
+    multiButton.fillerM = multiButton.mainGroup.add( 'statictext', undefined, " " );
+    multiButton.fillerM.alignment = [ 'left', 'fill' ];
+    multiButton.fillerM.size = [ 0, -1];
+
+    //the text
+    multiButton.label = multiButton.mainGroup.add( 'statictext', undefined, text );
+    multiButton.label.helpTip = '';
+    multiButton.label.alignment = [ 'fill', 'center' ];
+    multiButton.label.helpTip = helpTip;
+
+    //add fillers to be able to click anywhere on the button
+    multiButton.fillerR = multiButton.mainGroup.add( 'statictext', undefined, " " );
+    multiButton.fillerR.alignment = [ 'fill', 'fill' ];
+
+    //create popup
+    multiButton.popup = new Window( 'palette', '', undefined,
+    {
+        borderless: true
+    } );
+    multiButton.popup.margins = 2;
+    multiButton.popup.spacing = 0;
+    multiButton.popup.closeButton = DuScriptUI.button( multiButton.popup, tr(DuScriptUI.String.CANCEL) );
+    multiButton.popup.closeButton.onClick = multiButton.popup.onDeactivate = function()
+    {
+        multiButton.popup.hide();
+        DuScriptUI.eventFunctionsPaused = false;
+    };
+    multiButton.popup.buttons = multiButton.popup.add( 'group' );
+    multiButton.popup.buttons.orientation = 'column';
+    multiButton.popup.buttons.margins = 0;
+    multiButton.popup.buttons.spacing = 0;
+    multiButton.popup.hide();
+    
+    //add default button
+    multiButton.buttons = [];
+
+    multiButton.addButton = function( text, image, helpTip, addOptionsPanel, localize )
+    {
+        multiButton.popup.hide();
+        text = def(text, '-');
+        image = def(image, '');
+        helpTip = def(helpTip, '');
+        localize = def(localize, true);
+
+        if (localize)
+        {
+            text = tr( text );
+            helpTip = tr( helpTip );
+        }
+        
+        var size = text.length * 7;
+        if ( multiButton.label.minimumSize.width < size ) multiButton.label.minimumSize.width = size;
+
+        //add to popup
+        var button = DuScriptUI.button( multiButton.popup.buttons, text, image, helpTip, addOptionsPanel, undefined, undefined, false, true );
+        multiButton.buttons.push( button );
+        button.bgColor = DuColor.Color.OBSIDIAN;
+        button.dim();
+        
+        multiButton.popup.layout.layout(true);
+        multiButton.popup.update();
+
+        return button;
+    }
+
+    multiButton.clicked = function( e )
+    {
+        var x = e.screenX - e.clientX;
+        var y = e.screenY - e.clientY;
+        multiButton.popup.location = [ x, y ];
+        multiButton.popup.show();
+        DuScriptUI.eventFunctionsPaused = true;
+    }
+
+    //mouse over
+    multiButton.highlight = function( e )
+    {
+        e.stopPropagation();
+        DuScriptUI.dimControls();
+        DuScriptUI.setBackgroundColor( multiButton, DuColor.Color.APP_HIGHLIGHT_COLOR.darker() );
+        DuScriptUI.highlightedControls.push( multiButton );
+    }
+
+    multiButton.dim = function( e )
+    {
+        DuScriptUI.setBackgroundColor( multiButton, DuColor.Color.TRANSPARENT );
+        DuScriptUI.setTextColor( multiButton.label, DuColor.Color.APP_TEXT_COLOR );
+    }
+
+    multiButton.mainGroup.addEventListener( "mouseover", multiButton.highlight );
+    multiButton.mainGroup.addEventListener( "click", multiButton.clicked, true );
+
+    multiButton.dim();
+
+    return multiButton;
+}

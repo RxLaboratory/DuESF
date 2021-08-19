@@ -25,6 +25,7 @@
 #include "icons/w12_eye_dropper.png.jsxinc"
 #include "icons/w12_menu.png.jsxinc"
 #include "icons/w12_heart.png.jsxinc"
+#include "icons/w12_more.png.jsxinc"
 // normal 16px
 #include "icons/w16_language.png.jsxinc"
 #include "icons/w16_settings_file.png.jsxinc"
@@ -70,6 +71,7 @@ DuScriptUI.Icon = {
     LANGUAGE_FILE: w16_language_file,
     LIST: w16_list,
     MENU: w12_menu,
+    MORE: w12_more,
     NEXT: w12_next,
     OPTIONS: w12_options,
     PIN: w12_pin,
