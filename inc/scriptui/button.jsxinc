@@ -95,6 +95,12 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
     var commonSettings = def(DuESF.scriptSettings.data.common, {});
     var uiMode = def( commonSettings.uiMode, 0);
     if (uiMode >= 2 && image != '' && !ignoreUIMode) text = '';
+
+    if (addOptionsPanel)
+    {
+        if (helpTip != '') helpTip += '\n';
+        helpTip += DuScriptUI.String.MORE_OPTIONS_TIP;
+    }
     
     if (localize)
     {
@@ -108,20 +114,57 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
     duButton.orientation = orientation;
     duButton.alignment = [ 'fill', 'top' ];
     duButton.spacing = 0;
+    duButton.bgColor = DuColor.Color.TRANSPARENT;
+    duButton.textColor = DuColor.Color.APP_TEXT_COLOR;   
+
+    // Options button
+    if (addOptionsPanel) {
+
+        // Create panel
+        var optionsPanel = DuScriptUI.popUp(text == '' ? 'Options' : text);
+        duButton.optionsPopup = optionsPanel;
+        duButton.optionsPanel = DuScriptUI.group( optionsPanel.content, 'column');
+
+        DuScriptUI.separator( optionsPanel.content );
+
+        duButton.optionsButton = DuScriptUI.button(
+            optionsPanel.content,
+            text,
+            w12_check,
+            text
+            )
+
+        duButton.optionsButton.onClick = function () { duButton.clicked(); };
+
+        optionsPanel.tieTo( duButton, true);
+
+        // Add button
+        if ( text != '')
+        {
+            var optionsButton = DuScriptUI.button(
+                duButton,
+                '',
+                w12_options,
+                text + '\nOptions'
+            )
+            if (orientation == 'column') optionsButton.alignment = ['center', 'top'];
+            else optionsButton.alignment = ['left', 'center'];
+
+            optionsPanel.tieTo(optionsButton);
+        }
+    }
 
     var mainGroup = DuScriptUI.group( duButton, orientation );
     mainGroup.alignment = ['fill', 'fill'];
     mainGroup.margins = 0;
 
-    duButton.bgColor = DuColor.Color.TRANSPARENT;
-    duButton.textColor = DuColor.Color.APP_TEXT_COLOR;   
-
     //Add fillers to be able to click anywhere on the button
-    if ( text != '' )
+    if ( text != '')
     {
         duButton.fillerL = mainGroup.add( 'statictext', undefined, " " );
         duButton.fillerL.alignment = [ 'left', 'fill' ];
-        if (alignment == 'left') duButton.fillerL.size = [18, -1];
+        if (alignment == 'left' && !addOptionsPanel) duButton.fillerL.size = [18, -1];
+        else if (alignment == 'left') duButton.fillerL.size = [2, -1];
     }
 
     // Add image
@@ -171,34 +214,7 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
     duButton.onAltClick = function() {};
     duButton.onCtrlAltClick = function() {};
     duButton.onCtrlClick = function() {};
-
-    // Options button
-    if (addOptionsPanel) {
-        var optionsButton = DuScriptUI.button(
-            duButton,
-            '',
-            w12_options,
-            text + '\nOptions'
-        )
-        if (orientation == 'column') optionsButton.alignment = ['center', 'top'];
-        else optionsButton.alignment = ['right', 'center'];
-
-        var optionsPanel = DuScriptUI.popUp(text == '' ? 'Options' : text);
-        optionsPanel.tieTo(optionsButton);
-        duButton.optionsPopup = optionsPanel;
-        duButton.optionsPanel = DuScriptUI.group( optionsPanel.content, 'column');
-
-        DuScriptUI.separator( optionsPanel.content );
-
-        duButton.optionsButton = DuScriptUI.button(
-            optionsPanel.content,
-            text,
-            w12_check,
-            text
-            )
-
-        duButton.optionsButton.onClick = function () { duButton.clicked(); };
-    }
+    duButton.onShiftClick = function() {};
 
     //events
     duButton.clicked = function()
@@ -216,24 +232,53 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
 
     duButton.shiftClicked = function()
     {
-        if (duButton.helpLink != '')
+        if ( addOptionsPanel )
         {
-            DuSystem.openURL(imageButton.helpLink);
+            if (!duButton.optionsPopup.built)
+            {
+                duButton.optionsPopup.build();
+                duButton.optionsPopup.built = true;
+            }
         }
+        DuDebug.safeRun(duButton.onShiftClick);
     }
 
     duButton.altClicked = function()
     {
+        if ( addOptionsPanel )
+        {
+            if (!duButton.optionsPopup.built)
+            {
+                duButton.optionsPopup.build();
+                duButton.optionsPopup.built = true;
+            }
+        }
         DuDebug.safeRun(duButton.onAltClick);
     }
 
     duButton.ctrlAltClicked = function()
     {
+        if ( addOptionsPanel )
+        {
+            if (!duButton.optionsPopup.built)
+            {
+                duButton.optionsPopup.build();
+                duButton.optionsPopup.built = true;
+            }
+        }
         DuDebug.safeRun(duButton.onCtrlAltClick);
     }
 
     duButton.ctrlClicked = function()
     {
+        if ( addOptionsPanel )
+        {
+            if (!duButton.optionsPopup.built)
+            {
+                duButton.optionsPopup.build();
+                duButton.optionsPopup.built = true;
+            }
+        }
         DuDebug.safeRun(duButton.onCtrlClick);
     }
 

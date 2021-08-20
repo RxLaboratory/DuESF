@@ -127,14 +127,7 @@ DuScriptUI.mainPanel = function( container, scriptName, contentAlignment, bless 
  * @memberof DuPopup
  * @name tieTo
  * @param {ScriptUI} [control] - The control
- */
-
-/**
- * Pins the popup (it won't be hidden anymore when deactivated).
- * @method
- * @memberof DuPopup
- * @name pin
- * @param {boolean} [pinned=true] - true to pin the popup, false to un-pin it.
+ * @param {Boolean} [onShift=false] - If set to true, the popup is tied on Shift + Click only
  */
 
 /**
@@ -194,6 +187,8 @@ DuScriptUI.popUp = function( title, alignment, modal )
         resizeable: false,
         borderless: true
     } );
+
+    DuScriptUI.setBackgroundColor(popup, DuColor.Color.OBSIDIAN);
 
     popup.margins = 0;
     popup.spacing = 0;
@@ -292,10 +287,13 @@ DuScriptUI.popUp = function( title, alignment, modal )
     popup.build = function( contentGroup ) {};
     popup.built = false;
 
-    popup.tieTo = function (control)
+    popup.tieTo = function (control, onShift)
     {
+        onShift = def(onShift, false);
         control.addEventListener( 'click', function(e) {
             if(e.view.parent != control) return;
+
+            if ( !e.shiftKey && onShift ) return;
 
             if (popup.block)
             {

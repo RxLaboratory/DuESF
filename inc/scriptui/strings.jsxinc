@@ -82,6 +82,7 @@ DuScriptUI.String = {
     LIMB: "Limb",
     MIDDLE: "Middle",
     MIDDLE_SHORT: "Md",
+    MORE_OPTIONS_TIP: "[Shift]: More options...",
     MOUTH: "Mouth",
     NAME: "Name",
     NECK: "Neck",
