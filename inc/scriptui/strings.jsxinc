@@ -114,6 +114,7 @@ DuScriptUI.String = {
     RX_PURPLE_TIP: "The RxLaboratory Purple",
     RX_RED: "Rainbox Red",
     RX_RED_TIP: "The Rainbox Productions Red",
+    SCALE: "Scale",
     SELECT_LAYERS: "Select layers",
     SELECT_GROUPS: "Select groups",
     SET_QUALITY: "Set quality",

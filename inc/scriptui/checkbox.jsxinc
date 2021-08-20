@@ -294,7 +294,7 @@ DuScriptUI.checkBox = function( container, text, image, helpTip, textChecked, im
 
         if ( duCheckBox.checked )
         {
-            if (duCheckBox.hasLabel && !isTab) DuScriptUI.setTextColor( duCheckBox.labelChecked, DuColor.Color.APP_HIGHLIGHT_COLOR.lighter(125) );
+            if (duCheckBox.hasLabel && !isTab) DuScriptUI.setTextColor( duCheckBox.labelChecked, DuColor.Color.APP_HIGHLIGHT_COLOR.lighter(150) );
             
             if (!duCheckBox.hasLabel && !isTab) DuScriptUI.setBackgroundColor( duCheckBox.buttonGroup, DuColor.Color.APP_HIGHLIGHT_COLOR );
             // image
@@ -331,7 +331,7 @@ DuScriptUI.checkBox = function( container, text, image, helpTip, textChecked, im
     {
         if ( duCheckBox.checked )
         {
-            if (duCheckBox.hasLabel && !isTab) DuScriptUI.setTextColor( duCheckBox.labelChecked, duCheckBox.textColor );
+            if (duCheckBox.hasLabel && !isTab) DuScriptUI.setTextColor( duCheckBox.labelChecked, DuColor.Color.APP_HIGHLIGHT_COLOR );
             
             if (!duCheckBox.hasLabel && !isTab) DuScriptUI.setBackgroundColor( duCheckBox.buttonGroup, DuColor.Color.TRANSPARENT );
             // image
