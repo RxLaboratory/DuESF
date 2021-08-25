@@ -235,6 +235,7 @@ DuScriptUI.askLanguage = function ( callback, ui )
     }
 
     DuScriptUI.showUI( ui, false );
+    DuScriptUI.uiShown = false;
 }
 
 /**
@@ -398,4 +399,5 @@ DuScriptUI.checkUpdate = function ( callback, ui, showAlert )
     }
     
     DuScriptUI.showUI( ui, false );
+    DuScriptUI.uiShown = false;
 }
