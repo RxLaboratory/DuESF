@@ -630,6 +630,17 @@ DuList.prototype.replace = function (previousValue, newValue, comparisonFunction
 	return count;
 }
 
+/**
+ * Removes the last element of the list and returns it.<br />
+ * The internal list may be converted to an Array if needed.
+ * @return {any|null} The last element or null if the list is empty.
+ */
+DuList.prototype.pop = function ()
+{
+	this.convertToArray();
+	return this.list.pop();
+}
+
 // ================ ITERATOR METHODS ================
 
 /**
