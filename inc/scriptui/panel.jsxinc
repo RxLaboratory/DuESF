@@ -764,7 +764,7 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
         false,
         'row',
         'center'
-    )
+    );
     panel.settingsGroup.resetButton = DuScriptUI.button(
         validGroup,
         DuScriptUI.String.DEFAULT,
@@ -773,7 +773,7 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
         false,
         'row',
         'center'
-    )
+    );
     panel.settingsGroup.validButton = DuScriptUI.button(
         validGroup,
         DuScriptUI.String.APPLY,
@@ -782,7 +782,7 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
         false,
         'row',
         'center'
-    )
+    );
     
     panel.onApplySettings = function() {};
     panel.onResetSettings = function() {};
