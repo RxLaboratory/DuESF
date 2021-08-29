@@ -76,6 +76,7 @@ DuOCO.Bone = {
  * @enum {string}
  */
 DuOCO.LimbType = {
+    HOMINOID: 'hominoid',
     PLANTIGRADE: 'plantigrade',
     DIGITIGRADE: 'digitigrade',
     UNGULATE: 'ungulate',
