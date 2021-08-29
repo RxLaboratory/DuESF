@@ -255,11 +255,12 @@ DuOCODoc.prototype.updateSize = function()
  * @param {DuOCO.Limb} [limb=DuOCO.Limb.CUSTOM] A Predefined limb
  * @param {DuOCO.Side} [side=DuOCO.Side.NONE] - The side of the limb
  * @param {DuOCO.Location} [location=DuOCO.Location.NONE] - The location of the limb
+ * @param {DuOCO.LimbType} [type=DuOCO.LimbType.CUSTOM] - The type of the limb
  * @return {DuOCOLimb} The new limb
  */
-DuOCODoc.prototype.newLimb = function( limb, side, location )
+DuOCODoc.prototype.newLimb = function( limb, side, location, type )
 {
-    var l = new DuOCOLimb( limb, side, location );
+    var l = new DuOCOLimb( limb, side, location, type );
     this.limbs.push(l);
     return l;
 }
@@ -322,7 +323,7 @@ DuOCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, 
     if (num == 1) return null;
 
     // Create limb
-    var limb = this.newLimb( DuOCO.Limb.ARM, side, location );
+    var limb = this.newLimb( DuOCO.Limb.ARM, side, location, type );
     var b = limb.newArmature( DuScriptUI.String.ARM, num );
 
     // side
@@ -649,7 +650,7 @@ DuOCODoc.prototype.newLeg = function( type, side, thigh, calf, foot, claws, posi
     if (num == 1) return null;
 
     // Create limb
-    var limb = this.newLimb( DuOCO.Limb.LEG, side, location );
+    var limb = this.newLimb( DuOCO.Limb.LEG, side, location, type );
     var b = limb.newArmature( DuScriptUI.String.LEG, num );
 
     // side
@@ -1363,8 +1364,9 @@ DuOCODoc.prototype.fromPixels = function( point )
  * @param {DuOCO.Limb} [limb=DuOCO.Limb.CUSTOM] A Predefined limb
  * @param {DuOCO.Side} [side=DuOCO.Side.NONE] - The side of the limb
  * @param {DuOCO.Location} [location=DuOCO.Location.NONE] - The location of the limb
+ * @param {DuOCO.LimbType} [type=DuOCO.LimbType.CUSTOM] - The type of the limb
  */
-function DuOCOLimb(limb, side, location )
+function DuOCOLimb(limb, side, location, type )
 {
     /**
      * The predefined limb
@@ -1379,7 +1381,7 @@ function DuOCOLimb(limb, side, location )
      * @memberof DuOCOLimb
      * @type {DuOCO.LimbType}
      */
-    this.type = DuOCO.LimbType.CUSTOM;
+    this.type = def(type, DuOCO.LimbType.CUSTOM);
     /**
      * The sided of the limb
      * @name side
