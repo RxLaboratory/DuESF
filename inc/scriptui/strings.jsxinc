@@ -123,6 +123,7 @@ DuScriptUI.String = {
     SETTINGS_FILE_TIP: "Set the location of the settings file.",
     SHOULDER: "Shoulder",
     SHOULDERS: "Shoulders",
+    SHOULDERS_AND_NECK: "Shoulders & neck",
     SIZE: "Size",
     SNAKE: "Snake",
     SPINE: "Spine",

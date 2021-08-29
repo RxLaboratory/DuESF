@@ -27,11 +27,9 @@ DuOCO.Limb = {
     SPINE: 'spine',
     ARM: 'arm',
     LEG: 'leg',
-    WING: 'wing',
-    FIN: 'fin',
-    HAIR: 'hair',
     TAIL: 'tail',
     WING: 'wing',
+    HAIR: 'hair',
     SNAKE_SPINE: 'snakeSpine',
     FIN: 'fin',
     CUSTOM: 'custom'
@@ -57,6 +55,7 @@ DuOCO.Bone = {
     HIPS: 'hips',
     SPINE: 'spine',
     NECK: 'neck',
+    HEAD: 'head',
     SKULL: 'skull',
     TAIL_ROOT: 'tail1',
     TAIL_MID: 'tail2',
@@ -822,7 +821,7 @@ DuOCODoc.prototype.newSpine = function( head, neck, spine, hips, position )
     if (num == 1) return null;
 
     // Create limb
-    var limb = this.newLimb( DuOCO.Limb.LEG, DuOCO.Side.NONE, DuOCO.Location.NONE );
+    var limb = this.newLimb( DuOCO.Limb.SPINE, DuOCO.Side.NONE, DuOCO.Location.NONE );
     var b = limb.newArmature( DuScriptUI.String.SPINE, num );
 
     // hips position
