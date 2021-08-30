@@ -41,7 +41,7 @@ DuFolder.wipeFolder = function(folder)
 	var it = new DuList(files);
 	it.do(function (file)
 	{
-		if ( jstype(file) == 'Folder' ) DuFolder.wipeFolder(file);
+		if ( jstype(file) == 'folder' ) DuFolder.wipeFolder(file);
 		else file.remove();
 	});
 	folder.remove();

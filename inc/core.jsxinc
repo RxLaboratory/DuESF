@@ -333,7 +333,7 @@ function def( val, defaultVal )
  * Improved typeof which returns the type of object instead of 'object'
  * @global
  * @param {any} exp - The expression to check.
- * @return {string} The type. For primitives, in lower case ('string', 'number', 'boolean', 'null', 'undefined'). A function is 'Function'
+ * @return {string} The type always in lower case.
 */
 function jstype(value) {
     var type = typeof value;
@@ -341,12 +341,9 @@ function jstype(value) {
     switch(type) {
         case 'object':
         return value === null ? 'null' : Object.prototype.toString.call(value).
-            match(/^\[object (.*)\]$/)[1]
-
-        case 'function':
-        return 'Function';
+            match(/^\[object (.*)\]$/)[1].toLowerCase();
 
         default:
-        return type;
+        return type.toLowerCase();
     }
 }

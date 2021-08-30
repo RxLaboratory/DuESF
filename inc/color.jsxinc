@@ -460,7 +460,7 @@ DuColor.random = function()
 DuColor.isValid = function (color, ignoreAlpha)
 {
 	ignoreAlpha = def( ignoreAlpha, false, false );
-	if ( !jstype(color) == 'Array' ) return false;
+	if ( !jstype(color) == 'array' ) return false;
 	var numChannels = color.length;
 	if ( numChannels != 4 && !ignoreAlpha ) return false;
 	if ( numChannels != 4 && numChannels != 3 ) return false;

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Creates a new string translation.
  * @class
  * @classdesc An translation for a string.
@@ -322,6 +322,7 @@ DuTranslator.setLanguage = function (languageId)
 				if (DuScriptUI.String.hasOwnProperty(key))
 				{
 					var str = DuScriptUI.String[key];
+                       if (jstype(str) != 'string') continue;
 					DuScriptUI.String[key] = tr(str, key);
 					DuScriptUI.String.Original[key] = str;
 				}

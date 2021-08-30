@@ -36,7 +36,8 @@ DuDebug.log = function (message,level)
 }
 
 /**
- * This methods shows an alert with an error thrown if DuESF.debug is set to true, and logs it in DuESF.debug.DuDebugLog if it has been set.
+ * This methods shows an alert with an error thrown if DuESF.debug is set to true, and logs it in DuESF.debug.DuDebugLog if it has been set.<br />
+ * The error is actually thrown only if JS Debugging is enabled in the host application, otherwise it is just shown in an alert.
  * @param {Error|string} error - An error thrown and catched
  */
 DuDebug.error = function (error)
@@ -47,6 +48,9 @@ DuDebug.error = function (error)
 	if ( DuESF.debug )
 	{
 		alert( errorString );
+		// Throw if debugger enabled
+		if (DuESF.host == DuESF.HostApplication.AFTER_EFFECTS)
+			if (DuAE.isDebuggerEnabled()) throw error;
 	}
 }
 
@@ -129,6 +133,14 @@ DuDebug.throwTypeError = function (variable, varName, varType, functionName)
 		
 	DuDebug.log(e, DuDebug.LogLevel.CRITICAL);
 
+	if ( DuESF.debug )
+	{
+		alert( e );
+		// Throw if debugger enabled
+		if (DuESF.host == DuESF.HostApplication.AFTER_EFFECTS)
+			if (DuAE.isDebuggerEnabled()) throw e;
+	}
+
 	return e;
 }
 
@@ -153,6 +165,14 @@ DuDebug.throwUndefinedError = function( varName, functionName )
 	e += "\n" + varName + " cannot be undefined.";
 
 	DuDebug.log(e, DuDebug.LogLevel.CRITICAL);
+
+	if ( DuESF.debug )
+	{
+		alert( e );
+		// Throw if debugger enabled
+		if (DuESF.host == DuESF.HostApplication.AFTER_EFFECTS)
+			if (DuAE.isDebuggerEnabled()) throw e;
+	}
 
 	return e;
 }
@@ -183,6 +203,18 @@ DuDebug.throwError = function( message, functionName, error )
 	}
 
 	DuDebug.log(e, DuDebug.LogLevel.CRITICAL);
+
+	if ( DuESF.debug )
+	{
+		alert( e );
+		// Throw if debugger enabled
+		if (DuESF.host == DuESF.HostApplication.AFTER_EFFECTS)
+			if (DuAE.isDebuggerEnabled()) 
+			{
+				if (typeof error !== 'undefined') throw error;
+				else throw e;
+			}
+	}
 
 	return e;
 }

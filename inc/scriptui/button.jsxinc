@@ -78,7 +78,7 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
         throw 'DuScriptUI: DuScriptUI.button(container, text, image, helpTip, imageOver):\nMissing argument: container.';
     }
 
-    if (jstype(container) != 'Group' && jstype(container) != 'Panel' && jstype(container) != 'Window' )
+    if (jstype(container) != 'group' && jstype(container) != 'panel' && jstype(container) != 'window' )
     {
         throw 'DuScriptUI: DuScriptUI.button(container, text, image, helpTip):\nTypeError.\n\ncontainer has to be a Group/Panel/Window.\n\ncontainer is ' + jstype(container) + ' with value ' + container.toString();
     }
