@@ -319,3 +319,23 @@ DuMath.linear = function( value, min, max, targetMin, targetMax, clamp)
 	if (clamp) result = DuMath.clamp( value, targetMin, targetMax );
 	return result;
 }
+
+/**
+ * Checks if a point is located inside given bounds
+ * @param {float[]} point The point
+ * @param {float[]} bounds The bounds. The number of bounds must be at least twice the number of dimensions, in this order : [a1, a2, ..., x1,x2,y1,y2,z1,z2]
+ * @return {Boolean} true if the point is inside the bounds
+ */
+DuMath.isInside = function( point, bounds )
+{
+	for ( var i = 0, n = point.length; i < n; i++)
+	{
+		var c = point[i];
+		var c1 = bounds[i*2];
+		var c2 = bounds[i*2+1];
+
+		if ( c < c1 ) return false;
+		if ( c > c2 ) return false;
+	}
+	return true;
+}
