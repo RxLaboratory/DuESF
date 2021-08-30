@@ -451,8 +451,8 @@ DuOCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, 
         }
         else if (ung)
         {
-            b.x = s * u * .21 + ox;
-            b.y = u*.31 + oy;
+            b.x = s * u * .24 + ox;
+            b.y = u*.53 + oy;
         }
         else if (artF)
         {
@@ -493,7 +493,7 @@ DuOCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, 
         else if (ung)
         {
             b.x = s * u * .19 + ox;
-            b.y = u*.13 + oy;
+            b.y = u*.31 + oy;
         }
         else if (artF)
         {
@@ -529,7 +529,7 @@ DuOCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, 
         else if (ung)
         {
             b.x = s * u * .19 + ox;
-            b.y = u*.07 + oy;
+            b.y = u*.14 + oy;
         }
         else if (artF)
         {
