@@ -96,6 +96,7 @@ DuScriptUI.String = {
     PATH: "Path",
     PAW: "Paw",
     PENIS: "Penis",
+    PINCER: "Pincer",
     PLANTIGRADE: "Plantigrade",
     PREVIOUS: "Previous",
     POLYGON: "Polygon",
