@@ -339,3 +339,15 @@ DuMath.isInside = function( point, bounds )
 	}
 	return true;
 }
+
+/**
+ * Checks the sign of a number
+ * @param {Number} num The number to check
+ * @returns {int} 1 if num is positive, -1 if negative, 0 in other cases (0, NaN...)
+ */
+DuMath.sign = function ( num )
+{
+	if ( num < 0) return -1;
+	if (num > 0) return 1;
+	return 0;
+}
