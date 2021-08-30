@@ -755,6 +755,7 @@ DuOCODoc.prototype.newLeg = function( type, side, thigh, calf, foot, claws, posi
         }
         else if (ung)
         {
+            b.name = DuScriptUI.String.HOOF;
             b.x = s * u * -.37 + ox;
             b.y = u*.08 + oy;
         }
