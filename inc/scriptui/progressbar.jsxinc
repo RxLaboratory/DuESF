@@ -1,0 +1,126 @@
+/**
+    * Constructs a progress bar popup
+    * @class DuProgressBar
+    * @classdesc A simple progress bar.<br />
+    * This was inspired by {@link https://github.com/indiscripts/extendscript/blob/master/scriptui/ProgressBar.jsx the progress bar}
+    * by {@link  https://www.indiscripts.com/ Marc Autret / IndiScripts}.
+    * @param {string} title The title of the progress bar
+ */
+DuProgressBar = function( )
+{
+    this.window = new Window('palette', '', [0,0,360,78], {borderless:true});
+    this.stage = this.window.add( 'statictext', { x:20, y:15, width:320, height:12 }, 'Progress...');
+    this.bar = this.window.add( 'progressbar', { x:20, y:33, width:320, height:12 }, 0, 0);
+    this.label = this.window.add( 'statictext', { x:20, y:51, width:320, height:12 });
+
+    this.message = 'Progress: %1';
+
+    this.window.center();
+
+    // A private method to update with the message and the value
+    this.__ = function()
+    {
+        var ok = this.bar.maxvalue != 0;
+        if (ok) this.label.text = DuString.replace(this.message, '%1', this.bar.value + ' / ' + this.bar.maxvalue);
+        else this.label.text = 'Working...';
+        this.bar.visible = ok;
+        this.window.update();
+    };
+}
+
+/**
+ * Changes the text of the label
+ * @param {string} message The text
+ */
+DuProgressBar.prototype.msg = function( message )
+{
+    if(typeof message !== 'undefined') this.message = message;
+    this.__();
+}
+
+DuProgressBar.prototype.stg = function( stage )
+{
+    this.stage.text = stage;
+    this.msg();
+}
+
+/**
+ * Shows the progress bar and updates the value and text
+ * @param {string} [message=''] The text
+ * @param {int} [maxValue=100] The maximum value
+ */
+DuProgressBar.prototype.show = function( message )
+{
+    this.window.show();
+    this.msg(message);  
+}
+
+/**
+ * Resets the progress bar to 0
+ * @param {int} [maxValue=0] The new maximum value
+ */
+DuProgressBar.prototype.reset = function( maxValue )
+{
+    maxValue = def(maxValue, 0);
+    this.bar.value = 0;
+    this.bar.maxvalue = maxValue;
+    this.stg('Progress...');
+    this.msg('Progress: %1');
+}
+
+/**
+ * Updates and increments the progress bar
+ * @param {int} [value] The new value. if omitted, the bar is just incremented by 1
+ * @param {string} [message] A new label
+ */
+DuProgressBar.prototype.hit = function( value, message )
+{
+    value = def(value, 1);
+    this.bar.value += value;
+    this.msg(message);
+}
+
+/**
+ * Sets the maximum value
+ * @param {int} maxValue The new maximum value
+ * @param {Boolean} [onlyIfZero=true] Set to false to change the max value even if it was not 0 before
+ */
+DuProgressBar.prototype.setMax = function( maxValue, onlyIfZero )
+{
+    onlyIfZero = def(onlyIfZero, true);
+    if (onlyIfZero && this.bar.maxvalue != 0) return;
+    this.bar.maxvalue = maxValue;
+    this.msg();
+}
+
+/**
+ * Increments the maximum value
+ * @param {int} [maxValue=1] The value to add to the maximum
+ */
+DuProgressBar.prototype.addMax = function( maxValue )
+{
+    maxValue = def(maxValue, 1);
+    this.setMax(this.bar.maxvalue + maxValue, false);
+}
+
+/**
+ * Hides the progress bar
+ */
+DuProgressBar.prototype.hide = function( )
+{
+    this.window.hide();
+}
+
+/**
+ * Closes the progress bar
+ */
+DuProgressBar.prototype.close = function( )
+{
+    this.window.close();
+}
+
+/**
+ * Show this progress bar before long operations with {@link DuProgressBar.show} and DuESF will update it.
+ * @type {DuProgressBar}
+ */
+DuScriptUI.progressBar = new DuProgressBar();
