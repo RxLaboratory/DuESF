@@ -8,7 +8,7 @@
  */
 DuProgressBar = function( )
 {
-    this.window = new Window('palette', '', [0,0,360,86], {borderless:true});
+    this.window = new Window('palette', '', [0,0,360,86]);
     this.stage = this.window.add( 'statictext', { x:20, y:15, width:320, height:16 }, DuScriptUI.String.WORKING);
     
     var barGroup = this.window.add('group', { x:20, y:37, width:320, height:12 });
