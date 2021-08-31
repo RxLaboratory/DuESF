@@ -55,6 +55,7 @@ DuScriptUI.String = {
     FISH: "Fish",
     FISHBONE: "Fishbone",
     FISHBONES: "Fishbones",
+    FISH_SPINE: "Fish spine",
     FOOT: "Foot",
     FOREARM: "Forearm",
     FRONT: "Front",

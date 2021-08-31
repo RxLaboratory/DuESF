@@ -31,6 +31,7 @@ DuOCO.Limb = {
     WING: 'wing',
     HAIR: 'hair',
     SNAKE_SPINE: 'snakeSpine',
+    FISH_SPINE: 'fishSpine',
     FIN: 'fin',
     CUSTOM: 'custom'
 }
@@ -64,6 +65,9 @@ DuOCO.Bone = {
     SNAKE_SPINE_ROOT: 'snakeSpine1',
     SNAKE_SPINE_MID: 'snakeSpine2',
     SNAKE_SPINE_END: 'snakeSpine3',
+    FISH_SPINE_ROOT: 'fishSpine1',
+    FISH_SPINE_MID: 'fishSpine2',
+    FISH_SPINE_END: 'fishSpine3',
     HAIR_ROOT: 'snakeSpine1',
     HAIR_MID: 'snakeSpine2',
     HAIR_END: 'snakeSpine3',
@@ -1226,6 +1230,89 @@ DuOCODoc.prototype.newSnakeSpine = function( head, spine, position )
 
     return limb;
 }
+
+/**
+ * Creates a new fish spine.
+ * @param {Boolean} [head=true]  Whether to create a head
+ * @param {int} [spine=3] Number of spine bones
+ * @param {float[]} [position] The position of the first bone of the spine.<br />
+ * If omitted, computed automatically according to the current character in the doc.
+ * @returns {DuOCOLimb} The fish spine
+ */
+DuOCODoc.prototype.newFishSpine = function( head, spine, position )
+{
+    head = def( head, true );
+    spine = def( spine, 3 );
+
+    // Unit
+    var u = this.height;
+
+    // count how many bones we need
+    var num = spine+1;
+
+    if (num == 1) return null;
+
+    // Create limb
+    var limb = this.newLimb( DuOCO.Limb.FISH_SPINE, DuOCO.Side.NONE, DuOCO.Location.NONE );
+    var b = limb.newArmature( DuScriptUI.String.SPINE, num );
+
+    // hips position
+    var ox = 0;
+    var oy = 0;
+    var x = u *.75;
+    var y = u * .5;
+
+    // offset
+    if (typeof position !== 'undefined' )
+    {
+        ox = position[0] - x;
+        oy = position[1] - y;
+    }
+
+    // for each part, set the location
+    var spineLength = u / spine;
+    for (var i = 0; i < spine; i++)
+    {
+        b.name = DuScriptUI.String.SPINE;
+        if ( i <= (spine-1) / 3) b.type = DuOCO.Bone.FISH_SPINE_ROOT;
+        else if ( i <= (spine-1)*2 / 3) b.type = DuOCO.Bone.FISH_SPINE_MID;
+        else b.type = DuOCO.Bone.FISH_SPINE_END;
+        b.y = y + oy;
+        b.x = x - spineLength*i - ox;
+        if (b.children.length > 0) b = b.children[0];
+    }
+
+    // Tip
+    b.name = DuScriptUI.String.SPINE + '_' + DuScriptUI.String.TIP_BONE;
+    b.type = DuOCO.Bone.TIP;
+    b.x = -u *.25;
+    b.y = y + oy;
+
+    // Head
+    if (head)
+    {
+        var b = new DuOCOBone( DuScriptUI.String.HEAD );
+        b.type = DuOCO.Bone.SKULL;
+        b.x = x;
+        b.y = y;
+
+        var s = limb.armature.pop();
+
+        limb.armature.push(b);
+        b.children.push(s);
+
+        var bt = new DuOCOBone( DuScriptUI.String.HEAD + '_' + DuScriptUI.String.TIP_BONE );
+        bt.type = DuOCO.Bone.TIP;
+        bt.x = x + u*.3;
+        bt.y = y;
+        bt.attached = true;
+
+        b.children.push(bt);
+    }
+
+    return limb;
+}
+
 
 /**
  * Creates a new fin.
