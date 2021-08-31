@@ -80,6 +80,7 @@ DuScriptUI.String = {
     LEFT_SHORT: "L",
     LEG: "Leg",
     LIMB: "Limb",
+    MAGIC: "Magic is happening",
     MIDDLE: "Middle",
     MIDDLE_SHORT: "Md",
     MORE_OPTIONS_TIP: "[Shift]: More options...",
@@ -143,6 +144,7 @@ DuScriptUI.String = {
     UNGULATE: "Ungulate",
     VULVA: "Vulva",
     WING: "Wing",
+    WORKING: "Working...",
     X_POSITION: "X Position",
     Y_POSITION: "Y Position"
 }

@@ -40,6 +40,8 @@
 #include "icons/w16_language_file.png.jsxinc"
 #include "icons/w16_random.png.jsxinc"
 #include "icons/w16_eye_dropper.png.jsxinc"
+// huge
+#include "icons/w320_progress.png.jsxinc"
 
 /**
  * The list of available icons.
@@ -77,6 +79,7 @@ DuScriptUI.Icon = {
     PIN: w12_pin,
     PINNED: w12_pinned,
     PLACEHOLDER: w16_placeholder,
+    PROGRESS: w320_progress,
     RAINBOX_RED: w8_rx_red,
     RANDOM: w16_random,
     RESET: w12_reset,
