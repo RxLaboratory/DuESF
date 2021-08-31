@@ -268,7 +268,7 @@ DuOCODoc.prototype.newLimb = function( limb, side, location, type )
 
 /**
  * Creates a new arm.
- * @param {DuOCO.LimbType} [type=DuOCO.LimbType.PLANTIGRADE] The type of limb
+ * @param {DuOCO.LimbType} [type=DuOCO.LimbType.HOMINOID] The type of limb
  * @param {DuOCO.Side} [side=DuOCO.Side.LEFT] The side
  * @param {Boolean} [shoulder=false] Whether to create a shoulder
  * @param {Boolean} [arm=true]  Whether to create an arm / humerus
@@ -284,7 +284,7 @@ DuOCODoc.prototype.newLimb = function( limb, side, location, type )
 DuOCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, claws, position, location, view )
 {
     side = def(side, DuOCO.Side.LEFT);
-    type = def(type, DuOCO.LimbType.PLANTIGRADE);
+    type = def(type, DuOCO.LimbType.HOMINOID);
     location = def(location, DuOCO.Location.FRONT);
 
     shoulder = def( shoulder, false );
@@ -297,6 +297,7 @@ DuOCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, 
     var u = this.height;
 
     // type
+    var hum = type == DuOCO.LimbType.HOMINOID;
     var hum = type == DuOCO.LimbType.PLANTIGRADE && !claws;
     var plan = type == DuOCO.LimbType.PLANTIGRADE && claws;
     var dig = type == DuOCO.LimbType.DIGITIGRADE;
@@ -602,7 +603,7 @@ DuOCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, 
 
 /**
  * Creates a new leg.
- * @param {DuOCO.LimbType} [type=DuOCO.LimbType.PLANTIGRADE] The type of limb
+ * @param {DuOCO.LimbType} [type=DuOCO.LimbType.HOMINOID] The type of limb
  * @param {DuOCO.Side} [side=DuOCO.Side.LEFT] The side
  * @param {Boolean} [thigh=true]  Whether to create a thigh
  * @param {Boolean} [calf=true]  Whether to create a calf
@@ -617,7 +618,7 @@ DuOCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, 
 DuOCODoc.prototype.newLeg = function( type, side, thigh, calf, foot, claws, position, location, view )
 {
     side = def(side, DuOCO.Side.LEFT);
-    type = def(type, DuOCO.LimbType.PLANTIGRADE);
+    type = def(type, DuOCO.LimbType.HOMINOID);
     location = def(location, DuOCO.Location.BACK);
 
     thigh = def( thigh, true );
@@ -632,7 +633,7 @@ DuOCODoc.prototype.newLeg = function( type, side, thigh, calf, foot, claws, posi
     var plan = type == DuOCO.LimbType.PLANTIGRADE;
     var dig = type == DuOCO.LimbType.DIGITIGRADE;
     var ung = type == DuOCO.LimbType.UNGULATE;
-    if ( !plan && !dig && !ung ) hum = true;
+    var hum = type == DuOCO.LimbType.HOMINOID;
 
     // View
     if (typeof view === 'undefined')
@@ -665,7 +666,7 @@ DuOCODoc.prototype.newLeg = function( type, side, thigh, calf, foot, claws, posi
     var x, y;
     var ox = 0;
     var oy = 0;
-    if (plan)
+    if (plan || hum)
     {
         x = s * u * .04;
         y = u * .53;
@@ -701,7 +702,7 @@ DuOCODoc.prototype.newLeg = function( type, side, thigh, calf, foot, claws, posi
     {
         b.name = DuScriptUI.String.CALF;
         b.type = DuOCO.Bone.TIBIA;
-        if (plan)
+        if (plan || hum)
         {
             b.x = s * u * .05 + ox;
             b.y = u*.28 + oy;
@@ -722,7 +723,7 @@ DuOCODoc.prototype.newLeg = function( type, side, thigh, calf, foot, claws, posi
     {
         b.name = DuScriptUI.String.FOOT;
         b.type = DuOCO.Bone.TARSUS;
-        if (plan)
+        if (plan || hum)
         {
             b.x = s * u * .036 + ox;
             b.y = u*.027 + oy;
@@ -742,8 +743,9 @@ DuOCODoc.prototype.newLeg = function( type, side, thigh, calf, foot, claws, posi
     if ( claws )
     {
         b.name = DuScriptUI.String.CLAWS;
+        if (hum) b.name = DuScriptUI.String.TOES;
         b.type = DuOCO.Bone.TOE;
-        if (plan)
+        if (plan || hum)
         {
             b.x = s * u * .10 + ox;
             b.y = u*.0125 + oy;
@@ -762,9 +764,9 @@ DuOCODoc.prototype.newLeg = function( type, side, thigh, calf, foot, claws, posi
         if (b.children.length > 0) b = b.children[0];
     }
     // Tip
-    b.name = DuScriptUI.String.ARM + '_' + DuScriptUI.String.TIP_BONE;
+    b.name = DuScriptUI.String.LEG + '_' + DuScriptUI.String.TIP_BONE;
     b.type = DuOCO.Bone.TIP;
-    if (plan)
+    if (plan || hum)
     {
         b.x = s * u * .145 + ox;
         b.y = oy;
@@ -781,7 +783,7 @@ DuOCODoc.prototype.newLeg = function( type, side, thigh, calf, foot, claws, posi
     }
 
     //Heel
-    if (plan && claws)
+    if ((plan || hum) && claws)
     {
         var heelBone = new DuOCOBone( DuScriptUI.String.HEEL );
         heelBone.type = DuOCO.Bone.HEEL;
