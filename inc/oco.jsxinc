@@ -56,7 +56,7 @@ DuOCO.Bone = {
     HIPS: 'hips',
     SPINE: 'spine',
     NECK: 'neck',
-    HEAD: 'head',
+    SKULL_TIP: 'skullTip',
     SKULL: 'skull',
     TAIL_ROOT: 'tail1',
     TAIL_MID: 'tail2',
@@ -1220,7 +1220,7 @@ DuOCODoc.prototype.newSnakeSpine = function( head, spine, position )
         b.children.push(s);
 
         var bt = new DuOCOBone( DuScriptUI.String.HEAD + '_' + DuScriptUI.String.TIP_BONE );
-        bt.type = DuOCO.Bone.TIP;
+        bt.type = DuOCO.Bone.SKULL_TIP;
         bt.x = x + u*.2;
         bt.y = y;
         bt.attached = true;
@@ -1302,7 +1302,7 @@ DuOCODoc.prototype.newFishSpine = function( head, spine, position )
         b.children.push(s);
 
         var bt = new DuOCOBone( DuScriptUI.String.HEAD + '_' + DuScriptUI.String.TIP_BONE );
-        bt.type = DuOCO.Bone.TIP;
+        bt.type = DuOCO.Bone.SKULL_TIP;
         bt.x = x + u*.3;
         bt.y = y;
         bt.attached = true;
@@ -1312,7 +1312,6 @@ DuOCODoc.prototype.newFishSpine = function( head, spine, position )
 
     return limb;
 }
-
 
 /**
  * Creates a new fin.
