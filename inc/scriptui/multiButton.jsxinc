@@ -26,15 +26,21 @@
  * @param {string} [text] - The text.
  * @param {string|DuBInary} [image] - The path to the icon (or a PNG as a string representation). Default: empty string
  * @param {string} [helpTip] - The help tip to show on the multi button
+ * @param {Boolean} [ignoreUIMode=false] - Will show texte even if the ui mode is set to > 1 in the script settings
  * @return {DuSelector} - The multiButton
  */
-DuScriptUI.multiButton = function( container, text, image, helpTip )
+DuScriptUI.multiButton = function( container, text, image, helpTip, ignoreUIMode )
 {
     text = def(text, '');
     text = tr(text) + '...';
     helpTip = def(helpTip, '');
     helpTip = tr(helpTip);
     image = def(image, '');
+    ignoreUIMode = def(ignoreUIMode, false);
+
+    var commonSettings = def(DuESF.scriptSettings.data.common, {});
+    var uiMode = def( commonSettings.uiMode, 0);
+    if (uiMode >= 2 && image != '' && !ignoreUIMode) text = '';
 
     var multiButton = container.add( 'group' );
     multiButton.orientation = 'row';
@@ -51,9 +57,12 @@ DuScriptUI.multiButton = function( container, text, image, helpTip )
     multiButton.helpTip = helpTip;
 
     //the menu button
-    multiButton.menuButton = multiButton.mainGroup.add( 'image', undefined, DuScriptUI.Icon.MORE.binAsString );
-    multiButton.menuButton.alignment = [ 'left', 'center' ];
-    multiButton.menuButton.helpTip = helpTip;
+    if ( text != '' )
+    {
+        multiButton.menuButton = multiButton.mainGroup.add( 'image', undefined, DuScriptUI.Icon.MORE.binAsString );
+        multiButton.menuButton.alignment = [ 'left', 'center' ];
+        multiButton.menuButton.helpTip = helpTip;
+    }
 
     //the image
     if (image != '')
@@ -61,27 +70,31 @@ DuScriptUI.multiButton = function( container, text, image, helpTip )
         var iconGroup = multiButton.mainGroup.add('group');
         iconGroup.minimumSize = [20,20];
         iconGroup.margins = 2;
-        iconGroup.alignment = ['left', 'fill'];
+        if ( text == '' ) iconGroup.alignment = ['center', 'fill'];
+        else iconGroup.alignment = ['left', 'fill'];
         if (image instanceof DuBinary) image = image.binAsString;
         multiButton.icon = iconGroup.add( 'image', undefined, image );
         multiButton.icon.alignment = [ 'center', 'center' ];
         multiButton.icon.helpTip = helpTip;
     }
 
-    //add fillers to be able to click anywhere on the button
-    multiButton.fillerM = multiButton.mainGroup.add( 'statictext', undefined, " " );
-    multiButton.fillerM.alignment = [ 'left', 'fill' ];
-    multiButton.fillerM.size = [ 0, -1];
+    if ( text != '')
+    {
+        //add fillers to be able to click anywhere on the button
+        multiButton.fillerM = multiButton.mainGroup.add( 'statictext', undefined, " " );
+        multiButton.fillerM.alignment = [ 'left', 'fill' ];
+        multiButton.fillerM.size = [ 0, -1];
 
-    //the text
-    multiButton.label = multiButton.mainGroup.add( 'statictext', undefined, text );
-    multiButton.label.helpTip = '';
-    multiButton.label.alignment = [ 'fill', 'center' ];
-    multiButton.label.helpTip = helpTip;
+        //the text
+        multiButton.label = multiButton.mainGroup.add( 'statictext', undefined, text );
+        multiButton.label.helpTip = '';
+        multiButton.label.alignment = [ 'fill', 'center' ];
+        multiButton.label.helpTip = helpTip;
 
-    //add fillers to be able to click anywhere on the button
-    multiButton.fillerR = multiButton.mainGroup.add( 'statictext', undefined, " " );
-    multiButton.fillerR.alignment = [ 'fill', 'fill' ];
+        //add fillers to be able to click anywhere on the button
+        multiButton.fillerR = multiButton.mainGroup.add( 'statictext', undefined, " " );
+        multiButton.fillerR.alignment = [ 'fill', 'fill' ];
+    }
 
     //create popup
     multiButton.popup = new Window( 'palette', '', undefined,
@@ -122,9 +135,12 @@ DuScriptUI.multiButton = function( container, text, image, helpTip )
             helpTip = tr( helpTip );
         }
         
-        var size = text.length * 7;
-        if ( multiButton.label.minimumSize.width < size ) multiButton.label.minimumSize.width = size;
-
+        if (multiButton.label)
+        {
+            var size = text.length * 7;
+            if ( multiButton.label.minimumSize.width < size ) multiButton.label.minimumSize.width = size;
+        }
+        
         //add to popup
         var button = DuScriptUI.button( multiButton.popup.buttons, text, image, helpTip, addOptionsPanel, undefined, undefined, false, true );
         multiButton.buttons.push( button );
@@ -164,7 +180,6 @@ DuScriptUI.multiButton = function( container, text, image, helpTip )
     multiButton.dim = function( e )
     {
         DuScriptUI.setBackgroundColor( multiButton, DuColor.Color.TRANSPARENT );
-        DuScriptUI.setTextColor( multiButton.label, DuColor.Color.APP_TEXT_COLOR );
     }
 
     multiButton.mainGroup.addEventListener( "mouseover", multiButton.highlight );
