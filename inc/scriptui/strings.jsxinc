@@ -30,6 +30,7 @@ DuScriptUI.String = {
     CHECK_UPDATE: "Check for updates",
     CIRCLE: "Circle",
     CLAWS: "Claws",
+    CLOSE: "Close",
     COLOR_HIGHLIGHT_TIP: "Set the highlight color.",
     CUSTOM: "Custom",
     CUSTOM_COLOR_TIP: "Select a custom color.",
