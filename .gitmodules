@@ -1,3 +1,0 @@
-[submodule "tools/build/node_modules/jaguarjs-jsdoc"]
-	path = tools/build/node_modules/jaguarjs-jsdoc
-	url = https://github.com/RxLaboratory/jaguarjs-jsdoc.git
