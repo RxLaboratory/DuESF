@@ -108,7 +108,7 @@ DuScriptUI.tabPanel = function( container, tabOrientation )
 
         var commonSettings = def( DuESF.scriptSettings.data.common, {} );
         var uiMode = def(commonSettings.uiMode, 0);
-        if (uiMode >= 1 && image != '') text = '';
+        if (uiMode >= 2 && image != '') text = '';
 
         // If this button and the previous one have a label, add a spacer
         if (panel.buttons.length > 0)

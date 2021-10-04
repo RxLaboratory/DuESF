@@ -150,7 +150,7 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
         optionsPanel.tieTo( duButton, true);
 
         // Add button
-        if ( text != '')
+        if ( text != '' && orientation != 'column')
         {
             var optionsButton = DuScriptUI.button(
                 duButton,
@@ -158,8 +158,7 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
                 w12_options,
                 text + '\nOptions'
             )
-            if (orientation == 'column') optionsButton.alignment = ['center', 'top'];
-            else optionsButton.alignment = ['left', 'center'];
+            optionsButton.alignment = ['left', 'center'];
 
             optionsPanel.tieTo(optionsButton);
         }

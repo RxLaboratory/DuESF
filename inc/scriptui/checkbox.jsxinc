@@ -59,7 +59,7 @@ DuScriptUI.checkBox = function( container, text, image, helpTip, textChecked, im
     {
         var commonSettings = def( DuESF.scriptSettings.data.common, {} );
         var uiMode = def(commonSettings.uiMode, 0);
-        if (uiMode >= 1 && image != '') text = '';
+        if (uiMode >= 2 && image != '') text = '';
     }
 
     //translate text and helptip

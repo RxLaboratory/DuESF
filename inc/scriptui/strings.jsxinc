@@ -32,6 +32,7 @@ DuScriptUI.String = {
     CLAWS: "Claws",
     CLOSE: "Close",
     COLOR_HIGHLIGHT_TIP: "Set the highlight color.",
+    COPY: "Copy",
     CUSTOM: "Custom",
     CUSTOM_COLOR_TIP: "Select a custom color.",
     CLOSE_SETTINGS: "Close settings",
