@@ -973,3 +973,63 @@ DuScriptUI.refreshWindow = function ( win, scriptFile )
     }
     return false;
 }
+
+/**
+ * Creates a popup to ask for a simple string
+ * @param {string} title The title of the popup
+ * @param {string} defaultString The placeholder for the edit text
+ * @returns {DuPopup} The popup, with an <code>onAccept( str )</code> callback.
+ */
+DuScriptUI.stringPrompt = function ( title, defaultString )
+{
+    defaultString = def(defaultString, '');
+
+    var nameEditor = DuScriptUI.popUp( title );
+    nameEditor.content.alignment = ['fill','top'];
+    
+    nameEditor.editText = DuScriptUI.editText(
+        nameEditor.content,
+        '',
+        '',
+        '',
+        defaultString
+    )
+    nameEditor.editText.alignment = ['fill','top'];
+
+    var nameButtons = DuScriptUI.group( nameEditor.content );
+    nameButtons.alignment = ['fill','top'];
+
+    var nameOKButton = DuScriptUI.button(
+        nameButtons,
+        DuScriptUI.String.OK,
+        DuScriptUI.Icon.CHECK,
+        title,
+        false,
+        'row',
+        'center'
+    )
+
+    nameEditor.previousString = '';
+
+    nameEditor.onAccept = function( str ){};
+
+    nameEditor.accept = function() {
+        nameEditor.onAccept( nameEditor.editText.text );
+        nameEditor.hidePopup();
+        return nameEditor.editText.text;
+    }
+
+    nameEditor.setText = function (text) {
+        nameEditor.previousString = text;
+        nameEditor.editText.setText(text);
+    }
+
+    nameEditor.edit = function() {
+        nameEditor.editText.clicked();
+    }
+
+    nameOKButton.onClick = nameEditor.accept;
+    nameEditor.addEventListener('enterkey', nameEditor.accept );
+
+    return nameEditor;
+}
