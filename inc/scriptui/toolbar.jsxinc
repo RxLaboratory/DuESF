@@ -1,0 +1,27 @@
+/**
+ * Creates a toolbar with a lighter background
+ * @param {Panel|Window|Group} container The ScriptUI Object which will contain and display the toolbar.
+ * @returns {Group} The toolbar, a ScriptUI Group
+ */
+DuScriptUI.toolBar = function( container )
+{
+    var commonSettings = def(DuESF.scriptSettings.data.common, {});
+    var uiMode = def( commonSettings.uiMode, 0);
+    
+    var toolsGroup = DuScriptUI.group( container, 'row' );
+    toolsGroup.spacing = 3;
+    toolsGroup.margins = 3;
+    DuScriptUI.setBackgroundColor(toolsGroup , DuColor.Color.DARK_GREY );
+
+    if (uiMode == 0)
+    {
+        toolsGroup.spacing = 3;
+        toolsGroup.alignChildren = ['fill', 'top'];
+    }
+    else 
+    {
+        toolsGroup.alignChildren = ['center', 'top'];
+    }
+
+    return toolsGroup;
+}
