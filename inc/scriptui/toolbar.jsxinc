@@ -13,14 +13,35 @@ DuScriptUI.toolBar = function( container )
     toolsGroup.margins = 3;
     DuScriptUI.setBackgroundColor(toolsGroup , DuColor.Color.DARK_GREY );
 
+    toolsGroup.columns = [];
+
     if (uiMode == 0)
     {
         toolsGroup.spacing = 3;
         toolsGroup.alignChildren = ['fill', 'top'];
+        toolsGroup.columns.push( DuScriptUI.group(toolsGroup, 'column') );
+        toolsGroup.columns.push( DuScriptUI.group(toolsGroup, 'column') );
+        toolsGroup.columns.push( DuScriptUI.group(toolsGroup, 'column') );
     }
-    else 
+
+    toolsGroup.currentCol = 0;
+
+    toolsGroup.addButton = function (text, icon, toolTip, options)
     {
-        toolsGroup.alignChildren = ['center', 'top'];
+        options = def(options, false);
+        var button = DuScriptUI.button (
+            uiMode == 0 ? toolsGroup.columns[toolsGroup.currentCol] : toolsGroup,
+            uiMode == 0 ? text : '',
+            icon,
+            toolTip,
+            options,
+            uiMode == 0 ? 'column' : undefined
+        );
+        button.alignment = uiMode == 0 ? ['fill', 'top'] : ['center', 'top'];
+
+        toolsGroup.currentCol = (toolsGroup.currentCol + 1) % 3;
+
+        return button;
     }
 
     return toolsGroup;
