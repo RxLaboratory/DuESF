@@ -233,9 +233,9 @@ DuESF.hostVersion = new DuVersion();
  */
 DuESF.init = function( hostApplication, scriptName, scriptVersion, companyName )
 {
-    DuESF.host = DuESF.host;
+    DuESF.host = hostApplication;
 
-    if (DuESF.host == DuESF.HostApplication.AFTER_EFFECTS)
+    if (DuESF.host == DuESF.HostApplication.AFTER_EFFECTS || DuESF.host == DuESF.HostApplication.PHOTOSHOP)
     {
         DuESF.hostVersion = new DuVersion( app.version );
     }
@@ -249,6 +249,7 @@ DuESF.init = function( hostApplication, scriptName, scriptVersion, companyName )
     DuESF.companyName = def( companyName, "RxLaboratory" );
 
     // Everything which needs to be initialized once we have our info
+    DuColor.init();
     DuFolder.init();
     DuSettings.init();
     DuTranslator.init();

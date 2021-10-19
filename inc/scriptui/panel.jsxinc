@@ -46,7 +46,16 @@ DuScriptUI.mainPanel = function( container, scriptName, contentAlignment, bless 
     scriptName = tr( scriptName );
 
     var myPal = null;
-    container instanceof Panel ? myPal = container : myPal = new Window( 'palette', scriptName, undefined,
+
+    var winType = 'palette';
+
+    if (DuESF.host == DuESF.HostApplication.PHOTOSHOP)
+    {
+        bless = false;
+        winType = 'dialog';
+    }
+
+    container instanceof Panel ? myPal = container : myPal = new Window( winType, scriptName, undefined,
     {
         resizeable: true,
         borderless: bless
@@ -96,7 +105,7 @@ DuScriptUI.mainPanel = function( container, scriptName, contentAlignment, bless 
     leftMargin.addEventListener( "mouseover", DuScriptUI.dimControls );
     rightMargin.addEventListener( "mouseover", DuScriptUI.dimControls );
     bottomMargin.addEventListener( "mouseover", DuScriptUI.dimControls );
-
+//*/
     return myPal;
 }
 
@@ -953,7 +962,7 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
             DuScriptUI.refreshPanel( panel, scriptFile );
         };
     }
-
+//*/
     return panel;
 }
 

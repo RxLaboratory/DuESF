@@ -123,7 +123,8 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
     duButton.alignment = [ 'fill', 'top' ];
     duButton.spacing = 0;
     duButton.bgColor = DuColor.Color.TRANSPARENT;
-    duButton.textColor = DuColor.Color.APP_TEXT_COLOR;   
+    if (DuESF.host == DuESF.HostApplication.PHOTOSHOP) duButton.bgColor = DuColor.Color.APP_BACKGROUND_COLOR;
+    duButton.textColor = DuColor.Color.APP_TEXT_COLOR;
 
     // Options button
     if (addOptionsPanel) {
@@ -296,7 +297,7 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
     {
         e.stopPropagation();
         DuScriptUI.dimControls();
-
+        
         DuScriptUI.setBackgroundColor( mainGroup, DuColor.Color.APP_HIGHLIGHT_COLOR.darker() );
 
         DuScriptUI.highlightedControls.push( duButton );

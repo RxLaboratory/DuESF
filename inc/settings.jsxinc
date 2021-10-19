@@ -116,7 +116,7 @@ DuSettings.init = function() {
 
 	// Load defaults
 	var common  = def(DuESF.scriptSettings.data.common, {});
-	var highlightSelection = def( common.highlightSelection, 0);
+	var highlightSelection = def( common.highlightSelection, -1);
 	var highlightColor = new DuColor( def( common.highlightColor, DuColor.Color.APP_HIGHLIGHT_COLOR ) );
 	var debug = def( common.debug, false);
 
@@ -128,5 +128,5 @@ DuSettings.init = function() {
 	else if (highlightSelection == 1) DuColor.Color.APP_HIGHLIGHT_COLOR = DuColor.Color.RX_PURPLE;
 	else if (highlightSelection == 2) DuColor.Color.APP_HIGHLIGHT_COLOR = DuColor.Color.RAINBOX_RED;
 	else if (highlightSelection == 3) DuColor.Color.APP_HIGHLIGHT_COLOR = DuColor.Color.AE_ORANGE;
-	else DuColor.Color.APP_HIGHLIGHT_COLOR = highlightColor;
+	else if (highlightSelection > 3) DuColor.Color.APP_HIGHLIGHT_COLOR = highlightColor;
 }

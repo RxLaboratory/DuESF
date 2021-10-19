@@ -37,23 +37,21 @@ function DuList( obj )
 		* @readonly
 		* @type {Boolean}
 	*/
-	this.isArray = false;
+	this.isArray = true;
 
 	//check if list is an Array or a Collection
-	if ( 
-		newList instanceof ItemCollection ||
-		newList instanceof LayerCollection ||
-		newList instanceof OMCollection ||
-		newList instanceof RQItemCollection
-		)
+	if (DuESF.host == DuESF.HostApplication.AFTER_EFFECTS)
 	{
-		this.isCollection = true;
-		this.isArray = false;
-	}
-	else 
-	{
-		this.isCollection = false;
-		this.isArray = true;
+		if ( 
+			newList instanceof ItemCollection ||
+			newList instanceof LayerCollection ||
+			newList instanceof OMCollection ||
+			newList instanceof RQItemCollection
+			)
+		{
+			this.isCollection = true;
+			this.isArray = false;
+		}
 	}
 	
 	//if not a list, store it as a one-item array
