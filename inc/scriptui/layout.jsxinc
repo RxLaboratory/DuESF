@@ -75,15 +75,17 @@ DuScriptUI.separator = function( container, name, checkable, drawLine, translata
     else if ( drawLine )
     {
         DuScriptUI.setBackgroundColor( separator, DuColor.Color.ABYSS_GREY );
+        var size = 1;
+        if (DuESF.host == DuESF.HostApplication.AFTER_EFFECTS) size = 2;
         if (container.orientation == 'row')
         {
             separator.alignment = ['left', 'fill'];
-            separator.minimumSize = [2,-1];
+            separator.minimumSize = [size,-1];
         }
         else
         {
             separator.alignment = [ 'fill', 'top' ];
-            separator.minimumSize = [-1,2];
+            separator.minimumSize = [-1,size];
         }
     }
 

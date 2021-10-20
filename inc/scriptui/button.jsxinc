@@ -193,6 +193,8 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
         duButton.image = subgroup.add( 'image', undefined, image );
         if (orientation == 'row') duButton.imageGroup.alignment = [ alignment, 'center' ];
         else duButton.imageGroup.alignment = ['center', alignment ];
+        // Bigger buttons on photoshop
+        if (DuESF.host == DuESF.HostApplication.PHOTOSHOP) duButton.imageGroup.margins = 3;
         duButton.image.helpTip = helpTip;
     }
 
@@ -322,16 +324,19 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
     }
 
     //add events
-    mainGroup.addEventListener( 'click', function( e )
+    function clickEvent(e)
     {
-        if(e.view.parent != mainGroup) return;
+        // On After Effects, event is triggered multiple times...
+        if(e.view.parent != mainGroup && DuESF.host == DuESF.HostApplication.AFTER_EFFECTS) return;
         
         if ( e.shiftKey ) duButton.shiftClicked();
         else if ( e.altKey && e.ctrlKey ) duButton.ctrlAltClicked();
         else if ( e.altKey ) duButton.altClicked();
         else if ( e.ctrlKey ) duButton.ctrlClicked();
         else duButton.clicked();
-    }, true );
+    }
+
+    mainGroup.addEventListener( 'click', clickEvent, true );
     
     mainGroup.addEventListener( "mouseover", duButton.highlight );
 

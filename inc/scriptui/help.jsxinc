@@ -19,12 +19,12 @@ DuScriptUI.versionButton = function( container, image )
         false
     )
 
-    button.bgColor = DuColor.Color.TRANSPARENT;
+    //button.bgColor = DuColor.Color.TRANSPARENT;
     button.dim();
 
     if (DuESF.aboutURL != '') button.onClick = function() {
         DuSystem.openURL(DuESF.aboutURL);
-        };
+    };
 
     return button;
 }
@@ -269,22 +269,30 @@ DuScriptUI.checkUpdate = function ( callback, ui, showAlert )
     var update = DuVersion.checkUpdate();
 
     // Compare
-    if (!update) return callback();
+    if (!update)
+    {
+        if (noCallback) return;
+        return callback();
+    }
     if (!update.success)
     {
         if (showAlert) alert("Sorry, something failed...\n\n" + update.message);
+        if (noCallback) return;
         return callback();
     }
 
     if (!update.update)
     {
         if (showAlert) alert("This version is up-to-date, congratulations!");
+        if (noCallback) return;
         return callback();
     }
 
     // Show window if update
+    var reuseUI = true;
     if (! (ui instanceof Panel || ui instanceof Window) )
     {
+        reuseUI = false;
         ui = new Window('dialog', DuScriptUI.String.NEW_VERSION_TITLE,undefined,
         {
             resizeable: true
@@ -326,6 +334,7 @@ DuScriptUI.checkUpdate = function ( callback, ui, showAlert )
 
     var descriptionText = descriptionGroup.add("edittext", undefined, update.description, {multiline:true});
     descriptionText.alignment = ['fill','fill'];
+    descriptionText.minimumSize = [-1,100];
     DuScriptUI.setBackgroundColor( descriptionText, DuColor.Color.OBSIDIAN );
 
     DuScriptUI.staticText(
@@ -389,13 +398,15 @@ DuScriptUI.checkUpdate = function ( callback, ui, showAlert )
         noCallback ? "Close" : DuString.args("Update later"),
         noCallback ? DuScriptUI.Icon.CLOSE : DuScriptUI.Icon.NEXT,
         noCallback ? "Close" : DuString.args("Continue to {#}", [DuESF.scriptName])
-    )
-
+    );
     validButton.onClick = function()
     {
-        // Delete
-        ui.remove( ui_updateGroup );
-        noCallback ? ui.hide() : callback();
+        // Delete or hide ui
+        if (reuseUI) ui.remove( ui_updateGroup );
+        else ui.close();
+        
+        if (!noCallback) callback();
+
     }
     
     DuScriptUI.showUI( ui, false );

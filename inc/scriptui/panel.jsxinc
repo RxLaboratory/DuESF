@@ -516,6 +516,12 @@ DuScriptUI.showUI = function( ui, enterRunTime )
  */
 DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, scriptFile )
 {
+    function testGroup( group )
+    {
+        group.add('statictext', undefined, "test");
+        DuScriptUI.setBackgroundColor( group, DuColor.Color.BLACK );
+    }
+
     addSettingsButton = def(addSettingsButton, true);
     addHelpButton = def(addHelpButton, false);
 
@@ -526,6 +532,7 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
     var contentsMainGroup = DuScriptUI.group(panel.content, 'column');
     contentsMainGroup.alignment = ['fill', 'fill'];
     contentsMainGroup.margins = 0;
+
     var contentsMainStack = DuScriptUI.group(contentsMainGroup, 'column');
     contentsMainStack.orientation = 'stack';
     contentsMainStack.alignment = ['fill', 'fill'];
@@ -537,7 +544,7 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
     var mainGroupMarginBottom = DuScriptUI.group(contentsMainGroup, 'column');
     mainGroupMarginBottom.alignment= ['fill', 'bottom'];
     mainGroupMarginBottom.minimumSize = [0, 20];
-    
+
     // == SETTINGS PANEL
     var rootSettingsGroup = DuScriptUI.group(contentsMainStack, 'column');
     rootSettingsGroup.alignment = ['fill', 'fill'];
@@ -879,13 +886,15 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
     }
 
     // == Bottom Line
-    // Draw a thin line like other panels
-    var bottomUberGroup = DuScriptUI.group(panel.content, 'column');
+    var bottomUberGroup = mainGroupMarginBottom;
+    // TODO Test in Ae
+    /*var bottomUberGroup = DuScriptUI.group(panel.content, 'column');
     bottomUberGroup.alignment = ['fill', 'bottom'];
     bottomUberGroup.margins = 0;
-    bottomUberGroup.spacing = 0;
+    bottomUberGroup.spacing = 0;*/
 
-    var bottomLine = DuScriptUI.separator(bottomUberGroup);
+    // Draw a thin line like other panels
+    var bottomLine = DuScriptUI.separator( bottomUberGroup );
     bottomLine.alignment = ['fill', 'bottom'];
     
     panel.bottomGroup = DuScriptUI.group(bottomUberGroup, 'row');
