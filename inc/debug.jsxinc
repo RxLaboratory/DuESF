@@ -138,6 +138,9 @@ DuDebug.throwTypeError = function (variable, varName, varType, functionName)
 	e += "\n" + varName + " should be of type " + varType + "\n";
 	e += "but it is of type " + jstype(variable);
 	if (typeof variable !== 'undefined') try { e += " and has value: " + variable.toSource(); } catch(e) {};
+
+	//ADD stack trace
+	e += '\n\nStack:\n' + $.stack;
 		
 	DuDebug.log(e, DuDebug.LogLevel.CRITICAL);
 
