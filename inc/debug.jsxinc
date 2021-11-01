@@ -191,11 +191,13 @@ DuDebug.throwUndefinedError = function( varName, functionName )
  * @param {any} message The message to show
  * @param {any} [functionName] The name or description of the function throwing the error.
  * @param {Error} [error] A JS error.
+ * @param {Boolean} [neverThrow=false] If true, will prevent actually throwing the error even if the debugger is enabled.
  * @return {string} The (multiline) description for the error
  */
-DuDebug.throwError = function( message, functionName, error )
+DuDebug.throwError = function( message, functionName, error, neverThrow )
 {
 	functionName = def (functionName, '');
+	neverThrow = def(neverThrow, false);
 	if (typeof functionName === 'Function') {
 		functionName = func.toString().split('\n')[0];
 	}
@@ -207,7 +209,7 @@ DuDebug.throwError = function( message, functionName, error )
 	if (typeof error !== 'undefined')
 	{
 		var file = new File(error.fileName);
-		e += 'In file\n\n' + file.name + '\n\nlocated in:\n' + file.parent.fsName + '\n\nat line ' + error.line + '\n\n' + error.description;
+		e += '\n\nIn file\n\n' + file.name + '\n\nlocated in:\n' + file.parent.fsName + '\n\nat line ' + error.line + '\n\n' + error.description;
 	}
 
 	DuDebug.log(e, DuDebug.LogLevel.CRITICAL);
@@ -215,13 +217,16 @@ DuDebug.throwError = function( message, functionName, error )
 	if ( DuESF.debug )
 	{
 		alert( e );
-		// Throw if debugger enabled
-		if (DuESF.host == DuESF.HostApplication.AFTER_EFFECTS)
-			if (DuAE.isDebuggerEnabled()) 
-			{
-				if (typeof error !== 'undefined') throw error;
-				else throw e;
-			}
+		if (!neverThrow)
+		{
+			// Throw if debugger enabled
+			if (DuESF.host == DuESF.HostApplication.AFTER_EFFECTS)
+				if (DuAE.isDebuggerEnabled()) 
+				{
+					if (typeof error !== 'undefined') throw error;
+					else throw e;
+				}
+		}
 	}
 
 	return e;
