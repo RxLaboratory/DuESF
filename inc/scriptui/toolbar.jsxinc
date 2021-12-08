@@ -1,12 +1,19 @@
 /**
  * Creates a toolbar with a lighter background
  * @param {Panel|Window|Group} container The ScriptUI Object which will contain and display the toolbar.
+ * @param {int} [numCols] The number of columns to use when adding the buttons.
  * @returns {Group} The toolbar, a ScriptUI Group
  */
-DuScriptUI.toolBar = function( container )
+DuScriptUI.toolBar = function( container, numCols )
 {
     var commonSettings = def(DuESF.scriptSettings.data.common, {});
     var uiMode = def( commonSettings.uiMode, 0);
+
+    if (typeof numCols == 'undefined')
+    {
+        if (uiMode == 0) numCols = 3;
+        else numCols = 6;
+    }
     
     var toolsGroup = DuScriptUI.group( container, 'row' );
     toolsGroup.spacing = 3;
@@ -15,12 +22,11 @@ DuScriptUI.toolBar = function( container )
 
     toolsGroup.columns = [];
 
-    if (uiMode == 0)
+    toolsGroup.spacing = 3;
+    if (uiMode == 0) toolsGroup.alignChildren = ['fill', 'top'];
+    else toolsGroup.alignChildren = ['center', 'top'];
+    for (var i = 0; i < numCols; i++)
     {
-        toolsGroup.spacing = 3;
-        toolsGroup.alignChildren = ['fill', 'top'];
-        toolsGroup.columns.push( DuScriptUI.group(toolsGroup, 'column') );
-        toolsGroup.columns.push( DuScriptUI.group(toolsGroup, 'column') );
         toolsGroup.columns.push( DuScriptUI.group(toolsGroup, 'column') );
     }
 
@@ -30,7 +36,7 @@ DuScriptUI.toolBar = function( container )
     {
         options = def(options, false);
         var button = DuScriptUI.button (
-            uiMode == 0 ? toolsGroup.columns[toolsGroup.currentCol] : toolsGroup,
+            toolsGroup.columns[toolsGroup.currentCol],
             uiMode == 0 ? text : '',
             icon,
             toolTip,
@@ -39,7 +45,8 @@ DuScriptUI.toolBar = function( container )
         );
         button.alignment = uiMode == 0 ? ['fill', 'top'] : ['center', 'top'];
 
-        toolsGroup.currentCol = (toolsGroup.currentCol + 1) % 3;
+        toolsGroup.currentCol = (toolsGroup.currentCol + 1) % numCols;
+
 
         return button;
     }
