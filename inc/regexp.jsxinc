@@ -22,6 +22,12 @@ DuRegExp.escape = function (string)
 DuRegExp.javascriptSymbols = "[\\s=!/*\\-+%()[\\]{};:.]";
 
 /**
+ * The set containing javascript symbols ( +, -, [, etc.) except the dot. Useful when parsing javascript code.
+ * @readonly
+ */
+DuRegExp.javascriptSymbolsNoDot = "[\\s=!/*\\-+%()[\\]{};:]";
+
+/**
  * The set containing authorized characters for javascript variable. Useful when parsing javascript code.
  * @readonly
  */
