@@ -89,6 +89,7 @@ DuScriptUI.mainPanel = function( container, scriptName, contentAlignment, bless 
     myPal.content.spacing = DuScriptUI.defaultSpacing;
     myPal.content.alignChildren = DuScriptUI.defaultColumnAlignment;
     myPal.content.orientation = "column";
+    myPal.content.alignment = ['fill', 'fill'];
 
     var rightMargin = mainRow.add( 'button' );
     rightMargin.onDraw = function() {};
