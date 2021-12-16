@@ -210,3 +210,48 @@ DuString.fromSize = function (size)
 	if (size < 1099511627776) return DuPath.sizeFromBytes(size, "GB") + "GB";
 	else return DuPath.sizeFromBytes(size, "TB") + "TB";
 }
+
+/**
+ * Generates a camel case text from a snake case or standard one
+ * @param {string} text The source text
+ * @return {string} The camelCase version of the text
+ */
+DuString.toCamelCase = function(text)
+{
+	text = text.split(" ");
+	if (text.length == 0) return "";
+	text[0] = DuString.unCapitalize( text[0] );
+	for (var i = 1, n = text.length; i < n; i++)
+	{
+		text[i] = DuString.capitalize( text[i] );
+	}
+	return text.join("");
+}
+
+/**
+ * Sets the first character of the text to be capital case if it's a letter.<br />
+ * Note that the string is left trimmed first: any leading white space is removed.
+ * @param {string} text The source text
+ * @return {string} The new text
+ */
+DuString.capitalize = function(text)
+{
+	var newText = DuString.leftTrim(text);
+	var firstChar = newText.substring(0,1);
+	firstChar = firstChar.toUpperCase();
+	return firstChar + newText.substring(1);
+}
+
+/**
+ * Sets the first character of the text to be lower case if it's a letter.<br />
+ * Note that the string is left trimmed first: any leading white space is removed.
+ * @param {string} text The source text
+ * @return {string} The new text
+ */
+DuString.unCapitalize = function(text)
+{
+	var newText = DuString.leftTrim(text);
+	var firstChar = newText.substring(0,1);
+	firstChar = firstChar.toLowerCase();
+	return firstChar + newText.substring(1);
+}
