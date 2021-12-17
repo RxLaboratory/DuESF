@@ -5,6 +5,24 @@
 var DuMath = {};
 
 /**
+	* Enum for locations.
+	* @readonly
+	* @static
+	* @enum {int}
+	*/
+DuMath.Location = {
+	TOP: 1,
+	TOP_RIGHT: 2,
+	RIGHT: 3,
+	BOTTOM_RIGHT: 4,
+	BOTTON: 5,
+	BOTTOM_LEFT: 6,
+	LEFT: 7,
+	TOP_LEFT: 8,
+	CENTER: 0
+}
+
+/**
 	* Generates a random integer between minimum and maximum
 	* @memberof DuMath
 	* @param {int}	[min=0]	- The minimum value
@@ -350,4 +368,30 @@ DuMath.sign = function ( num )
 	if ( num < 0) return -1;
 	if (num > 0) return 1;
 	return 0;
+}
+
+/**
+ * Gets the bounds of the values
+ * @param {Number[][]} values A list of values
+ * @return {float[]} The bounds, for N dimensions: [min1, min2, ..., minN, max1, max2, ..., maxN]
+ */
+DuMath.bounds = function (values)
+{
+	var mins = [];
+	var maxs = [];
+
+	for( var i = 0, n = values.length; i < n; i++)
+	{
+		var v = values[i];
+		for(var j = 0, d = v.length; j < d; j++)
+		{
+			if (typeof(mins[j]) === 'undefined') mins[j] = v[j];
+			else if (v[j] < mins[j]) mins[j] = v[j];
+
+			if (typeof(maxs[j]) === 'undefined') maxs[j] = v[j];
+			else if (v[j] > maxs[j]) maxs[j] = v[j];
+		}
+	}
+
+	return mins.concat(maxs);
 }
