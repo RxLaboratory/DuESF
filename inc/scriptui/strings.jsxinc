@@ -65,6 +65,8 @@ DuScriptUI.String = {
     FISH_SPINE: "Fish spine",
     FOOT: "Foot",
     FOREARM: "Forearm",
+    FRAME: "Frame",
+    FRAMES: "Frames",
     FRONT: "Front",
     FRONT_LEG: "Front leg",
     FRONT_SHORT: "Fr",

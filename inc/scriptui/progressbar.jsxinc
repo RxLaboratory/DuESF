@@ -45,6 +45,10 @@ DuProgressBar.prototype.msg = function( message )
     this.__();
 }
 
+/**
+ * Changes the text of the current stage
+ * @param {string} message The text
+ */
 DuProgressBar.prototype.stg = function( stage )
 {
     this.stage.text = stage;

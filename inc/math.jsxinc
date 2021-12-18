@@ -387,3 +387,26 @@ DuMath.isExtremePoint = function(previousValue, point, nextValue) {
     }
 	return false;
 }
+
+/**
+ * Checks if the point is an inflexion point.
+ * @param {Number|Number[]} previousVelocity The derivative (speed) of a point just before the point.
+ * @param {Number|Number[]} pointVelocity The derivative (speed) at the point to check.
+ * @param {Number|Number[]} nextVelocity The derivative (speed) of a point just after the point.
+ * @return {Boolean} 
+ */
+DuMath.isInflexionPoint = function(previousVelocity, pointVelocity, nextVelocity) {
+    previousVelocity = new DuList(previousVelocity);
+    pointVelocity = new DuList(pointVelocity);
+    nextVelocity = new DuList(nextVelocity);
+
+    for (var i = 0, n = pointVelocity.length(); i < n; i++) {
+		var p = pointVelocity.at(i);
+		var pv = previousVelocity.at(i);
+		var nx = nextVelocity.at(i);
+		if (p == pv && p == nx) continue;
+		if ( p >= pv && p >= nx) return true;
+		if ( p <= pv && p <= nx) return true;
+    }
+	return false;
+}
