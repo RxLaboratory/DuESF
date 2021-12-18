@@ -1,245 +1,224 @@
 ﻿/**
-	* Math related methods
-	* @namespace
-*/
+ * Math related methods
+ * @namespace
+ */
 var DuMath = {};
 
 /**
-	* Enum for locations.
-	* @readonly
-	* @static
-	* @enum {int}
-	*/
+ * Enum for locations.
+ * @readonly
+ * @static
+ * @enum {int}
+ */
 DuMath.Location = {
-	TOP: 1,
-	TOP_RIGHT: 2,
-	RIGHT: 3,
-	BOTTOM_RIGHT: 4,
-	BOTTON: 5,
-	BOTTOM_LEFT: 6,
-	LEFT: 7,
-	TOP_LEFT: 8,
-	CENTER: 0
+    TOP: 1,
+    TOP_RIGHT: 2,
+    RIGHT: 3,
+    BOTTOM_RIGHT: 4,
+    BOTTON: 5,
+    BOTTOM_LEFT: 6,
+    LEFT: 7,
+    TOP_LEFT: 8,
+    CENTER: 0
 }
 
 /**
-	* Generates a random integer between minimum and maximum
-	* @memberof DuMath
-	* @param {int}	[min=0]	- The minimum value
-	* @param {int}	[max=1]	- The maximum value
-	* @return {int}	The randomly generated integer
-*/
-DuMath.random = function (min, max)
-{
-	if (min == undefined) min = 0;
-	if (max == undefined) max = 1;
-	var rng = null;
-	$.sleep(10);
-	var date = new Date();
-	var rng = new Math.seedrandom(date.getTime())();
-	//rng = Math.random();
+ * Generates a random integer between minimum and maximum
+ * @memberof DuMath
+ * @param {int}	[min=0]	- The minimum value
+ * @param {int}	[max=1]	- The maximum value
+ * @return {int}	The randomly generated integer
+ */
+DuMath.random = function(min, max) {
+    if (min == undefined) min = 0;
+    if (max == undefined) max = 1;
+    var rng = null;
+    $.sleep(10);
+    var date = new Date();
+    var rng = new Math.seedrandom(date.getTime())();
+    //rng = Math.random();
 
-	if (!rng) return 0;
-	return rng * (max - min) + min;
+    if (!rng) return 0;
+    return rng * (max - min) + min;
 }
 
 /**
-	* Measures the vector length between two points
-	* @param {int[]} value1 - The first value
-	* @param {int[]} value2 - The second value
-	* @return {float} The length
-*/
-DuMath.length = function (value1,value2)
-{
-	if (typeof value1 !== typeof value2)
-	{
-		return null;
-	}
-	if (value1.length > 0)
-	{
-		var result = 0;
-		for (var dim = 0;dim<value1.length;dim++)
-		{
-			result += (value1[dim]-value2[dim])*(value1[dim]-value2[dim]);
-		}
-		result = Math.sqrt(result);
-		return result;
-	}
-	else return Math.abs(value1 - value2) ;
+ * Measures the vector length between two points
+ * @param {int[]} value1 - The first value
+ * @param {int[]} value2 - The second value
+ * @return {float} The length
+ */
+DuMath.length = function(value1, value2) {
+    if (typeof value1 !== typeof value2) {
+        return null;
+    }
+    if (value1.length > 0) {
+        var result = 0;
+        for (var dim = 0; dim < value1.length; dim++) {
+            result += (value1[dim] - value2[dim]) * (value1[dim] - value2[dim]);
+        }
+        result = Math.sqrt(result);
+        return result;
+    } else return Math.abs(value1 - value2);
 }
 
 /**
-	* Compares two numbers
-	* @memberof DuMath
-	* @param {Number} value1 - The first value
-	* @param {Number} value2 - The second value
-	* @param {int} [floatPrecision=-1] - The precision for (float) number comparison, number of decimals. Set to -1 to not use.
-	* @return {boolean} true if the two values are equal
-*/
-DuMath.equals = function (value1,value2,floatPrecision)
-{
-	if (typeof value1 != 'number') return false;
-	if (typeof value2 != 'number') return false;
-	if (floatPrecision >= 0)
-	{
-		var mul = Math.pow(10,floatPrecision);
-		var num1 = Math.round(value1*mul)/mul;
-		var num2 = Math.round(value2*mul)/mul;
-		return num1 == num2;
-	}
-	else return value1 == value2;
+ * Compares two numbers
+ * @memberof DuMath
+ * @param {Number} value1 - The first value
+ * @param {Number} value2 - The second value
+ * @param {int} [floatPrecision=-1] - The precision for (float) number comparison, number of decimals. Set to -1 to not use.
+ * @return {boolean} true if the two values are equal
+ */
+DuMath.equals = function(value1, value2, floatPrecision) {
+    if (typeof value1 != 'number') return false;
+    if (typeof value2 != 'number') return false;
+    if (floatPrecision >= 0) {
+        var mul = Math.pow(10, floatPrecision);
+        var num1 = Math.round(value1 * mul) / mul;
+        var num2 = Math.round(value2 * mul) / mul;
+        return num1 == num2;
+    } else return value1 == value2;
 }
 
 /**
-	* Calculates the log10 of a number
-	* @memberof DuMath
-	* @param {float}	w	- The number
-	* @return {float}	The result of log10(x)<br />
-	* i.e. Math.log(x)/Math.LN10
-*/
-DuMath.log10 = function (x)
-{
-	return Math.log(x)/Math.LN10;
+ * Calculates the log10 of a number
+ * @memberof DuMath
+ * @param {float}	w	- The number
+ * @return {float}	The result of log10(x)<br />
+ * i.e. Math.log(x)/Math.LN10
+ */
+DuMath.log10 = function(x) {
+    return Math.log(x) / Math.LN10;
 }
 
 /**
-	* Calculates the average value in a list
-	* @memberof DuMath
-	* @param {Number|Number[]}	values	- values
-	* @return {float}	The average value
-*/
-DuMath.average = function (values)
-{
-	if (!(values instanceof Array)) return values;
-	var sum = 0;
-	var total = values.length;
-	if (total == 0) return 0;
-	for (var i = 0; i < total; i++)
-	{
-		sum += values[i];
-	}
-	return sum/total;
+ * Calculates the average value in a list
+ * @memberof DuMath
+ * @param {Number|Number[]}	values	- values
+ * @return {float}	The average value
+ */
+DuMath.average = function(values) {
+    if (!(values instanceof Array)) return values;
+    var sum = 0;
+    var total = values.length;
+    if (total == 0) return 0;
+    for (var i = 0; i < total; i++) {
+        sum += values[i];
+    }
+    return sum / total;
 }
 
 /**
-	* Alias for {@link DuMath.average}.
-	* @memberof DuMath
-	* @function
-*/
+ * Alias for {@link DuMath.average}.
+ * @memberof DuMath
+ * @function
+ */
 DuMath.mean = DuMath.average;
 
 /**
-	* Clamps the value
-	* @memberof DuMath
-	* @param {Number|Number[]}	values	- values
-	* @param {Number}	[min=0] - The minimum value
-	* @param {Number}	[max=1] - The maximum value
-	* @return {Number|Number[]}	The clamped values
-*/
-DuMath.clamp = function (values, min, max)
-{
-	if (typeof min === 'undefined') min = 0;
-	if (typeof max === 'undefined') max = 1;
+ * Clamps the value
+ * @memberof DuMath
+ * @param {Number|Number[]}	values	- values
+ * @param {Number}	[min=0] - The minimum value
+ * @param {Number}	[max=1] - The maximum value
+ * @return {Number|Number[]}	The clamped values
+ */
+DuMath.clamp = function(values, min, max) {
+    if (typeof min === 'undefined') min = 0;
+    if (typeof max === 'undefined') max = 1;
 
-	if (max < min)
-	{
-		var t = max;
-		max = min;
-		min = t;
-	}
+    if (max < min) {
+        var t = max;
+        max = min;
+        min = t;
+    }
 
-	var isArray = true;
-	var result = [];
-	if (!(values instanceof Array))
-	{
-		isArray = false;
-		values = [values];
-	}
-	for (var i = 0, num = values.length; i < num; i++)
-	{
-		var v = values[i];
-		if (v < min) v = min;
-		if (v > max) v = max;
-		result.push(v);
-	}
-	if (isArray) return result;
-	else return result[0];
+    var isArray = true;
+    var result = [];
+    if (!(values instanceof Array)) {
+        isArray = false;
+        values = [values];
+    }
+    for (var i = 0, num = values.length; i < num; i++) {
+        var v = values[i];
+        if (v < min) v = min;
+        if (v > max) v = max;
+        result.push(v);
+    }
+    if (isArray) return result;
+    else return result[0];
 }
 
 /**
-	* Converts the number from degrees to radians
-	* @memberof DuMath
-	* @param {number} value - the value
-	* @return {float} The value in radians
-*/
-DuMath.toRadians = function (value)
-{
-	return value * Math.PI / 180;
+ * Converts the number from degrees to radians
+ * @memberof DuMath
+ * @param {number} value - the value
+ * @return {float} The value in radians
+ */
+DuMath.toRadians = function(value) {
+    return value * Math.PI / 180;
 }
 
 /**
-	* Converts the number from radians to degrees
-	* @memberof DuMath
-	* @param {number} value - the value
-	* @return {float} The value in degrees
-*/
-DuMath.toDegrees = function (value)
-{
-	return value * 180 / Math.PI;
+ * Converts the number from radians to degrees
+ * @memberof DuMath
+ * @param {number} value - the value
+ * @return {float} The value in degrees
+ */
+DuMath.toDegrees = function(value) {
+    return value * 180 / Math.PI;
 }
 
 /**
-    * The logistic function (sigmoid)
-    * @param {Number} value The value
-    * @param {Number} [midValue=0] The midpoint value, at which the function returns max/2
-    * @param {Number} [min=0] The minimum return value
-    * @param {Number} [max=1] The maximum return value
-    * @param {Number} [rate=1] The logistic growth rate or steepness of the function
-    * @return {Number} The result in the range [min, max] (excluding min and max)
-    */
-DuMath.logistic = function( value, midValue, min, max, rate)
-{
+ * The logistic function (sigmoid)
+ * @param {Number} value The value
+ * @param {Number} [midValue=0] The midpoint value, at which the function returns max/2
+ * @param {Number} [min=0] The minimum return value
+ * @param {Number} [max=1] The maximum return value
+ * @param {Number} [rate=1] The logistic growth rate or steepness of the function
+ * @return {Number} The result in the range [min, max] (excluding min and max)
+ */
+DuMath.logistic = function(value, midValue, min, max, rate) {
     if (typeof midValue === "undefined") midValue = 0;
     if (typeof min === "undefined") min = 0;
     if (typeof max === "undefined") max = 1;
     if (typeof rate === "undefined") rate = 1;
-    var exp = -rate*(value - midValue);
+    var exp = -rate * (value - midValue);
     var result = 1 / (1 + Math.pow(Math.E, exp));
-    return result * (max-min) + min;
+    return result * (max - min) + min;
 }
 
 /**
-    * The inverse logistic function (inverse sigmoid)
-    * @param {Number} v The variable
-    * @param {Number} [midValue=0] The midpoint value, at which the function returns max/2 in the original logistic function
-    * @param {Number} [min=0] The minimum return value of the original logistic function
-    * @param {Number} [max=1] The maximum return value of the original logistic function
-    * @param {Number} [rate=1] The logistic growth rate or steepness of the original logistic function
-    * @return {Number} The result
-    */
-DuMath.inverseLogistic = function ( v, midValue, min, max, rate)
-{
+ * The inverse logistic function (inverse sigmoid)
+ * @param {Number} v The variable
+ * @param {Number} [midValue=0] The midpoint value, at which the function returns max/2 in the original logistic function
+ * @param {Number} [min=0] The minimum return value of the original logistic function
+ * @param {Number} [max=1] The maximum return value of the original logistic function
+ * @param {Number} [rate=1] The logistic growth rate or steepness of the original logistic function
+ * @return {Number} The result
+ */
+DuMath.inverseLogistic = function(v, midValue, min, max, rate) {
     if (typeof midValue === "undefined") midValue = 0;
     if (typeof max === "undefined") max = 1;
     if (typeof min === "undefined") min = 0;
     if (typeof rate === "undefined") rate = 1;
 
     if (v == min) return 0;
-    
-    return midValue - Math.log( (max-min)/(v-min) - 1) / rate;
+
+    return midValue - Math.log((max - min) / (v - min) - 1) / rate;
 }
 
 /**
-    * The gaussian function
-    * @param {Number} value The variable
-    * @param {Number} [min=0] The minimum return value
-    * @param {Number} [max=1] The maximum return value
-    * @param {Number} [center=0] The center of the peak
-    * @param {Number} [fwhm=1] The full width at half maximum of the curve
-    * @return {Number} The result
-    */
-DuMath.gaussian = function( value, min, max, center, fwhm)
-{
+ * The gaussian function
+ * @param {Number} value The variable
+ * @param {Number} [min=0] The minimum return value
+ * @param {Number} [max=1] The maximum return value
+ * @param {Number} [center=0] The center of the peak
+ * @param {Number} [fwhm=1] The full width at half maximum of the curve
+ * @return {Number} The result
+ */
+DuMath.gaussian = function(value, min, max, center, fwhm) {
     if (typeof max === "undefined") max = 1;
     if (typeof min === "undefined") min = 0;
     if (typeof center === "undefined") center = 0;
@@ -248,66 +227,63 @@ DuMath.gaussian = function( value, min, max, center, fwhm)
     else if (fwhm === 0) return 0;
 
     var exp = -4 * Math.LN2;
-    exp *= Math.pow((value - center),2);
-    exp *= 1/ Math.pow(fwhm, 2);
+    exp *= Math.pow((value - center), 2);
+    exp *= 1 / Math.pow(fwhm, 2);
     var result = Math.pow(Math.E, exp);
-    return result * (max-min) + min;
+    return result * (max - min) + min;
 }
 
 /**
-    * A "reversed" gaussian function, growing faster with low value
-    * @param {Number} value The variable
-    * @param {Number} [min=0] The minimum return value
-    * @param {Number} [max=1] The maximum return value
-    * @param {Number} [center=0] The center of the peak
-    * @param {Number} [fwhm=1] The full width at half maximum of the curve
-    * @return {Number} The result
-    */
-DuMath.reversedGaussian = function ( value, min, max, center, fwhm )
-{
-    r = -value-fwhm+1;
-    return gaussian( value, min, max, center, r);
+ * A "reversed" gaussian function, growing faster with low value
+ * @param {Number} value The variable
+ * @param {Number} [min=0] The minimum return value
+ * @param {Number} [max=1] The maximum return value
+ * @param {Number} [center=0] The center of the peak
+ * @param {Number} [fwhm=1] The full width at half maximum of the curve
+ * @return {Number} The result
+ */
+DuMath.reversedGaussian = function(value, min, max, center, fwhm) {
+    r = -value - fwhm + 1;
+    return gaussian(value, min, max, center, r);
 }
 
 /**
-    * The inverse gaussian function
-    * @param {Number} v The variable
-    * @param {Number} [min=0] The minimum return value of the corresponding gaussian function
-    * @param {Number} [max=1] The maximum return value of the corresponding gaussian function
-    * @param {Number} [center=0] The center of the peak of the corresponding gaussian function
-    * @param {Number} [fwhm=1] The full width at half maximum of the curve of the corresponding gaussian function
-    * @return {Number[]} The two possible results, the lower is the first in the list. If both are the same, it is the maximum
-    */
-DuMath.inverseGaussian = function( v, min, max, center, fwhm)
-{
+ * The inverse gaussian function
+ * @param {Number} v The variable
+ * @param {Number} [min=0] The minimum return value of the corresponding gaussian function
+ * @param {Number} [max=1] The maximum return value of the corresponding gaussian function
+ * @param {Number} [center=0] The center of the peak of the corresponding gaussian function
+ * @param {Number} [fwhm=1] The full width at half maximum of the curve of the corresponding gaussian function
+ * @return {Number[]} The two possible results, the lower is the first in the list. If both are the same, it is the maximum
+ */
+DuMath.inverseGaussian = function(v, min, max, center, fwhm) {
     if (typeof max === "undefined") max = 1;
     if (typeof min === "undefined") min = 0;
     if (typeof center === "undefined") center = 0;
     if (typeof fwhm === "undefined") fwhm = 1;
     if (v == 1) return [center, center];
-    if (v === 0) return [center + fwhm/2, center - fwhm/2];
+    if (v === 0) return [center + fwhm / 2, center - fwhm / 2];
     if (fwhm === 0) return [center, center];
 
-    var result = (v-min)/(max-min);
-    result = Math.log( result ) * Math.pow(fwhm,2);
-    result = result / ( -4 * Math.LN2 );
-    result = Math.sqrt( result );
-    return [ result + center, -result + center ];
+    var result = (v - min) / (max - min);
+    result = Math.log(result) * Math.pow(fwhm, 2);
+    result = result / (-4 * Math.LN2);
+    result = Math.sqrt(result);
+    return [result + center, -result + center];
 }
 
 /**
-    * The inverse of the reversed gaussian function
-    * @param {Number} value The variable
-    * @param {Number} [min=0] The minimum return value of the corresponding gaussian function
-    * @param {Number} [max=1] The maximum return value of the corresponding gaussian function
-    * @param {Number} [center=0] The center of the peak of the corresponding gaussian function
-    * @param {Number} [fwhm=1] The full width at half maximum of the curve of the corresponding gaussian function
-    * @return {Number[]} The two possible results, the lower is the first in the list. If both are the same, it is the maximum
-    */
-DuMath.inverseReversedGaussian = function( value, min, max, center, fwhm)
-{
-    r = -value-fwhm+1;
-    return inverseGaussian( value, min, max, center, r);
+ * The inverse of the reversed gaussian function
+ * @param {Number} value The variable
+ * @param {Number} [min=0] The minimum return value of the corresponding gaussian function
+ * @param {Number} [max=1] The maximum return value of the corresponding gaussian function
+ * @param {Number} [center=0] The center of the peak of the corresponding gaussian function
+ * @param {Number} [fwhm=1] The full width at half maximum of the curve of the corresponding gaussian function
+ * @return {Number[]} The two possible results, the lower is the first in the list. If both are the same, it is the maximum
+ */
+DuMath.inverseReversedGaussian = function(value, min, max, center, fwhm) {
+    r = -value - fwhm + 1;
+    return inverseGaussian(value, min, max, center, r);
 }
 
 /**
@@ -320,22 +296,21 @@ DuMath.inverseReversedGaussian = function( value, min, max, center, fwhm)
  * @param {Boolean} [clamp=false] Whether to clamp the output value to the target or not.
  * @returns {Number}
  */
-DuMath.linear = function( value, min, max, targetMin, targetMax, clamp)
-{
-	min = def(min, 0);
-	max = def(max, 1);
-	targetMin = def(targetMin, 0);
-	targetMax = def(targetMax, 1);
-	clamp = def(clamp, false);
+DuMath.linear = function(value, min, max, targetMin, targetMax, clamp) {
+    min = def(min, 0);
+    max = def(max, 1);
+    targetMin = def(targetMin, 0);
+    targetMax = def(targetMax, 1);
+    clamp = def(clamp, false);
 
-	// Handle stupid values
-	if (min == targetMin && max == targetMax) return value;
-	if (min == max) return value;
-	if (targetMin == targetMax) return targetMin;
+    // Handle stupid values
+    if (min == targetMin && max == targetMax) return value;
+    if (min == max) return value;
+    if (targetMin == targetMax) return targetMin;
 
-	var result = targetMin + ( value - min ) / ( max - min ) * ( targetMax - targetMin );
-	if (clamp) result = DuMath.clamp( value, targetMin, targetMax );
-	return result;
+    var result = targetMin + (value - min) / (max - min) * (targetMax - targetMin);
+    if (clamp) result = DuMath.clamp(value, targetMin, targetMax);
+    return result;
 }
 
 /**
@@ -344,18 +319,16 @@ DuMath.linear = function( value, min, max, targetMin, targetMax, clamp)
  * @param {float[]} bounds The bounds. The number of bounds must be at least twice the number of dimensions, in this order : [a1, a2, ..., x1,x2,y1,y2,z1,z2]
  * @return {Boolean} true if the point is inside the bounds
  */
-DuMath.isInside = function( point, bounds )
-{
-	for ( var i = 0, n = point.length; i < n; i++)
-	{
-		var c = point[i];
-		var c1 = bounds[i*2];
-		var c2 = bounds[i*2+1];
+DuMath.isInside = function(point, bounds) {
+    for (var i = 0, n = point.length; i < n; i++) {
+        var c = point[i];
+        var c1 = bounds[i * 2];
+        var c2 = bounds[i * 2 + 1];
 
-		if ( c < c1 ) return false;
-		if ( c > c2 ) return false;
-	}
-	return true;
+        if (c < c1) return false;
+        if (c > c2) return false;
+    }
+    return true;
 }
 
 /**
@@ -363,11 +336,10 @@ DuMath.isInside = function( point, bounds )
  * @param {Number} num The number to check
  * @returns {int} 1 if num is positive, -1 if negative, 0 in other cases (0, NaN...)
  */
-DuMath.sign = function ( num )
-{
-	if ( num < 0) return -1;
-	if (num > 0) return 1;
-	return 0;
+DuMath.sign = function(num) {
+    if (num < 0) return -1;
+    if (num > 0) return 1;
+    return 0;
 }
 
 /**
@@ -375,23 +347,43 @@ DuMath.sign = function ( num )
  * @param {Number[][]} values A list of values
  * @return {float[]} The bounds, for N dimensions: [min1, min2, ..., minN, max1, max2, ..., maxN]
  */
-DuMath.bounds = function (values)
-{
-	var mins = [];
-	var maxs = [];
+DuMath.bounds = function(values) {
+    var mins = [];
+    var maxs = [];
 
-	for( var i = 0, n = values.length; i < n; i++)
-	{
-		var v = values[i];
-		for(var j = 0, d = v.length; j < d; j++)
-		{
-			if (typeof(mins[j]) === 'undefined') mins[j] = v[j];
-			else if (v[j] < mins[j]) mins[j] = v[j];
+    for (var i = 0, n = values.length; i < n; i++) {
+        var v = values[i];
+        for (var j = 0, d = v.length; j < d; j++) {
+            if (typeof(mins[j]) === 'undefined') mins[j] = v[j];
+            else if (v[j] < mins[j]) mins[j] = v[j];
 
-			if (typeof(maxs[j]) === 'undefined') maxs[j] = v[j];
-			else if (v[j] > maxs[j]) maxs[j] = v[j];
-		}
-	}
+            if (typeof(maxs[j]) === 'undefined') maxs[j] = v[j];
+            else if (v[j] > maxs[j]) maxs[j] = v[j];
+        }
+    }
 
-	return mins.concat(maxs);
+    return mins.concat(maxs);
+}
+
+/**
+ * Checks if the direction changes (if the point is at an extreme value). If the values have multiple dimensions, checks each axis individually.
+ * @param {Number|Number[]} previousValue The value just before the point.
+ * @param {Number|Number[]} point The point to check.
+ * @param {Number|Number[]} nextValue The value just after the point.
+ * @return {Boolean} 
+ */
+DuMath.isExtremePoint = function(previousValue, point, nextValue) {
+    previousValue = new DuList(previousValue);
+    point = new DuList(point);
+    nextValue = new DuList(nextValue);
+
+    for (var i = 0, n = point.length(); i < n; i++) {
+		var p = point.at(i);
+		var pv = previousValue.at(i);
+		var nx = nextValue.at(i);
+		if (p == pv && p == nx) continue;
+		if ( p >= pv && p >= nx) return true;
+		if ( p <= pv && p <= nx) return true;
+    }
+	return false;
 }
