@@ -232,18 +232,13 @@ DuList.prototype.removeDuplicates = function(comparisonFunction) {
     var removed = [];
 
     for (var i = 0, n = this.length(); i < n; i++) {
-        for (var j = i + 1; j < n; j++) {
-            if (!useFunction && this.at(i) === this.at(j)) removed = removed.concat(this.list.splice(j, 1));
-            else if (useFunction && comparisonFunction(this.at(i), this.at(j))) removed = removed.concat(this.list.splice(j, 1));
+        for (var j = n - 1; j > i; j--) {
+            if (!useFunction && this.at(i) == this.at(j)) {
+                removed = removed.concat(this.list.splice(j, 1));
+            } else if (useFunction && comparisonFunction(this.at(i), this.at(j))) {
+                removed = removed.concat(this.list.splice(j, 1));
+            }
         }
-    }
-
-    //sometimes the two last items may still be the same (for a reason I don't understand)
-    if (this.length > 1) {
-        var last = this.last();
-        var ante = this.at(this.length - 2);
-        if (!useFunction && last === ante) removed.push(this.list.pop());
-        if (useFunction && comparisonFunction(ante, last)) removed.push(this.list.pop());
     }
 
     this.valid = false;
@@ -752,7 +747,7 @@ DuList.isList = function(list) {
  * @param {function}	[comparisonFunction]	- A function which compares two values which returns true if the values are considered the same.
  * @return {int}	The index of the value, -1 if not found
  */
-DuList.indexOf = function(arr, value, comparisonFunction) {
+/*DuList.indexOf = function(arr, value, comparisonFunction) {
     if (value == undefined) throw "Value can not be undefined";
     var useFunction = typeof comparisonFunction === 'function';
 
@@ -761,7 +756,7 @@ DuList.indexOf = function(arr, value, comparisonFunction) {
         if (useFunction && comparisonFunction(arr[i], value)) return i;
     }
     return -1;
-}
+}//*/
 
 /**
  * Checks if the array has duplicate values
@@ -771,14 +766,14 @@ DuList.indexOf = function(arr, value, comparisonFunction) {
  * @param {Array}	arr	- The array
  * @return {boolean}	true if the array has duplicate values
  */
-DuList.hasDuplicates = function(arr) {
+/*DuList.hasDuplicates = function(arr) {
     for (var i = 0; i < arr.length - 1; i++) {
         for (var j = i + 1; j < arr.length; j++) {
             if (arr[i] === arr[j]) return true;
         }
     }
     return false;
-}
+}//*/
 
 /**
  * Returns all duplicated values found in the array
@@ -788,7 +783,7 @@ DuList.hasDuplicates = function(arr) {
  * @param {Array}	arr	- The array
  * @return {Array}	The duplicated values
  */
-DuList.getDuplicates = function(arr) {
+/*DuList.getDuplicates = function(arr) {
     var duplicates = [];
     for (var i = 0; i < arr.length - 1; i++) {
         for (var j = i + 1; j < arr.length; j++) {
@@ -797,7 +792,7 @@ DuList.getDuplicates = function(arr) {
     }
     DuList.removeDuplicates(duplicates);
     return duplicates;
-}
+}//*/
 
 /**
  * Removes all duplicated values from the Array, and returns them
@@ -808,7 +803,7 @@ DuList.getDuplicates = function(arr) {
  * @param {function}	[comparisonFunction] - A function which compares two values which returns true if the values are considered the same.
  * @return {Array}	The duplicated (and removed) values
  */
-DuList.removeDuplicates = function(arr, comparisonFunction) {
+/*DuList.removeDuplicates = function(arr, comparisonFunction) {
     var useFunction = typeof comparisonFunction === 'function';
     var removed = [];
     for (var i = 0; i < arr.length - 1; i++) {
@@ -822,7 +817,7 @@ DuList.removeDuplicates = function(arr, comparisonFunction) {
     if (useFunction && comparisonFunction(arr.length - 2, arr.length - 1)) removed.push(arr.pop());
 
     return removed;
-}
+}//*/
 
 /**
  * Compares two arrays.<br />
@@ -835,7 +830,7 @@ DuList.removeDuplicates = function(arr, comparisonFunction) {
  * @param {int} [floatPrecision=-1] - The precision for (float) number comparison, number of decimals. Set to -1 to not use.
  * @return {boolean} true if the two arrays contain the same values
  */
-DuList.compare = function(array1, array2, floatPrecision) {
+/*DuList.compare = function(array1, array2, floatPrecision) {
     if (!DuList.isList(array1) && !DuList.isList(array2)) {
         if (typeof array1 == 'number' && typeof array2 == 'number') {
             return DuMath.equals(array1, array2, floatPrecision)
@@ -857,3 +852,4 @@ DuList.compare = function(array1, array2, floatPrecision) {
 
     return ok;
 }
+//*/
