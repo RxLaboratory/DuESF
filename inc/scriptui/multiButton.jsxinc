@@ -121,7 +121,7 @@ DuScriptUI.multiButton = function( container, text, image, helpTip, ignoreUIMode
     //add default button
     multiButton.buttons = [];
 
-    multiButton.addButton = function( text, image, helpTip, addOptionsPanel, localize )
+    multiButton.addButton = function( text, image, helpTip, addOptionsPanel, localize, optionsWithoutButton, optionsButtonText )
     {
         multiButton.popup.hide();
         text = def(text, '-');
@@ -142,7 +142,7 @@ DuScriptUI.multiButton = function( container, text, image, helpTip, ignoreUIMode
         }
         
         //add to popup
-        var button = DuScriptUI.button( multiButton.popup.buttons, text, image, helpTip, addOptionsPanel, undefined, undefined, false, true );
+        var button = DuScriptUI.button( multiButton.popup.buttons, text, image, helpTip, addOptionsPanel, undefined, undefined, false, true, optionsWithoutButton, optionsButtonText );
         multiButton.buttons.push( button );
         button.bgColor = DuColor.Color.OBSIDIAN;
         button.dim();

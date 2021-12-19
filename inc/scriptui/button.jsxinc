@@ -72,7 +72,7 @@
  * @param {Boolean}					[optionsWithoutButton=false]	- Don't add an "ok" button to the options popup
  * @return {DuButton}			The image button created.
  */
-DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, orientation, alignment, localize, ignoreUIMode, optionsWithoutButton )
+DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, orientation, alignment, localize, ignoreUIMode, optionsWithoutButton, optionsButtonText )
 {
     if (typeof container === 'undefined')
     {
@@ -92,6 +92,7 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
     localize = def(localize, true);
     ignoreUIMode = def(ignoreUIMode, false);
     optionsWithoutButton = def(optionsWithoutButton, false);
+    optionsButtonText = def(optionsButtonText, text);
 
     var commonSettings = def(DuESF.scriptSettings.data.common, {});
     var uiMode = def( commonSettings.uiMode, 0);
@@ -106,7 +107,7 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
 
     if (addOptionsPanel)
     {
-        if (helpTip != '') helpTip += '\n';
+        if (helpTip != '') helpTip += '\n\n';
         helpTip += DuScriptUI.String.MORE_OPTIONS_TIP;
     }
     
@@ -140,9 +141,9 @@ DuScriptUI.button = function( container, text, image, helpTip, addOptionsPanel, 
 
             duButton.optionsButton = DuScriptUI.button(
                 optionsPanel.content,
-                text,
+                optionsButtonText,
                 w12_check,
-                text
+                helpTip
                 )
 
             duButton.optionsButton.onClick = function () { duButton.clicked(); };
