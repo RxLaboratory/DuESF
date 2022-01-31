@@ -173,12 +173,21 @@ DuScriptUI.multiButton = function( container, text, image, helpTip, ignoreUIMode
     {
         e.stopPropagation();
         DuScriptUI.dimControls();
-        DuScriptUI.setBackgroundColor( multiButton, DuColor.Color.APP_HIGHLIGHT_COLOR.darker() );
+        if (multiButton.label)
+        {
+            DuScriptUI.setTextColor( multiButton.label, DuColor.Color.APP_HIGHLIGHT_COLOR );
+        }
+        else
+        {
+            DuScriptUI.setBackgroundColor( multiButton, DuColor.Color.APP_HIGHLIGHT_COLOR.darker() );
+        }
+        
         DuScriptUI.highlightedControls.push( multiButton );
     }
 
     multiButton.dim = function( e )
     {
+        if (multiButton.label) DuScriptUI.setTextColor( multiButton.label, DuColor.Color.APP_TEXT_COLOR );
         DuScriptUI.setBackgroundColor( multiButton, DuColor.Color.TRANSPARENT );
     }
 

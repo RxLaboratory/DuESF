@@ -289,14 +289,19 @@ DuScriptUI.button = function(container, text, image, helpTip, addOptionsPanel, o
         e.stopPropagation();
         DuScriptUI.dimControls();
 
-        DuScriptUI.setBackgroundColor(mainGroup, DuColor.Color.APP_HIGHLIGHT_COLOR.darker());
-
+        if (duButton.label) {
+            DuScriptUI.setTextColor(duButton.label, DuColor.Color.APP_HIGHLIGHT_COLOR);
+        }
+        else {
+            DuScriptUI.setBackgroundColor(mainGroup, DuColor.Color.APP_HIGHLIGHT_COLOR.darker());
+        }
+        
         DuScriptUI.highlightedControls.push(duButton);
     }
 
     duButton.dim = function() {
         DuScriptUI.setBackgroundColor(mainGroup, duButton.bgColor);
-        if (duButton.label) DuScriptUI.setTextColor(mainGroup, duButton.textColor);
+        if (duButton.label) DuScriptUI.setTextColor(duButton.label, duButton.textColor);
     }
 
     duButton.setBackgroundColor = function(color) {
