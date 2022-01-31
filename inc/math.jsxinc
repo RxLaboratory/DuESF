@@ -65,20 +65,34 @@ DuMath.length = function(value1, value2) {
 /**
  * Compares two numbers
  * @memberof DuMath
- * @param {Number} value1 - The first value
- * @param {Number} value2 - The second value
+ * @param {Number|Number[]} value1 - The first value
+ * @param {Number|Number[]} value2 - The second value
  * @param {int} [floatPrecision=-1] - The precision for (float) number comparison, number of decimals. Set to -1 to not use.
  * @return {boolean} true if the two values are equal
  */
 DuMath.equals = function(value1, value2, floatPrecision) {
-    if (typeof value1 != 'number') return false;
-    if (typeof value2 != 'number') return false;
-    if (floatPrecision >= 0) {
-        var mul = Math.pow(10, floatPrecision);
-        var num1 = Math.round(value1 * mul) / mul;
-        var num2 = Math.round(value2 * mul) / mul;
-        return num1 == num2;
-    } else return value1 == value2;
+    value1 = new DuList(value1);
+    value2 = new DuList(value2);
+
+    if (value1.length() != value2.length()) return false;
+
+    var item1;
+    while(item1 = value1.next())
+    {
+        var item2 = value2.at(value1.current);
+        if (jstype(item1) !== 'number') return false;
+        if (jstype(item2) !== 'number') return false;
+
+        if (floatPrecision >= 0) {
+            var mul = Math.pow(10, floatPrecision);
+            var num1 = Math.round(item1 * mul) / mul;
+            var num2 = Math.round(item2 * mul) / mul;
+            if (num1 != num2) return false;
+        } else
+            if (item1 != item2) return false;
+    }
+
+    return true;
 }
 
 /**
