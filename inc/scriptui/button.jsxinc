@@ -110,15 +110,15 @@ DuScriptUI.button = function(container, text, image, helpTip, addOptionsPanel, o
         else alignment = 'top';
     }
 
-    if (addOptionsPanel) {
-        if (helpTip != '') helpTip += '\n\n';
-        helpTip += DuScriptUI.String.MORE_OPTIONS_TIP;
-    }
-
     if (localize) {
         text = tr(text);
         helpTip = tr(helpTip);
     }
+
+    if (addOptionsPanel) {
+        if (helpTip != '') helpTip += '\n\n';
+        helpTip += DuScriptUI.String.MORE_OPTIONS_TIP;
+    }  
 
     if (image == '' && text == '') text = 'button';
 
