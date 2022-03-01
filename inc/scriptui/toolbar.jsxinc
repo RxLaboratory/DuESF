@@ -39,7 +39,7 @@ DuScriptUI.toolBar = function( container, numCols )
             toolsGroup.columns[toolsGroup.currentCol],
             uiMode == 0 ? text : '',
             icon,
-            toolTip,
+            uiMode == 0 ? toolTip : text + "\n\n" + toolTip,
             options,
             uiMode == 0 ? 'column' : undefined
         );
