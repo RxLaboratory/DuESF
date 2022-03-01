@@ -688,19 +688,33 @@ DuList.prototype.previous = function() {
 /**
  * Executes a function on each item of the List
  * @param {function} callBack - The function to execute, which takes one parameter: an item of the list
+ * @param {Bool} [reverse=false] - Set this to true to iterate from the end.
  */
-DuList.prototype.do = function(callBack) {
+DuList.prototype.do = function(callBack, reverse) {
     if (this.isEmpty()) return;
+
+    reverse = def(reverse, false);
 
     // Keep the current index
     var current = this.current;
 
-    for (var i = 0, n = this.length(); i < n; i++) {
-        this.valid = true;
-        this.current = i;
-        callBack(this.at(i));
+    if (reverse)
+    {
+        for (var i = this.length() - 1; i >= 0; i--) {
+            this.valid = true;
+            this.current = i;
+            callBack(this.at(i));
+        }
     }
-
+    else
+    {
+        for (var i = 0, n = this.length(); i < n; i++) {
+            this.valid = true;
+            this.current = i;
+            callBack(this.at(i));
+        }
+    }
+    
     // Restore the current index
     this.goTo(current);
 }
