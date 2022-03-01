@@ -71,6 +71,7 @@ DuMath.length = function(value1, value2) {
  * @return {boolean} true if the two values are equal
  */
 DuMath.equals = function(value1, value2, floatPrecision) {
+    floatPrecision = def(floatPrecision, -1);
     value1 = new DuList(value1);
     value2 = new DuList(value2);
 
@@ -384,9 +385,10 @@ DuMath.bounds = function(values) {
  * @param {Number|Number[]} previousValue The value just before the point.
  * @param {Number|Number[]} point The point to check.
  * @param {Number|Number[]} nextValue The value just after the point.
+ * @param {int} [precision=1] The precision for floating point comparisons; number of decimals.
  * @return {Boolean} 
  */
-DuMath.isExtremePoint = function(previousValue, point, nextValue) {
+DuMath.isExtremePoint = function(previousValue, point, nextValue, precision) {
     previousValue = new DuList(previousValue);
     point = new DuList(point);
     nextValue = new DuList(nextValue);
@@ -395,9 +397,16 @@ DuMath.isExtremePoint = function(previousValue, point, nextValue) {
 		var p = point.at(i);
 		var pv = previousValue.at(i);
 		var nx = nextValue.at(i);
-		if (p == pv && p == nx) continue;
-		if ( p >= pv && p >= nx) return true;
-		if ( p <= pv && p <= nx) return true;
+		if (DuMath.equals(p, pv, 1) && DuMath.equals(p, nx, 1)) continue;
+        // Get the dif
+        var pDif = p-pv;
+        var nDif = p-nx;
+        // If the sign is the same, this is an extreme
+        if (pDif >= 0 && nDif >= 0) return true;
+        if (pDif <= 0 && nDif <= 0) return true;
+		// If one of the two is 0, this is an extreme
+        if (DuMath.equals(pDif, 0.0, 1)) return true;
+        if (DuMath.equals(nDif, 0.0, 1)) return true;
     }
 	return false;
 }
