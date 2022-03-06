@@ -26,6 +26,7 @@
 #include "icons/w12_menu.png.jsxinc"
 #include "icons/w12_heart.png.jsxinc"
 #include "icons/w12_more.png.jsxinc"
+#include "icons/w12_search.png.jsxinc"
 // normal 16px
 #include "icons/w16_language.png.jsxinc"
 #include "icons/w16_settings_file.png.jsxinc"
@@ -89,6 +90,7 @@ DuScriptUI.Icon = {
     SETTINGS_FILE: w16_settings_file,
     STANDARD: w16_standard,
     UPDATE: w12_update,
-    USER: w16_user
+    USER: w16_user,
+    SEARCH: w12_search,
 };
 
