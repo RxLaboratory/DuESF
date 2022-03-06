@@ -9,9 +9,9 @@
 	* @property {File}		file	- The file to store the settings
 	* @property {Object}	data	- The settings as a js object
 	*/
-function DuSettings( namespace, file, duesfSettings )
+function DuSettings( namespace, file, dontSavePath )
 {
-	duesfSettings = def(duesfSettings, false);
+	dontSavePath = def(dontSavePath, false);
 	namespace = def(namespace, DuESF.scriptName);
 	if ( DuDebug.checkVar( namespace, 'namespace', 'string', DuSettings ) !== true ) throw "Sorry, an error has occured in `new DuSettings()`.";
 
@@ -36,7 +36,7 @@ function DuSettings( namespace, file, duesfSettings )
 	this.file.encoding = 'UTF-8';
 	this.folder = this.file.parent;
 	
-	if (!duesfSettings)
+	if (!dontSavePath)
 	{
 		DuESF.settings.data.scriptSettingsFile =  this.file.absoluteURI;
 		DuESF.settings.save();
@@ -85,14 +85,16 @@ DuSettings.prototype.save = function()
  * Sets the file to be used to save the settings
  * @param {File|string} file The file or path to the file
  */
-DuSettings.prototype.setFile = function(file)
+DuSettings.prototype.setFile = function(file, dontSavePath)
 {
 	if (file instanceof File) this.file = file;
 	else this.file = new File(file);
 	if (file.exists) this.load();
 	else this.save();
-	DuESF.settings.data.scriptSettingsFile =  this.file.absoluteURI;
-	DuESF.settings.save();
+	if (!dontSavePath) {
+		DuESF.settings.data.scriptSettingsFile =  this.file.absoluteURI;
+		DuESF.settings.save();
+	}
 }
 
 /**
