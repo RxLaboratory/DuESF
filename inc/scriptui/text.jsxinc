@@ -57,6 +57,14 @@
  */
 
 /**
+ * Changes the placeholder
+ * @method
+ * @memberof DuEditText
+ * @name setPlaceholder
+ * @param {string} placeholder - The placeholder text
+ */
+
+/**
  * Creates a nice edittext where the edit text is shown only on click.
  * @param {Window|Panel|Group}	container		- The ScriptUI Object which will contain and display the nice edit text.
  * @param {string} text - The initial text in the edit.
@@ -174,6 +182,12 @@ DuScriptUI.editText = function( container, text, prefix, suffix, placeHolder, he
     {
         niceEditText.suffix = suffix;
         niceEditText.setText(niceEditText.text);
+    }
+
+    niceEditText.setPlaceholder = function( ph )
+    {
+        niceEditText.placeHolder = ph;
+        niceEditText.setText( niceEditText.text );
     }
 
     niceEditText.edit.onActivate = function()
