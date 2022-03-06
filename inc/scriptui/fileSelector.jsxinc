@@ -193,12 +193,12 @@ DuScriptUI.fileSelector = function ( container, text, textField, helpTip, image,
 
         if (mode == 'open' && !file.exists)
         {
-            fileSelector.editText.setText("");
+            if (fileSelector.editText) fileSelector.editText.setText("");
             fileSelector.path = file.absoluteURI;
         }
         else
         {
-            fileSelector.editText.setText(file.fsName);
+            if (fileSelector.editText) fileSelector.editText.setText(file.fsName);
             fileSelector.path = file.absoluteURI;
         }
 
