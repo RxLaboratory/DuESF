@@ -136,11 +136,10 @@ DuScriptUI.fileSelector = function ( container, text, textField, helpTip, image,
     mode = def(mode, 'open');
     image = def(image, w12_file);
     filters = def(filters, "All files: *.*");
-    orientation = def(orientation, 'row');
+    orientation = def(orientation, uiMode >= 1 ? 'row' : 'column');
 
     var commonSettings = def(DuESF.scriptSettings.data.common, {});
     var uiMode = def( commonSettings.uiMode, 0);
-    if (uiMode >= 1) orientation = 'row';
 
     var fileSelector = container.add('group');
     fileSelector.orientation = orientation;
@@ -175,6 +174,8 @@ DuScriptUI.fileSelector = function ( container, text, textField, helpTip, image,
         }
     }
 
+    fileSelector.onChange = function() {};
+
     fileSelector.button.onClick = function () {
         var file = new File(fileSelector.path);
         if (file.exists)
@@ -187,8 +188,6 @@ DuScriptUI.fileSelector = function ( container, text, textField, helpTip, image,
             if (mode == 'open') file = File.openDialog("Select File",filters);
             else file = File.saveDialog ("Save File", filters);
         }
-
-        fileSelector.onChange();
         
         if (!file) return;
 
@@ -201,7 +200,9 @@ DuScriptUI.fileSelector = function ( container, text, textField, helpTip, image,
         {
             fileSelector.editText.setText(file.fsName);
             fileSelector.path = file.absoluteURI;
-        } 
+        }
+
+        fileSelector.onChange();
     }
 
     fileSelector.getFile = function () {
@@ -223,6 +224,13 @@ DuScriptUI.fileSelector = function ( container, text, textField, helpTip, image,
             fileSelector.editText.setText( "" );
         }
     }
+
+    fileSelector.setPlaceholder = function(text)
+    {
+        fileSelector.editText.setPlaceholder(text);
+    }
+
+
 
     return fileSelector;
 }
