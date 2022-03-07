@@ -43,6 +43,32 @@ DuMath.random = function(min, max) {
 }
 
 /**
+ * Generates a random integer between minimum and maximum.<br/>
+ * The results are distributed along a gaussian (bell) curve.<br/>
+ * Note that a few (< 10%) values may be outside of the range. Set the <code>bounded</code> to true to avoid that.
+ * @memberof DuMath
+ * @param {int}	[min=0]	- The minimum value
+ * @param {int}	[max=1]	- The maximum value
+ * @param {Bool} [bounded=false] - When this is false, a few values may be outside the range. Set it to true to make sure all values are between min and max.
+ * @return {int}	The randomly generated integer
+ */
+DuMath.gaussRandom = function(min, max, bounded) {
+    min = def(min, 0);
+    max = def(max, 1);
+    bounded = def(bounded, false);
+
+    var u = 0, v = 0;
+    while(u === 0) u = DuMath.random(); //Converting [0,1) to (0,1)
+    while(v === 0) v = DuMath.random();
+    var num = Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v );
+    num = num / 10.0 + 0.5; // Translate to 0 -> 1
+    if (bounded && (num > 1 || num < 0)) return DuMath.gaussRandom(min, max, true); // resample between 0 and 1
+    num *= max - min; // Stretch to fill range
+    num += min; // offset to min
+    return num;
+}
+
+/**
  * Measures the vector length between two points
  * @param {int[]} value1 - The first value
  * @param {int[]} value2 - The second value
