@@ -230,3 +230,23 @@ DuFile.getSequenceNumber = function(path)
 	number = string_noExt.substring(numberi,string_noExt.length);
 	return number;
 }
+
+/**
+ * Moves a file to a new location
+ * @param {string|File} file The file
+ * @param {string|File} newURI The new URI/Path (including file name)
+ * @return {File|null} the new file object, or null if it could not be moved
+ */
+DuFile.move = function(file, newURI) {
+	if (!(file instanceof File)) file = new File(file);
+
+	if (!file.exists) return null;
+
+	if (file.copy(newURI)) {
+		file.remove();
+		var f = new File(newURI);
+		if (f.exists) return f;
+		else return null;
+	}
+	return null;
+}
