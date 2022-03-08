@@ -103,7 +103,7 @@ DuScriptUI.slider = function( container, defaultValue, min, max, orientation, in
                 valueButtons[ i ]
                 );
             niceSlider.buttons[i].alignment = [ 'fill', 'fill' ];
-            niceSlider.buttons[i].onClick = function(val)
+            niceSlider.buttons[i].onClick = function( val )
             {
                 niceSlider.setValue( val );
                 niceSlider.onChange();

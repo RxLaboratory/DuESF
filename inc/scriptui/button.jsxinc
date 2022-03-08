@@ -378,10 +378,10 @@ DuScriptUI.smallbutton = function(container, text, helpTip, value) {
     smallButton.alignChildren = ['fill', 'fill'];
     smallButton.spacing = 0;
 
-    smallButton.onClick = function() {};
-    smallButton.onAltClick = function() {};
-    smallButton.onCtrlAltClick = function() {};
-    smallButton.onCtrlClick = function() {};
+    smallButton.onClick = function( v ) {};
+    smallButton.onAltClick = smallButton.onClick;
+    smallButton.onCtrlAltClick = smallButton.onClick;
+    smallButton.onCtrlClick = smallButton.onClick;
     smallButton.label = smallButton.add('statictext', undefined, text);
     smallButton.label.helpTip = helpTip;
     smallButton.label.justify = 'center';
@@ -391,7 +391,7 @@ DuScriptUI.smallbutton = function(container, text, helpTip, value) {
 
     //events
     smallButton.clicked = function() {
-        DuDebug.safeRun(smallButton.onClick, smallButton.value);
+        smallButton.onClick( smallButton.value );
     }
 
     smallButton.shiftClicked = function() {
@@ -401,15 +401,15 @@ DuScriptUI.smallbutton = function(container, text, helpTip, value) {
     }
 
     smallButton.altClicked = function() {
-        DuDebug.safeRun(smallButton.onAltClick, smallButton.value);
+        smallButton.onAltClick( smallButton.value );
     }
 
     smallButton.ctrlAltClicked = function() {
-        DuDebug.safeRun(smallButton.onCtrlAltClick, smallButton.value);
+        smallButton.onCtrlAltClick( smallButton.value );
     }
 
     smallButton.ctrlClicked = function() {
-        DuDebug.safeRun(smallButton.onCtrlClick, smallButton.value);
+        smallButton.onCtrlClick( smallButton.value );
     }
 
     smallButton.highlight = function(e) {
