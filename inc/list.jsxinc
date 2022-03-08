@@ -408,7 +408,7 @@ DuList.prototype.removeAll = function(value, comparisonFunction) {
 /**
  * Reimplements the Array.sort() method.<br />
  * The internal list may be converted to an Array if needed.<br />
- * The iterator invalidated.
+ * The iterator is invalidated.
  * @param {function} compareFunction Specifies a function that defines the sort order. If omitted, the array elements are converted to strings, then sorted according to each character's Unicode code point value.
  * @return {Array} The sorted array. Note that the array is sorted in place, and no copy is made.
  */
