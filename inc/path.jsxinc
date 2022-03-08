@@ -132,6 +132,8 @@ DuPath.getExtension = function(pathOrFile)
 */
 DuPath.switchExtension = function(pathOrFile, newExtension)
 {
+	// Remove leading .
+	if (newExtension.indexOf('.') == 0) newExtension = newExtension.substring(1);
     if (pathOrFile instanceof File) pathOrFile = pathOrFile.absoluteURI;
     var point = pathOrFile.lastIndexOf(".");
     if (point == -1) return pathOrFile + "." + newExtension;
