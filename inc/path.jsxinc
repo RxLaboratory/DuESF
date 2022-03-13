@@ -117,6 +117,7 @@ DuPath.getBasename = function(pathOrFile)
 */
 DuPath.getExtension = function(pathOrFile)
 {
+	if (pathOrFile instanceof Folder) return '';
     if (pathOrFile instanceof File) pathOrFile = pathOrFile.absoluteURI;
     var name = pathOrFile.split("/").pop();
     name = name.split("\\").pop();
