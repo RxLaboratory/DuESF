@@ -61,7 +61,7 @@ DuScriptUI.separator = function( container, name, checkable, drawLine, translata
     if(translatable) name = tr( name );
 
     var separator = DuScriptUI.group( container );
-    separator.margins = 2;
+    separator.margins = 0;
     separator.checkable = checkable;
 
     separator.label = null;

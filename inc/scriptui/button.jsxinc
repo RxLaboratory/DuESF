@@ -185,7 +185,7 @@ DuScriptUI.button = function(container, text, image, helpTip, addOptionsPanel, o
     mainGroup.margins = 0;
 
     //Add fillers to be able to click anywhere on the button
-    if (text != '') {
+    if (text != '' && orientation == 'row') {
         duButton.fillerL = mainGroup.add('statictext', undefined, " ");
         duButton.fillerL.alignment = ['left', 'fill'];
         if (alignment == 'left' && !addOptionsPanel) duButton.fillerL.size = [18, -1];
@@ -227,7 +227,7 @@ DuScriptUI.button = function(container, text, image, helpTip, addOptionsPanel, o
     }
 
     // Another filler
-    if (text != '') {
+    if (text != '' && orientation == 'row') {
         duButton.fillerR = mainGroup.add('statictext', undefined, " ");
         duButton.fillerR.alignment = ['fill', 'fill'];
         if (alignment == 'right') duButton.fillerR.size = [10, -1];
