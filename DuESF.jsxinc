@@ -16,6 +16,7 @@
 #include "inc/regexp.jsxinc"
 #include "inc/number.jsxinc"
 #include "inc/math.jsxinc"
+#include "inc/interpolation.jsxinc"
 #include "inc/date.jsxinc"
 #include "inc/color.jsxinc"
 #include "inc/binary.jsxinc"

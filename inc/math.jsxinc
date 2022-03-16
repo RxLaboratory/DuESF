@@ -348,6 +348,8 @@ DuMath.linear = function(value, min, max, targetMin, targetMax, clamp) {
     if (min == targetMin && max == targetMax) return value;
     if (min == max) return value;
     if (targetMin == targetMax) return targetMin;
+    if (value == min) return targetMin;
+    if (value == max) return targetMax;
 
     var result = targetMin + (value - min) / (max - min) * (targetMax - targetMin);
     if (clamp) result = DuMath.clamp(value, targetMin, targetMax);
