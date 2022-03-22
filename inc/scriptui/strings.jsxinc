@@ -119,6 +119,7 @@ DuScriptUI.String = {
     PAW: "Paw",
     PENIS: "Penis",
     PINCER: "Pincer",
+    PIN_TIP: "Keeps this panel open",
     PLANTIGRADE: "Plantigrade",
     PREVIOUS: "Previous",
     POLYGON: "Polygon",

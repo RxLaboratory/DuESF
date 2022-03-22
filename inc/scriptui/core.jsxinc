@@ -6,6 +6,7 @@ var DuScriptUI = {}
 
 #include "strings.jsxinc"
 #include "icons.jsxinc"
+#include "titleBar.jsxinc"
 #include "panel.jsxinc"
 #include "button.jsxinc"
 #include "help.jsxinc"

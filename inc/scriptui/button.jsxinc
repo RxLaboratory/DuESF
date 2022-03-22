@@ -178,7 +178,7 @@ DuScriptUI.button = function(container, text, image, helpTip, addOptionsPanel, o
 
             if (!optionsWithoutPanel) optionsPanel.tieTo(optionsButton);
 
-            optionsButton.onClick = function () { duButton.onOptions(); };
+            optionsButton.onClick = function () { duButton.onOptions(true); };
         }
     }
 

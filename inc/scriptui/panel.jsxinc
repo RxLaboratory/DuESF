@@ -258,21 +258,11 @@ DuScriptUI.popUp = function( title, alignment, modal )
     mainColumn.margins = 0;
     mainColumn.alignment = ['fill','fill'];
 
-    var titleBar = mainColumn.add( 'group' );
-    titleBar.margins = 0;
-    titleBar.spacing = 0;
-    titleBar.alignment = ['fill','top'];
-    DuScriptUI.setBackgroundColor( titleBar, DuColor.Color.DARK_GREY );
-    //add pin
-    var pinButton = DuScriptUI.checkBox(titleBar, '', w12_pin, 'Pin window', '', w12_pinned);
-    pinButton.alignment = [ 'left', 'center' ];
-    //add title
-    var titleLabel = titleBar.add('statictext', undefined,  title);
-    titleLabel.alignment = [ 'center', 'center' ];
-    if (modal) DuScriptUI.setTextColor(titleLabel, DuColor.Color.APP_HIGHLIGHT_COLOR)
-    //add close button
-    var closeButton = DuScriptUI.button(titleBar, '', w12_close, 'Close');
-    closeButton.alignment = [ 'right', 'center' ];
+    var titleBar = DuScriptUI.titleBar(
+        mainColumn,
+        title
+        );
+    if (modal) DuScriptUI.setTextColor(titleBar.titleLabel, DuColor.Color.APP_HIGHLIGHT_COLOR)
 
     popup.content = mainColumn.add( 'group' );
     popup.content.margins = 0;
@@ -333,7 +323,7 @@ DuScriptUI.popUp = function( title, alignment, modal )
     {
         p = def (p, true);
         popup.pinned = p;
-        pinButton.setChecked(p);
+        titleBar.pinButton.setChecked(p);
     }
 
     var movingTitle = false;
@@ -392,9 +382,9 @@ DuScriptUI.popUp = function( title, alignment, modal )
     popup.cancel = popup.hidePopup = hidePopup;
 
     popup.onDeactivate = function () { if (!popup.pinned) hidePopup(); };
-    closeButton.onClick = hidePopup;
+    titleBar.onClose = hidePopup;
 
-    pinButton.onClick = function () { popup.pin(pinButton.checked); };
+    titleBar.onPin = function (pinned) { popup.pin(pinned); };
 
     popup.addEventListener( "mouseover", DuScriptUI.dimControls );
     popup.addEventListener( "keydown", esc );
@@ -409,10 +399,10 @@ DuScriptUI.popUp = function( title, alignment, modal )
     titleBar.addEventListener( "mouseup", endMoveState );
     titleBar.addEventListener( "mouseout", endMoveState );
 
-    titleLabel.addEventListener( "mousedown", enterTitleMoveState );
-    titleLabel.addEventListener( "mousemove", moveTitle );
-    titleLabel.addEventListener( "mouseup", endMoveState );
-    titleLabel.addEventListener( "mouseout", endMoveState );
+    titleBar.titleLabel.addEventListener( "mousedown", enterTitleMoveState );
+    titleBar.titleLabel.addEventListener( "mousemove", moveTitle );
+    titleBar.titleLabel.addEventListener( "mouseup", endMoveState );
+    titleBar.titleLabel.addEventListener( "mouseout", endMoveState );
 
     if (modal) popup.pin();
 
@@ -552,7 +542,12 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
     rootSettingsGroup.visible = false;
     panel.settingsGroup = DuScriptUI.group(rootSettingsGroup, 'column');
     panel.settingsGroup.alignment = ['fill', 'top'];
-    var settingsTitle = DuScriptUI.separator( panel.settingsGroup, tr( '{#} ' + DuScriptUI.String.SETTINGS, undefined, DuESF.scriptName), false, true, false );
+    var settingsTitle = DuScriptUI.titleBar(
+        panel.settingsGroup,
+        tr( '{#} ' + DuScriptUI.String.SETTINGS,undefined, DuESF.scriptName),
+        true,
+        false
+    );
 
     panel.hasCommonSettings = false;
     panel.addCommonSettings = function()
@@ -773,15 +768,6 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
 
     var validGroup = DuScriptUI.group( rootSettingsGroup, 'row');
 
-    panel.settingsGroup.backButton = DuScriptUI.button(
-        validGroup,
-        DuScriptUI.String.BACK_PREVIOUS,
-        w12_back,
-        DuScriptUI.String.CLOSE_SETTINGS,
-        false,
-        'row',
-        'center'
-    );
     panel.settingsGroup.resetButton = DuScriptUI.button(
         validGroup,
         DuScriptUI.String.DEFAULT,
@@ -938,7 +924,7 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
             }
         }
 
-        panel.settingsGroup.backButton.onClick = function()
+        settingsTitle.onClose = function()
         {
             if( panel.hasCommonSettings ) panel.settingsGroup.reset();
             panel.mainGroup.visible = true;
