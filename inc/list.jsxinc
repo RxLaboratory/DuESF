@@ -445,6 +445,22 @@ DuList.prototype.push = function() {
 }
 
 /**
+ * Mergeserge two lists.<br />
+ * This method does not change the existing list, but instead returns a new list. 
+ * @param {Array|DuList} other The other list.
+ * @return {DuList} The new list.
+ */
+DuList.prototype.concat = function(other) {
+    // Make copies to not modify existing lists
+    other = new DuList(other);
+    current = new DuList(this);
+    // Convert to arrays
+    other.convertToArray();
+    current.convertToArray();
+    return current.list.concat(other.list);
+}
+
+/**
  * Adds one or more elements to the end of the list and returns the new length of the list, only if the value is not already in the list<br />
  * The internal list may be converted to an Array if needed.
  * @param {function} [comparisonFunction] A function which compares two values which returns true if the values are considered the same.
