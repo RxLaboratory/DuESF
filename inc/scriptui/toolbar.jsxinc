@@ -32,16 +32,28 @@ DuScriptUI.toolBar = function( container, numCols )
 
     toolsGroup.currentCol = 0;
 
-    toolsGroup.addButton = function (text, icon, toolTip, options)
+    toolsGroup.addButton = function (text, icon, toolTip, options, optionsWithoutPanel)
     {
+        text = def(text, "");
+        toolTip = def(toolTip, "");
         options = def(options, false);
+        optionsWithoutPanel = def(optionsWithoutPanel, false);
+
+        text = tr(text);
+        toolTip = tr(toolTip);
         var button = DuScriptUI.button (
             toolsGroup.columns[toolsGroup.currentCol],
             uiMode == 0 ? text : '',
             icon,
             uiMode == 0 ? toolTip : text + "\n\n" + toolTip,
             options,
-            uiMode == 0 ? 'column' : undefined
+            uiMode == 0 ? 'column' : undefined,
+            undefined, // alignment
+            false, // localize
+            undefined, // ignoreUIMode
+            undefined, // optionsWithoutButton
+            undefined, // optionsButtonText
+            optionsWithoutPanel
         );
         button.alignment = uiMode == 0 ? ['fill', 'top'] : ['center', 'top'];
 

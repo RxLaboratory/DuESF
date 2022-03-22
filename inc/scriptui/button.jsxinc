@@ -43,8 +43,10 @@
  */
 
 /**
- * The function to execute when the options are called (Shift+CLick or click on the options button).
+ * The function to execute when the options are called (Shift+CLick or click on the options button).<br/>
+ * Use the <code>showUI</code> parameter to build the options when the button is clicked without showing any UI.
  * @callback DuButton~onOptions
+ * @param {Boolean} showUI This is set to false when the button is clicked: use this parameter to build the options without showing any UI when needed on all button clicks.
  * @memberof DuButton
  */
 
@@ -240,6 +242,7 @@ DuScriptUI.button = function(container, text, image, helpTip, addOptionsPanel, o
                 duButton.optionsPopup.build();
                 duButton.optionsPopup.built = true;
             }
+            duButton.onOptions(false);
         }
         DuDebug.safeRun(duButton.onClick);
     }
@@ -250,37 +253,40 @@ DuScriptUI.button = function(container, text, image, helpTip, addOptionsPanel, o
                 duButton.optionsPopup.build();
                 duButton.optionsPopup.built = true;
             }
-            DuDebug.safeRun(duButton.onOptions);
+            duButton.onOptions(true);
         }
         DuDebug.safeRun(duButton.onShiftClick);
     }
 
     duButton.altClicked = function() {
         if (addOptionsPanel) {
-            if (!duButton.optionsPopup.built) {
+            if (!optionsWithoutPanel && !duButton.optionsPopup.built) {
                 duButton.optionsPopup.build();
                 duButton.optionsPopup.built = true;
             }
+            duButton.onOptions(false);
         }
         DuDebug.safeRun(duButton.onAltClick);
     }
 
     duButton.ctrlAltClicked = function() {
         if (addOptionsPanel) {
-            if (!duButton.optionsPopup.built) {
+            if (!optionsWithoutPanel && !duButton.optionsPopup.built) {
                 duButton.optionsPopup.build();
                 duButton.optionsPopup.built = true;
             }
+            duButton.onOptions(false);
         }
         DuDebug.safeRun(duButton.onCtrlAltClick);
     }
 
     duButton.ctrlClicked = function() {
         if (addOptionsPanel) {
-            if (!duButton.optionsPopup.built) {
+            if (!optionsWithoutPanel && !duButton.optionsPopup.built) {
                 duButton.optionsPopup.build();
                 duButton.optionsPopup.built = true;
             }
+            duButton.onOptions(false);
         }
         DuDebug.safeRun(duButton.onCtrlClick);
     }
