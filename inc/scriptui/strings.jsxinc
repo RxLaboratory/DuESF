@@ -178,3 +178,19 @@ DuScriptUI.String = {
     X_POSITION: "X Position",
     Y_POSITION: "Y Position"
 }
+
+// OS Specific strings
+if (DuSystem.win) {
+    DuScriptUI.String.CTRL_KEY = "Ctrl";
+    DuScriptUI.String.SHIFT_KEY = "Shift";
+    DuScriptUI.String.ALT_KEY = "Alt";
+}
+else {
+    DuScriptUI.String.CTRL_KEY = "Cmd";
+    DuScriptUI.String.SHIFT_KEY = "Shift";
+    DuScriptUI.String.ALT_KEY = "Alt";
+}
+
+DuScriptUI.String.CTRL_KEY_TIP = "[" + DuScriptUI.String.CTRL_KEY + "]";
+DuScriptUI.String.SHIFT_KEY_TIP = "[" + DuScriptUI.String.SHIFT_KEY + "]";
+DuScriptUI.String.ALT_KEY_TIP = "[" + DuScriptUI.String.ALT_KEY + "]";
