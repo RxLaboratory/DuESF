@@ -290,6 +290,7 @@ DuColor.Color =
 	VERY_LIGHT_GREY: new DuColor([.85,.85,.85,1]),
 	RAINBOX_RED: new DuColor([.925,.094,.094,1]),
 	ORANGE: new DuColor([.925,.471,.094,1]),
+	YELLOW_ORANGE: new DuColor([.925,.655,.094,1]),
 	YELLOW: new DuColor([.925,.839,.094,1]),
 	GREEN: new DuColor([.094,.925,.094,1]),
 	LIGHT_BLUE: new DuColor([.471,.839,.925,1]),
