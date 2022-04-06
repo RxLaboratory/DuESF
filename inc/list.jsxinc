@@ -529,7 +529,6 @@ DuList.prototype.merge = function(arr) {
     return this.list.length;
 }
 
-
 /**
  * Merges the new array to the current list.<br />
  * Will only add items if they're not already in the list.<br />
