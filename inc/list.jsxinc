@@ -256,7 +256,7 @@ DuList.prototype.removeDuplicates = function(comparisonFunction) {
  * @return {boolean} true if the two arrays contain the same values
  */
 DuList.prototype.equals = function(other, comparisonFunction, floatPrecision) {
-    var useFunction = typeof comparisonFunction !== 'undefined';
+    var useFunction = typeof comparisonFunction === 'function';
 
     if (!DuList.isList(other)) return false;
 
@@ -275,24 +275,36 @@ DuList.prototype.equals = function(other, comparisonFunction, floatPrecision) {
         // A list, recursive
         if (DuList.isList(item1)) {
             var test = new DuList(item1);
-            if (!test.equals(item2, comparisonFunction, floatPrecision)) ok = false;
+            if (!test.equals(item2, comparisonFunction, floatPrecision)) {
+                ok = false;
+                break;
+            }
             continue;
         }
 
         // Comparison function
         if (useFunction) {
-            if (!comparisonFunction(item1, item2)) ok = false;
+            if (!comparisonFunction(item1, item2)) {
+                ok = false;
+                break;
+            }
             continue;
         }
 
         // Numbers
         if (jstype(item1) == 'number') {
-            if (!DuMath.equals(item1, item2, floatPrecision)) ok = false;
+            if (!DuMath.equals(item1, item2, floatPrecision)) {
+                ok = false;
+                break;
+            }
             continue;
         }
 
         // Other
-        if (item1 != item2) ok = false;
+        if (item1 != item2) {
+            ok = false;
+            break;
+        }
     }
 
     // Restore original iterator index
