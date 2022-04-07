@@ -856,7 +856,7 @@ DuOCODoc.prototype.newSpine = function( head, neck, spine, hips, position )
         b.y = y + oy;
         if (b.children.length > 0) b = b.children[0];
     }
-    if (spine > 0)
+    if (spine > 1)
     {
         var totalSpineLength = u*.27;
         var torsoLength = totalSpineLength*.5;
@@ -875,6 +875,15 @@ DuOCODoc.prototype.newSpine = function( head, neck, spine, hips, position )
         b.type = DuOCO.Bone.TORSO;
         b.y = spineStart + (spine-1)*spineLength + oy;
         b.x = ox;
+        if (b.children.length > 0) b = b.children[0];
+    }
+    else if (spine == 1)
+    {
+        // Torso
+        b.name = DuScriptUI.String.TORSO;
+        b.type = DuOCO.Bone.TORSO;
+        b.x = ox;
+        b.y = u*.56 + oy;
         if (b.children.length > 0) b = b.children[0];
     }
     if (neck > 0)
