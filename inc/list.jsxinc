@@ -348,8 +348,8 @@ DuList.prototype.convertToArray = function(index) {
 
     // The new array
     var arr = [];
-    for (var i = 1, n = collection.length; i <= n; i++) {
-        arr.push(collection[i]);
+    for (var i = 1, n = this.list.length; i <= n; i++) {
+        arr.push(this.list[i]);
     }
 
     this.isCollection = false;
