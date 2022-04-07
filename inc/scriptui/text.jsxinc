@@ -12,6 +12,7 @@
  * @property {DuEditText~onActivate} onActivate - Function to execute when activated
  * @property {DuEditText~onDeactivate} onDeactivate - Function to execute when deactivated
  * @property {DuEditText~onChange} onChange - Function to execute when text changed
+ * @property {DuEditText~onChange} onEnterPressed - Function to execute when enter key is pressed whil in edit mode
  */
 
 /**
@@ -19,6 +20,13 @@
  * @callback DuEditText~onChange
  * @memberof DuEditText
  */
+
+/**
+ * Function to execute when enter key is pressed whil in edit mode.
+ * @callback DuEditText~onEnterPressed
+ * @memberof DuEditText
+ */
+
 
 /**
  * The function to execute when the box is activated.
@@ -106,6 +114,7 @@ DuScriptUI.editText = function( container, text, prefix, suffix, placeHolder, he
     niceEditText.edit = niceEditText.add( 'edittext', undefined, text );
     niceEditText.edit.visible = false;
     niceEditText.edit.helpTip = helpTip;
+    niceEditText.edit.alignment = ['fill', 'center'];
     niceEditText.prefix = prefix;
     niceEditText.suffix = suffix;
     niceEditText.textColor = DuColor.Color.APP_HIGHLIGHT_COLOR;
@@ -158,6 +167,11 @@ DuScriptUI.editText = function( container, text, prefix, suffix, placeHolder, he
         if (!niceEditText.freeze) niceEditText.onChanging();
     }
 
+    niceEditText.enterPressed = function()
+    {
+        niceEditText.onEnterPressed();
+    }
+
     niceEditText.setText = function( text )
     {
         if (text == '')
@@ -202,8 +216,8 @@ DuScriptUI.editText = function( container, text, prefix, suffix, placeHolder, he
     niceEditText.edit.onChange = niceEditText.changed;
     niceEditText.edit.onChanging = niceEditText.changing;
     niceEditText.addEventListener( "mousedown", niceEditText.clicked, true );
-
     niceEditText.addEventListener( "mouseover", DuScriptUI.dimControls );
+    niceEditText.edit.addEventListener('keydown', function(e){ if (e.keyName == 'Enter') niceEditText.enterPressed(); } );
 
     niceEditText.helpTip = helpTip;
 
