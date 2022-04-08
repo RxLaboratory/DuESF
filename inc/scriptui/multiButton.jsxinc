@@ -32,7 +32,7 @@
 DuScriptUI.multiButton = function( container, text, image, helpTip, ignoreUIMode )
 {
     text = def(text, '');
-    text = tr(text) + '...';
+    if (text!= '') text = tr(text) + '...';
     helpTip = def(helpTip, '');
     helpTip = tr(helpTip);
     image = def(image, '');

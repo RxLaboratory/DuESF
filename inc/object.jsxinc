@@ -40,3 +40,26 @@ DuJSObj.sort = function( obj, reverse, compareFn ) {
 
     return newObj;
 }
+
+/**
+ * Deletes all properties from an object, except a predefined list.
+ * @param {object} obj The object to clear.
+ * @param {string[]} [ignoredProperties] The properties to keep
+ */
+DuJSObj.clear = function( obj, ignoredProperties ) {
+    ignoredProperties = def(ignoredProperties, []);
+    // Remove existing items
+    for (i in obj) {
+        if (!obj.hasOwnProperty(i)) continue;
+        // ignore properties
+        var ok = true;
+        for (var j = 0, n = ignoredProperties.length; j < n; j++)
+        {
+            if (i == ignoredProperties[j]) {
+                ok = false;
+                break;
+            }
+        }
+        if (ok) delete obj[i];
+    }
+}

@@ -127,6 +127,7 @@ DuScriptUI.editText = function( container, text, prefix, suffix, placeHolder, he
     niceEditText.onDeactivate = function() {};
     niceEditText.onChange = function() {};
     niceEditText.onChanging = function() {};
+    niceEditText.onEnterPressed = function() {};
 
     niceEditText.clicked = function()
     {

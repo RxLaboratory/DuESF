@@ -138,6 +138,7 @@ DuScriptUI.mainPanel = function( container, scriptName, contentAlignment, bless 
  * @name tieTo
  * @param {ScriptUI} [control] - The control
  * @param {Boolean} [onShift=false] - If set to true, the popup is tied on Shift + Click only
+ * @param {boolean} [alwaysBlock=false] If true, the popup will never be automatically shown. Call show() to show it.
  */
 
 /**
@@ -287,36 +288,51 @@ DuScriptUI.popUp = function( title, alignment, modal )
     popup.build = function( contentGroup ) {};
     popup.built = false;
 
-    popup.tieTo = function (control, onShift)
+    popup.tieTo = function (control, onShift, alwaysBlock)
     {
         onShift = def(onShift, false);
-        control.addEventListener( 'click', function(e) {
-            if(e.view.parent != control) return;
+        alwaysBlock = def(alwaysBlock, false);
 
-            if ( !e.shiftKey && onShift ) return;
+        popup.tiedAlwaysBlock = alwaysBlock;
+        popup.tiedOnShift = onShift;
 
-            if (popup.block)
-            {
-                popup.block = false;
-                return;
-            }
+        control.tiedPopups = def(control.tiedPopups, []);
+        control.tiedPopups.push(popup);
+        
+        if (control.tiedPopups.length == 1)
+        {
+            control.addEventListener( 'click', function(e) {
+                if(e.view.parent != control) return;
 
-            if ( !popup.built )
-            {
-                popup.build( );
-                popup.built = true;
-            }
+                for (var i = 0; i < control.tiedPopups.length; i++)
+                {
+                    var ppup = control.tiedPopups[i];
+                    if ( !e.shiftKey && ppup.tiedOnShift ) return;
 
-            var x = e.screenX - e.clientX;
-            var y = e.screenY - e.clientY;
-            //we need a layout and resize to get the window frame size
-            DuScriptUI.layout( popup );
-            var location = [x,y];
-            location = DuScriptUI.moveInsideScreen( [x, y], popup.frameSize );
-            popup.location = location;
-            if (!popup.pinned) DuScriptUI.eventFunctionsPaused = true;
-            popup.show();
-        }, true);
+                    if (ppup.block)
+                    {
+                        ppup.block = false;
+                        return;
+                    }
+
+                    if ( !ppup.built )
+                    {
+                        ppup.build( );
+                        ppup.built = true;
+                    }
+
+                    var x = e.screenX - e.clientX;
+                    var y = e.screenY - e.clientY;
+                    //we need a layout and resize to get the window frame size
+                    DuScriptUI.layout( ppup );
+                    var location = [x,y];
+                    location = DuScriptUI.moveInsideScreen( [x, y], ppup.frameSize );
+                    ppup.location = location;
+                    if (!ppup.pinned) DuScriptUI.eventFunctionsPaused = true;
+                    if (!ppup.tiedAlwaysBlock) ppup.show();
+                }
+            }, true);
+        }
     }
 
     popup.pin = function(p)
