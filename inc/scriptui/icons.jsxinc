@@ -27,6 +27,12 @@
 #include "icons/w12_heart.png.jsxinc"
 #include "icons/w12_more.png.jsxinc"
 #include "icons/w12_search.png.jsxinc"
+#include "icons/w12_parent.png.jsxinc"
+#include "icons/w12_folder_closed.png.jsxinc"
+#include "icons/w12_run.png.jsxinc"
+#include "icons/w12_edit.png.jsxinc"
+#include "icons/w12_add.png.jsxinc"
+#include "icons/w12_remove.png.jsxinc"
 // normal 16px
 #include "icons/w16_language.png.jsxinc"
 #include "icons/w16_settings_file.png.jsxinc"
@@ -51,6 +57,7 @@
  * @memberof DuScriptUI
  */
 DuScriptUI.Icon = {
+    ADD: w12_add,
     AE_BLUE: w8_ae_blue,
     AE_ORANGE: w8_ae_orange,
     BACK: w12_back,
@@ -61,12 +68,14 @@ DuScriptUI.Icon = {
     CHECK: w12_check,
     CLOSE: w12_close,
     DOWNLOAD: w16_download,
+    EDIT: w12_edit,
     EXPERT: w16_expert,
     EYE_DROPPER: w12_eye_dropper,
     EYE_DROPPER_BIG: w16_eye_dropper,
     FEATURE: w12_feature,
     FILE: w12_file,
     FOLDER: w12_folder,
+    FOLDER_CLOSED: w12_folder_closed,
     GO_TO: w12_goto,
     HEART: w12_heart,
     HELP: w12_help,
@@ -77,14 +86,17 @@ DuScriptUI.Icon = {
     MORE: w12_more,
     NEXT: w12_next,
     OPTIONS: w12_options,
+    PARENT: w12_parent,
     PIN: w12_pin,
     PINNED: w12_pinned,
     PLACEHOLDER: w16_placeholder,
     PROGRESS: w320_progress,
     RAINBOX_RED: w8_rx_red,
     RANDOM: w16_random,
+    REMOVE: w12_remove,
     RESET: w12_reset,
     ROOKIE: w16_rookie,
+    RUN: w12_run,
     RX_PURPLE: w8_rx_purple,
     SETTINGS: w12_settings,
     SETTINGS_FILE: w16_settings_file,

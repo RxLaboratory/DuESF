@@ -1,0 +1,42 @@
+/**
+ * JS Objects related methods
+ * @namespace
+ */
+var DuJSObj = {};
+
+/**
+ * Sorts object keys and returns a new sorted object.
+ * @param {object} obj The object to sort.
+ * @param {bool} [reverse=false] Set to true to sort in the reverse order.
+ * @param {function} [compareFn] Specifies a function that defines the sort order. Note that this parameter is ignored if reversed is true.<br />
+ * If omitted, the keys are converted to strings, then sorted according to each character's Unicode code point value.
+ * @return {object} The new sorted object.
+ */
+DuJSObj.sort = function( obj, reverse, compareFn ) {
+    reverse = def(reverse, false);
+
+    if (reverse) {
+        compareFn = function(a, b) {
+            if (b > a) return 1;
+            if (b < a) return -1;
+            if (b == a) return 0;
+        }
+    }
+
+    var newObj = {};
+    var tempArray = [];
+    for (i in obj) {
+        tempArray.push(i);
+    }
+
+    if (typeof compareFn !== 'undefined') tempArray.sort(compareFn);
+    else tempArray.sort();
+
+    for (var i = 0, n = tempArray.length; i < n; i++)
+    {
+        var key = tempArray[i];
+        newObj[key] = obj[key];
+    }
+
+    return newObj;
+}

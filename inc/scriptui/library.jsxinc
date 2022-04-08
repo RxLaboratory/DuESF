@@ -1,0 +1,462 @@
+/**
+ * @class
+ * @name DuLibrary
+ * @classdesc For use with {@link DuScriptUI}.<br />
+ * A complete library interface.<br />
+ * This is not a real class, and cannot be instanciated.<br />
+ * Use {@link DuScriptUI.library} to create a Library.<br />
+ * The Library inherits the <code>Group</code> object from ScriptUI and has all of its properties and methods.
+ * @property {ListBox} list The Listbox with the current items for the library.
+ * Items are extended with new properties, see {@link DuListItem} for more details.
+ * @property {DuLibrary~onRun} onRun The function used to run the selected item.
+ * @property {DuLibrary~onEditData} onEditData The function to execute to edit data.
+ * @property {DuLibrary~onFolderOpened} onFolderOpened The function to open a containing folder
+ * @property {DuLibrary~onFolderEdited} onFolderEdited The function to edit the folder
+ * @property {DuLibrary~onAddItem} onAddItem The function to execute when adding a new item.
+ * @property {DuLibrary~onEditItem} onEditItem The function to execute when editing an item.
+ * @property {DuLibrary~onRemoveItem} onRemoveItem The function to execute when removing an item.
+ * @property {DuLibrary~onRefresh} onRefresh The function to execute to refresh the library.
+ * @extends {Group}
+ */
+
+/**
+ * The function to execute to refresh the library.
+ * @callback DuLibrary~onRefresh
+ * @memberof DuLibrary
+ */
+
+/**
+ * The function used to run the selected item.
+ * @callback DuLibrary~onRun
+ * @param {DuListItem} item The item to run/apply.
+ * @memberof DuLibrary
+ */
+
+/**
+ * The function used to edit an item data.
+ * @callback DuLibrary~onEditData
+ * @param {DuListItem} item The item to edit.
+ * @memberof DuLibrary
+ */
+
+/**
+ * The function to open a containing folder.
+ * @callback DuLibrary~onFolderOpened
+ * @param {DuListItem} item The item to edit.
+ * @param {Object} category The current category.
+ * @memberof DuLibrary
+ */
+
+/**
+ * The function to edit the folder.
+ * @callback DuLibrary~onFolderEdited
+ * @param {DuListItem} item The item to edit.
+ * @param {Object} category The current category.
+ * @memberof DuLibrary
+ */
+
+/**
+ * The function to execute when adding a new item.
+ * @callback DuLibrary~onAddItem
+ * @param {Object} category The current category.
+ * @memberof DuLibrary
+ */
+
+/**
+ * The function to execute when editing an item.
+ * @callback DuLibrary~onAddItem
+ * @param {DuListItem} item The item to edit.
+ * @param {Object} category The current category.
+ * @memberof DuLibrary
+ */
+
+/**
+ * The function to execute when removing an item.
+ * @callback DuLibrary~onRemoveItem
+ * @param {DuListItem} item The item to remove.
+ * @param {Object} category The current category.
+ * @memberof DuLibrary
+ */
+
+/**
+ * @class
+ * @name DuListItem
+ * @classdesc For use with {@link DuScriptUI}.<br />
+ * An item in a custom listbox used with {@link DuLibrary}.<br />
+ * This is not a real class, and cannot be instanciated.<br />
+ * Use {@link DuScriptUI.library} to create a Library.<br />
+ * The Library has a <code>list</code> property which is a ScriptUI <code>ListBox</code> which contains these DuListItem.<br />
+ * DuListItem inherits the <code>Item</code> object from ScriptUI and has all of its properties and methods.
+ * @property {*} data The data associated with the item, depends on the library object passed to the DuLibrary.
+ * @property {string} libType The type of item, one of ['item', 'category', 'parent']
+ * @property {bool} editableData Wether this item data can be edited by the user.
+ * @property {bool} editableItem Whether this item can be edited by the user.
+ */
+
+/**
+ * @class
+ * @name DuLibraryItem
+ * @classdesc For use with {@link DuLibrary}.<br />
+ * An item in a library.
+ * @hideconstructor
+ * @property {*} data The data associated with the item.
+ * @property {string} libType The type of item, one of ['item', 'category']
+ * @property {bool} editableData Wether this item data can be edited by the user.
+ * @property {bool} editableItem Whether this item can be edited by the user.
+ * @property {string} icon Either the path to an image or a png representation as a string.
+ */
+
+/**
+ * Adds a new {@link DuLibrary} to the container.
+ * @param {Panel|Window|Group} container The ScriptUI Object which will contain and display the library.
+ * @param {object} library A library object. Key/value pairs, values being {@link DuLibraryItem} objects, keys being their display name.
+ * @param {bool} [runButton=true] Adds a 'run' button. When false, the button will be an 'apply' button instead.
+ * @param {bool} [editDataButton=false] Adds an 'edit data (source)' button.
+ * @param {bool} [folderButton=true] Adds a button to open/edit a containing folder.
+ * @param {bool} [canEditFolder=false] If true, Alt + Click on the folderButton opens a folder selector.
+ * @param {bool} [editListButtons=true] Adds button to edit the list (add, edit, remove entries).
+ * @param {int} [refreshinterval=-1] Number of milliseconds between auto refresh of the library. Set to -1 to disable.
+ * @param {int} [defaultItemIcon=''] Path or PNG string to use as a default icon for items.
+ */
+DuScriptUI.library = function( container, library, runButton, editDataButton, folderButton, canEditFolder, editListButtons, refreshinterval, defaultItemIcon ) {
+
+    defaultItemIcon = def(defaultItemIcon, '');
+    runButton = def(runButton, true);
+    editDataButton = def(editDataButton, false);
+    folderButton = def(folderButton, true);
+    canEditFolder = def(canEditFolder, false);
+    editListButtons = def(editListButtons, true);
+    refreshinterval = def(refreshinterval, -1);
+
+    var runIcon = '';
+    if (runButton) runIcon = DuScriptUI.Icon.RUN;
+    else runIcon = DuScriptUI.Icon.CHECK;
+
+    // UTILS
+    var currentCategory = library;
+    var currentCommand = [];
+
+    function setCategory( cat ) {
+        
+        currentCategory = cat;
+
+        cat = DuJSObj.sort(cat);
+
+        libList.removeAll();
+
+        if (currentCategory != library) {
+            var item = libList.add('item', '..');
+            item.image = DuScriptUI.Icon.PARENT.binAsString;
+            item.libType = 'parent';
+            item.data = '';
+            item.editableItem = false;
+            item.editableData = false;
+        }
+
+        for (i in cat) {
+            if (!cat.hasOwnProperty(i)) continue;
+            // ignore lib properties
+            if (i == 'libType') continue;
+            if (i == 'icon') continue;
+            if (i == 'data') continue;
+            if (i == 'editableData') continue;
+            if (i == 'editableItem') continue;
+            var val = cat[i];
+            // ignore unknown types
+            if (typeof val.libType === 'undefined') continue;
+            if (val.libType == 'item') {
+                val.icon = def(val.icon, defaultItemIcon);
+                val.data = def (val.data, '');
+                val.editableData = def (val.editableData, false);
+                val.editableItem = def (val.editableItem, false);
+
+                var item = libList.add('item', i);
+                item.libType = 'item';
+                item.data = val.data;
+                item.editableItem = val.editableItem;
+                item.editableData = val.editableData;
+                item.image = val.icon;
+            }
+            else {
+                val.icon = def(val.icon, DuScriptUI.Icon.FOLDER_CLOSED.binAsString);
+                val.data = def (val.data, '');
+                val.editableData = false;
+                val.editableItem = def (val.editableItem, false);
+
+                var item = libList.add('item', i);
+                item.libType = 'category';
+                item.image = val.icon;
+                item.data = val.data;
+                item.editableItem = val.editableItem;
+                item.editableData = val.editableData;
+            }
+        }
+    }
+
+    function updateCategory() {
+        var cat = library;
+        for (var i = 0; i < currentCommand.length; i++) {
+            cat = cat[currentCommand[i]];
+        }
+        setCategory(cat);
+    }
+
+    function updateBreadCrumbs() {
+        tipLabel.text = currentCommand.join(' > ');
+    }
+
+    function parseCmd() {
+        // Check if we're starting a new block
+        var currentCmd = cmdEdit.text;
+        if ( DuString.endsWith(currentCmd, ' >')) return;
+        if ( DuString.fullTrim(currentCmd) == '') {
+            updateCategory();
+            return;
+        }
+        var newBlock = DuString.endsWith(currentCmd, ' ');
+        // Search
+        if (!newBlock) {
+            // Get last block
+            var search = currentCmd.toLowerCase();
+            // Reset list
+            setCategory(currentCategory);
+            // Filter
+            for (var i = libList.items.length -1; i >= 0; i--) {
+                var item = libList.items[i];
+                if ( // unsuccessful search
+                    item.text.toLowerCase().indexOf(search) < 0
+                    )
+                {
+                    libList.remove(i);
+                }
+            }
+        }
+        // Select
+        else if (libList.items.length > 0 && currentCmd.length > 0) {
+            var item = libList.items[0];
+            if (item.libType == 'parent') {
+                currentCommand.pop();
+                updateBreadCrumbs();
+                updateCategory();
+                cmdEdit.setText('');
+            }
+            else if (item.libType == 'category') {
+                currentCommand.push(item.text);
+                updateBreadCrumbs();
+                updateCategory();
+                cmdEdit.setText('');
+            }
+            /*else if (item.libType == 'item') {
+                cmdEdit.setText(item.text + ' >');
+                updateCategory();
+            }*/
+        }
+    };
+
+    function run() {
+        parseCmd();
+        cmdEdit.setText(cmdEdit.text + ' ');
+        parseCmd();
+        if (libList.items.length < 0) return;
+        var item = libList.items[0];
+        if (item.libType == 'item') {
+            duLibrary.onRun(item);
+            // Clears the edit
+            clear();
+            // Clears the namespace
+            clear();
+        }
+    }
+
+    function runItem( item ) {
+        if (item.libType == 'parent') {
+            currentCommand.pop();
+            updateBreadCrumbs();
+            updateCategory();
+            cmdEdit.setText('');
+            return;
+        }
+        if (item.libType == 'category') {
+            currentCommand.push(item.text);
+            updateBreadCrumbs();
+            updateCategory();
+            cmdEdit.setText('');
+            return;
+        }
+        duLibrary.onRun(item);
+        // Clears the edit
+        clear();
+        // Clears the namespace
+        clear();
+    }
+
+    function clear() {
+        var currentCmd = cmdEdit.text;
+        // Empty
+        if ( DuString.fullTrim(currentCmd) == '') {
+            currentCommand = [];
+            updateBreadCrumbs();
+            updateCategory();
+        }
+        cmdEdit.setText('');
+        parseCmd();
+    }
+
+    function refresh() {
+        duLibrary.onRefresh();
+        setCategory(currentCategory);
+        updateBreadCrumbs();
+    }
+
+    // CREATE UI
+
+    var duLibrary = container.add('group');
+    duLibrary.orientation = 'column';
+    duLibrary.alignment = ['fill', 'fill'];
+    duLibrary.margins = 0;
+    duLibrary.spacing = 0;
+
+    var cmdGroup = DuScriptUI.group(duLibrary, 'row');
+    cmdGroup.spacing = 3;
+    cmdGroup.alignment = ['fill', 'top'];
+
+    var clearButton = DuScriptUI.button(
+        cmdGroup,
+        '',
+        DuScriptUI.Icon.CLOSE
+    );
+    clearButton.alignment = ['left', 'fill'];
+    clearButton.onClick = clear;
+
+    var cmdEdit = DuScriptUI.editText(
+        cmdGroup,
+        '',
+        '',
+        '',
+        DuScriptUI.String.START_TYPING_CMD
+    );
+    cmdEdit.alignment = ['fill', 'fill'];
+    cmdEdit.onChanging = cmdEdit.onChange = parseCmd;
+    cmdEdit.onEnterPressed = run;
+
+    var tipGroup = DuScriptUI.group( duLibrary, 'row');
+    tipGroup.alignment = ['fill', 'top'];
+
+    var tipLabel = DuScriptUI.staticText(
+        tipGroup,
+        DuScriptUI.String.START_TYPING_CMD
+    );
+    tipLabel.alignment = ['fill', 'fill'];
+
+    var listGroup = DuScriptUI.group( duLibrary, 'row');
+    listGroup.alignment = ['fill', 'fill'];
+
+    var libList = listGroup.add('listbox');
+    libList.alignment = ['fill', 'fill'];
+    libList.onDoubleClick = function() {
+        var selection = libList.selection;
+        if (!selection) return;
+        runItem(selection);
+    }
+
+    var listButtonsGroup = DuScriptUI.group( listGroup, 'column');
+    listButtonsGroup.alignment = ['right', 'fill'];
+
+    var runButton = DuScriptUI.button(
+        listButtonsGroup,
+        '',
+        runIcon
+    );
+    runButton.alignment = ['right','top'];
+    runButton.onClick = libList.onDoubleClick;
+
+    if (editDataButton) {
+        var dtDtButton = DuScriptUI.button(
+            listButtonsGroup,
+            '',
+            DuScriptUI.Icon.EDIT
+        );
+        dtDtButton.alignment = ['right','top'];
+        dtDtButton.onClick = function() { 
+            var selection = libList.selection;
+            if (!selection) return;
+            if (!selection.editableData) return;
+            duLibrary.onEditData( selection );
+        };
+    }
+
+    if (folderButton) {
+        var fldrButton = DuScriptUI.button(
+            listButtonsGroup,
+            '',
+            DuScriptUI.Icon.EDIT
+        );
+        fldrButton.alignment = ['right','top'];
+        fldrButton.onClick = function() {
+            var selection = libList.selection;
+            if (!selection) return;
+            if (selection.libType == 'parent') return;
+            duLibrary.onFolderOpened(selection, currentCategory);
+        };
+        if (canEditFolder) {
+            fldrButton.onAltClick = function() {
+                var selection = libList.selection;
+                duLibrary.onFolderEdited(selection, currentCategory);
+            };
+        }
+    }
+
+    if (editListButtons) {
+        var addItemButton = DuScriptUI.button(
+            listButtonsGroup,
+            '',
+            DuScriptUI.Icon.ADD
+        );
+        addItemButton.alignment = ['right','bottom'];
+        addItemButton.onClick = function() {
+            duLibrary.onAddItem(currentCategory);
+        };
+
+        var editItemButton = DuScriptUI.button(
+            listButtonsGroup,
+            '',
+            DuScriptUI.Icon.EDIT
+        );
+        editItemButton.alignment = ['right','bottom'];
+        addItemButton.onClick = function() {
+            var selection = libList.selection;
+            if (!selection) return;
+            if (!selection.editableItem) return;
+            duLibrary.onEditItem(selection, currentCategory);
+        };
+
+        var removeItemButton = DuScriptUI.button(
+            listButtonsGroup,
+            '',
+            DuScriptUI.Icon.REMOVE
+        );
+        editItemButton.alignment = ['right','bottom'];
+        addItemButton.onClick = function() {
+            var selection = libList.selection;
+            if (!selection) return;
+            if (selection.libType == 'parent') return;
+            duLibrary.onRemoveItem(selection, currentCategory);
+        };
+    }
+
+    duLibrary.onRun = function() {};
+    duLibrary.onEditData = function() {};
+    duLibrary.onFolderOpened = function() {};
+    duLibrary.onFolderEdited = function() {};
+    duLibrary.onAddItem = function() {};
+    duLibrary.onEditItem = function() {};
+    duLibrary.onRemoveItem = function() {};
+    duLibrary.onRefresh = function() {};
+
+    duLibrary.list = libList;
+
+    // Init 
+    setCategory(library);
+
+    return duLibrary;
+}

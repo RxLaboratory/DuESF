@@ -157,6 +157,7 @@ DuScriptUI.String = {
     SPINE: "Spine",
     STANDARD: "Standard",
     STANDARD_UI_TIP: "The standard not-too-big UI.",
+    START_TYPING_CMD: "Start typing something...",
     TAIL: "Tail",
     TAIL_SHORT: "Tl",
     TARGET: "Target",

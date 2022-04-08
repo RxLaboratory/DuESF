@@ -1,4 +1,5 @@
 #include "inc/core.jsxinc"
+#include "inc/object.jsxinc"
 #include "inc/system.jsxinc"
 #include "inc/debug.jsxinc"
 #include "inc/list.jsxinc"
