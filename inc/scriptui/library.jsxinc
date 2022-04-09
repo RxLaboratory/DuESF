@@ -148,7 +148,7 @@
  * @param {object} [options] Options and other values.
  */
 DuScriptUI.library = function( container, library, options ) {
-
+    options = def(options, {});
     options.runButton = def(options.runButton, true);
     options.editDataButton = def(options.editDataButton, false);
     options.folderButton = def(options.folderButton, true);
@@ -260,6 +260,8 @@ DuScriptUI.library = function( container, library, options ) {
                 catch(e) {}
             }
         }
+
+        libList.onChange();
     }
 
     function updateCategory() {
@@ -434,6 +436,26 @@ DuScriptUI.library = function( container, library, options ) {
     var libList = listGroup.add('listbox');
     libList.alignment = ['fill', 'fill'];
     libList.onDoubleClick = duLibrary.runItem;
+    libList.onChange = function() {
+        var item = libList.selection;
+        if (options.editDataButton) {
+            if (!item) duLibrary.editDataButton.visible = false;
+            else duLibrary.editDataButton.visible = item.editableData;
+        }
+
+        if (options.editListButtons) {
+            if (!item) {
+                duLibrary.editItemButton.visible = false;
+                removeItemButton.visible = false;
+            }
+            else {
+                duLibrary.editItemButton.visible = item.editableItem; 
+                removeItemButton.visible = duLibrary.currentCategory.editableItem && item.editableItem;
+            }
+            addItemButton.visible = duLibrary.currentCategory.editableItem;
+            
+        }
+    };
 
     var listButtonsGroup = DuScriptUI.group( listGroup, 'column');
     listButtonsGroup.alignment = ['right', 'fill'];
@@ -451,17 +473,23 @@ DuScriptUI.library = function( container, library, options ) {
     duLibrary.runButton.onCtrlAltClick = function() { duLibrary.runItem('ctrlAlt') };
 
     if (options.editDataButton) {
-        var dtDtButton = DuScriptUI.button(
+        duLibrary.editDataButton = DuScriptUI.button(
             listButtonsGroup,
             '',
             DuScriptUI.Icon.EDIT
         );
-        dtDtButton.alignment = ['right','top'];
-        dtDtButton.onClick = function() { 
+        duLibrary.editDataButton.alignment = ['right','top'];
+        duLibrary.editDataButton.onClick = function() { 
             var selection = libList.selection;
             if (!selection) return;
             if (!selection.editableData) return;
             duLibrary.onEditData( selection );
+        };
+        duLibrary.editDataButton.onAltClick = function() { 
+            var selection = libList.selection;
+            if (!selection) return;
+            if (!selection.editableData) return;
+            duLibrary.onAltEditData( selection );
         };
     }
 
@@ -576,6 +604,7 @@ DuScriptUI.library = function( container, library, options ) {
     duLibrary.onCtrlRun = function() {};
     duLibrary.onCtrlAltRun = function() {};
     duLibrary.onEditData = function() {};
+    duLibrary.onAltEditData = function() {};
     duLibrary.onFolderOpened = function() {};
     duLibrary.onFolderEdited = function() {};
     duLibrary.onAddItem = function() {};
