@@ -162,6 +162,7 @@ DuScriptUI.library = function( container, library, options ) {
     options.addItemHelpTip = def(options.addItemHelpTip, DuScriptUI.String.ADD_ITEM_OR_CAT);
     options.editItemHelpTip = def(options.editItemHelpTip, DuScriptUI.String.EDIT_ITEM_OR_CAT);
     options.removeItemHelpTip = def(options.removeItemHelpTip, DuScriptUI.String.REMOVE_ITEM_OR_CAT);
+    options.editDataHelpTip = def(options.editDataHelpTip, '');
     options.sortButton = def(options.sortButton, true);
     options.refreshButton = def(options.refreshButton, false);
 
@@ -233,6 +234,7 @@ DuScriptUI.library = function( container, library, options ) {
             if (typeof val.libType === 'undefined') continue;
             if (val.libType == 'item') {
                 val.icon = def(val.icon, options.defaultItemIcon);
+                if (val.icon == '') val.icon = options.defaultItemIcon;
                 val.data = def (val.data, '');
                 val.editableData = def (val.editableData, false);
                 val.editableItem = def (val.editableItem, false);
@@ -476,7 +478,8 @@ DuScriptUI.library = function( container, library, options ) {
         duLibrary.editDataButton = DuScriptUI.button(
             listButtonsGroup,
             '',
-            DuScriptUI.Icon.EDIT
+            DuScriptUI.Icon.EDIT,
+            options.editDataHelpTip
         );
         duLibrary.editDataButton.alignment = ['right','top'];
         duLibrary.editDataButton.onClick = function() { 
