@@ -50,8 +50,10 @@ DuScriptUI.multiButton = function( container, text, image, helpTip, ignoreUIMode
 
     multiButton.mainGroup = multiButton.add( 'group' );
     multiButton.mainGroup.orientation = 'row';
-    multiButton.mainGroup.margins = 1;
-    multiButton.mainGroup.spacing = 4;
+    if (text != '') {
+        multiButton.mainGroup.margins = 1;
+        multiButton.mainGroup.spacing = 4;
+    }
     multiButton.mainGroup.alignment = [ 'fill', 'fill' ];
     multiButton.mainGroup.alignChildren = [ 'center', 'center' ];
     multiButton.helpTip = helpTip;
@@ -68,10 +70,15 @@ DuScriptUI.multiButton = function( container, text, image, helpTip, ignoreUIMode
     if (image != '')
     {
         var iconGroup = multiButton.mainGroup.add('group');
-        iconGroup.minimumSize = [20,20];
-        iconGroup.margins = 2;
-        if ( text == '' ) iconGroup.alignment = ['center', 'fill'];
-        else iconGroup.alignment = ['left', 'fill'];
+        if ( text == '' ) {
+            iconGroup.minimumSize = [16,16];
+            iconGroup.alignment = ['center', 'fill'];
+        }
+        else {
+            iconGroup.minimumSize = [20,20];
+            iconGroup.margins = 2;
+            iconGroup.alignment = ['left', 'fill'];
+        }
         if (image instanceof DuBinary) image = image.binAsString;
         multiButton.icon = iconGroup.add( 'image', undefined, image );
         multiButton.icon.alignment = [ 'center', 'center' ];

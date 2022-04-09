@@ -196,3 +196,35 @@ DuPath.fixName = function (name, placeholder ) {
 	
 	return name.replace( /([\/\\:*?"<>|])/g, placeholder);
 }
+
+/**
+ * Checks if the given path represents an existing file
+ * @param {File|Folder|string} path The path to check
+ * @return {bool}
+ */
+DuPath.isFile = function(path) {
+	if (jstype(path) == 'string')
+	{
+		path == new File(path);
+		if (path.exists) return true;
+		return false;
+	}
+	if (path instanceof File) return path.exists;
+	return false;
+}
+
+/**
+ * Checks if the given path represents an existing folder
+ * @param {File|Folder|string} path The path to check
+ * @return {bool}
+ */
+DuPath.isFolder = function(path) {
+	if (jstype(path) == 'string')
+	{
+		path == new Folder(path);
+		if (path.exists) return true;
+		return false;
+	}
+	if (path instanceof Folder) return path.exists;
+	return false;
+}

@@ -33,6 +33,9 @@
 #include "icons/w12_edit.png.jsxinc"
 #include "icons/w12_add.png.jsxinc"
 #include "icons/w12_remove.png.jsxinc"
+#include "icons/w12_sort.png.jsxinc"
+#include "icons/w12_sort_up.png.jsxinc"
+#include "icons/w12_sort_down.png.jsxinc"
 // normal 16px
 #include "icons/w16_language.png.jsxinc"
 #include "icons/w16_settings_file.png.jsxinc"
@@ -104,5 +107,8 @@ DuScriptUI.Icon = {
     UPDATE: w12_update,
     USER: w16_user,
     SEARCH: w12_search,
+    SORT: w12_sort,
+    SORT_UP: w12_sort_up,
+    SORT_DOWN: w12_sort_down,
 };
 

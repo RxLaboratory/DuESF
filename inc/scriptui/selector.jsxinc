@@ -82,10 +82,11 @@
  * @param {string} [helpTip] - The help tip to show on the selector
  * @return {DuSelector} - The selector
  */
-DuScriptUI.selector = function( container, helpTip )
+DuScriptUI.selector = function( container, helpTip, iconOnly )
 {
     helpTip = def(helpTip, '');
     helpTip = tr(helpTip);
+    iconOnly = def(iconOnly, false);
 
     //create main group
     var selector = container.add( 'group' );
@@ -97,7 +98,7 @@ DuScriptUI.selector = function( container, helpTip )
 
     selector.mainGroup = selector.add( 'group' );
     selector.mainGroup.orientation = 'row';
-    selector.mainGroup.margins = 1;
+    if (!iconOnly) selector.mainGroup.margins = 1;
     selector.mainGroup.spacing = 4;
     selector.mainGroup.alignment = [ 'fill', 'fill' ];
     selector.mainGroup.alignChildren = [ 'center', 'center' ];
@@ -105,33 +106,43 @@ DuScriptUI.selector = function( container, helpTip )
     DuScriptUI.setBackgroundColor( selector.mainGroup, DuColor.Color.OBSIDIAN );
 
     //the menu button
-    selector.menuButton = selector.mainGroup.add( 'image', undefined, DuScriptUI.Icon.MENU.binAsString );
-    selector.menuButton.alignment = [ 'left', 'center' ];
-    selector.menuButton.helpTip = helpTip;
-
+    if (!iconOnly) {
+        selector.menuButton = selector.mainGroup.add( 'image', undefined, DuScriptUI.Icon.MENU.binAsString );
+        selector.menuButton.alignment = [ 'left', 'center' ];
+        selector.menuButton.helpTip = helpTip;
+    }
+    
     //the image
     var iconGroup = selector.mainGroup.add('group');
-    iconGroup.minimumSize = [20,20];
-    iconGroup.margins = 2;
+    if (!iconOnly) {
+        iconGroup.minimumSize = [20,20];
+        iconGroup.margins = 2;
+    }
+    else {
+        iconGroup.minimumSize = [16,16];
+    }
     iconGroup.alignment = ['left', 'fill'];
     selector.icon = iconGroup.add( 'image', undefined, DuScriptUI.Icon.PLACEHOLDER );
     selector.icon.alignment = [ 'center', 'center' ];
     selector.icon.helpTip = helpTip;
 
-    //add fillers to be able to click anywhere on the button
-    selector.fillerM = selector.mainGroup.add( 'statictext', undefined, " " );
-    selector.fillerM.alignment = [ 'left', 'fill' ];
-    selector.fillerM.size = [ 0, -1];
+    if (!iconOnly) {
+        //add fillers to be able to click anywhere on the button
+        selector.fillerM = selector.mainGroup.add( 'statictext', undefined, " " );
+        selector.fillerM.alignment = [ 'left', 'fill' ];
+        selector.fillerM.size = [ 0, -1];
 
-    //the text
-    selector.label = selector.mainGroup.add( 'statictext', undefined, '' );
-    selector.label.helpTip = '';
-    selector.label.alignment = [ 'fill', 'center' ];
-    selector.label.helpTip = helpTip;
+        //the text
+        selector.label = selector.mainGroup.add( 'statictext', undefined, '' );
+        selector.label.helpTip = '';
+        selector.label.alignment = [ 'fill', 'center' ];
+        selector.label.helpTip = helpTip;
 
-    //add fillers to be able to click anywhere on the button
-    selector.fillerR = selector.mainGroup.add( 'statictext', undefined, " " );
-    selector.fillerR.alignment = [ 'fill', 'fill' ];
+        //add fillers to be able to click anywhere on the button
+        selector.fillerR = selector.mainGroup.add( 'statictext', undefined, " " );
+        selector.fillerR.alignment = [ 'fill', 'fill' ];
+    }
+    
 
     //create popup
     selector.popup = new Window( 'palette', '', undefined,
@@ -155,14 +166,16 @@ DuScriptUI.selector = function( container, helpTip )
     //add default button
     selector.items = [];
     selector.index = -1;
+    selector.currentData = null;
 
-    selector.addButton = function( text, image, helpTip, localize )
+    selector.addButton = function( text, image, helpTip, localize, data )
     {
         selector.popup.hide();
         text = def(text, '-');
         image = def(image, '');
         helpTip = def(helpTip, '');
         localize = def(localize, true);
+        data = def(data, null);
 
         if (localize)
         {
@@ -170,11 +183,13 @@ DuScriptUI.selector = function( container, helpTip )
             helpTip = tr( helpTip );
         }
         
-        var size = text.length * 7;
-        if ( selector.label.minimumSize.width < size ) selector.label.minimumSize.width = size;
+        if (!iconOnly) {
+            var size = text.length * 7;
+            if ( selector.label.minimumSize.width < size ) selector.label.minimumSize.width = size;
+        }
 
         var index = selector.items.length;
-        selector.items.push( [ text, image, helpTip ] );
+        selector.items.push( [ text, image, helpTip, data ] );
         //add to popup
         var button = DuScriptUI.button( selector.popup.buttons, text, image, helpTip, false, undefined, undefined, false, true );
         button.bgColor = DuColor.Color.OBSIDIAN;
@@ -218,15 +233,17 @@ DuScriptUI.selector = function( container, helpTip )
             selector.icon.show();
             selector.icon.image = image;
         }
-        else 
+        else if (!iconOnly)
         {
             selector.icon.hide();
         }
-        selector.label.text = item[ 0 ];
+        if (!iconOnly) selector.label.text = item[ 0 ];
 
         selector.index = index;
 
         selector.text = item[ 0 ];
+
+        selector.currentData = item[3];
 
         if (!quiet && !selector.freeze) selector.onChange();
     }
@@ -248,7 +265,7 @@ DuScriptUI.selector = function( container, helpTip )
         selector.onRefresh();
         var popup = false;
 
-        if ( e.target === selector.menuButton ) popup = true;
+        if (!iconOnly) if ( e.target === selector.menuButton ) popup = true;
         if ( e.altKey ) popup = true;
 
         if ( popup )
@@ -281,7 +298,7 @@ DuScriptUI.selector = function( container, helpTip )
     selector.dim = function( e )
     {
         DuScriptUI.setBackgroundColor( selector, DuColor.Color.TRANSPARENT );
-        DuScriptUI.setTextColor( selector.label, DuColor.Color.APP_TEXT_COLOR );
+        //if (!iconOnly) DuScriptUI.setTextColor( selector.label, DuColor.Color.APP_TEXT_COLOR );
     }
 
     selector.mainGroup.addEventListener( "mouseover", selector.highlight );

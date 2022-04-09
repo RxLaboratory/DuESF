@@ -162,6 +162,8 @@ DuScriptUI.library = function( container, library, options ) {
     options.addItemHelpTip = def(options.addItemHelpTip, DuScriptUI.String.ADD_ITEM_OR_CAT);
     options.editItemHelpTip = def(options.editItemHelpTip, DuScriptUI.String.EDIT_ITEM_OR_CAT);
     options.removeItemHelpTip = def(options.removeItemHelpTip, DuScriptUI.String.REMOVE_ITEM_OR_CAT);
+    options.sortButton = def(options.sortButton, true);
+    options.refreshButton = def(options.refreshButton, false);
 
     // The main group
     var duLibrary = container.add('group');
@@ -179,21 +181,31 @@ DuScriptUI.library = function( container, library, options ) {
     // UTILS
     duLibrary.currentCategory = duLibrary.library;
     var currentCommand = [];
+    duLibrary.sortMode = 'up';
 
     function setCategory( cat ) {
         duLibrary.onRefresh( cat );
 
         duLibrary.currentCategory = cat;
 
-        cat = DuJSObj.sort(cat, false, function( a, b ) {
+        // Update the sort button
+        duLibrary.srtButton.freeze = true;
+        if (duLibrary.sortMode == 'none') duLibrary.srtButton.setCurrentIndex(0);
+        else if (duLibrary.sortMode == 'down') duLibrary.srtButton.setCurrentIndex(2);
+        else duLibrary.srtButton.setCurrentIndex(1);
+        duLibrary.srtButton.freeze = false;
+
+        if (duLibrary.sortMode != 'none') cat = DuJSObj.sort(cat, false, function( a, b ) {
             var aType = cat[a].libType;
             var bType = cat[b].libType;
+            var r = 1;
+            if (duLibrary.sortMode == 'down') r = -1;
             // Categories go first no matter what
-            if (aType == 'category' && bType == 'item') return -1;
-            else if (aType == 'item' && bType == 'category') return 1;
+            if (aType == 'category' && bType == 'item') return -r;
+            else if (aType == 'item' && bType == 'category') return r;
             // Alphabetical
-            if (a < b) return -1;
-            if (a > b) return 1;
+            if (a < b) return -r;
+            if (a > b) return r;            
             return 0;
         });
 
@@ -230,7 +242,8 @@ DuScriptUI.library = function( container, library, options ) {
                 item.data = val.data;
                 item.editableItem = val.editableItem;
                 item.editableData = val.editableData;
-                item.image = val.icon;
+                try {  item.image = val.icon; }
+                catch(e) {}
             }
             else {
                 val.icon = def(val.icon, DuScriptUI.Icon.FOLDER_CLOSED.binAsString);
@@ -240,10 +253,11 @@ DuScriptUI.library = function( container, library, options ) {
 
                 var item = libList.add('item', i);
                 item.libType = 'category';
-                item.image = val.icon;
                 item.data = val.data;
                 item.editableItem = val.editableItem;
                 item.editableData = val.editableData;
+                try {  item.image = val.icon; }
+                catch(e) {}
             }
         }
     }
@@ -352,7 +366,7 @@ DuScriptUI.library = function( container, library, options ) {
         // Clears the edit
         cmdEdit.setText('');
         parseCmd();
-    }
+    };
 
     duLibrary.clear = function () {
         var currentCmd = cmdEdit.text;
@@ -364,13 +378,20 @@ DuScriptUI.library = function( container, library, options ) {
         }
         cmdEdit.setText('');
         parseCmd();
-    }
+    };
 
     duLibrary.refresh = function () {
         duLibrary.onRefresh(duLibrary.currentCategory);
         setCategory(duLibrary.currentCategory);
         updateBreadCrumbs();
-    }
+    };
+
+    duLibrary.sort = function(mode) {
+        duLibrary.sortMode = mode;
+        duLibrary.onRefresh(duLibrary.currentCategory);
+        setCategory(duLibrary.currentCategory);
+        updateBreadCrumbs();
+    };
 
     // CREATE UI
 
@@ -403,7 +424,7 @@ DuScriptUI.library = function( container, library, options ) {
 
     var tipLabel = DuScriptUI.staticText(
         tipGroup,
-        DuScriptUI.String.START_TYPING_CMD
+        ''
     );
     tipLabel.alignment = ['fill', 'fill'];
 
@@ -462,6 +483,40 @@ DuScriptUI.library = function( container, library, options ) {
                 duLibrary.onFolderEdited(selection, duLibrary.currentCategory);
             };
         }
+    }
+
+    if (options.sortButton) {
+        duLibrary.srtButton = DuScriptUI.selector( listButtonsGroup, '', true );
+        duLibrary.srtButton.alignment = ['right','top'];
+        duLibrary.srtButton.addButton(
+            '',
+            DuScriptUI.Icon.SORT
+        );
+        duLibrary.srtButton.addButton(
+            '',
+            DuScriptUI.Icon.SORT_UP
+        );
+        duLibrary.srtButton.addButton(
+            '',
+            DuScriptUI.Icon.SORT_DOWN
+        );
+        duLibrary.srtButton.setCurrentIndex(1);
+        duLibrary.srtButton.onChange = function() {
+            if (duLibrary.srtButton.index == 0) duLibrary.sort('none');
+            else if (duLibrary.srtButton.index == 1) duLibrary.sort('up');
+            else if (duLibrary.srtButton.index == 2) duLibrary.sort('down');
+        }
+    }
+
+    if (options.refreshButton) {
+        var rfrshButton = DuScriptUI.button(
+            listButtonsGroup,
+            '',
+            DuScriptUI.Icon.UPDATE,
+            DuScriptUI.String.REFRESH_LIB
+        );
+        rfrshButton.alignment = ['right','top'];
+        rfrshButton.onClick = duLibrary.refresh;
     }
 
     if (options.editListButtons) {

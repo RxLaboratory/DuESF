@@ -133,6 +133,7 @@ DuScriptUI.String = {
     PROPERTIES: "Properties",
     RANDOM_TIP: "Set a random value.",
     RECTANGLE: "Rectangle",
+    REFRESH_LIB: "Refresh library",
     REMOVE: "Remove",
     REMOVE_ITEM_OR_CAT: "Remove selected item or category",
     RESET_SETTINGS: "Reset the settings to their default values.",
