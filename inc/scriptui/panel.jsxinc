@@ -909,12 +909,6 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
         bugButton.alignment = ['left', 'fill'];
     }
     
-    if (DuESF.featureRequestURL != '')
-    {
-        var featureRequestButton = DuScriptUI.addFeatureRequestButton( panel.bottomGroup );
-        featureRequestButton.alignment = ['left', 'fill'];
-    }
-    
     if (addSettingsButton)
     {
         var settingsButton = DuScriptUI.button(

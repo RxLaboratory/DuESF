@@ -213,6 +213,7 @@ DuVersion.checkUpdate = function()
 			"host": DuESF.host,
 			"hostVersion": DuESF.hostVersion.fullVersion
 		}
+		if (DuESF.isPreRelease) args["prerelease"] = '';
         var request = DuURL.buildGET( baseUrl, url, args );
 		var reply = '';
 

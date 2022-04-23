@@ -62,38 +62,6 @@ DuScriptUI.addBugButton = function( container, showLabel )
 }
 
 /**
- * Creates a button opening the feature request url.
- * @param {Panel|Window|Group} container - The ScriptUI Object which will contain and display the button.
- * @param {bool} [showLabel=false] - When true, the button includes a "Feature Request" label.
- * @return {DuButton} The feature request button created.
- */
-DuScriptUI.addFeatureRequestButton = function( container, showLabel )
-{
-    showLabel = def(showLabel, false);
-
-    var label = DuScriptUI.String.FEATURE_REQUEST;
-    var helpTip = DuScriptUI.String.FEATURE_REQUEST_TIP;
-    label = tr(label);
-    helpTip = tr(helpTip);
-
-    var button = DuScriptUI.button(
-        container,
-        showLabel ? label : "",
-        w12_feature,
-        helpTip
-        );
-    button.onClick = function ()
-    {
-        DuSystem.openURL( DuESF.featureRequestURL );
-    }
-    button.onAltClick = function ()
-    {
-        DuSystem.openURL( 'http://bat-ultra-bunny.tumblr.com' );
-    }
-    return button;
-}
-
-/**
  * Creates a button opening the help panel.
  * @param {Panel|Window|Group} container - The ScriptUI Object which will contain and display the button.
  * @param {bool} [showLabel=false] - When true, the button includes a "Help" label.

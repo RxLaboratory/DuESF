@@ -131,11 +131,6 @@ DuESF.chatURL = '';
  */
 DuESF.bugReportURL = '';
 /**
- * The url for requesting features
- * @type {string}
- */
-DuESF.featureRequestURL = '';
-/**
  * The url for donations, support, like...
  * @type {string}
  */
@@ -175,6 +170,11 @@ DuESF.companyIcon = '';
  * @type {string}
  */
 DuESF.rxVersionURL = '';
+/**
+ * Is this script a prerelease version? This info is used when checking for updates.
+ * @type {bool}
+ */
+DuESF.isPreRelease = false;
 /**
  * The current DuESF File
  * @readonly
