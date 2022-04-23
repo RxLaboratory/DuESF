@@ -97,6 +97,16 @@ DuScriptUI.defaultSpacing = 2;
  */
 DuScriptUI.defaultMargins = 2;
 
+/**
+ * @type {ProgressBar} A bar used to show current funding status.
+ */
+DuScriptUI.fundingBar = null;
+
+/**
+ * @type {StaticText} A label used to show current funding status.
+ */
+DuScriptUI.fundingLabel = null;
+
 //low-level undocumented list: keeps the currently highlighted controls
 DuScriptUI.highlightedControls = [];
 

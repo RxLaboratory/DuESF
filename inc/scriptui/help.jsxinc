@@ -105,17 +105,16 @@ DuScriptUI.addDonateButton = function ( container, showLabel )
 {
     showLabel = def(showLabel, false);
 
-    var label = "I \u2665 " + DuESF.scriptName;
+    var defaultLabel = "I \u2665 " + DuESF.scriptName;
 
     var button = DuScriptUI.button(
         container,
-        showLabel ? label : "",
-        w12_heart,
-        label,
-        false,
-        undefined,
-        undefined,
-        false
+        {
+            text: showLabel ? defaultLabel : "",
+            image: w12_heart,
+            helpTip: defaultLabel,
+            small: true
+        }
     );
 
     button.onClick = function ()
@@ -126,6 +125,8 @@ DuScriptUI.addDonateButton = function ( container, showLabel )
     {
         DuSystem.openURL( 'http://patreon.com/duduf' );
     }
+
+    DuScriptUI.updateFundingInfo();
 
     return button;
 }
@@ -227,7 +228,11 @@ DuScriptUI.checkUpdate = function ( callback, ui, showAlert )
     var latestUpdateCheck = def( DuESF.scriptSettings.data.common.latestUpdateCheck, 0);
     var now = Date.now();
     // 24h
-    if (now - latestUpdateCheck < 86400000 && !showAlert && !DuESF.debug) return callback();
+    if (now - latestUpdateCheck < 86400000 && !showAlert && !DuESF.debug) {
+        // Just update funding info
+        DuScriptUI.updateFundingInfo();
+        return callback();
+    }
     DuESF.scriptSettings.data.common.latestUpdateCheck = now;
     DuESF.scriptSettings.save();
 
@@ -247,6 +252,11 @@ DuScriptUI.checkUpdate = function ( callback, ui, showAlert )
         if (showAlert) alert("Sorry, something failed...\n\n" + update.message);
         if (noCallback) return;
         return callback();
+    }
+
+    // Update funding info
+    if (update.monthlyFund && update.fundingGoal) {
+        DuScriptUI.updateFundingInfo(update.monthlyFund, update.fundingGoal);
     }
 
     if (!update.update)
@@ -379,4 +389,38 @@ DuScriptUI.checkUpdate = function ( callback, ui, showAlert )
     
     DuScriptUI.showUI( ui, false );
     DuScriptUI.uiShown = false;
+}
+
+DuScriptUI.updateFundingInfo = function (fund, goal) {
+    DuESF.scriptSettings.data.funding = def(DuESF.scriptSettings.data.funding, {});
+    DuESF.scriptSettings.data.funding.monthlyFund = def(DuESF.scriptSettings.data.funding.monthlyFund, 0);
+    DuESF.scriptSettings.data.funding.fundingGoal = def(DuESF.scriptSettings.data.funding.fundingGoal, 4000);
+    
+    fund = def(fund, DuESF.scriptSettings.data.funding.monthlyFund);
+    goal = def(goal, DuESF.scriptSettings.data.funding.fundingGoal);
+
+    if (!fund || !goal) {
+        DuScriptUI.fundingBar.value = 0;
+        DuScriptUI.fundingBar.helpTip = DuScriptUI.String.FUNDING_BAR_TIP;
+        return;
+    }
+
+    fund = parseFloat(fund);
+    goal = parseFloat(goal);
+    var ratio = Math.round( fund / goal * 100);
+    var helpTip = DuScriptUI.String.FUNDING_BAR_TIP + '\n\n' + 
+            DuString.args( DuScriptUI.String.FUNDING_BAR_TIP_DETAILS, [fund, ratio, goal] );
+
+    if (DuScriptUI.fundingBar) {
+        DuScriptUI.fundingBar.value = ratio;
+        fund = Math.round( fund );
+        DuScriptUI.fundingBar.helpTip = helpTip
+    }
+    if (DuScriptUI.fundingLabel) {
+        DuScriptUI.fundingLabel.helpTip = helpTip;
+        DuScriptUI.fundingLabel.text = ratio + '%';
+    }
+    DuESF.scriptSettings.data.funding.monthlyFund = fund;
+    DuESF.scriptSettings.data.funding.fundingGoal = goal;
+    DuESF.scriptSettings.save();
 }

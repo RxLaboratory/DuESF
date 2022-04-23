@@ -896,12 +896,36 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
     bottomUberGroup.margins = 0;
     bottomUberGroup.spacing = 0;*/
 
-    // Draw a thin line like other panels
-    var bottomLine = DuScriptUI.separator( bottomUberGroup );
-    bottomLine.alignment = ['fill', 'bottom'];
-    
+    // Draw a thin line like other panels.
+    //var bottomLine = DuScriptUI.separator( bottomUberGroup );
+    if ( DuESF.rxVersionURL != '' ) {
+        DuScriptUI.fundingBar = bottomUberGroup.add( 'progressbar' );
+        DuScriptUI.fundingBar.maximumSize = [32000, 3];
+        DuScriptUI.fundingBar.alignment = ['fill', 'top'];
+        DuScriptUI.fundingBar.helpTip = DuScriptUI.String.FUNDING_BAR_TIP;
+        DuScriptUI.updateFundingInfo();
+    }
+
     panel.bottomGroup = DuScriptUI.group(bottomUberGroup, 'row');
     panel.bottomGroup.margins = 0;
+
+    if ( DuESF.rxVersionURL != '' ) {
+        var fundButton = DuScriptUI.button(
+            panel.bottomGroup,
+            {
+                text: '0%',
+                helpTip: "I \u2665 " + DuESF.scriptName,
+                small: true
+            }
+        );
+        fundButton.alignment = ['left', 'center'];
+        fundButton.onClick = function ()
+        {
+            DuSystem.openURL( DuESF.donateURL );
+        }
+        DuScriptUI.fundingLabel = fundButton.label;
+        DuScriptUI.updateFundingInfo();
+    }
 
     if (DuESF.bugReportURL != '')
     {
