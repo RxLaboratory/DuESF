@@ -192,8 +192,8 @@ DuVersion.checkUpdate = function()
 	if ( DuESF.rxVersionURL == '' ) return null;
 	var co = new Socket;
 	co.encoding = 'UTF-8';
-	// No need for more than 2 seconds for just checking updates.
-	co.timeout = 2;
+	// No need for more than 5 seconds for just checking updates.
+	co.timeout = 5;
     var url = DuESF.rxVersionURL.replace('http://','').replace('https://','').split('/');
     var baseUrl = url.shift();
 	var fullUrl = baseUrl  + ':80';
