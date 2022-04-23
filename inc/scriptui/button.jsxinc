@@ -91,7 +91,11 @@ DuScriptUI.button = function(container, text, image, helpTip, addOptionsPanel, o
         throw 'DuScriptUI: DuScriptUI.button(container, text, image, helpTip):\nTypeError.\n\ncontainer has to be a Group/Panel/Window.\n\ncontainer is ' + jstype(container) + ' with value ' + container.toString();
     }
 
+    var options = {};
     text = def(text, '');
+
+    if (jstype(text) != 'string') options = text;
+
     image = def(image, '');
     helpTip = def(helpTip, '');
     addOptionsPanel = def(addOptionsPanel, false);
@@ -101,31 +105,44 @@ DuScriptUI.button = function(container, text, image, helpTip, addOptionsPanel, o
     optionsWithoutButton = def(optionsWithoutButton, false);
     optionsButtonText = def(optionsButtonText, text);
     optionsWithoutPanel = def(optionsWithoutPanel, false);
-
+    
+    options.text = def(options.text, text);
+    options.image = def(options.image, image);
+    options.helpTip = def(options.helpTip, helpTip);
+    options.optionsPanel = def(options.optionsPanel, addOptionsPanel);
+    options.orientation = def(options.orientation, orientation);
+    options.localize = def(options.localize, localize);
+    options.ignoreUIMode = def(options.ignoreUIMode, ignoreUIMode);
+    options.optionsWithoutButton = def(options.optionsWithoutButton, optionsWithoutButton);
+    options.optionsButtonText = def(options.optionsButtonText, optionsButtonText);
+    options.optionsWithoutPanel = def(options.optionsWithoutPanel, optionsWithoutPanel);
+    options.small = def(options.small, false);
+    
     var commonSettings = def(DuESF.scriptSettings.data.common, {});
     var uiMode = def(commonSettings.uiMode, 0);
-    if (uiMode >= 2 && image != '' && !ignoreUIMode) text = '';
+    if (uiMode >= 2 && options.image != '' && !options.ignoreUIMode) options.text = '';
 
     if (typeof alignment === 'undefined') {
-        if (orientation == 'row' && text != '') alignment = 'left';
-        else if (orientation == 'row') alignment = 'center';
+        if (options.orientation == 'row' && options.text != '') alignment = 'left';
+        else if (options.orientation == 'row') alignment = 'center';
         else alignment = 'top';
     }
+    options.alignment = def(options.alignment, alignment);
 
-    if (localize) {
-        text = tr(text);
-        helpTip = tr(helpTip);
+    if (options.localize) {
+        options.text = tr(options.text);
+        options.helpTip = tr(options.helpTip);
     }
 
-    if (addOptionsPanel) {
-        if (helpTip != '') helpTip += '\n\n';
-        helpTip += DuScriptUI.String.MORE_OPTIONS_TIP;
+    if (options.optionsPanel) {
+        if (options.helpTip != '') options.helpTip += '\n\n';
+        options.helpTip += DuScriptUI.String.MORE_OPTIONS_TIP;
     }  
 
-    if (image == '' && text == '') text = 'button';
+    if (options.image == '' && options.text == '') options.text = 'button';
 
     var duButton = container.add('group');
-    duButton.orientation = orientation;
+    duButton.orientation = options.orientation;
     duButton.alignment = ['fill', 'top'];
     duButton.spacing = 0;
     duButton.bgColor = DuColor.Color.TRANSPARENT;
@@ -140,22 +157,22 @@ DuScriptUI.button = function(container, text, image, helpTip, addOptionsPanel, o
     duButton.onOptions = function() {};
 
     // Options panel
-    if (addOptionsPanel) {
+    if (options.optionsPanel) {
 
-        if (!optionsWithoutPanel) {
+        if (!options.optionsWithoutPanel) {
             // Create panel
-            var optionsPanel = DuScriptUI.popUp(text == '' ? 'Options' : text);
+            var optionsPanel = DuScriptUI.popUp(options.text == '' ? 'Options' : options.text);
             duButton.optionsPopup = optionsPanel;
             duButton.optionsPanel = DuScriptUI.group(optionsPanel.content, 'column');
 
-            if (!optionsWithoutButton) {
+            if (!options.optionsWithoutButton) {
                 DuScriptUI.separator(optionsPanel.content);
 
                 duButton.optionsButton = DuScriptUI.button(
                     optionsPanel.content,
-                    optionsButtonText,
+                    options.optionsButtonText,
                     w12_check,
-                    helpTip
+                    options.helpTip
                 )
 
                 duButton.optionsButton.onClick = function() {
@@ -167,35 +184,35 @@ DuScriptUI.button = function(container, text, image, helpTip, addOptionsPanel, o
         }
 
         // Add button
-        if (text != '' && orientation != 'column') {
+        if (options.text != '' && options.orientation != 'column') {
             var optionsButton = DuScriptUI.button(
                 duButton,
                 '',
                 w12_options,
-                text + '\nOptions'
+                options.text + '\nOptions'
             )
             optionsButton.alignment = ['left', 'center'];
 
-            if (!optionsWithoutPanel) optionsPanel.tieTo(optionsButton);
+            if (!options.optionsWithoutPanel) optionsPanel.tieTo(optionsButton);
 
             optionsButton.onClick = function () { duButton.onOptions(true); };
         }
     }
 
-    var mainGroup = DuScriptUI.group(duButton, orientation);
+    var mainGroup = DuScriptUI.group(duButton, options.orientation);
     mainGroup.alignment = ['fill', 'fill'];
     mainGroup.margins = 0;
 
     //Add fillers to be able to click anywhere on the button
-    if (text != '' && orientation == 'row') {
+    if (options.text != '' && options.orientation == 'row') {
         duButton.fillerL = mainGroup.add('statictext', undefined, " ");
         duButton.fillerL.alignment = ['left', 'fill'];
-        if (alignment == 'left' && !addOptionsPanel) duButton.fillerL.size = [18, -1];
-        else if (alignment == 'left') duButton.fillerL.size = [2, -1];
+        if (options.alignment == 'left' && !options.optionsPanel && !options.small) duButton.fillerL.size = [18, -1];
+        else if (options.alignment == 'left') duButton.fillerL.size = [2, -1];
     }
 
-    // Add image
-    if (image != '') {
+    // Add options.image
+    if (options.image != '') {
         duButton.imageGroup = mainGroup.add('group');
         duButton.imageGroup.margins = 0;
         duButton.imageGroup.spacing = 0;
@@ -204,41 +221,42 @@ DuScriptUI.button = function(container, text, image, helpTip, addOptionsPanel, o
         subgroup.margins = 2;
         subgroup.spacing = 0;
         subgroup.alignment = ['fill', 'fill'];
-        if (image instanceof DuBinary) image = image.binAsString;
-        duButton.image = subgroup.add('image', undefined, image);
-        if (orientation == 'row') duButton.imageGroup.alignment = [alignment, 'center'];
-        else duButton.imageGroup.alignment = ['center', alignment];
+        if (options.image instanceof DuBinary) options.image = options.image.binAsString;
+        duButton.image = subgroup.add('image', undefined, options.image);
+        if (options.orientation == 'row') duButton.imageGroup.alignment = [options.alignment, 'center'];
+        else duButton.imageGroup.alignment = ['center', options.alignment];
         // Bigger buttons on photoshop
         if (DuESF.host == DuESF.HostApplication.PHOTOSHOP) duButton.imageGroup.margins = 3;
-        duButton.image.helpTip = helpTip;
+        duButton.image.helpTip = options.helpTip;
     }
 
     // Another filler
-    if (text != '' && image != '' && orientation == 'row') {
+    if (options.text != '' && options.image != '' && options.orientation == 'row') {
         duButton.fillerM = mainGroup.add('statictext', undefined, " ");
         duButton.fillerM.alignment = ['left', 'fill'];
-        duButton.fillerM.size = [8, -1];
+        if (options.small) duButton.fillerM.size = [2, -1];
+        else duButton.fillerM.size = [8, -1];
     }
 
     // Add text
-    if (text != '') {
-        duButton.label = mainGroup.add('statictext', undefined, text);
-        duButton.label.helpTip = helpTip;
-        if (orientation == 'row') duButton.label.alignment = [alignment, 'center'];
-        else duButton.label.alignment = ['center', alignment];
+    if (options.text != '') {
+        duButton.label = mainGroup.add('statictext', undefined, options.text);
+        duButton.label.helpTip = options.helpTip;
+        if (options.orientation == 'row') duButton.label.alignment = [options.alignment, 'center'];
+        else duButton.label.alignment = ['center', options.alignment];
     }
 
     // Another filler
-    if (text != '' && orientation == 'row') {
+    if (options.text != '' && options.orientation == 'row') {
         duButton.fillerR = mainGroup.add('statictext', undefined, " ");
         duButton.fillerR.alignment = ['fill', 'fill'];
-        if (alignment == 'right') duButton.fillerR.size = [10, -1];
+        if (options.alignment == 'right') duButton.fillerR.size = [10, -1];
     }
 
     //events
     duButton.clicked = function() {
-        if (addOptionsPanel) {
-            if (!optionsWithoutPanel && !duButton.optionsPopup.built) {
+        if (options.optionsPanel) {
+            if (!options.optionsWithoutPanel && !duButton.optionsPopup.built) {
                 duButton.optionsPopup.build();
                 duButton.optionsPopup.built = true;
             }
@@ -248,8 +266,8 @@ DuScriptUI.button = function(container, text, image, helpTip, addOptionsPanel, o
     }
 
     duButton.shiftClicked = function() {
-        if (addOptionsPanel) {
-            if (!optionsWithoutPanel && !duButton.optionsPopup.built) {
+        if (options.optionsPanel) {
+            if (!options.optionsWithoutPanel && !duButton.optionsPopup.built) {
                 duButton.optionsPopup.build();
                 duButton.optionsPopup.built = true;
             }
@@ -259,8 +277,8 @@ DuScriptUI.button = function(container, text, image, helpTip, addOptionsPanel, o
     }
 
     duButton.altClicked = function() {
-        if (addOptionsPanel) {
-            if (!optionsWithoutPanel && !duButton.optionsPopup.built) {
+        if (options.optionsPanel) {
+            if (!options.optionsWithoutPanel && !duButton.optionsPopup.built) {
                 duButton.optionsPopup.build();
                 duButton.optionsPopup.built = true;
             }
@@ -270,8 +288,8 @@ DuScriptUI.button = function(container, text, image, helpTip, addOptionsPanel, o
     }
 
     duButton.ctrlAltClicked = function() {
-        if (addOptionsPanel) {
-            if (!optionsWithoutPanel && !duButton.optionsPopup.built) {
+        if (options.optionsPanel) {
+            if (!options.optionsWithoutPanel && !duButton.optionsPopup.built) {
                 duButton.optionsPopup.build();
                 duButton.optionsPopup.built = true;
             }
@@ -281,8 +299,8 @@ DuScriptUI.button = function(container, text, image, helpTip, addOptionsPanel, o
     }
 
     duButton.ctrlClicked = function() {
-        if (addOptionsPanel) {
-            if (!optionsWithoutPanel && !duButton.optionsPopup.built) {
+        if (options.optionsPanel) {
+            if (!options.optionsWithoutPanel && !duButton.optionsPopup.built) {
                 duButton.optionsPopup.build();
                 duButton.optionsPopup.built = true;
             }
@@ -295,7 +313,7 @@ DuScriptUI.button = function(container, text, image, helpTip, addOptionsPanel, o
         e.stopPropagation();
         DuScriptUI.dimControls();
 
-        if (duButton.label) {
+        if (duButton.label && !options.small) {
             DuScriptUI.setTextColor(duButton.label, DuColor.Color.APP_HIGHLIGHT_COLOR);
         }
         else {
