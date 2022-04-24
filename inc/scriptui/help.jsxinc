@@ -117,6 +117,8 @@ DuScriptUI.addDonateButton = function ( container, showLabel )
         }
     );
 
+    DuScriptUI.fundingLabel = button.label;
+
     button.onClick = function ()
     {
         DuSystem.openURL( DuESF.donateURL );

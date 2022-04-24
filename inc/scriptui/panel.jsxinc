@@ -550,7 +550,7 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
     //a margin at the bottom (hidden by the bottom bar buttons)
     var mainGroupMarginBottom = DuScriptUI.group(contentsMainGroup, 'column');
     mainGroupMarginBottom.alignment= ['fill', 'bottom'];
-    mainGroupMarginBottom.minimumSize = [0, 20];
+    //mainGroupMarginBottom.minimumSize = [0, 16];
 
     // == SETTINGS PANEL
     var rootSettingsGroup = DuScriptUI.group(contentsMainStack, 'column');
@@ -900,7 +900,7 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
     //var bottomLine = DuScriptUI.separator( bottomUberGroup );
     if ( DuESF.rxVersionURL != '' ) {
         DuScriptUI.fundingBar = bottomUberGroup.add( 'progressbar' );
-        DuScriptUI.fundingBar.maximumSize = [32000, 3];
+        DuScriptUI.fundingBar.maximumSize = [32000, 2];
         DuScriptUI.fundingBar.alignment = ['fill', 'top'];
         DuScriptUI.fundingBar.helpTip = DuScriptUI.String.FUNDING_BAR_TIP;
         DuScriptUI.updateFundingInfo();
@@ -908,24 +908,6 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
 
     panel.bottomGroup = DuScriptUI.group(bottomUberGroup, 'row');
     panel.bottomGroup.margins = 0;
-
-    if ( DuESF.rxVersionURL != '' ) {
-        var fundButton = DuScriptUI.button(
-            panel.bottomGroup,
-            {
-                text: '0%',
-                helpTip: "I \u2665 " + DuESF.scriptName,
-                small: true
-            }
-        );
-        fundButton.alignment = ['left', 'center'];
-        fundButton.onClick = function ()
-        {
-            DuSystem.openURL( DuESF.donateURL );
-        }
-        DuScriptUI.fundingLabel = fundButton.label;
-        DuScriptUI.updateFundingInfo();
-    }
 
     if (DuESF.bugReportURL != '')
     {
@@ -973,13 +955,13 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
         helpButton.alignment = ['left', 'fill'];
     }
 
-    var donateButton = DuScriptUI.addDonateButton( panel.bottomGroup, false);
+    var donateButton = DuScriptUI.addDonateButton( panel.bottomGroup, true);
     donateButton.alignment = ['left', 'fill'];
 
     var versionButton = DuScriptUI.versionButton(
         panel.bottomGroup
         );
-    versionButton.alignment = ['right', 'fill'];
+    versionButton.alignment = ['right', 'bottom'];
     
     //Refresh button
     if ( DuESF.debug && (scriptFile instanceof File) && scriptFile.exists )

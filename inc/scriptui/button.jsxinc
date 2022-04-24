@@ -242,7 +242,8 @@ DuScriptUI.button = function(container, text, image, helpTip, addOptionsPanel, o
     if (options.text != '') {
         duButton.label = mainGroup.add('statictext', undefined, options.text);
         duButton.label.helpTip = options.helpTip;
-        if (options.orientation == 'row') duButton.label.alignment = [options.alignment, 'center'];
+        if (options.orientation == 'row' && !options.small) duButton.label.alignment = [options.alignment, 'center'];
+        else if (options.orientation == 'row') duButton.label.alignment = [options.alignment, 'bottom'];
         else duButton.label.alignment = ['center', options.alignment];
     }
 
