@@ -339,12 +339,11 @@ function def( val, defaultVal )
 function jstype(value) {
     var type = typeof value;
 
-    switch(type) {
-        case 'object':
-        return value === null ? 'null' : Object.prototype.toString.call(value).
-            match(/^\[object (.*)\]$/)[1].toLowerCase();
-
-        default:
-        return type.toLowerCase();
+    if (type == 'object') {
+        try {
+            type = value === null ? 'null' : Object.prototype.toString.call(value).match(/^\[object (.*)\]$/)[1].toLowerCase();
+        } catch (e) {}
     }
+
+    return type.toLowerCase();
 }
