@@ -63,3 +63,10 @@ DuJSObj.clear = function( obj, ignoredProperties ) {
         if (ok) delete obj[i];
     }
 }
+
+DuJSObj.equals = function( obj1, obj2 ) {
+    for( key in obj1 ) {
+        if (obj2[key] !== obj1[key]) return false
+    }
+    return true;
+}
