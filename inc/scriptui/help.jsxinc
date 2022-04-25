@@ -411,7 +411,7 @@ DuScriptUI.updateFundingInfo = function (fund, goal) {
     goal = parseFloat(goal);
     var ratio = Math.round( fund / goal * 100);
     var helpTip = DuScriptUI.String.FUNDING_BAR_TIP + '\n\n' + 
-            DuString.args( DuScriptUI.String.FUNDING_BAR_TIP_DETAILS, [fund, ratio, goal] );
+            DuString.args( DuScriptUI.String.FUNDING_BAR_TIP_DETAILS, [DuESF.companyName, fund, ratio, goal] );
 
     if (DuScriptUI.fundingBar) {
         DuScriptUI.fundingBar.value = ratio;
