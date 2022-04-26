@@ -469,7 +469,7 @@ DuList.prototype.concat = function(other) {
     // Convert to arrays
     other.convertToArray();
     current.convertToArray();
-    return current.list.concat(other.list);
+    return new DuList( current.list.concat(other.list) );
 }
 
 /**
