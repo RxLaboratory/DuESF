@@ -75,6 +75,56 @@ DuFolder.getFiles = function (folder,filter)
 	return files;
 }
 
+/**
+ * Tests if a folder can be read
+ * @param {Folder|string} folder The folder
+ * @return {bool}
+ */
+DuFolder.canRead = function (folder) {
+	if ( jstype(folder) == 'string' && folder != '') folder = new Folder(folder);
+	if ( !folder.exists ) return false;
+
+	function isFile(f) { return f instanceof File; }
+
+	// Try to list files
+	try {
+		f = folder.getFiles( isFile );
+		/*if (f.length > 0) {
+			if (f[0].open('r')){
+				f.read();
+				f.close();
+				return true;
+			}
+			return false;
+		}//*/
+		return true;
+	}
+	catch (e) { return false; }
+}
+
+/**
+ * Tests if a folder can be written
+ * @param {Folder|string} folder The folder
+ * @return {bool}
+ */
+DuFolder.canWrite = function (folder) {
+	if ( jstype(folder) == 'string' && folder != '') folder = new Folder(folder);
+	if ( !folder.exists ) return false;
+
+	var content = 'test-write-access';
+	var f = new File(folder.absoluteURI + '/' + content);
+
+	if (f.open('w')) {
+		try {
+			f.write(content);
+			f.close();
+			f.remove();
+			return true;
+		}
+		catch(e) { return false };
+	} else return false;
+}
+
 // Low-level undocumented function. Called by DuESF.init()
 DuFolder.init = function()
 {
