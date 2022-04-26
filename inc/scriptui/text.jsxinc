@@ -83,44 +83,56 @@
  * @param {bool} [translatable=true] Whether to translate the texts of this control
  * @return {DuEditText}	The custom Group containing the edit text.
  */
-DuScriptUI.editText = function( container, text, prefix, suffix, placeHolder, helpTip, translatable )
+DuScriptUI.editText = function( container, text, prefix, suffix, placeHolder, helpTip, localize )
 {
+    var options = {};
+    text = def(text, '');
+
+    if (jstype(text) != 'string') options = text;
+
     prefix = def(prefix, '');
     suffix = def(suffix, '');
     placeHolder = def(placeHolder,'');
     helpTip = def(helpTip, '');
-    translatable = def(translatable,true);
+    localize = def(localize,true);
 
-    if ( translatable )
+    options.text = def(options.text, text);
+    options.suffix = def(options.suffix, suffix);
+    options.prefix = def(options.prefix, prefix);
+    options.placeHolder = def(options.placeHolder, placeHolder);
+    options.helpTip = def(options.text, helpTip);
+    options.localize = def(options.localize, localize);
+
+    if ( options.localize )
     {
-        text = tr( text );
-        prefix = tr( prefix );
-        suffix = tr( suffix );
-        placeHolder = tr( placeHolder );
+        options.text = tr( options.text );
+        options.prefix = tr( options.prefix );
+        options.suffix = tr( options.suffix );
+        options.placeHolder = tr( options.placeHolder );
     }
 
     var niceEditText = container.add( 'group' );
     niceEditText.orientation = 'stack';
     niceEditText.margins = 0;
     niceEditText.alignChildren = [ 'fill', 'fill' ];
-    niceEditText.placeHolder = placeHolder;
-    var staticText = text;
-    if ( text == "" && placeHolder != "" ) staticText = placeHolder;
-    niceEditText.static = niceEditText.add( 'statictext', undefined, prefix + staticText + suffix );
+    niceEditText.placeHolder = options.placeHolder;
+    var staticText = options.text;
+    if ( options.text == "" && options.placeHolder != "" ) staticText = options.placeHolder;
+    niceEditText.static = niceEditText.add( 'statictext', undefined, options.prefix + staticText + options.suffix );
     niceEditText.static.alignment = [ 'fill', 'center' ];
-    niceEditText.static.helpTip = helpTip;
-    if ( text == "" && placeHolder != "" ) DuScriptUI.setTextColor( niceEditText.static, DuColor.Color.APP_HIGHLIGHT_COLOR.darker(150) );
+    niceEditText.static.helpTip = options.helpTip;
+    if ( options.text == "" && options.placeHolder != "" ) DuScriptUI.setTextColor( niceEditText.static, DuColor.Color.APP_HIGHLIGHT_COLOR.darker(150) );
     else DuScriptUI.setTextColor( niceEditText.static, DuColor.Color.APP_HIGHLIGHT_COLOR );
-    niceEditText.edit = niceEditText.add( 'edittext', undefined, text );
+    niceEditText.edit = niceEditText.add( 'edittext', undefined, options.text );
     niceEditText.edit.visible = false;
-    niceEditText.edit.helpTip = helpTip;
+    niceEditText.edit.helpTip = options.helpTip;
     niceEditText.edit.alignment = ['fill', 'center'];
-    niceEditText.prefix = prefix;
-    niceEditText.suffix = suffix;
+    niceEditText.prefix = options.prefix;
+    niceEditText.suffix = options.suffix;
     niceEditText.textColor = DuColor.Color.APP_HIGHLIGHT_COLOR;
     niceEditText.freeze = false;
 
-    niceEditText.text = text;
+    niceEditText.text = options.text;
     niceEditText.editing = false;
 
     niceEditText.onActivate = function() {};
@@ -220,7 +232,7 @@ DuScriptUI.editText = function( container, text, prefix, suffix, placeHolder, he
     niceEditText.addEventListener( "mouseover", DuScriptUI.dimControls );
     niceEditText.edit.addEventListener('keydown', function(e){ if (e.keyName == 'Enter') niceEditText.enterPressed(); } );
 
-    niceEditText.helpTip = helpTip;
+    niceEditText.helpTip = options.helpTip;
 
     return niceEditText;
 }

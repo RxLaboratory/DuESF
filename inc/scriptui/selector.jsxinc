@@ -171,16 +171,28 @@ DuScriptUI.selector = function( container, helpTip, iconOnly )
     selector.addButton = function( text, image, helpTip, localize, data )
     {
         selector.popup.hide();
-        text = def(text, '-');
-        image = def(image, '');
-        helpTip = def(helpTip, '');
-        localize = def(localize, true);
-        data = def(data, null);
 
-        if (localize)
+        var options = {};
+        text = def(text, '-');
+        if (jstype(text) != 'string') options = text;
+        options.text = def(options.text, text);
+        
+        image = def(image, '');
+        options.image = def(options.image, image);
+
+        helpTip = def(helpTip, '');
+        options.helpTip = def(options.helpTip, helpTip);
+
+        localize = def(localize, true);
+        options.localize = def(options.localize, localize);
+
+        data = def(data, null);
+        options.data = def(options.data, data);
+
+        if (options.localize)
         {
-            text = tr( text );
-            helpTip = tr( helpTip );
+            options.text = tr( options.text );
+            options.helpTip = tr( options.helpTip );
         }
         
         if (!iconOnly) {
@@ -189,9 +201,11 @@ DuScriptUI.selector = function( container, helpTip, iconOnly )
         }
 
         var index = selector.items.length;
-        selector.items.push( [ text, image, helpTip, data ] );
+        selector.items.push( [ options.text, options.image, options.helpTip, options.data ] );
         //add to popup
-        var button = DuScriptUI.button( selector.popup.buttons, text, image, helpTip, false, undefined, undefined, false, true );
+        options.localize = false;
+        options.ignoreUIMode = true;
+        var button = DuScriptUI.button( selector.popup.buttons, options );
         button.bgColor = DuColor.Color.OBSIDIAN;
         button.dim();
         button.onClick = function()
