@@ -394,6 +394,8 @@ DuScriptUI.checkUpdate = function ( callback, ui, showAlert )
 }
 
 DuScriptUI.updateFundingInfo = function (fund, goal) {
+    if (!DuScriptUI.fundingBar && !DuScriptUI.fundingLabel) return;
+
     DuESF.scriptSettings.data.funding = def(DuESF.scriptSettings.data.funding, {});
     DuESF.scriptSettings.data.funding.monthlyFund = def(DuESF.scriptSettings.data.funding.monthlyFund, 0);
     DuESF.scriptSettings.data.funding.fundingGoal = def(DuESF.scriptSettings.data.funding.fundingGoal, 4000);
@@ -401,7 +403,7 @@ DuScriptUI.updateFundingInfo = function (fund, goal) {
     fund = def(fund, DuESF.scriptSettings.data.funding.monthlyFund);
     goal = def(goal, DuESF.scriptSettings.data.funding.fundingGoal);
 
-    if (!fund || !goal) {
+    if (!fund || !goal && DuScriptUI.fundingBar) {
         DuScriptUI.fundingBar.value = 0;
         DuScriptUI.fundingBar.helpTip = DuScriptUI.String.FUNDING_BAR_TIP;
         return;
