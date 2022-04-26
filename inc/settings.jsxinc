@@ -27,7 +27,10 @@ function DuSettings( namespace, file, dontSavePath )
 	// Generate default path
 	if (typeof file === 'undefined')
 	{
-		file = new File( Folder.myDocuments.absoluteURI + "/" + namespace + "/" + namespace + "_settings.json" );
+		if (DuFolder.canWrite(Folder.myDocuments))
+			file = new File( Folder.myDocuments.absoluteURI + "/" + namespace + "/" + namespace + "_settings.json" );
+		else
+			file = new File( Folder.temp.absoluteURI + "/" + namespace + "/" + namespace + "_settings.json" );
 	}
 
 	this.namespace = namespace;

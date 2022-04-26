@@ -16,18 +16,6 @@ DuFolder.userData = Folder.userData;
 if (DuSystem.mac) DuFolder.userData = new Folder('~/Library/Application Support');
 
 /**
- * The folder where DuESF stores its data, which is adapted depending on the script using the framework
- * a "DuESF.companyName/AdobeScripts/DuESF.scriptName" subfolder of DuFolder.userData
- * @type {Folder}
- */
-DuFolder.duesfData = new Folder( DuPath.join( [
-		DuFolder.userData.absoluteURI,
-		DuESF.companyName,
-		'AdobeScripts',
-		DuESF.scriptName
-] ) );
-
-/**
  * Recursively remove all content from folder and the folder itself. Warning, this does not move files to the recycle bin and can not be undone.
  * @param {string|Folder} folder - the path or Folder object to wipe.
  */
@@ -128,10 +116,14 @@ DuFolder.canWrite = function (folder) {
 // Low-level undocumented function. Called by DuESF.init()
 DuFolder.init = function()
 {
+	// We absolutely need write access... If not, use a temp folder
+	if (!DuFolder.canWrite(DuFolder.userData)) DuFolder.userData = Folder.temp;
+
 	DuFolder.duesfData = new Folder( DuPath.join( [
 		DuFolder.userData.absoluteURI,
 		DuESF.companyName,
 		'AdobeScripts',
 		DuESF.scriptName
 		] ) );
+
 }
