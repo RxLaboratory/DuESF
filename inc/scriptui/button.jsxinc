@@ -178,6 +178,15 @@ DuScriptUI.button = function(container, text, image, helpTip, addOptionsPanel, o
                 duButton.optionsButton.onClick = function() {
                     duButton.clicked();
                 };
+                duButton.optionsButton.onAltClick = function() {
+                    duButton.altClicked();
+                };
+                duButton.optionsButton.onCtrlClick = function() {
+                    duButton.ctrlClicked();
+                };
+                duButton.optionsButton.onCtrlAltClick = function() {
+                    duButton.ctrlAltClicked();
+                };
             }
 
             optionsPanel.tieTo(duButton, true);
