@@ -1624,3 +1624,48 @@ function DuOCOBone(name)
      */
     this.type = DuOCO.Bone.CUSTOM;
 }
+
+/**
+ * Translates the bone by [x, y] pixels
+ * @param {int} [x=0] The horizontal offset
+ * @param {int} [y=0] The vertical offset
+ * @param {bool} [translateChildren=true] If false, the children stay at their current location
+ */
+DuOCOBone.prototype.translate = function( x, y, translateChildren ) {
+    translateChildren = def(translateChildren, true);
+    x = def(x, 0);
+    y = def(y, 0);
+
+    this.x += x;
+    this.y += y;
+
+    if (translateChildren) {
+        for (var i = 0, n = this.children.length; i < n; i++) {
+            this.children[i].translate(x, y);
+        }
+    }
+}
+
+/**
+ * Translates the bone to the new coordinates
+ * @param {int} [x] The new X value. If omitted, moves the layer vertically
+ * @param {int} [y] The new Y value. If omitted, moves the layer horizontally
+ * @param {bool} [translateChildren=true] If false, the children stay at their current location
+ */
+DuOCOBone.prototype.translateTo = function( x, y, translateChildren ) {
+    translateChildren = def(translateChildren, true);
+    x = def(x, this.x);
+    y = def(y, this.y);
+
+    var offsetX = x - this.x;
+    var offsetY = y - this.y;
+
+    this.x = x;
+    this.y = y;
+
+    if (translateChildren) {
+        for (var i = 0, n = this.children.length; i < n; i++) {
+            this.children[i].translate(offsetX, offsetY);
+        }
+    }
+}
