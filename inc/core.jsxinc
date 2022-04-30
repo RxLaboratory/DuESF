@@ -210,7 +210,7 @@ DuESF.scriptFirstRun = true;
  * @enum {string}
  */
 DuESF.HostApplication = {
-    AFTER_EFFECTS: 'after-effects',
+    AFTER_EFFECTS: 'aftereffects',
     ILLUSTRATOR: 'illustrator',
     PHOTOSHOP: 'photoshop',
     INDESIGN: 'indesign'
@@ -233,11 +233,10 @@ DuESF.hostVersion = new DuVersion();
  */
 DuESF.init = function( hostApplication, scriptName, scriptVersion, companyName )
 {
-    DuESF.host = hostApplication;
-
-    if (DuESF.host == DuESF.HostApplication.AFTER_EFFECTS || DuESF.host == DuESF.HostApplication.PHOTOSHOP)
-    {
-        DuESF.hostVersion = new DuVersion( app.version );
+    DuESF.host = BridgeTalk.appName;
+    DuESF.hostVersion = new DuVersion( BridgeTalk.appVersion );
+    if (DuESF.host == DuESF.HostApplication.AFTER_EFFECTS) {
+        DuESF.hostVersion = app.version;
     }
     
     DuESF.state = DuESF.State.INIT;
