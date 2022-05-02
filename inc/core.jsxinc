@@ -231,12 +231,12 @@ DuESF.hostVersion = new DuVersion();
  * @param {string} [scriptVersion="0.0.0"] - The version of your script, in the form "XX.XX.XX-Comment", for example "1.0.12-Beta". The "-Comment" part is optional.
  * @param {string} [companyName="RxLaboratory"] - The name of the company/organisation/individual developping this script.
  */
-DuESF.init = function( hostApplication, scriptName, scriptVersion, companyName )
+DuESF.init = function( scriptName, scriptVersion, companyName )
 {
     DuESF.host = BridgeTalk.appName;
     DuESF.hostVersion = new DuVersion( BridgeTalk.appVersion );
     if (DuESF.host == DuESF.HostApplication.AFTER_EFFECTS) {
-        DuESF.hostVersion = app.version;
+        DuESF.hostVersion = new DuVersion( app.version );
     }
     
     DuESF.state = DuESF.State.INIT;
