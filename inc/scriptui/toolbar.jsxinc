@@ -32,29 +32,33 @@ DuScriptUI.toolBar = function( container, numCols )
 
     toolsGroup.currentCol = 0;
 
-    toolsGroup.addButton = function (text, icon, toolTip, options, optionsWithoutPanel)
+    toolsGroup.addButton = function (text, icon, helpTip, addOptions, optionsWithoutPanel)
     {
-        text = def(text, "");
-        toolTip = def(toolTip, "");
-        options = def(options, false);
+        var options = {};
+        text = def(text, '');
+
+        if (jstype(text) != 'string') options = text;
+        options.text = def(options.text, text);
+
+        helpTip = def(helpTip, "");
+        addOptions = def(addOptions, false);
         optionsWithoutPanel = def(optionsWithoutPanel, false);
 
-        text = tr(text);
-        toolTip = tr(toolTip);
-        var button = DuScriptUI.button (
-            toolsGroup.columns[toolsGroup.currentCol],
-            uiMode == 0 ? text : '',
-            icon,
-            uiMode == 0 ? toolTip : text + "\n\n" + toolTip,
-            options,
-            uiMode == 0 ? 'column' : undefined,
-            undefined, // alignment
-            false, // localize
-            undefined, // ignoreUIMode
-            undefined, // optionsWithoutButton
-            undefined, // optionsButtonText
-            optionsWithoutPanel
-        );
+        options.helpTip = def(options.helpTip, helpTip);
+        options.options = def(options.options, addOptions);
+        options.optionsWithoutPanel = def(options.optionsWithoutPanel, optionsWithoutPanel);
+        options.image = def(options.image, icon);
+
+        text = tr(options.text);
+        helpTip = tr(options.helpTip);
+
+        options.localize = false;
+        options.orientation = uiMode == 0 ? 'column' : undefined;
+        options.helpTip = uiMode == 0 ? helpTip : options.text + "\n\n" + helpTip;
+        options.text =  uiMode == 0 ?  options.text : '';
+        
+        var button = DuScriptUI.button ( toolsGroup.columns[toolsGroup.currentCol], options);
+
         button.alignment = uiMode == 0 ? ['fill', 'top'] : ['center', 'top'];
 
         toolsGroup.currentCol = (toolsGroup.currentCol + 1) % numCols;
