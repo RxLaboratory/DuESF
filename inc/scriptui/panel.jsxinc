@@ -288,16 +288,19 @@ DuScriptUI.popUp = function( title, alignment, modal )
     popup.build = function( contentGroup ) {};
     popup.built = false;
 
+    popup.tiedAlwaysBlock = false;
+
     popup.tieTo = function (control, onShift, alwaysBlock)
     {
         onShift = def(onShift, false);
         alwaysBlock = def(alwaysBlock, false);
 
         popup.tiedAlwaysBlock = alwaysBlock;
-        popup.tiedOnShift = onShift;
 
         control.tiedPopups = def(control.tiedPopups, []);
+        control.tiedOnShift  =def(control.tiedOnShift, []);
         control.tiedPopups.push(popup);
+        control.tiedOnShift.push(onShift);
         
         if (control.tiedPopups.length == 1)
         {
@@ -307,7 +310,7 @@ DuScriptUI.popUp = function( title, alignment, modal )
                 for (var i = 0; i < control.tiedPopups.length; i++)
                 {
                     var ppup = control.tiedPopups[i];
-                    if ( !e.shiftKey && ppup.tiedOnShift ) return;
+                    if ( !e.shiftKey && control.tiedOnShift[i] ) return;
 
                     if (ppup.block)
                     {
