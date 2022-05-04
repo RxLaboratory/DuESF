@@ -98,12 +98,14 @@ DuScriptUI.defaultSpacing = 2;
 DuScriptUI.defaultMargins = 2;
 
 /**
- * @type {ProgressBar} A bar used to show current funding status.
+ * A bar used to show current funding status.
+ * @type {ProgressBar}
  */
 DuScriptUI.fundingBar = null;
 
 /**
- * @type {StaticText} A label used to show current funding status.
+ * A label used to show current funding status.
+ * @type {StaticText}
  */
 DuScriptUI.fundingLabel = null;
 
