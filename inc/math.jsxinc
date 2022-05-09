@@ -15,11 +15,83 @@ DuMath.Location = {
     TOP_RIGHT: 2,
     RIGHT: 3,
     BOTTOM_RIGHT: 4,
-    BOTTON: 5,
+    BOTTOM: 5,
     BOTTOM_LEFT: 6,
     LEFT: 7,
     TOP_LEFT: 8,
     CENTER: 0
+}
+
+/**
+ * Checks if the given location is on the right side
+ * @param {DuMath.Location} location The location
+ * @returns {boolean}
+ */
+DuMath.isLocationRight = function(location) {
+    if (location == DuMath.Location.TOP_RIGHT) return true;
+    if (location == DuMath.Location.RIGHT) return true;
+    if (location == DuMath.Location.BOTTOM_RIGHT) return true;
+    return false;
+}
+
+/**
+ * Checks if the given location is on the center on the horizontal axis
+ * @param {DuMath.Location} location The location
+ * @returns {boolean}
+ */
+ DuMath.isLocationHCenter = function(location) {
+    if (location == DuMath.Location.TOP) return true;
+    if (location == DuMath.Location.CENTER) return true;
+    if (location == DuMath.Location.BOTTOM) return true;
+    return false;
+}
+
+/**
+ * Checks if the given location is on the left side
+ * @param {DuMath.Location} location The location
+ * @returns {boolean}
+ */
+ DuMath.isLocationLeft = function(location) {
+    if (location == DuMath.Location.TOP_LEFT) return true;
+    if (location == DuMath.Location.LEFT) return true;
+    if (location == DuMath.Location.BOTTOM_LEFT) return true;
+    return false;
+}
+
+/**
+ * Checks if the given location is on the top side
+ * @param {DuMath.Location} location The location
+ * @returns {boolean}
+ */
+ DuMath.isLocationTop = function(location) {
+    if (location == DuMath.Location.TOP) return true;
+    if (location == DuMath.Location.TOP_RIGHT) return true;
+    if (location == DuMath.Location.TOP_LEFT) return true;
+    return false;
+}
+
+/**
+ * Checks if the given location is on the center on the vertical axis
+ * @param {DuMath.Location} location The location
+ * @returns {boolean}
+ */
+ DuMath.isLocationVCenter = function(location) {
+    if (location == DuMath.Location.LEFT) return true;
+    if (location == DuMath.Location.CENTER) return true;
+    if (location == DuMath.Location.RIGHT) return true;
+    return false;
+}
+
+/**
+ * Checks if the given location is on the bottom side
+ * @param {DuMath.Location} location The location
+ * @returns {boolean}
+ */
+ DuMath.isLocationBottom = function(location) {
+    if (location == DuMath.Location.BOTTOM_RIGHT) return true;
+    if (location == DuMath.Location.CENTER) return true;
+    if (location == DuMath.Location.BOTTOM_LEFT) return true;
+    return false;
 }
 
 /**
