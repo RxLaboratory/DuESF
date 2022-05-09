@@ -133,6 +133,8 @@ DuScriptUI.editText = function( container, text, prefix, suffix, placeHolder, he
     niceEditText.freeze = false;
 
     niceEditText.text = options.text;
+    niceEditText.tempText = '';
+    niceEditText.previousText = options.text;
     niceEditText.editing = false;
 
     niceEditText.onActivate = function() {};
@@ -155,6 +157,11 @@ DuScriptUI.editText = function( container, text, prefix, suffix, placeHolder, he
 
     niceEditText.changed = function()
     {
+        if ( niceEditText.text ==  niceEditText.edit.text ) 
+
+        var freeze = niceEditText.freeze;
+        niceEditText.freeze = true;
+
         niceEditText.editing = false;
         var staticText = '';
         if ( niceEditText.edit.text == '' && niceEditText.placeHolder != '' )
@@ -168,35 +175,52 @@ DuScriptUI.editText = function( container, text, prefix, suffix, placeHolder, he
             staticText = niceEditText.edit.text;
         }
         niceEditText.static.text = niceEditText.prefix + staticText + niceEditText.suffix;
+
+        niceEditText.previousText = niceEditText.text;
+
         niceEditText.text = niceEditText.edit.text;
         niceEditText.edit.visible = false;
         niceEditText.static.visible = true;
         niceEditText.edit.active = false;
+
+        niceEditText.freeze = freeze;
         if (!niceEditText.freeze) niceEditText.onChange();
     }
+
     niceEditText.changing = function()
     {
-        niceEditText.text = niceEditText.edit.text;
+        var freeze = niceEditText.freeze;
+        niceEditText.freeze = true;
+
+        niceEditText.tempText = niceEditText.edit.text;
+
+        niceEditText.freeze = freeze;
         if (!niceEditText.freeze) niceEditText.onChanging();
     }
 
     niceEditText.enterPressed = function()
     {
-        niceEditText.onEnterPressed();
+        if (!niceEditText.freeze) niceEditText.onEnterPressed();
     }
 
     niceEditText.setText = function( text )
     {
+        var freeze = niceEditText.freeze;
+        niceEditText.freeze = true;
+
+        niceEditText.previousText = niceEditText.text;
         if (text == '')
         {
             niceEditText.edit.text = niceEditText.text = text;
-            niceEditText.static.text = niceEditText.placeHolder;
+            niceEditText.static.text = niceEditText.prefix + niceEditText.placeHolder + niceEditText.suffix;
         }
         else 
         {
             niceEditText.edit.text = niceEditText.text = text;
             niceEditText.static.text = niceEditText.prefix + text + niceEditText.suffix;
         }
+
+        niceEditText.freeze = freeze;
     }
 
     niceEditText.setPrefix = function( prefix )
@@ -213,8 +237,23 @@ DuScriptUI.editText = function( container, text, prefix, suffix, placeHolder, he
 
     niceEditText.setPlaceholder = function( ph )
     {
+        var freeze = niceEditText.freeze;
+        niceEditText.freeze = true;
+
         niceEditText.placeHolder = ph;
-        niceEditText.setText( niceEditText.text );
+        var text = niceEditText.text;
+        if (text == '')
+        {
+            niceEditText.edit.text = niceEditText.text = text;
+            niceEditText.static.text = niceEditText.prefix + niceEditText.placeHolder + niceEditText.suffix;
+        }
+        else 
+        {
+            niceEditText.edit.text = niceEditText.text = text;
+            niceEditText.static.text = niceEditText.prefix + text + niceEditText.suffix;
+        }
+
+        niceEditText.freeze = freeze;
     }
 
     niceEditText.edit.onActivate = function()
@@ -230,7 +269,7 @@ DuScriptUI.editText = function( container, text, prefix, suffix, placeHolder, he
     niceEditText.edit.onChanging = niceEditText.changing;
     niceEditText.addEventListener( "mousedown", niceEditText.clicked, true );
     niceEditText.addEventListener( "mouseover", DuScriptUI.dimControls );
-    niceEditText.edit.addEventListener('keydown', function(e){ if (e.keyName == 'Enter') niceEditText.enterPressed(); } );
+    niceEditText.edit.addEventListener('keydown', function(e){ if (e.keyName == 'Enter' && !niceEditText.freeze) niceEditText.enterPressed(); } );
 
     niceEditText.helpTip = options.helpTip;
 
