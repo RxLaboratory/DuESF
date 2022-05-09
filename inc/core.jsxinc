@@ -215,6 +215,7 @@ DuESF.HostApplication = {
     PHOTOSHOP: 'photoshop',
     INDESIGN: 'indesign'
 }
+DuESF.hostIsBeta = false;
 /**
  * The host application
  * @type {DuESF.HostApplication}
@@ -233,7 +234,15 @@ DuESF.hostVersion = new DuVersion();
  */
 DuESF.init = function( scriptName, scriptVersion, companyName )
 {
-    DuESF.host = BridgeTalk.appName;
+    var host = BridgeTalk.appName;
+
+    if (host.indexOf('beta') == host.length -4) {
+        DuESF.hostIsBeta = true;
+        host = host.slice(0, host.length - 4);
+    }
+
+    DuESF.host = host;
+
     DuESF.hostVersion = new DuVersion( BridgeTalk.appVersion );
     if (DuESF.host == DuESF.HostApplication.AFTER_EFFECTS) {
         DuESF.hostVersion = new DuVersion( app.version );
