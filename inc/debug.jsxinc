@@ -63,7 +63,7 @@ DuDebug.error = function (error)
  */
 DuDebug.safeRun = function (callback)
 {
-	if (typeof callback === 'undefined') throw "Error: DuDebug.safeRun(callback): Invalid parameter: callback cannot be undefined";
+	if (!isdef( callback )) throw "Error: DuDebug.safeRun(callback): Invalid parameter: callback cannot be undefined";
 	if (callback == '') throw "Error: DuDebug.safeRun(callback): Invalid parameter: callback cannot be an empty string";
 	var call = '';
 	if (jstype(callback) != 'string' && arguments.legnth > 1)
@@ -137,7 +137,7 @@ DuDebug.throwTypeError = function (variable, varName, varType, functionName)
 	if (functionName != '') e += "in function " + functionName + "\n";
 	e += "\n" + varName + " should be of type " + varType + "\n";
 	e += "but it is of type " + jstype(variable);
-	if (typeof variable !== 'undefined') try { e += " and has value: " + variable.toSource(); } catch(e) {};
+	if (isdef( variable )) try { e += " and has value: " + variable.toSource(); } catch(e) {};
 
 	//ADD stack trace
 	e += '\n\nStack:\n' + $.stack;
@@ -209,7 +209,7 @@ DuDebug.throwError = function( message, functionName, error, neverThrow )
 	if (functionName != '') e += "in function " + functionName + "\n";
 	e += "\n" + message;
 
-	if (typeof error !== 'undefined')
+	if (isdef( error ))
 	{
 		var file = new File(error.fileName);
 		e += '\n\nIn file\n\n' + file.name + '\n\nlocated in:\n' + file.parent.fsName + '\n\nat line ' + error.line + '\n\n' + error.description;
@@ -226,7 +226,7 @@ DuDebug.throwError = function( message, functionName, error, neverThrow )
 			if (DuESF.host == DuESF.HostApplication.AFTER_EFFECTS)
 				if (DuAE.isDebuggerEnabled()) 
 				{
-					if (typeof error !== 'undefined') throw error;
+					if (isdef( error )) throw error;
 					else throw e;
 				}
 		}
@@ -247,12 +247,12 @@ DuDebug.throwError = function( message, functionName, error, neverThrow )
 DuDebug.checkVar = function ( variable, varName, varType, functionName )
 {
 	// Check if undefined
-	if ( typeof variable === 'undefined' )
+	if ( !isdef( variable ) )
 	{
 		if (DuESF.debug) return DuDebug.throwUndefinedError( varName, functionName );
 		else return false;
 	} 
-	if (typeof varType !== 'undefined')
+	if (isdef( varType ))
 		if ( jstype( variable ) != varType )
 		{
 			if (DuESF.debug) return DuDebug.throwTypeError( variable, varName, varType, functionName );
@@ -283,7 +283,7 @@ function DuDebugLog(pathOrFile,clear,logLevel,enabled)
 	 */
 	this.file = null;
 
-	if (typeof pathOrFile === 'undefined')
+	if (!isdef( pathOrFile ))
 	{
 		var folder = DuESF.scriptSettings.file.parent;
 		pathOrFile = new File( folder.absoluteURI + '/' + DuESF.scriptName + '_debug_log.txt');
@@ -397,7 +397,7 @@ DuDebugLog.prototype.stopTimer = function(message, level)
 
 	this.elapsed += Math.round($.hiresTimer/1000);
 
-	if (typeof message === 'undefined') message = '';
+	if (!isdef( message )) message = '';
 
 	if (level >= this.level)
 	{

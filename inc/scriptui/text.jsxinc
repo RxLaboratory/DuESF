@@ -80,7 +80,7 @@
  * @param {string} [suffix=""] - A text suffix to display.
  * @param {string} [placeHolder=""] - A place holder default text.
  * @param {string} [helpTip=""] The helpTip of this control
- * @param {bool} [translatable=true] Whether to translate the texts of this control
+ * @param {bool} [localize=true] Whether to translate the texts of this control
  * @return {DuEditText}	The custom Group containing the edit text.
  */
 DuScriptUI.editText = function( container, text, prefix, suffix, placeHolder, helpTip, localize )
@@ -281,24 +281,35 @@ DuScriptUI.editText = function( container, text, prefix, suffix, placeHolder, he
  * @param {Window|Panel|Group} container - The ScriptUI Object which will contain and display the nice edit text.
  * @param {string} text - The initial text in the edit.
  * @param {DuColor} [color] - The color of the text. By default, uses a slightly darker text than the Host App text color
- * @param {bool} [translatable=true] - Set this to false to never translate this text.
- * @param {bool} [multiline] - Set this to true to add a multiline text. Auto detected by default if the text contains the newline character.
+ * @param {bool} [localize=true] - Set this to false to never translate this text.
+ * @param {bool} [multiLine=false] - Set this to true to add a multiline text. Auto detected by default if the text contains the newline character.
  * @return {StaticText} The ScriptUI StaticText created.
  */
-DuScriptUI.staticText = function( container, text, color, translatable, mline )
+DuScriptUI.staticText = function( container, text, color, localize, multiLine )
 {
-    mline = def(mline, text.indexOf("\n") >= 0 )
-    translatable = def(translatable, true);
+    var options = {};
+    text = def(text, '');
+
+    if (jstype(text) != 'string') options = text;
+
+    options.text = def(options.text, text);
+
+    multiLine = def(multiLine, options.text.indexOf("\n") >= 0 )
+    localize = def(localize, true);
     color = def(color, DuColor.Color.APP_TEXT_COLOR.darker(130) );
 
-    if ( translatable ) text = tr( text );
+    options.color = def(options.color, color);
+    options.localize = def(options.localize, localize);
+    options.multiLine = def(options.multiLine, multiLine);
 
-    var t = container.add( 'statictext', undefined, text,
+    if ( options.localize ) options.text = tr( options.text );
+
+    var t = container.add( 'statictext', undefined, options.text,
     {
-        multiline: mline
+        multiline: options.multiLine
     } );
 
-    DuScriptUI.setTextColor( t, color );
+    DuScriptUI.setTextColor( t, options.color );
 
     t.setText = function (txt) { t.text = txt; };
 

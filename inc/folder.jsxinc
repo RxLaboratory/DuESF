@@ -38,7 +38,7 @@ DuFolder.getFiles = function (folder,filter)
 {
 	function isFolder(f) { return f instanceof Folder; }
 
-	if (typeof folder === 'undefined') return [];
+	if (!isdef( folder )) return [];
 	if (!(folder instanceof Folder)) return [];
 
 	var files = folder.getFiles(filter);
@@ -114,6 +114,7 @@ DuFolder.init = function()
 		] ) );
 
 }
+DuESF.initMethods.push( DuFolder.init );
 
 /**
  * The default user data folder.<br />

@@ -29,7 +29,7 @@ DuJSObj.sort = function( obj, reverse, compareFn ) {
         tempArray.push(i);
     }
 
-    if (typeof compareFn !== 'undefined') tempArray.sort(compareFn);
+    if (isdef( compareFn )) tempArray.sort(compareFn);
     else tempArray.sort();
 
     for (var i = 0, n = tempArray.length; i < n; i++)

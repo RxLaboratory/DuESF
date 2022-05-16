@@ -20,7 +20,7 @@ DuScriptUI.layout = function( item, force )
  */
 DuScriptUI.setTextColor = function( text, color, adjusted )
 {
-    if ( typeof text === 'undefined' ) throw "You must provide a ScriptUI Control to change the color of the text";
+    if ( !isdef( text ) ) throw "You must provide a ScriptUI Control to change the color of the text";
     adjusted = def( adjusted, false );
 
     var g = text.graphics;
@@ -39,7 +39,7 @@ DuScriptUI.setTextColor = function( text, color, adjusted )
  */
 DuScriptUI.setBackgroundColor = function( uiItem, color, adjusted )
 {
-    if ( typeof uiItem === 'undefined' ) throw "You must provide a ScriptUI Control to change the color of the background";
+    if ( !isdef( uiItem ) ) throw "You must provide a ScriptUI Control to change the color of the background";
     adjusted = def( adjusted, true );
    
     var g = uiItem.graphics;

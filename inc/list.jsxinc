@@ -160,7 +160,7 @@ DuList.prototype.indexOf = function(value, comparisonFunction) {
     if (DuDebug.checkVar(value, 'value', undefined, 'DuList.indexOf( value, comparisonFunction )') !== true)
         return -1;
 
-    var useFunction = typeof comparisonFunction !== 'undefined';
+    var useFunction = isdef( comparisonFunction );
 
     for (var i = 0, n = this.length(); i < n; i++) {
         if (!useFunction && this.at(i) == value) return i;
@@ -228,7 +228,7 @@ DuList.prototype.removeDuplicates = function(comparisonFunction) {
     // Convert to an Array
     this.convertToArray();
 
-    var useFunction = typeof comparisonFunction !== 'undefined';
+    var useFunction = isdef( comparisonFunction );
     var removed = [];
 
     for (var i = 0, n = this.length(); i < n; i++) {
@@ -428,7 +428,7 @@ DuList.prototype.sort = function(compareFunction) {
     // Convert to an Array
     this.convertToArray();
 
-    if (typeof compareFunction === 'undefined') this.list.sort();
+    if (!isdef( compareFunction )) this.list.sort();
     else this.list.sort(compareFunction);
 
     this.valid = false;
@@ -596,7 +596,7 @@ DuList.prototype.join = function(separator) {
 DuList.prototype.replace = function(previousValue, newValue, comparisonFunction) {
     this.convertToArray();
 
-    var useFunction = typeof comparisonFunction !== 'undefined';
+    var useFunction = isdef( comparisonFunction );
 
     var count = 0;
 

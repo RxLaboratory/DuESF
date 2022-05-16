@@ -83,7 +83,7 @@
  * @return {DuButton}			The image button created.
  */
 DuScriptUI.button = function(container, text, image, helpTip, addOptionsPanel, orientation, alignment, localize, ignoreUIMode, optionsWithoutButton, optionsButtonText, optionsWithoutPanel) {
-    if (typeof container === 'undefined') {
+    if (!isdef( container )) {
         throw 'DuScriptUI: DuScriptUI.button(container, text, image, helpTip, imageOver):\nMissing argument: container.';
     }
 
@@ -122,7 +122,7 @@ DuScriptUI.button = function(container, text, image, helpTip, addOptionsPanel, o
     var uiMode = def(commonSettings.uiMode, 0);
     if (uiMode >= 2 && options.image != '' && !options.ignoreUIMode) options.text = '';
 
-    if (typeof alignment === 'undefined') {
+    if (!isdef( alignment )) {
         if (options.orientation == 'row' && options.text != '') alignment = 'left';
         else if (options.orientation == 'row') alignment = 'center';
         else alignment = 'top';
@@ -399,7 +399,7 @@ DuScriptUI.button = function(container, text, image, helpTip, addOptionsPanel, o
  * @return {DuButton}			The image button created.
  */
 DuScriptUI.smallbutton = function(container, text, helpTip, value) {
-    if (typeof helpTip === 'undefined') helpTip = '';
+    if (!isdef( helpTip )) helpTip = '';
 
     text = tr(text);
     helpTip = tr(helpTip);

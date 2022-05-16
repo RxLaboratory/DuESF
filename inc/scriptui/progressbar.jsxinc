@@ -41,7 +41,7 @@ DuProgressBar = function( )
  */
 DuProgressBar.prototype.msg = function( message )
 {
-    if(typeof message !== 'undefined') this.message = message;
+    if(isdef( message )) this.message = message;
     this.__();
 }
 

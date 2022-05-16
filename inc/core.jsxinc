@@ -226,6 +226,16 @@ DuESF.host = null;
  */
 DuESF.hostVersion = new DuVersion();
 /**
+ * The list of functions to run with {@link DuESF.init}. You can add your own methods here.
+ * @type {function[]}
+ */
+DuESF.initMethods = [];
+/**
+ * The list of functions to run with {@link DuESF.enterRunTime}. You can add your own methods here.
+ * @type {function[]}
+ */
+DuESF.enterRunTimeMethods = [];
+/**
  * This method has to be called once at the very beginning of the script, just after the inclusion of DuESF <code>#include DuESF.jsxinc</code>
  * @param {DuESF.host} hostApplication - The host application of the script.
  * @param {string} [scriptName="DuESF"] - The name of your script, as it has to be displayed in the UI and the filesystem
@@ -257,10 +267,9 @@ DuESF.init = function( scriptName, scriptVersion, companyName )
     DuESF.companyName = def( companyName, "RxLaboratory" );
 
     // Everything which needs to be initialized once we have our info
-    DuColor.init();
-    DuFolder.init();
-    DuSettings.init();
-    DuTranslator.init();
+    for( var i = 0; i < DuESF.initMethods.length; i++) {
+        DuESF.initMethods[i]();
+    }
 
     // check if this script has already been run once
     // Check the version from latest run
@@ -282,6 +291,11 @@ DuESF.enterRunTime = function()
     DuESF.settings.data.version = DuESF.scriptVersion.fullVersion;
     DuESF.settings.save();
     DuESF.state = DuESF.State.RUNTIME;
+
+    // Everything which needs to be run once
+    for( var i = 0; i < DuESF.enterRunTimeMethods.length; i++) {
+        DuESF.enterRunTimeMethods[i]();
+    }
 
     DuDebug.log( "DuESF: Runtime!" );
 }
@@ -335,7 +349,16 @@ DuESF.delete = function()
  */
 function def( val, defaultVal )
 {
-	return typeof val === 'undefined' ? defaultVal : val;
+	return isdef(val) ? val : defaultVal;
+}
+
+/**
+ * Checks if a value is defined. Convenience replacement for `typeof val !== 'undefined`
+ * @param {any} val The value
+ * @return {boolean}
+ */
+function isdef(val) {
+    return typeof val !== 'undefined';
 }
 
 /**

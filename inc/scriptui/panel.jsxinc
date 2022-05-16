@@ -436,6 +436,8 @@ DuScriptUI.popUp = function( title, alignment, modal )
  */
 DuScriptUI.showUI = function( ui, enterRunTime )
 {
+    DuScriptUI.updateFundingInfo();
+
     enterRunTime = def( enterRunTime, true);
 
     DuDebug.log( "DuScriptUI.showUI" );
@@ -977,7 +979,7 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
             DuScriptUI.refreshPanel( panel, scriptFile );
         };
     }
-//*/
+
     return panel;
 }
 

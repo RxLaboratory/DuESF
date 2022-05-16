@@ -513,3 +513,4 @@ DuTranslator.init = function() {
 	DuTranslator.Settings.folder = DuESF.scriptSettings.file.parent.absoluteURI + '/';
 	DuTranslator.Settings.prefix = DuESF.scriptName;
 }
+DuESF.initMethods.push( DuTranslator.init );

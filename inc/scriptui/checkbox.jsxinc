@@ -234,7 +234,7 @@ DuScriptUI.checkBox = function( container, text, image, helpTip, textChecked, im
                 {
                     duCheckBox.imageChecked.visible = true;
                     duCheckBox.image.visible = false;
-                    if (!duCheckBox.hasIcon && !duCheckBox.hasLabel) DuScriptUI.setBackgroundColor( duCheckBox.imageGroup, DuColor.Color.APP_HIGHLIGHT_COLOR.darker() );
+                    if (!duCheckBox.hasIcon && !duCheckBox.hasLabel && options.imageChecked == '') DuScriptUI.setBackgroundColor( duCheckBox.imageGroup, DuColor.Color.APP_HIGHLIGHT_COLOR.darker() );
                 }
 
                 //label
@@ -312,7 +312,7 @@ DuScriptUI.checkBox = function( container, text, image, helpTip, textChecked, im
             
             if (!duCheckBox.hasLabel && !options.isTab) DuScriptUI.setBackgroundColor( duCheckBox.buttonGroup, DuColor.Color.APP_HIGHLIGHT_COLOR );
             // image
-            if (!options.isTab && duCheckBox.hasImage && !duCheckBox.hasIcon && !duCheckBox.hasLabel) DuScriptUI.setBackgroundColor( duCheckBox.imageGroup, DuColor.Color.APP_HIGHLIGHT_COLOR );
+            if (!options.isTab && duCheckBox.hasImage && !duCheckBox.hasIcon && !duCheckBox.hasLabel && options.imageChecked == '') DuScriptUI.setBackgroundColor( duCheckBox.imageGroup, DuColor.Color.APP_HIGHLIGHT_COLOR );
 
             //outline
             if ( options.isTab )
@@ -349,7 +349,7 @@ DuScriptUI.checkBox = function( container, text, image, helpTip, textChecked, im
             
             if (!duCheckBox.hasLabel && !options.isTab) DuScriptUI.setBackgroundColor( duCheckBox.buttonGroup, DuColor.Color.TRANSPARENT );
             // image
-            if (!options.isTab && duCheckBox.hasImage && !duCheckBox.hasIcon && !duCheckBox.hasLabel) DuScriptUI.setBackgroundColor( duCheckBox.imageGroup, DuColor.Color.APP_HIGHLIGHT_COLOR.darker() );
+            if (!options.isTab && duCheckBox.hasImage && !duCheckBox.hasIcon && !duCheckBox.hasLabel && options.imageChecked == '') DuScriptUI.setBackgroundColor( duCheckBox.imageGroup, DuColor.Color.APP_HIGHLIGHT_COLOR.darker() );
 
             //outline
             if ( options.isTab )

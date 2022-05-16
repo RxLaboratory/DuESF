@@ -293,7 +293,8 @@ DuColor.Color =
 	YELLOW_ORANGE: new DuColor([.925,.655,.094,1]),
 	YELLOW: new DuColor([.925,.839,.094,1]),
 	GREEN: new DuColor([.094,.925,.094,1]),
-	LIGHT_BLUE: new DuColor([.471,.839,.925,1]),
+	LIGHT_GREEN: new DuColor([.541,.925,.569,1]),
+	LIGHT_BLUE: new DuColor([.471,.847,.925,1]),
 	LIGHT_PURPLE: new DuColor([.471,.471,.925,1]),
 	AE_DARK_GREY: new DuColor([0.199,0.199,0.199,1]),
 	AFTER_EFFECTS_BLUE: new DuColor([.1764,.5490,.9215,1]),
@@ -344,6 +345,7 @@ DuColor.init = function()
 	}
 	
 }
+DuESF.initMethods.push( DuColor.init );
 
 /**
 	* Creates a new DuColor from a hex code/array

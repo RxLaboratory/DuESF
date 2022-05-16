@@ -240,8 +240,8 @@ DuMath.mean = DuMath.average;
  * @return {Number|Number[]}	The clamped values
  */
 DuMath.clamp = function(values, min, max) {
-    if (typeof min === 'undefined') min = 0;
-    if (typeof max === 'undefined') max = 1;
+    if (!isdef( min )) min = 0;
+    if (!isdef( max )) max = 1;
 
     if (max < min) {
         var t = max;
@@ -295,10 +295,10 @@ DuMath.toDegrees = function(value) {
  * @return {Number} The result in the range [min, max] (excluding min and max)
  */
 DuMath.logistic = function(value, midValue, min, max, rate) {
-    if (typeof midValue === "undefined") midValue = 0;
-    if (typeof min === "undefined") min = 0;
-    if (typeof max === "undefined") max = 1;
-    if (typeof rate === "undefined") rate = 1;
+    if (!isdef( midValue )) midValue = 0;
+    if (!isdef( min )) min = 0;
+    if (!isdef( max )) max = 1;
+    if (!isdef( rate )) rate = 1;
     var exp = -rate * (value - midValue);
     var result = 1 / (1 + Math.pow(Math.E, exp));
     return result * (max - min) + min;
@@ -314,10 +314,10 @@ DuMath.logistic = function(value, midValue, min, max, rate) {
  * @return {Number} The result
  */
 DuMath.inverseLogistic = function(v, midValue, min, max, rate) {
-    if (typeof midValue === "undefined") midValue = 0;
-    if (typeof max === "undefined") max = 1;
-    if (typeof min === "undefined") min = 0;
-    if (typeof rate === "undefined") rate = 1;
+    if (!isdef( midValue )) midValue = 0;
+    if (!isdef( max )) max = 1;
+    if (!isdef( min )) min = 0;
+    if (!isdef( rate )) rate = 1;
 
     if (v == min) return 0;
 
@@ -334,10 +334,10 @@ DuMath.inverseLogistic = function(v, midValue, min, max, rate) {
  * @return {Number} The result
  */
 DuMath.gaussian = function(value, min, max, center, fwhm) {
-    if (typeof max === "undefined") max = 1;
-    if (typeof min === "undefined") min = 0;
-    if (typeof center === "undefined") center = 0;
-    if (typeof fwhm === "undefined") fwhm = 1;
+    if (!isdef( max )) max = 1;
+    if (!isdef( min )) min = 0;
+    if (!isdef( center )) center = 0;
+    if (!isdef( fwhm )) fwhm = 1;
     if (fwhm === 0 && value == center) return max;
     else if (fwhm === 0) return 0;
 
@@ -372,10 +372,10 @@ DuMath.reversedGaussian = function(value, min, max, center, fwhm) {
  * @return {Number[]} The two possible results, the lower is the first in the list. If both are the same, it is the maximum
  */
 DuMath.inverseGaussian = function(v, min, max, center, fwhm) {
-    if (typeof max === "undefined") max = 1;
-    if (typeof min === "undefined") min = 0;
-    if (typeof center === "undefined") center = 0;
-    if (typeof fwhm === "undefined") fwhm = 1;
+    if (!isdef( max )) max = 1;
+    if (!isdef( min )) min = 0;
+    if (!isdef( center )) center = 0;
+    if (!isdef( fwhm )) fwhm = 1;
     if (v == 1) return [center, center];
     if (v === 0) return [center + fwhm / 2, center - fwhm / 2];
     if (fwhm === 0) return [center, center];

@@ -18,14 +18,14 @@ function DuSettings( namespace, file, dontSavePath )
 	if (namespace == "") throw "new Dusettings( namespace, file ): error\n\nnamespace can not be an empty string";
 
 	// Get path from duesf settings
-	if ( typeof file === 'undefined' )
+	if ( !isdef( file ) )
 	{
 		var filePath = DuESF.settings.data.scriptSettingsFile;
-		if ( typeof filePath !== 'undefined' ) file = new File( filePath );
+		if ( isdef( filePath ) ) file = new File( filePath );
 	}
 
 	// Generate default path
-	if (typeof file === 'undefined')
+	if (!isdef( file ))
 	{
 		if (DuFolder.canWrite(Folder.myDocuments))
 			file = new File( Folder.myDocuments.absoluteURI + "/" + namespace + "/" + namespace + "_settings.json" );
@@ -111,6 +111,7 @@ DuSettings.prototype.reset = function()
 // Low-level undocumented function. Called by DuESF.init()
 DuSettings.init = function() {
 	DuESF.settings = new DuSettings( 'DuESF', DuFolder.duesfData.absoluteURI + '/duesf_settings.json', true  );
+	
 	/**
 	 * The settings to store the script specific settings.
 	 * @type {DuSettings}
@@ -118,7 +119,7 @@ DuSettings.init = function() {
 	 * @static
 	 */
 	DuESF.scriptSettings = new DuSettings( DuESF.scriptName );
-
+	
 	// Load defaults
 	var common  = def(DuESF.scriptSettings.data.common, {});
 	var highlightSelection = def( common.highlightSelection, -1);
@@ -135,3 +136,4 @@ DuSettings.init = function() {
 	else if (highlightSelection == 3) DuColor.Color.APP_HIGHLIGHT_COLOR = DuColor.Color.AE_ORANGE;
 	else if (highlightSelection > 3) DuColor.Color.APP_HIGHLIGHT_COLOR = highlightColor;
 }
+DuESF.initMethods.push( DuSettings.init );

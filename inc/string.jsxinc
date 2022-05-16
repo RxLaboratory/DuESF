@@ -209,11 +209,11 @@ DuString.trimNumbers = function(str) {
  * @return {string} The stringified size
  */
 DuString.fromSize = function(size) {
-    if (size < 1024) return size + "B";
-    if (size < 1048576) return DuPath.sizeFromBytes(size, "kB") + "kB";
-    if (size < 1073741824) return DuPath.sizeFromBytes(size, "MB") + "MB";
-    if (size < 1099511627776) return DuPath.sizeFromBytes(size, "GB") + "GB";
-    else return DuPath.sizeFromBytes(size, "TB") + "TB";
+    if (size < 1024) return size + " B";
+    if (size < 1048576) return DuPath.sizeFromBytes(size, "kB") + " kB";
+    if (size < 1073741824) return DuPath.sizeFromBytes(size, "MB") + " MB";
+    if (size < 1099511627776) return DuPath.sizeFromBytes(size, "GB") + " GB";
+    else return DuPath.sizeFromBytes(size, "TB") + " TB";
 }
 
 /**

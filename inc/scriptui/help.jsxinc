@@ -218,7 +218,7 @@ DuScriptUI.askLanguage = function ( callback, ui )
 DuScriptUI.checkUpdate = function ( callback, ui, showAlert )
 {
     var noCallback = false;
-    if (typeof callback === 'undefined')
+    if (!isdef( callback ))
     {
         callback = function(){};
         var noCallback = true;
@@ -394,6 +394,7 @@ DuScriptUI.checkUpdate = function ( callback, ui, showAlert )
 }
 
 DuScriptUI.updateFundingInfo = function (fund, goal) {
+    
     if (!DuScriptUI.fundingBar && !DuScriptUI.fundingLabel) return;
 
     DuESF.scriptSettings.data.funding = def(DuESF.scriptSettings.data.funding, {});

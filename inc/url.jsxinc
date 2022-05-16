@@ -95,7 +95,7 @@ DuURL.buildGET = function( host, subfolders, argsArray, httpVersion )
     request += '/';
 
     // query
-    if (typeof argsArray !== 'undefined')
+    if (isdef( argsArray ))
     {
         request += DuURL.buildRequest( argsArray );
     }

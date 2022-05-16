@@ -153,8 +153,8 @@ DuFile.saveJSON = function (obj,file)
 */
 DuFile.parseCSV = function(file,delimiter,textSeparator)
 {
-	if (typeof delimiter === 'undefined') delimiter = ',';
-	if (typeof textSeparator === 'undefined') textSeparator = '"';
+	if (!isdef( delimiter )) delimiter = ',';
+	if (!isdef( textSeparator )) textSeparator = '"';
 	var reQuoted = new RegExp("(" + textSeparator + ")((?:\\\\\\1|(?:(?!\\1).))*)\\1");
 	//open and parse file
 	var data = DuFile.read(file);

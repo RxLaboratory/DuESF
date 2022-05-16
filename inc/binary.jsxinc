@@ -193,11 +193,11 @@ DuBinary.toJsxincFile = function(file,category,outputFilePath,varName)
 DuBinary.toFile = function(DuBinary,outputFileName,onlyAtFirstRun)
 {
     onlyAtFirstRun = def( onlyAtFirstRun, true );
-    if (typeof DuBinary === 'undefined') return;
+    if (!isdef( DuBinary )) return;
 	if (DuBinary instanceof File) return;
     var rootFolder = DuFolder.duesfData.absoluteURI;
     if (DuESF.scriptName != '') rootFolder += '/'  + DuESF.scriptName;
-	if (typeof outputFileName === 'undefined') outputFileName = rootFolder + '/' + DuBinary.category + '/' + DuBinary.fileName;
+	if (!isdef( outputFileName )) outputFileName = rootFolder + '/' + DuBinary.category + '/' + DuBinary.fileName;
 	var file = new File(outputFileName);
 
   // performance
