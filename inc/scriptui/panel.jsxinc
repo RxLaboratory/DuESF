@@ -7,6 +7,7 @@
  * This is not a real class, and cannot be instanciated.<br />
  * Use {@link DuScriptUI.mainPanel} to create a Panel.<br />
  * The DuPanel inherits the Panel or Window object from ScriptUI and has all of its properties and methods.
+ * @category DuScriptUI
  */
 
 /**
@@ -121,6 +122,7 @@ DuScriptUI.mainPanel = function( container, scriptName, contentAlignment, bless 
  * @property {Group} content - The ScriptUI group where the new controls must be added. Do not add any control directly inside the DuPopup.
  * @property {boolean} pinned - true if this popup is "pinned", which means it won't hide when the user clicks outside of the window.
  * @property {DuPopup~build} build - You can use this callback to add a function which builds the UI of the popup, it will be called on first display.
+ * @category DuScriptUI
  */
 
 /**
@@ -493,6 +495,7 @@ DuScriptUI.showUI = function( ui, enterRunTime )
  * @property {Group} mainGroup - The ScriptUI group where to add the main UI of the script.
  * @property {DuScriptPanel~onApplySettings} onApplySettings Called when the apply settings button is clicked.
  * @property {DuScriptPanel~onResetSettings} onResetSettings Called when the reset (default) settings button is clicked.
+ * @category DuScriptUI
  */
 
 /**

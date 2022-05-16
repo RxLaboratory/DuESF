@@ -5,6 +5,7 @@
  * @param	{string}	binAsString			- The string representation.
  * @param	{string}	fileName			- The name of the original file.
  * @param	{string}	[category='']			- A Category for the file, will be used as a subfolder to extract files. Can have subcategories like "category/subcategory".
+ * @category DuESF
  */
 function DuBinary( binAsString, fileName, category)
 {
@@ -189,6 +190,7 @@ DuBinary.toJsxincFile = function(file,category,outputFilePath,varName)
  * include preset.ffx.jsxinc
  * var presetFile = DuBinary.toFile(preset,"C:/test/test_preset.ffx");
  * presetFile.fsName; // C:\test\test_preset.exe");
+ * @category DuESF
  */
 DuBinary.toFile = function(DuBinary,outputFileName,onlyAtFirstRun)
 {

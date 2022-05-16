@@ -5,6 +5,7 @@
     * This was inspired by {@link https://github.com/indiscripts/extendscript/blob/master/scriptui/ProgressBar.jsx the progress bar}
     * by {@link  https://www.indiscripts.com/ Marc Autret / IndiScripts}.
     * @param {string} title The title of the progress bar
+ * @category DuScriptUI
  */
 DuProgressBar = function( )
 {

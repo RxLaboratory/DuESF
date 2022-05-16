@@ -1,6 +1,7 @@
 /**
  * XMP tools
  * @namespace
+ * @category DuESF
  */
 var DuXMP = {};
 

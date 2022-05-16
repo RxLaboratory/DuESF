@@ -14,6 +14,7 @@
  * @property {int} patch
  * @property {int} build The build is -1 if it cannot be parsed as an int, like "alpha".
  * @property {string} buildString The build as a string
+ * @category DuESF
  */
 function DuVersion( version )
 {

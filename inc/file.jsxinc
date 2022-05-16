@@ -1,6 +1,7 @@
 /**
 	* File related methods
 	* @namespace
+	* @category DuESF
 */
 var DuFile = {};
 

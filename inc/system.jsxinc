@@ -1,6 +1,7 @@
 /**
 * System tools
 * @namespace
+* @category DuESF
 */
 var DuSystem = {};
 

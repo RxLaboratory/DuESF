@@ -1,6 +1,7 @@
 /**
 * XML tools
 * @namespace
+* @category DuESF
 */
 var DuXML = {};
 

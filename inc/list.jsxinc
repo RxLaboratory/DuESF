@@ -13,6 +13,7 @@
  * You can also run a function on each item with {@link DuList#do DuList.do()}.
  * @property {boolean} isCollection - true if the original list is an After Effects Collection, false otherwise
  * @property {boolean} isArray - true if the original  list is an Array, false otherwise
+ * @category DuESF
  */
 function DuList(obj) {
     obj = def(obj, []);

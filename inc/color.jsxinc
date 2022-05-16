@@ -11,6 +11,7 @@
  * @property {float} green The green value
  * @property {float} blue The blue value
  * @property {float} alpha The alpha value
+ * @category DuESF
  */
 function DuColor( floatRGBA )
 {

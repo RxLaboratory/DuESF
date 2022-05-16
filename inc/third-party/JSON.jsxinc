@@ -3,6 +3,8 @@
  * @name JSON
  * @see {@link http://www.JSON.org/js.html|Json2}
  * @license Public-Domain
+ * @category DuESF
+ * @subcategory Third Party
  */
 
 JSON = {};

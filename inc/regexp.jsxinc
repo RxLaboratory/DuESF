@@ -1,6 +1,7 @@
 ﻿/**
 	* JavaScript Regular Expression related methods
 	* @namespace
+	* @category DuESF
 */
 var DuRegExp = {};
 

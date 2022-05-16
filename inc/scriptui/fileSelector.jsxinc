@@ -11,6 +11,7 @@
  * To be sure to get an existing folder, you can use the getFolder() method.
  * @property {DuEditText|null} editText - The text field, if any.
  * @property {DuButton} button - The "Browse" button.
+ * @category DuScriptUI
  */
 
 /**
@@ -101,6 +102,7 @@ DuScriptUI.folderSelector = function ( container, text, textField, helpTip, orie
  * @property {DuEditText|null} editText - The text field, if any.
  * @property {DuButton} button - The "Browse" button.
  * @property {DuFileSelector~onChange} onChange A function called when the file has changed.
+ * @category DuScriptUI
  */
 
 /**

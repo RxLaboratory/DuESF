@@ -1,6 +1,7 @@
 ﻿/**
 	* Number related methods
 	* @namespace
+	* @category DuESF
 */
 var DuNumber = {};
 

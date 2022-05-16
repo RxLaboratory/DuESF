@@ -6,6 +6,7 @@
     * @param {string[]}    [args]            - The common arguments used to run the process. You can append arguments each time you run the process with start(args)
     * @param {int}      [timeout=0]         - Waiting timeout after process start, in ms, 0 to avoid waiting, -1 for infinite.
     * If the process times out, process will not be killed, the script will just stop waiting.
+    * @category DuESF
 */
 function DuProcess( processPath, args, timeout ) {
     processPath = def( processPath, "");
@@ -269,6 +270,7 @@ DuProcess.isAppPackage = function (path) {
  * @class DuProcessQueue
  * @classdesc A class to launch several processes
  * @param {DuProcess[]}	  [processes]     - The DuProcess Array
+ * @category DuESF
  */
 function DuProcessQueue( processes ) {
     /**

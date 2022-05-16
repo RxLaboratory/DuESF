@@ -20,6 +20,7 @@
  * @property {string} originAppVersion - The version of the origin application.
  * @property {Folder} folder - The folder containing the oca files.
  * @property {string} path - The URI to the folder containing the oca files.
+ * @category DuOCA
  */
 
 /**
@@ -44,6 +45,7 @@
  * @property {bool} visible - True if the layer is visible
  * @property {bool} reference - Whether the layer is a guide or reference, and should not be rendered.
  * @property {bool} passThrough - Whether the layer is in pass through mode. Only for grouplayer.
+ * @category DuOCA
  */
 
  /**
@@ -60,11 +62,13 @@
  * @property {int} width - The width, in pixels.
  * @property {int} height - The height, in pixels.
  * @property {int} duration - The duration of the frame, in frames.
+ * @category DuOCA
  */
 
 /**
  * Open Cel Animation interchange tools
  * @namespace
+ * @category DuOCA
  */
 var DuOCA = {};
 

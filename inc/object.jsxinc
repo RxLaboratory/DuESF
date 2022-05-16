@@ -1,6 +1,7 @@
 /**
  * JS Objects related methods
  * @namespace
+ * @category DuESF
  */
 var DuJSObj = {};
 

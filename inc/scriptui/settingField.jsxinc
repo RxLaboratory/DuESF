@@ -7,6 +7,7 @@
  * Use {@link DuScriptUI.settingField} to create setting field.<br />
  * The DuSettingField inherits the <code>Group</code> object from ScriptUI and has all of its properties and methods.
  * @property {DuSettingField~onClick} onClick - The function to execute when the checkbox is clicked
+ * @category DuScriptUI
  */
 
 /**

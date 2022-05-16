@@ -1,6 +1,7 @@
 /**
 * Tools for debugging
 * @namespace
+ * @category DuESF
 */
 var DuDebug = {};
 
@@ -271,6 +272,7 @@ DuDebug.checkVar = function ( variable, varName, varType, functionName )
  * @param	{DuDebug.LogLevel}	[logLevel=DuDebug.LogLevel.DEBUG] -  The log level.
  * @param	{boolean}	[enabled=DuESF.debug] -  true to enable the log and start recording
  * @property {boolean}	running - true if the timer is running, false if it is stopped.
+ * @category DuESF
  */
 function DuDebugLog(pathOrFile,clear,logLevel,enabled)
 {

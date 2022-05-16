@@ -9,6 +9,7 @@
  * @property {DuRSSChannel} channel - The RSS Channel displayed by this panel.
  * @property {DuRSSItem} currentItem - The current RSS item displayed by this panel.
  * @property {int} currentIndex - The current index of the item displayed by this panel.
+ * @category DuScriptUI
  */
 
 /**

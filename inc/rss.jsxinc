@@ -4,6 +4,7 @@
  * @classdesc an item from an RSS feed
  * This is not a real class, and cannot be instanciated, it does not have a constructor.<br />
  * Use {@link DuRSS.get} to get items from an RSS feed.<br />
+ * @category DuESF
  */
 
 /**
@@ -52,6 +53,7 @@
  * @classdesc an RSS channel
  * This is not a real class, and cannot be instanciated, it does not have a constructor.<br />
  * Use {@link DuRSS.get} to get items from an RSS feed.<br />
+ * @category DuESF
  */
 
 /**
@@ -90,6 +92,7 @@
 /**
  * RSS tools
  * @namespace
+ * @category DuESF
  */
 var DuRSS = {};
 

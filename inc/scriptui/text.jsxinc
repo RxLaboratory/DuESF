@@ -13,6 +13,7 @@
  * @property {DuEditText~onDeactivate} onDeactivate - Function to execute when deactivated
  * @property {DuEditText~onChange} onChange - Function to execute when text changed
  * @property {DuEditText~onChange} onEnterPressed - Function to execute when enter key is pressed whil in edit mode
+ * @category DuScriptUI
  */
 
 /**

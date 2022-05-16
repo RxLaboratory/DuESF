@@ -1,6 +1,7 @@
 /**
  * Interpolation methods
  * @namespace
+ * @category DuESF
  */
 var DuInterpolation = {};
 

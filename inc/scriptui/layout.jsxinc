@@ -39,6 +39,7 @@ DuScriptUI.group = function( container, orientation )
  * The DuSeparator inherits the Group object from ScriptUI and has all of its properties and methods.
  * @property {StaticText|CheckBox} label - the label
  * @property {boolean} checkable - Read-Only | true if a checkbox is displayed
+ * @category DuScriptUI
  */
 
 /**

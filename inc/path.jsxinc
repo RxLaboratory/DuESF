@@ -1,6 +1,7 @@
 ﻿/**
 	* Paths related methods
 	* @namespace
+	* @category DuESF
 */
 var DuPath = {}
 

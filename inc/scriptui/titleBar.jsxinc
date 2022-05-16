@@ -9,6 +9,7 @@
  * @property {Boolean} pinned True when the title bar has been pinned and the corresponding panel should not be hidden.
  * @property {DuTitleBar~onClose} onClose - The function to execute when the close button is clicked
  * @property {DuTitleBar~onPin} onPin - The function to execute when the pin button is clicked
+ * @category DuScriptUI
  */
 
 /**

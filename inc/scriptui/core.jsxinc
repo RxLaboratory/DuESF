@@ -1,6 +1,7 @@
 ﻿/**
     * Methods related to ScriptUI
     * @namespace
+    * @category DuScriptUI
     */
 var DuScriptUI = {}
 

@@ -7,6 +7,7 @@
  * @param {string} [comment=''] - A comment to explain what needs to be explained
  * @param {string} [context=''] - The context where the string is used
  * @param {int} [contextId=0] - A unique id for the couple source/context
+ * @category DuTranslator
  */
 function DuTranslation(source,translation,comment,context,contextId)
 {
@@ -55,6 +56,7 @@ function DuTranslation(source,translation,comment,context,contextId)
  * The ExtendScript translator part of the Dutranslator Framework<br />
  * see {@link https://github.com/Rainbox-dev/Dutranslator}
  * @namespace
+ * @category DuTranslator
  */
 var DuTranslator = {};
 
@@ -93,6 +95,7 @@ DuTranslator.localizedStrings = [];
  * Some Settings for the translator
  * @namespace
  * @memberof DuTranslator
+ * @category DuTranslator
  */
 DuTranslator.Settings = {}
 
@@ -451,6 +454,7 @@ DuTranslator.generateTranslations = function (strings,mergeScriptuiStrings)
  * If too many args are given, they're ignored<br />
  * If not enough args are given, <code>"{#}"</code> is replaced with <code>"?"</code>
  * @return {string} The translated text or the original string if nothing is set or available
+ * @category DuTranslator
  */
 function tr(str, context, args)
 {

@@ -1,6 +1,7 @@
 /**
     * Zip methods. This lib needs the 7zip command line tool <code>7za.exe</code> to be located next to the script on Windows.
     * @namespace
+    * @category DuESF
     */
 var DuZip = {};
 

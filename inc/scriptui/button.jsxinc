@@ -16,6 +16,7 @@
  * @property {DuButton~onCtrlClick} onCtrlClick - The function to execute when the button is Ctrl + clicked
  * @property {DuButton~onCtrlAltClick} onCtrlAltClick - The function to execute when the button is Ctrl + Alt + clicked
  * @property {DuButton~onOptions} onOptions - The function to execute when the options are called (Shift+CLick or click on the options button)
+ * @category DuScriptUI
  */
 
 /**
@@ -380,6 +381,7 @@ DuScriptUI.button = function(container, text, image, helpTip, addOptionsPanel, o
  * @property {StaticText} label - The label
  * @property {any} value - A user value stored in the button, which is passed to the onClick method
  * @property {DuSmallButton~onClick} onClick - The function to execute when the button is clicked
+ * @category DuScriptUI
  */
 
 /**

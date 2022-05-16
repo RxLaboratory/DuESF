@@ -23,6 +23,7 @@
  * @property {DuLibrary~setLibrary} setLibrary Sets a new library. May be called from onRefresh to replace the lib by a new one.
  * @property {DuLibrary~setLibrary} runItem Runs the selected item. Tied to the apply/run button by default.
  * @extends {Group}
+ * @category DuScriptUI
  */
 
 /**
@@ -126,6 +127,7 @@
  * @property {string} libType The type of item, one of ['item', 'category', 'parent']
  * @property {bool} editableData Wether this item data can be edited by the user.
  * @property {bool} editableItem Whether this item can be edited by the user.
+ * @category DuScriptUI
  */
 
 /**
@@ -139,6 +141,7 @@
  * @property {bool} editableData Wether this item data can be edited by the user.
  * @property {bool} editableItem Whether this item can be edited by the user.
  * @property {string} icon Either the path to an image or a png representation as a string.
+ * @category DuScriptUI
  */
 
 /**

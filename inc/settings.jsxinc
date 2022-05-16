@@ -8,6 +8,7 @@
 	* @property {string}	  namespace	- A namespace to group your settings.
 	* @property {File}		file	- The file to store the settings
 	* @property {Object}	data	- The settings as a js object
+	* @category DuESF
 	*/
 function DuSettings( namespace, file, dontSavePath )
 {

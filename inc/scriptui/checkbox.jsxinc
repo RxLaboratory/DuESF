@@ -15,6 +15,7 @@
  * @property {boolean} checked The checked state of the button
  * @property {DuColor} textColor The color of the text of the label
  * @property {DuCheckBox~onClick} onClick The function to execute when the button is clicked
+ * @category DuScriptUI
  */
 
 /**

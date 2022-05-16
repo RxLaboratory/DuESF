@@ -11,6 +11,7 @@
  * @property {DuButton[]} buttons  - The buttons
  * @property {string} text  - The current text
  * @property {DuMultiButton~build} build - You can use this callback to add a function which builds the UI of the popup, it will be called on first display.
+ * @category DuScriptUI
  */
 
 /**

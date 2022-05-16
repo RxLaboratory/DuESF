@@ -2,6 +2,7 @@
 /**
  * Methods to manage URLS
  * @namespace 
+ * @category DuESF
  */
 var DuURL = {};
 

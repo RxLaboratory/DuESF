@@ -80,6 +80,7 @@
  *<br />
  * You should have received a copy of the GNU General Public License<br />
  * along with this program. If not, see {@link http://www.gnu.org/licenses/}.
+ * @category DuESF
  */
 var DuESF = {};
 
@@ -346,6 +347,7 @@ DuESF.delete = function()
  * @param {object} defaultVal - The default value
  * @return {object} The var
  * @example foo = def( foo, 12 ); // if foo was undefined, it is now 12, else it's unchanged.
+ * @category DuESF
  */
 function def( val, defaultVal )
 {
@@ -356,6 +358,7 @@ function def( val, defaultVal )
  * Checks if a value is defined. Convenience replacement for `typeof val !== 'undefined`
  * @param {any} val The value
  * @return {boolean}
+ * @category DuESF
  */
 function isdef(val) {
     return typeof val !== 'undefined';
@@ -366,6 +369,7 @@ function isdef(val) {
  * @global
  * @param {any} exp - The expression to check.
  * @return {string} The type always in lower case.
+ * @category DuESF
 */
 function jstype(value) {
     var type = typeof value;

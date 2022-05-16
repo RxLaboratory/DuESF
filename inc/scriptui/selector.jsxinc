@@ -18,6 +18,7 @@
  * The method is called after the index has changed.
  * @property {Selector~onRefresh} onRefresh  - The function to execute to refresh the content.<br />
  * You can set your own function here, which must take no argument.
+ * @category DuScriptUI
  */
 
 /**

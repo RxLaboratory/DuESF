@@ -1,6 +1,7 @@
 /**
  * Methods to load and create OCO Documents and armatures
  * @namespace
+ * @category DuOCO
  */
 var DuOCO = {};
 
@@ -169,6 +170,7 @@ DuOCO.getBounds = function ( armature )
  * @class
  * @classdesc An Open Cut-Out character or meta-rig document.
  * @param {string} name The name of the character or the meta rig
+ * @category DuOCO
  */
 function DuOCODoc(name)
 {
@@ -1473,6 +1475,7 @@ DuOCODoc.prototype.fromPixels = function( point )
  * @param {DuOCO.Side} [side=DuOCO.Side.NONE] - The side of the limb
  * @param {DuOCO.Location} [location=DuOCO.Location.NONE] - The location of the limb
  * @param {DuOCO.LimbType} [type=DuOCO.LimbType.CUSTOM] - The type of the limb
+ * @category DuOCO
  */
 function DuOCOLimb(limb, side, location, type )
 {
@@ -1571,6 +1574,7 @@ DuOCOLimb.prototype.newArmature = function( name, num, length )
  * @class
  * @classdesc A bone contained in an OCO Limb.
  * @param {string} name The name
+ * @category DuOCO
  */
 function DuOCOBone(name)
 {

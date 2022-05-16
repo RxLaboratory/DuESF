@@ -11,6 +11,8 @@
  * @copyright smallpath
  * @license MIT
  * @link https://github.com/Smallpath/AdobeColorPicker
+ * @category DuESF
+ * @subcategory Third Party
  */
 function colorPicker(inputColour,options){
     if(!(this instanceof colorPicker))

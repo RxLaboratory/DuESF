@@ -2,6 +2,7 @@
 /**
  * Folder related methods
  * @namespace
+ * @category DuESF
  */
 var DuFolder = {};
 
