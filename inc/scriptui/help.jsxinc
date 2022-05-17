@@ -224,6 +224,7 @@ DuScriptUI.checkUpdate = function ( callback, ui, showAlert )
         var noCallback = true;
     }
     showAlert = def(showAlert, false);
+    if (DuESF.debug) showAlert = true;
 
     //Just once a day
     DuESF.scriptSettings.data.common  = def(DuESF.scriptSettings.data.common, {});
@@ -394,8 +395,6 @@ DuScriptUI.checkUpdate = function ( callback, ui, showAlert )
 }
 
 DuScriptUI.updateFundingInfo = function (fund, goal) {
-    
-    if (!DuScriptUI.fundingBar && !DuScriptUI.fundingLabel) return;
 
     DuESF.scriptSettings.data.funding = def(DuESF.scriptSettings.data.funding, {});
     DuESF.scriptSettings.data.funding.monthlyFund = def(DuESF.scriptSettings.data.funding.monthlyFund, 0);
@@ -404,14 +403,23 @@ DuScriptUI.updateFundingInfo = function (fund, goal) {
     fund = def(fund, DuESF.scriptSettings.data.funding.monthlyFund);
     goal = def(goal, DuESF.scriptSettings.data.funding.fundingGoal);
 
+    if (fund) {
+        fund = parseFloat(fund);
+        DuESF.scriptSettings.data.funding.monthlyFund = fund;        
+    }
+    if (goal) {
+        goal = parseFloat(goal);
+        DuESF.scriptSettings.data.funding.fundingGoal = goal;
+    }
+
+    DuESF.scriptSettings.save();
+
     if (!fund || !goal && DuScriptUI.fundingBar) {
         DuScriptUI.fundingBar.value = 0;
         DuScriptUI.fundingBar.helpTip = DuScriptUI.String.FUNDING_BAR_TIP;
         return;
     }
 
-    fund = parseFloat(fund);
-    goal = parseFloat(goal);
     var ratio = Math.round( fund / goal * 100);
     var helpTip = DuScriptUI.String.FUNDING_BAR_TIP + '\n\n' + 
             DuString.args( DuScriptUI.String.FUNDING_BAR_TIP_DETAILS, [DuESF.companyName, fund, ratio, goal] );
@@ -425,7 +433,5 @@ DuScriptUI.updateFundingInfo = function (fund, goal) {
         DuScriptUI.fundingLabel.helpTip = helpTip;
         DuScriptUI.fundingLabel.text = ratio + '%';
     }
-    DuESF.scriptSettings.data.funding.monthlyFund = fund;
-    DuESF.scriptSettings.data.funding.fundingGoal = goal;
-    DuESF.scriptSettings.save();
+    
 }
