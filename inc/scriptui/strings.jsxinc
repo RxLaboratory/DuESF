@@ -80,7 +80,7 @@ DuScriptUI.String = {
     FRONT_LEG: "Front leg",
     FRONT_SHORT: "Fr",
     FUNDING_BAR_TIP: "Thank you for your donations!",
-    FUNDING_BAR_TIP_DETAILS: "This month, the {#} fund is ${#}.\nThat's {#}% of our monthly goal ( ${#} ).",
+    FUNDING_BAR_TIP_DETAILS: "This month, the {#} fund is ${#}.\nThat's {#}% of our monthly goal ( ${#} )\n\nClick on this button to join the development fund!",
     GROUPS: "Groups",
     HAIR: "Hair",
     HAND: "Hand",
