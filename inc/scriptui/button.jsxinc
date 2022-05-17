@@ -68,6 +68,30 @@
  */
 
 /**
+ * Changes the image of the button.
+ * @method
+ * @memberof DuButton
+ * @name setImage
+ * @param {File|DuBInary} image - the image. Changing the image does not work with PNG as strings, a File must be passed.
+ */
+
+/**
+ * Changes the helptip of the button.
+ * @method
+ * @memberof DuButton
+ * @name setHelpTip
+ * @param {string} helptip - the helptip.
+ */
+
+/**
+ * Changes the text of the button.
+ * @method
+ * @memberof DuButton
+ * @name setText
+ * @param {string} text - the text.
+ */
+
+/**
  * Creates a button with an optionnal icon. Must have at least an icon or a text, or both.
  * @param {Panel|Window|Group}		container	- The ScriptUI Object which will contain and display the button.
  * @param {string}					[text]		- The label of the button. Default: empty string
@@ -346,6 +370,21 @@ DuScriptUI.button = function(container, text, image, helpTip, addOptionsPanel, o
     duButton.setTextColor = function(color) {
         duButton.textColor = color;
         duButton.dim();
+    }
+
+    duButton.setImage = function(image) {
+        if (options.image == '') return;
+        if (image instanceof DuBinary) image = image.toFile();
+        duButton.image.image = image;
+    }
+
+    duButton.setHelpTip = function(helpTip) {
+        if (options.image != '') duButton.image.helpTip = helpTip;
+        if (options.text != '') duButton.label.helpTip = helpTip;
+    }
+
+    duButton.setText = function(text) {
+        if (options.text != '') duButton.label.text = text;
     }
 
     //add events
