@@ -1,2058 +1,363 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <meta charset="utf-8">
-    <title>Class: DuSeparator</title>
-    
-    
-    <script src="scripts/prettify/prettify.js"></script>
-    <script src="scripts/prettify/lang-css.js"></script>
-    <script src="scripts/jquery.min.js"></script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
-    <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
-    <link type="text/css" rel="stylesheet" href="styles/jaguar.css">
-    
-    
-    <script>
-    var config = {"monospaceLinks":false,"cleverLinks":true,"copyright":"Copyright (c) 2017-2021 Nicolas Dufresne and contributors","includeDate":true,"search":"true","default":{}};
-    </script>
-    
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> DuSeparator</title>
 
-    
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="jsdoc.css">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
 </head>
-<body>
-<div id="wrap" class="clearfix">
-    
-<div class="navigation">
-    <h3 class="applicationName"><a href="index.html"></a></h3>
 
-    <div class="search">
-        <input id="search" type="text" class="form-control input-sm" placeholder="Search Documentations">
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">Duik API Reference</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                 
+                    
+                        <a
+                            class="link user-link "
+                            href="https://rxlaboratory.org"
+                        >
+                            Website
+                        </a>
+                    
+                        <a
+                            class="link user-link "
+                            href="https://github.com/RxLaboratory/DuESF"
+                        >
+                            Source code
+                        </a>
+                    
+                        <a
+                            class="link user-link "
+                            href="http://donate.rxlab.info"
+                        >
+                            Donate
+                        </a>
+                    
+                
+                
+            </div>
+        </div>
     </div>
-    <ul class="list">
-    
-        <li class="item" data-name="DuDate">
-            <span class="title">
-                <a href="DuDate.html">DuDate</a>
-                
-                <span class="static">static</span>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            <span class="subtitle">Methods</span>
-            
-                <li data-name="DuDate.getMonth"><a href="DuDate.html#.getMonth">getMonth</a></li>
-            
-                <li data-name="DuDate.getMonthName"><a href="DuDate.html#.getMonthName">getMonthName</a></li>
-            
-                <li data-name="DuDate.toString"><a href="DuDate.html#.toString">toString</a></li>
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuDebug">
-            <span class="title">
-                <a href="DuDebug.html">DuDebug</a>
-                
-                <span class="static">static</span>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            <span class="subtitle">Members</span>
-            
-                <li data-name="DuDebug.debugLog"><a href="DuDebug.html#.debugLog">debugLog</a></li>
-            
-                <li data-name="DuDebug.LogLevel"><a href="DuDebug.html#.LogLevel">LogLevel</a></li>
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            <span class="subtitle">Methods</span>
-            
-                <li data-name="DuDebug.checkVar"><a href="DuDebug.html#.checkVar">checkVar</a></li>
-            
-                <li data-name="DuDebug.error"><a href="DuDebug.html#.error">error</a></li>
-            
-                <li data-name="DuDebug.inspect"><a href="DuDebug.html#.inspect">inspect</a></li>
-            
-                <li data-name="DuDebug.log"><a href="DuDebug.html#.log">log</a></li>
-            
-                <li data-name="DuDebug.safeRun"><a href="DuDebug.html#.safeRun">safeRun</a></li>
-            
-                <li data-name="DuDebug.throwError"><a href="DuDebug.html#.throwError">throwError</a></li>
-            
-                <li data-name="DuDebug.throwTypeError"><a href="DuDebug.html#.throwTypeError">throwTypeError</a></li>
-            
-                <li data-name="DuDebug.throwUndefinedError"><a href="DuDebug.html#.throwUndefinedError">throwUndefinedError</a></li>
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuESF">
-            <span class="title">
-                <a href="DuESF.html">DuESF</a>
-                
-                <span class="static">static</span>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            <span class="subtitle">Members</span>
-            
-                <li data-name="DuESF.aboutURL"><a href="DuESF.html#.aboutURL">aboutURL</a></li>
-            
-                <li data-name="DuESF.bugReportURL"><a href="DuESF.html#.bugReportURL">bugReportURL</a></li>
-            
-                <li data-name="DuESF.chatURL"><a href="DuESF.html#.chatURL">chatURL</a></li>
-            
-                <li data-name="DuESF.companyIcon"><a href="DuESF.html#.companyIcon">companyIcon</a></li>
-            
-                <li data-name="DuESF.companyName"><a href="DuESF.html#.companyName">companyName</a></li>
-            
-                <li data-name="DuESF.companyURL"><a href="DuESF.html#.companyURL">companyURL</a></li>
-            
-                <li data-name="DuESF.debug"><a href="DuESF.html#.debug">debug</a></li>
-            
-                <li data-name="DuESF.docURL"><a href="DuESF.html#.docURL">docURL</a></li>
-            
-                <li data-name="DuESF.donateURL"><a href="DuESF.html#.donateURL">donateURL</a></li>
-            
-                <li data-name="DuESF.featureRequestURL"><a href="DuESF.html#.featureRequestURL">featureRequestURL</a></li>
-            
-                <li data-name="DuESF.file"><a href="DuESF.html#.file">file</a></li>
-            
-                <li data-name="DuESF.forumURL"><a href="DuESF.html#.forumURL">forumURL</a></li>
-            
-                <li data-name="DuESF.host"><a href="DuESF.html#.host">host</a></li>
-            
-                <li data-name="DuESF.HostApplication"><a href="DuESF.html#.HostApplication">HostApplication</a></li>
-            
-                <li data-name="DuESF.hostVersion"><a href="DuESF.html#.hostVersion">hostVersion</a></li>
-            
-                <li data-name="DuESF.rxVersionURL"><a href="DuESF.html#.rxVersionURL">rxVersionURL</a></li>
-            
-                <li data-name="DuESF.scriptAbout"><a href="DuESF.html#.scriptAbout">scriptAbout</a></li>
-            
-                <li data-name="DuESF.scriptFirstRun"><a href="DuESF.html#.scriptFirstRun">scriptFirstRun</a></li>
-            
-                <li data-name="DuESF.scriptIcon"><a href="DuESF.html#.scriptIcon">scriptIcon</a></li>
-            
-                <li data-name="DuESF.scriptName"><a href="DuESF.html#.scriptName">scriptName</a></li>
-            
-                <li data-name="DuESF.scriptSettings"><a href="DuESF.html#.scriptSettings">scriptSettings</a></li>
-            
-                <li data-name="DuESF.scriptVersion"><a href="DuESF.html#.scriptVersion">scriptVersion</a></li>
-            
-                <li data-name="DuESF.State"><a href="DuESF.html#.State">State</a></li>
-            
-                <li data-name="DuESF.state"><a href="DuESF.html#.state">state</a></li>
-            
-                <li data-name="DuESF.version"><a href="DuESF.html#.version">version</a></li>
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            <span class="subtitle">Methods</span>
-            
-                <li data-name="DuESF.delete"><a href="DuESF.html#.delete">delete</a></li>
-            
-                <li data-name="DuESF.enterRunTime"><a href="DuESF.html#.enterRunTime">enterRunTime</a></li>
-            
-                <li data-name="DuESF.init"><a href="DuESF.html#.init">init</a></li>
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuFile">
-            <span class="title">
-                <a href="DuFile.html">DuFile</a>
-                
-                <span class="static">static</span>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            <span class="subtitle">Methods</span>
-            
-                <li data-name="DuFile.exists"><a href="DuFile.html#.exists">exists</a></li>
-            
-                <li data-name="DuFile.getSequenceNumber"><a href="DuFile.html#.getSequenceNumber">getSequenceNumber</a></li>
-            
-                <li data-name="DuFile.parseCSV"><a href="DuFile.html#.parseCSV">parseCSV</a></li>
-            
-                <li data-name="DuFile.parseJSON"><a href="DuFile.html#.parseJSON">parseJSON</a></li>
-            
-                <li data-name="DuFile.read"><a href="DuFile.html#.read">read</a></li>
-            
-                <li data-name="DuFile.readFirstLine"><a href="DuFile.html#.readFirstLine">readFirstLine</a></li>
-            
-                <li data-name="DuFile.saveDialog"><a href="DuFile.html#.saveDialog">saveDialog</a></li>
-            
-                <li data-name="DuFile.saveJSON"><a href="DuFile.html#.saveJSON">saveJSON</a></li>
-            
-                <li data-name="DuFile.write"><a href="DuFile.html#.write">write</a></li>
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuFolder">
-            <span class="title">
-                <a href="DuFolder.html">DuFolder</a>
-                
-                <span class="static">static</span>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            <span class="subtitle">Members</span>
-            
-                <li data-name="DuFolder.duesfData"><a href="DuFolder.html#.duesfData">duesfData</a></li>
-            
-                <li data-name="DuFolder.userData"><a href="DuFolder.html#.userData">userData</a></li>
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            <span class="subtitle">Methods</span>
-            
-                <li data-name="DuFolder.getFiles"><a href="DuFolder.html#.getFiles">getFiles</a></li>
-            
-                <li data-name="DuFolder.wipeFolder"><a href="DuFolder.html#.wipeFolder">wipeFolder</a></li>
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuMath">
-            <span class="title">
-                <a href="DuMath.html">DuMath</a>
-                
-                <span class="static">static</span>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            <span class="subtitle">Methods</span>
-            
-                <li data-name="DuMath.average"><a href="DuMath.html#.average">average</a></li>
-            
-                <li data-name="DuMath.clamp"><a href="DuMath.html#.clamp">clamp</a></li>
-            
-                <li data-name="DuMath.equals"><a href="DuMath.html#.equals">equals</a></li>
-            
-                <li data-name="DuMath.length"><a href="DuMath.html#.length">length</a></li>
-            
-                <li data-name="DuMath.log10"><a href="DuMath.html#.log10">log10</a></li>
-            
-                <li data-name="DuMath.random"><a href="DuMath.html#.random">random</a></li>
-            
-                <li data-name="DuMath.toDegrees"><a href="DuMath.html#.toDegrees">toDegrees</a></li>
-            
-                <li data-name="DuMath.toRadians"><a href="DuMath.html#.toRadians">toRadians</a></li>
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuNumber">
-            <span class="title">
-                <a href="DuNumber.html">DuNumber</a>
-                
-                <span class="static">static</span>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            <span class="subtitle">Methods</span>
-            
-                <li data-name="DuNumber.toString"><a href="DuNumber.html#.toString">toString</a></li>
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuOCA">
-            <span class="title">
-                <a href="DuOCA.html">DuOCA</a>
-                
-                <span class="static">static</span>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            <span class="subtitle">Members</span>
-            
-                <li data-name="DuOCA.LayerType"><a href="DuOCA.html#.LayerType">LayerType</a></li>
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            <span class="subtitle">Methods</span>
-            
-                <li data-name="DuOCA.load"><a href="DuOCA.html#.load">load</a></li>
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuPath">
-            <span class="title">
-                <a href="DuPath.html">DuPath</a>
-                
-                <span class="static">static</span>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            <span class="subtitle">Members</span>
-            
-                <li data-name="DuPath.SizeUnit"><a href="DuPath.html#.SizeUnit">SizeUnit</a></li>
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            <span class="subtitle">Methods</span>
-            
-                <li data-name="DuPath.fixName"><a href="DuPath.html#.fixName">fixName</a></li>
-            
-                <li data-name="DuPath.getBasename"><a href="DuPath.html#.getBasename">getBasename</a></li>
-            
-                <li data-name="DuPath.getExtension"><a href="DuPath.html#.getExtension">getExtension</a></li>
-            
-                <li data-name="DuPath.getName"><a href="DuPath.html#.getName">getName</a></li>
-            
-                <li data-name="DuPath.incrementName"><a href="DuPath.html#.incrementName">incrementName</a></li>
-            
-                <li data-name="DuPath.join"><a href="DuPath.html#.join">join</a></li>
-            
-                <li data-name="DuPath.newUniqueName"><a href="DuPath.html#.newUniqueName">newUniqueName</a></li>
-            
-                <li data-name="DuPath.sizeFromBytes"><a href="DuPath.html#.sizeFromBytes">sizeFromBytes</a></li>
-            
-                <li data-name="DuPath.switchExtension"><a href="DuPath.html#.switchExtension">switchExtension</a></li>
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuRegExp">
-            <span class="title">
-                <a href="DuRegExp.html">DuRegExp</a>
-                
-                <span class="static">static</span>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            <span class="subtitle">Members</span>
-            
-                <li data-name="DuRegExp.javascriptSymbols"><a href="DuRegExp.html#.javascriptSymbols">javascriptSymbols</a></li>
-            
-                <li data-name="DuRegExp.javascriptVarChars"><a href="DuRegExp.html#.javascriptVarChars">javascriptVarChars</a></li>
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            <span class="subtitle">Methods</span>
-            
-                <li data-name="DuRegExp.escape"><a href="DuRegExp.html#.escape">escape</a></li>
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuScriptUI">
-            <span class="title">
-                <a href="DuScriptUI.html">DuScriptUI</a>
-                
-                <span class="static">static</span>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            <span class="subtitle">Members</span>
-            
-                <li data-name="DuScriptUI.defaultColumnAlignment"><a href="DuScriptUI.html#.defaultColumnAlignment">defaultColumnAlignment</a></li>
-            
-                <li data-name="DuScriptUI.defaultMargins"><a href="DuScriptUI.html#.defaultMargins">defaultMargins</a></li>
-            
-                <li data-name="DuScriptUI.defaultRowAlignment"><a href="DuScriptUI.html#.defaultRowAlignment">defaultRowAlignment</a></li>
-            
-                <li data-name="DuScriptUI.defaultSpacing"><a href="DuScriptUI.html#.defaultSpacing">defaultSpacing</a></li>
-            
-                <li data-name="DuScriptUI.defaultStackAlignment"><a href="DuScriptUI.html#.defaultStackAlignment">defaultStackAlignment</a></li>
-            
-                <li data-name="DuScriptUI.Icon"><a href="DuScriptUI.html#.Icon">Icon</a></li>
-            
-                <li data-name="DuScriptUI.String"><a href="DuScriptUI.html#.String">String</a></li>
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            <span class="subtitle">Methods</span>
-            
-                <li data-name="DuScriptUI.addBugButton"><a href="DuScriptUI.html#.addBugButton">addBugButton</a></li>
-            
-                <li data-name="DuScriptUI.addDonateButton"><a href="DuScriptUI.html#.addDonateButton">addDonateButton</a></li>
-            
-                <li data-name="DuScriptUI.addEvent"><a href="DuScriptUI.html#.addEvent">addEvent</a></li>
-            
-                <li data-name="DuScriptUI.addFeatureRequestButton"><a href="DuScriptUI.html#.addFeatureRequestButton">addFeatureRequestButton</a></li>
-            
-                <li data-name="DuScriptUI.addHelpButton"><a href="DuScriptUI.html#.addHelpButton">addHelpButton</a></li>
-            
-                <li data-name="DuScriptUI.askLanguage"><a href="DuScriptUI.html#.askLanguage">askLanguage</a></li>
-            
-                <li data-name="DuScriptUI.buildAllTabs"><a href="DuScriptUI.html#.buildAllTabs">buildAllTabs</a></li>
-            
-                <li data-name="DuScriptUI.button"><a href="DuScriptUI.html#.button">button</a></li>
-            
-                <li data-name="DuScriptUI.checkBox"><a href="DuScriptUI.html#.checkBox">checkBox</a></li>
-            
-                <li data-name="DuScriptUI.checkUpdate"><a href="DuScriptUI.html#.checkUpdate">checkUpdate</a></li>
-            
-                <li data-name="DuScriptUI.editText"><a href="DuScriptUI.html#.editText">editText</a></li>
-            
-                <li data-name="DuScriptUI.fileSelector"><a href="DuScriptUI.html#.fileSelector">fileSelector</a></li>
-            
-                <li data-name="DuScriptUI.folderSelector"><a href="DuScriptUI.html#.folderSelector">folderSelector</a></li>
-            
-                <li data-name="DuScriptUI.form"><a href="DuScriptUI.html#.form">form</a></li>
-            
-                <li data-name="DuScriptUI.getClosestScreen"><a href="DuScriptUI.html#.getClosestScreen">getClosestScreen</a></li>
-            
-                <li data-name="DuScriptUI.group"><a href="DuScriptUI.html#.group">group</a></li>
-            
-                <li data-name="DuScriptUI.layout"><a href="DuScriptUI.html#.layout">layout</a></li>
-            
-                <li data-name="DuScriptUI.mainPanel"><a href="DuScriptUI.html#.mainPanel">mainPanel</a></li>
-            
-                <li data-name="DuScriptUI.moveInsideScreen"><a href="DuScriptUI.html#.moveInsideScreen">moveInsideScreen</a></li>
-            
-                <li data-name="DuScriptUI.popUp"><a href="DuScriptUI.html#.popUp">popUp</a></li>
-            
-                <li data-name="DuScriptUI.removeEvent"><a href="DuScriptUI.html#.removeEvent">removeEvent</a></li>
-            
-                <li data-name="DuScriptUI.scriptPanel"><a href="DuScriptUI.html#.scriptPanel">scriptPanel</a></li>
-            
-                <li data-name="DuScriptUI.selector"><a href="DuScriptUI.html#.selector">selector</a></li>
-            
-                <li data-name="DuScriptUI.separator"><a href="DuScriptUI.html#.separator">separator</a></li>
-            
-                <li data-name="DuScriptUI.setBackgroundColor"><a href="DuScriptUI.html#.setBackgroundColor">setBackgroundColor</a></li>
-            
-                <li data-name="DuScriptUI.setTextColor"><a href="DuScriptUI.html#.setTextColor">setTextColor</a></li>
-            
-                <li data-name="DuScriptUI.showUI"><a href="DuScriptUI.html#.showUI">showUI</a></li>
-            
-                <li data-name="DuScriptUI.slider"><a href="DuScriptUI.html#.slider">slider</a></li>
-            
-                <li data-name="DuScriptUI.smallbutton"><a href="DuScriptUI.html#.smallbutton">smallbutton</a></li>
-            
-                <li data-name="DuScriptUI.staticText"><a href="DuScriptUI.html#.staticText">staticText</a></li>
-            
-                <li data-name="DuScriptUI.tabPanel"><a href="DuScriptUI.html#.tabPanel">tabPanel</a></li>
-            
-                <li data-name="DuScriptUI.versionButton"><a href="DuScriptUI.html#.versionButton">versionButton</a></li>
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuString">
-            <span class="title">
-                <a href="DuString.html">DuString</a>
-                
-                <span class="static">static</span>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            <span class="subtitle">Methods</span>
-            
-                <li data-name="DuString.args"><a href="DuString.html#.args">args</a></li>
-            
-                <li data-name="DuString.endsWith"><a href="DuString.html#.endsWith">endsWith</a></li>
-            
-                <li data-name="DuString.fromSize"><a href="DuString.html#.fromSize">fromSize</a></li>
-            
-                <li data-name="DuString.fullTrim"><a href="DuString.html#.fullTrim">fullTrim</a></li>
-            
-                <li data-name="DuString.generateUnique"><a href="DuString.html#.generateUnique">generateUnique</a></li>
-            
-                <li data-name="DuString.leftTrim"><a href="DuString.html#.leftTrim">leftTrim</a></li>
-            
-                <li data-name="DuString.occurences"><a href="DuString.html#.occurences">occurences</a></li>
-            
-                <li data-name="DuString.parseBool"><a href="DuString.html#.parseBool">parseBool</a></li>
-            
-                <li data-name="DuString.replace"><a href="DuString.html#.replace">replace</a></li>
-            
-                <li data-name="DuString.rightTrim"><a href="DuString.html#.rightTrim">rightTrim</a></li>
-            
-                <li data-name="DuString.trim"><a href="DuString.html#.trim">trim</a></li>
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuSystem">
-            <span class="title">
-                <a href="DuSystem.html">DuSystem</a>
-                
-                <span class="static">static</span>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            <span class="subtitle">Members</span>
-            
-                <li data-name="DuSystem.mac"><a href="DuSystem.html#.mac">mac</a></li>
-            
-                <li data-name="DuSystem.osVersion"><a href="DuSystem.html#.osVersion">osVersion</a></li>
-            
-                <li data-name="DuSystem.win"><a href="DuSystem.html#.win">win</a></li>
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            <span class="subtitle">Methods</span>
-            
-                <li data-name="DuSystem.openURL"><a href="DuSystem.html#.openURL">openURL</a></li>
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuTranslator">
-            <span class="title">
-                <a href="DuTranslator.html">DuTranslator</a>
-                
-                <span class="static">static</span>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            <span class="subtitle">Members</span>
-            
-                <li data-name="DuTranslator.current"><a href="DuTranslator.html#.current">current</a></li>
-            
-                <li data-name="DuTranslator.currentName"><a href="DuTranslator.html#.currentName">currentName</a></li>
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            <span class="subtitle">Methods</span>
-            
-                <li data-name="DuTranslator.generateTranslationFile"><a href="DuTranslator.html#.generateTranslationFile">generateTranslationFile</a></li>
-            
-                <li data-name="DuTranslator.generateTranslations"><a href="DuTranslator.html#.generateTranslations">generateTranslations</a></li>
-            
-                <li data-name="DuTranslator.getAvailable"><a href="DuTranslator.html#.getAvailable">getAvailable</a></li>
-            
-                <li data-name="DuTranslator.getLanguageId"><a href="DuTranslator.html#.getLanguageId">getLanguageId</a></li>
-            
-                <li data-name="DuTranslator.getPrettyName"><a href="DuTranslator.html#.getPrettyName">getPrettyName</a></li>
-            
-                <li data-name="DuTranslator.getPrettyNames"><a href="DuTranslator.html#.getPrettyNames">getPrettyNames</a></li>
-            
-                <li data-name="DuTranslator.setLanguage"><a href="DuTranslator.html#.setLanguage">setLanguage</a></li>
-            
-                <li data-name="DuTranslator.setPrettyLanguage"><a href="DuTranslator.html#.setPrettyLanguage">setPrettyLanguage</a></li>
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuTranslator.Settings">
-            <span class="title">
-                <a href="DuTranslator.Settings.html">DuTranslator.Settings</a>
-                
-                <span class="static">static</span>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            <span class="subtitle">Members</span>
-            
-                <li data-name="DuTranslator.Settings.DuTranslator.originalStrings"><a href="DuTranslator.Settings.html#.DuTranslator.originalStrings">DuTranslator.originalStrings</a></li>
-            
-                <li data-name="DuTranslator.Settings.folder"><a href="DuTranslator.Settings.html#.folder">folder</a></li>
-            
-                <li data-name="DuTranslator.Settings.name"><a href="DuTranslator.Settings.html#.name">name</a></li>
-            
-                <li data-name="DuTranslator.Settings.originalLanguageId"><a href="DuTranslator.Settings.html#.originalLanguageId">originalLanguageId</a></li>
-            
-                <li data-name="DuTranslator.Settings.originalLanguageName"><a href="DuTranslator.Settings.html#.originalLanguageName">originalLanguageName</a></li>
-            
-                <li data-name="DuTranslator.Settings.prefix"><a href="DuTranslator.Settings.html#.prefix">prefix</a></li>
-            
-                <li data-name="DuTranslator.Settings.suffix"><a href="DuTranslator.Settings.html#.suffix">suffix</a></li>
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuURL">
-            <span class="title">
-                <a href="DuURL.html">DuURL</a>
-                
-                <span class="static">static</span>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            <span class="subtitle">Members</span>
-            
-                <li data-name="DuURL.EscapedChars"><a href="DuURL.html#.EscapedChars">EscapedChars</a></li>
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            <span class="subtitle">Methods</span>
-            
-                <li data-name="DuURL.buildGET"><a href="DuURL.html#.buildGET">buildGET</a></li>
-            
-                <li data-name="DuURL.buildRequest"><a href="DuURL.html#.buildRequest">buildRequest</a></li>
-            
-                <li data-name="DuURL.escape"><a href="DuURL.html#.escape">escape</a></li>
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuXML">
-            <span class="title">
-                <a href="DuXML.html">DuXML</a>
-                
-                <span class="static">static</span>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            <span class="subtitle">Methods</span>
-            
-                <li data-name="DuXML.getValue"><a href="DuXML.html#.getValue">getValue</a></li>
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuXMP">
-            <span class="title">
-                <a href="DuXMP.html">DuXMP</a>
-                
-                <span class="static">static</span>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            <span class="subtitle">Methods</span>
-            
-                <li data-name="DuXMP.init"><a href="DuXMP.html#.init">init</a></li>
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuZip">
-            <span class="title">
-                <a href="DuZip.html">DuZip</a>
-                
-                <span class="static">static</span>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            <span class="subtitle">Members</span>
-            
-                <li data-name="DuZip.processPath"><a href="DuZip.html#.processPath">processPath</a></li>
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            <span class="subtitle">Methods</span>
-            
-                <li data-name="DuZip.compressFolderContent"><a href="DuZip.html#.compressFolderContent">compressFolderContent</a></li>
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="colorPicker">
-            <span class="title">
-                <a href="colorPicker.html">colorPicker</a>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuBinary">
-            <span class="title">
-                <a href="DuBinary.html">DuBinary</a>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            <span class="subtitle">Members</span>
-            
-                <li data-name="DuBinary.binAsString"><a href="DuBinary.html#.binAsString">binAsString</a></li>
-            
-                <li data-name="DuBinary.category"><a href="DuBinary.html#.category">category</a></li>
-            
-                <li data-name="DuBinary.fileName"><a href="DuBinary.html#.fileName">fileName</a></li>
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            <span class="subtitle">Methods</span>
-            
-                <li data-name="DuBinary.convertToBinaryFile"><a href="DuBinary.html#.convertToBinaryFile">convertToBinaryFile</a></li>
-            
-                <li data-name="DuBinary.fromFile"><a href="DuBinary.html#.fromFile">fromFile</a></li>
-            
-                <li data-name="DuBinary.toFile"><a href="DuBinary.html#.toFile">toFile</a></li>
-            
-                <li data-name="DuBinary.toJsxincFile"><a href="DuBinary.html#.toJsxincFile">toJsxincFile</a></li>
-            
-                <li data-name="DuBinary#toFile"><a href="DuBinary.html#toFile">toFile</a></li>
-            
-                <li data-name="DuBinary#toJsxincFile"><a href="DuBinary.html#toJsxincFile">toJsxincFile</a></li>
-            
-                <li data-name="DuBinary#toSource"><a href="DuBinary.html#toSource">toSource</a></li>
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuButton">
-            <span class="title">
-                <a href="DuButton.html">DuButton</a>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            <span class="subtitle">Typedefs</span>
-            
-                <li data-name="DuButton~onAltClick"><a href="DuButton.html#~onAltClick">onAltClick</a></li>
-            
-                <li data-name="DuButton~onClick"><a href="DuButton.html#~onClick">onClick</a></li>
-            
-                <li data-name="DuButton~onCtrlAltClick"><a href="DuButton.html#~onCtrlAltClick">onCtrlAltClick</a></li>
-            
-                <li data-name="DuButton~onCtrlClick"><a href="DuButton.html#~onCtrlClick">onCtrlClick</a></li>
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            <span class="subtitle">Methods</span>
-            
-                <li data-name="DuButton.setBackgroundColor"><a href="DuButton.html#.setBackgroundColor">setBackgroundColor</a></li>
-            
-                <li data-name="DuButton.setTextColor"><a href="DuButton.html#.setTextColor">setTextColor</a></li>
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuCheckBox">
-            <span class="title">
-                <a href="DuCheckBox.html">DuCheckBox</a>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            <span class="subtitle">Typedefs</span>
-            
-                <li data-name="DuCheckBox~onClick"><a href="DuCheckBox.html#~onClick">onClick</a></li>
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            <span class="subtitle">Methods</span>
-            
-                <li data-name="DuCheckBox.setChecked"><a href="DuCheckBox.html#.setChecked">setChecked</a></li>
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuColor">
-            <span class="title">
-                <a href="DuColor.html">DuColor</a>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            <span class="subtitle">Members</span>
-            
-                <li data-name="DuColor.Color"><a href="DuColor.html#.Color">Color</a></li>
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            <span class="subtitle">Methods</span>
-            
-                <li data-name="DuColor.eightBpcToFloat"><a href="DuColor.html#.eightBpcToFloat">eightBpcToFloat</a></li>
-            
-                <li data-name="DuColor.fromHex"><a href="DuColor.html#.fromHex">fromHex</a></li>
-            
-                <li data-name="DuColor.fromHSL"><a href="DuColor.html#.fromHSL">fromHSL</a></li>
-            
-                <li data-name="DuColor.fromInt"><a href="DuColor.html#.fromInt">fromInt</a></li>
-            
-                <li data-name="DuColor.fromJSON"><a href="DuColor.html#.fromJSON">fromJSON</a></li>
-            
-                <li data-name="DuColor.hexToRGB"><a href="DuColor.html#.hexToRGB">hexToRGB</a></li>
-            
-                <li data-name="DuColor.hslToRgb"><a href="DuColor.html#.hslToRgb">hslToRgb</a></li>
-            
-                <li data-name="DuColor.isValid"><a href="DuColor.html#.isValid">isValid</a></li>
-            
-                <li data-name="DuColor.random"><a href="DuColor.html#.random">random</a></li>
-            
-                <li data-name="DuColor.randomFloatRGBA"><a href="DuColor.html#.randomFloatRGBA">randomFloatRGBA</a></li>
-            
-                <li data-name="DuColor.rgbToHex"><a href="DuColor.html#.rgbToHex">rgbToHex</a></li>
-            
-                <li data-name="DuColor.rgbToHsl"><a href="DuColor.html#.rgbToHsl">rgbToHsl</a></li>
-            
-                <li data-name="DuColor#darker"><a href="DuColor.html#darker">darker</a></li>
-            
-                <li data-name="DuColor#equals"><a href="DuColor.html#equals">equals</a></li>
-            
-                <li data-name="DuColor#floatRGB"><a href="DuColor.html#floatRGB">floatRGB</a></li>
-            
-                <li data-name="DuColor#floatRGBA"><a href="DuColor.html#floatRGBA">floatRGBA</a></li>
-            
-                <li data-name="DuColor#hex"><a href="DuColor.html#hex">hex</a></li>
-            
-                <li data-name="DuColor#hexA"><a href="DuColor.html#hexA">hexA</a></li>
-            
-                <li data-name="DuColor#intRGB"><a href="DuColor.html#intRGB">intRGB</a></li>
-            
-                <li data-name="DuColor#intRGBA"><a href="DuColor.html#intRGBA">intRGBA</a></li>
-            
-                <li data-name="DuColor#isValid"><a href="DuColor.html#isValid">isValid</a></li>
-            
-                <li data-name="DuColor#lighter"><a href="DuColor.html#lighter">lighter</a></li>
-            
-                <li data-name="DuColor#toFloatHSL"><a href="DuColor.html#toFloatHSL">toFloatHSL</a></li>
-            
-                <li data-name="DuColor#toFloatHSLA"><a href="DuColor.html#toFloatHSLA">toFloatHSLA</a></li>
-            
-                <li data-name="DuColor#toJSON"><a href="DuColor.html#toJSON">toJSON</a></li>
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuDebugLog">
-            <span class="title">
-                <a href="DuDebugLog.html">DuDebugLog</a>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            <span class="subtitle">Members</span>
-            
-                <li data-name="DuDebugLog.enabled"><a href="DuDebugLog.html#.enabled">enabled</a></li>
-            
-                <li data-name="DuDebugLog.file"><a href="DuDebugLog.html#.file">file</a></li>
-            
-                <li data-name="DuDebugLog.level"><a href="DuDebugLog.html#.level">level</a></li>
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            <span class="subtitle">Methods</span>
-            
-                <li data-name="DuDebugLog#checkTimer"><a href="DuDebugLog.html#checkTimer">checkTimer</a></li>
-            
-                <li data-name="DuDebugLog#log"><a href="DuDebugLog.html#log">log</a></li>
-            
-                <li data-name="DuDebugLog#startTimer"><a href="DuDebugLog.html#startTimer">startTimer</a></li>
-            
-                <li data-name="DuDebugLog#stopTimer"><a href="DuDebugLog.html#stopTimer">stopTimer</a></li>
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuEditText">
-            <span class="title">
-                <a href="DuEditText.html">DuEditText</a>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            <span class="subtitle">Typedefs</span>
-            
-                <li data-name="DuEditText~onActivate"><a href="DuEditText.html#~onActivate">onActivate</a></li>
-            
-                <li data-name="DuEditText~onChange"><a href="DuEditText.html#~onChange">onChange</a></li>
-            
-                <li data-name="DuEditText~onDeactivate"><a href="DuEditText.html#~onDeactivate">onDeactivate</a></li>
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            <span class="subtitle">Methods</span>
-            
-                <li data-name="DuEditText.setPrefix"><a href="DuEditText.html#.setPrefix">setPrefix</a></li>
-            
-                <li data-name="DuEditText.setSuffix"><a href="DuEditText.html#.setSuffix">setSuffix</a></li>
-            
-                <li data-name="DuEditText.setText"><a href="DuEditText.html#.setText">setText</a></li>
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuFileSelector">
-            <span class="title">
-                <a href="DuFileSelector.html">DuFileSelector</a>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            <span class="subtitle">Typedefs</span>
-            
-                <li data-name="DuFileSelector.onChange"><a href="DuFileSelector.html#.onChange">onChange</a></li>
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            <span class="subtitle">Methods</span>
-            
-                <li data-name="DuFileSelector.getFile"><a href="DuFileSelector.html#.getFile">getFile</a></li>
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuFolderSelector">
-            <span class="title">
-                <a href="DuFolderSelector.html">DuFolderSelector</a>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            <span class="subtitle">Methods</span>
-            
-                <li data-name="DuFolderSelector.getFolder"><a href="DuFolderSelector.html#.getFolder">getFolder</a></li>
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuForm">
-            <span class="title">
-                <a href="DuForm.html">DuForm</a>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            <span class="subtitle">Methods</span>
-            
-                <li data-name="DuForm.addField"><a href="DuForm.html#.addField">addField</a></li>
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuList">
-            <span class="title">
-                <a href="DuList.html">DuList</a>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            <span class="subtitle">Members</span>
-            
-                <li data-name="DuList#atEnd"><a href="DuList.html#atEnd">atEnd</a></li>
-            
-                <li data-name="DuList#atStart"><a href="DuList.html#atStart">atStart</a></li>
-            
-                <li data-name="DuList#current"><a href="DuList.html#current">current</a></li>
-            
-                <li data-name="DuList#isArray"><a href="DuList.html#isArray">isArray</a></li>
-            
-                <li data-name="DuList#isCollection"><a href="DuList.html#isCollection">isCollection</a></li>
-            
-                <li data-name="DuList#list"><a href="DuList.html#list">list</a></li>
-            
-                <li data-name="DuList#valid"><a href="DuList.html#valid">valid</a></li>
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            <span class="subtitle">Methods</span>
-            
-                <li data-name="DuList.compare"><a href="DuList.html#.compare">compare</a></li>
-            
-                <li data-name="DuList.getDuplicates"><a href="DuList.html#.getDuplicates">getDuplicates</a></li>
-            
-                <li data-name="DuList.hasDuplicates"><a href="DuList.html#.hasDuplicates">hasDuplicates</a></li>
-            
-                <li data-name="DuList.indexOf"><a href="DuList.html#.indexOf">indexOf</a></li>
-            
-                <li data-name="DuList.isList"><a href="DuList.html#.isList">isList</a></li>
-            
-                <li data-name="DuList.removeDuplicates"><a href="DuList.html#.removeDuplicates">removeDuplicates</a></li>
-            
-                <li data-name="DuList#append"><a href="DuList.html#append">append</a></li>
-            
-                <li data-name="DuList#appendUnique"><a href="DuList.html#appendUnique">appendUnique</a></li>
-            
-                <li data-name="DuList#at"><a href="DuList.html#at">at</a></li>
-            
-                <li data-name="DuList#convertToArray"><a href="DuList.html#convertToArray">convertToArray</a></li>
-            
-                <li data-name="DuList#count"><a href="DuList.html#count">count</a></li>
-            
-                <li data-name="DuList#do"><a href="DuList.html#do">do</a></li>
-            
-                <li data-name="DuList#equals"><a href="DuList.html#equals">equals</a></li>
-            
-                <li data-name="DuList#first"><a href="DuList.html#first">first</a></li>
-            
-                <li data-name="DuList#getDuplicates"><a href="DuList.html#getDuplicates">getDuplicates</a></li>
-            
-                <li data-name="DuList#goTo"><a href="DuList.html#goTo">goTo</a></li>
-            
-                <li data-name="DuList#goToEnd"><a href="DuList.html#goToEnd">goToEnd</a></li>
-            
-                <li data-name="DuList#goToStart"><a href="DuList.html#goToStart">goToStart</a></li>
-            
-                <li data-name="DuList#hasDuplicates"><a href="DuList.html#hasDuplicates">hasDuplicates</a></li>
-            
-                <li data-name="DuList#indexOf"><a href="DuList.html#indexOf">indexOf</a></li>
-            
-                <li data-name="DuList#isEmpty"><a href="DuList.html#isEmpty">isEmpty</a></li>
-            
-                <li data-name="DuList#join"><a href="DuList.html#join">join</a></li>
-            
-                <li data-name="DuList#last"><a href="DuList.html#last">last</a></li>
-            
-                <li data-name="DuList#length"><a href="DuList.html#length">length</a></li>
-            
-                <li data-name="DuList#merge"><a href="DuList.html#merge">merge</a></li>
-            
-                <li data-name="DuList#mergeUnique"><a href="DuList.html#mergeUnique">mergeUnique</a></li>
-            
-                <li data-name="DuList#next"><a href="DuList.html#next">next</a></li>
-            
-                <li data-name="DuList#previous"><a href="DuList.html#previous">previous</a></li>
-            
-                <li data-name="DuList#push"><a href="DuList.html#push">push</a></li>
-            
-                <li data-name="DuList#pushUnique"><a href="DuList.html#pushUnique">pushUnique</a></li>
-            
-                <li data-name="DuList#reinitIterator"><a href="DuList.html#reinitIterator">reinitIterator</a></li>
-            
-                <li data-name="DuList#remove"><a href="DuList.html#remove">remove</a></li>
-            
-                <li data-name="DuList#removeAll"><a href="DuList.html#removeAll">removeAll</a></li>
-            
-                <li data-name="DuList#removeDuplicates"><a href="DuList.html#removeDuplicates">removeDuplicates</a></li>
-            
-                <li data-name="DuList#removeOne"><a href="DuList.html#removeOne">removeOne</a></li>
-            
-                <li data-name="DuList#replace"><a href="DuList.html#replace">replace</a></li>
-            
-                <li data-name="DuList#sort"><a href="DuList.html#sort">sort</a></li>
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuOCADocument">
-            <span class="title">
-                <a href="DuOCADocument.html">DuOCADocument</a>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuOCAFrame">
-            <span class="title">
-                <a href="DuOCAFrame.html">DuOCAFrame</a>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuOCALayer">
-            <span class="title">
-                <a href="DuOCALayer.html">DuOCALayer</a>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuPanel">
-            <span class="title">
-                <a href="DuPanel.html">DuPanel</a>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            <span class="subtitle">Members</span>
-            
-                <li data-name="DuPanel#content"><a href="DuPanel.html#content">content</a></li>
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            <span class="subtitle">Methods</span>
-            
-                <li data-name="DuPanel#refreshUi"><a href="DuPanel.html#refreshUi">refreshUi</a></li>
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuPopup">
-            <span class="title">
-                <a href="DuPopup.html">DuPopup</a>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            <span class="subtitle">Members</span>
-            
-                <li data-name="DuPopup.block"><a href="DuPopup.html#.block">block</a></li>
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            <span class="subtitle">Methods</span>
-            
-                <li data-name="cancel"><a href="DuPopup.html#cancel">cancel</a></li>
-            
-                <li data-name="DuPopup.hidePopup"><a href="DuPopup.html#.hidePopup">hidePopup</a></li>
-            
-                <li data-name="DuPopup.pin"><a href="DuPopup.html#.pin">pin</a></li>
-            
-                <li data-name="DuPopup.pin"><a href="DuPopup.html#.pin">pin</a></li>
-            
-                <li data-name="DuPopup.tieTo"><a href="DuPopup.html#.tieTo">tieTo</a></li>
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuProcess">
-            <span class="title">
-                <a href="DuProcess.html">DuProcess</a>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            <span class="subtitle">Members</span>
-            
-                <li data-name="DuProcess.args"><a href="DuProcess.html#.args">args</a></li>
-            
-                <li data-name="DuProcess.isAppPackage"><a href="DuProcess.html#.isAppPackage">isAppPackage</a></li>
-            
-                <li data-name="DuProcess.latestCommand"><a href="DuProcess.html#.latestCommand">latestCommand</a></li>
-            
-                <li data-name="DuProcess.processPath"><a href="DuProcess.html#.processPath">processPath</a></li>
-            
-                <li data-name="DuProcess.queue"><a href="DuProcess.html#.queue">queue</a></li>
-            
-                <li data-name="DuProcess.timeout"><a href="DuProcess.html#.timeout">timeout</a></li>
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            <span class="subtitle">Methods</span>
-            
-                <li data-name="DuProcess.isAppPackage"><a href="DuProcess.html#.isAppPackage">isAppPackage</a></li>
-            
-                <li data-name="DuProcess.run"><a href="DuProcess.html#.run">run</a></li>
-            
-                <li data-name="DuProcess#buildCmd"><a href="DuProcess.html#buildCmd">buildCmd</a></li>
-            
-                <li data-name="DuProcess#buildQueueCmd"><a href="DuProcess.html#buildQueueCmd">buildQueueCmd</a></li>
-            
-                <li data-name="DuProcess#start"><a href="DuProcess.html#start">start</a></li>
-            
-                <li data-name="DuProcess#startCmd"><a href="DuProcess.html#startCmd">startCmd</a></li>
-            
-                <li data-name="DuProcess#startQueue"><a href="DuProcess.html#startQueue">startQueue</a></li>
-            
-                <li data-name="DuProcess#waitForFinished"><a href="DuProcess.html#waitForFinished">waitForFinished</a></li>
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuProcessQueue">
-            <span class="title">
-                <a href="DuProcessQueue.html">DuProcessQueue</a>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            <span class="subtitle">Members</span>
-            
-                <li data-name="DuProcessQueue.processes"><a href="DuProcessQueue.html#.processes">processes</a></li>
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            <span class="subtitle">Methods</span>
-            
-                <li data-name="DuProcessQueue#start"><a href="DuProcessQueue.html#start">start</a></li>
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuScriptPanel">
-            <span class="title">
-                <a href="DuScriptPanel.html">DuScriptPanel</a>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            <span class="subtitle">Members</span>
-            
-                <li data-name="DuScriptPanel#content"><a href="DuScriptPanel.html#content">content</a></li>
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            <span class="subtitle">Typedefs</span>
-            
-                <li data-name="DuScriptPanel~onApplySettings"><a href="DuScriptPanel.html#~onApplySettings">onApplySettings</a></li>
-            
-                <li data-name="DuScriptPanel~onResetSettings"><a href="DuScriptPanel.html#~onResetSettings">onResetSettings</a></li>
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            <span class="subtitle">Methods</span>
-            
-                <li data-name="DuScriptPanel#addCommonSettings"><a href="DuScriptPanel.html#addCommonSettings">addCommonSettings</a></li>
-            
-                <li data-name="DuScriptPanel#refreshUi"><a href="DuScriptPanel.html#refreshUi">refreshUi</a></li>
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuSelector">
-            <span class="title">
-                <a href="DuSelector.html">DuSelector</a>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            <span class="subtitle">Methods</span>
-            
-                <li data-name="DuSelector.addButton"><a href="DuSelector.html#.addButton">addButton</a></li>
-            
-                <li data-name="DuSelector.clear"><a href="DuSelector.html#.clear">clear</a></li>
-            
-                <li data-name="DuSelector.removeAll"><a href="DuSelector.html#.removeAll">removeAll</a></li>
-            
-                <li data-name="DuSelector.setCurrentIndex"><a href="DuSelector.html#.setCurrentIndex">setCurrentIndex</a></li>
-            
-                <li data-name="DuSelector.setCurrentText"><a href="DuSelector.html#.setCurrentText">setCurrentText</a></li>
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuSeparator">
-            <span class="title">
-                <a href="DuSeparator.html">DuSeparator</a>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuSettings">
-            <span class="title">
-                <a href="DuSettings.html">DuSettings</a>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            <span class="subtitle">Methods</span>
-            
-                <li data-name="DuSettings#load"><a href="DuSettings.html#load">load</a></li>
-            
-                <li data-name="DuSettings#reset"><a href="DuSettings.html#reset">reset</a></li>
-            
-                <li data-name="DuSettings#save"><a href="DuSettings.html#save">save</a></li>
-            
-                <li data-name="DuSettings#setFile"><a href="DuSettings.html#setFile">setFile</a></li>
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuSlider">
-            <span class="title">
-                <a href="DuSlider.html">DuSlider</a>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            <span class="subtitle">Typedefs</span>
-            
-                <li data-name="DuSlider~onChange"><a href="DuSlider.html#~onChange">onChange</a></li>
-            
-                <li data-name="DuSlider~onChanging"><a href="DuSlider.html#~onChanging">onChanging</a></li>
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            <span class="subtitle">Methods</span>
-            
-                <li data-name="DuSlider.setValue"><a href="DuSlider.html#.setValue">setValue</a></li>
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuSmallButton">
-            <span class="title">
-                <a href="DuSmallButton.html">DuSmallButton</a>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            <span class="subtitle">Typedefs</span>
-            
-                <li data-name="DuSmallButton~onClick"><a href="DuSmallButton.html#~onClick">onClick</a></li>
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuTab">
-            <span class="title">
-                <a href="DuTab.html">DuTab</a>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            <span class="subtitle">Typedefs</span>
-            
-                <li data-name="DuTab~build"><a href="DuTab.html#~build">build</a></li>
-            
-                <li data-name="DuTab~tabActivated"><a href="DuTab.html#~tabActivated">tabActivated</a></li>
-            
-                <li data-name="DuTab~tabDeActivated"><a href="DuTab.html#~tabDeActivated">tabDeActivated</a></li>
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuTabPanel">
-            <span class="title">
-                <a href="DuTabPanel.html">DuTabPanel</a>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            <span class="subtitle">Typedefs</span>
-            
-                <li data-name="DuTabPanel~onChange"><a href="DuTabPanel.html#~onChange">onChange</a></li>
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            <span class="subtitle">Methods</span>
-            
-                <li data-name="DuTabPanel.addTab"><a href="DuTabPanel.html#.addTab">addTab</a></li>
-            
-                <li data-name="DuTabPanel.setCurrentIndex"><a href="DuTabPanel.html#.setCurrentIndex">setCurrentIndex</a></li>
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuTranslation">
-            <span class="title">
-                <a href="DuTranslation.html">DuTranslation</a>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            <span class="subtitle">Members</span>
-            
-                <li data-name="DuTranslation#comment"><a href="DuTranslation.html#comment">comment</a></li>
-            
-                <li data-name="DuTranslation#context"><a href="DuTranslation.html#context">context</a></li>
-            
-                <li data-name="DuTranslation#contextId"><a href="DuTranslation.html#contextId">contextId</a></li>
-            
-                <li data-name="DuTranslation#source"><a href="DuTranslation.html#source">source</a></li>
-            
-                <li data-name="DuTranslation#translation"><a href="DuTranslation.html#translation">translation</a></li>
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="DuVersion">
-            <span class="title">
-                <a href="DuVersion.html">DuVersion</a>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            <span class="subtitle">Typedefs</span>
-            
-                <li data-name="DuVersion~UpdateReply"><a href="DuVersion.html#~UpdateReply">UpdateReply</a></li>
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            <span class="subtitle">Methods</span>
-            
-                <li data-name="DuVersion.compare"><a href="DuVersion.html#.compare">compare</a></li>
-            
-                <li data-name="DuVersion#atLeast"><a href="DuVersion.html#atLeast">atLeast</a></li>
-            
-                <li data-name="DuVersion#equals"><a href="DuVersion.html#equals">equals</a></li>
-            
-                <li data-name="DuVersion#higherThan"><a href="DuVersion.html#higherThan">higherThan</a></li>
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="Matrix">
-            <span class="title">
-                <a href="Matrix.html">Matrix</a>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            <span class="subtitle">Methods</span>
-            
-                <li data-name="Matrix.from"><a href="Matrix.html#.from">from</a></li>
-            
-                <li data-name="Matrix#applyToPoint"><a href="Matrix.html#applyToPoint">applyToPoint</a></li>
-            
-                <li data-name="Matrix#clone"><a href="Matrix.html#clone">clone</a></li>
-            
-                <li data-name="Matrix#decompose"><a href="Matrix.html#decompose">decompose</a></li>
-            
-                <li data-name="Matrix#determinant"><a href="Matrix.html#determinant">determinant</a></li>
-            
-                <li data-name="Matrix#inverse"><a href="Matrix.html#inverse">inverse</a></li>
-            
-                <li data-name="Matrix#isEqual"><a href="Matrix.html#isEqual">isEqual</a></li>
-            
-                <li data-name="Matrix#isIdentity"><a href="Matrix.html#isIdentity">isIdentity</a></li>
-            
-                <li data-name="Matrix#isInvertible"><a href="Matrix.html#isInvertible">isInvertible</a></li>
-            
-                <li data-name="Matrix#isValid"><a href="Matrix.html#isValid">isValid</a></li>
-            
-                <li data-name="Matrix#multiply"><a href="Matrix.html#multiply">multiply</a></li>
-            
-                <li data-name="Matrix#reset"><a href="Matrix.html#reset">reset</a></li>
-            
-                <li data-name="Matrix#rotate"><a href="Matrix.html#rotate">rotate</a></li>
-            
-                <li data-name="Matrix#rotateFromVector"><a href="Matrix.html#rotateFromVector">rotateFromVector</a></li>
-            
-                <li data-name="Matrix#scale"><a href="Matrix.html#scale">scale</a></li>
-            
-                <li data-name="Matrix#setTransform"><a href="Matrix.html#setTransform">setTransform</a></li>
-            
-                <li data-name="Matrix#shear"><a href="Matrix.html#shear">shear</a></li>
-            
-                <li data-name="Matrix#skew"><a href="Matrix.html#skew">skew</a></li>
-            
-                <li data-name="Matrix#toCSS"><a href="Matrix.html#toCSS">toCSS</a></li>
-            
-                <li data-name="Matrix#toCSS3D"><a href="Matrix.html#toCSS3D">toCSS3D</a></li>
-            
-                <li data-name="Matrix#toJSON"><a href="Matrix.html#toJSON">toJSON</a></li>
-            
-                <li data-name="Matrix#transform"><a href="Matrix.html#transform">transform</a></li>
-            
-                <li data-name="Matrix#translate"><a href="Matrix.html#translate">translate</a></li>
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-        <li class="item" data-name="global">
-            <span class="title">
-                <a href="global.html">global</a>
-                
-                <span class="static">static</span>
-                
-            </span>
-            <ul class="members itemMembers">
-            
-            <span class="subtitle">Members</span>
-            
-                <li data-name="JSON"><a href="global.html#JSON">JSON</a></li>
-            
-                <li data-name="seedRandom"><a href="global.html#seedRandom">seedRandom</a></li>
-            
-            </ul>
-            <ul class="typedefs itemMembers">
-            
-            </ul>
-            <ul class="methods itemMembers">
-            
-            <span class="subtitle">Methods</span>
-            
-                <li data-name="cancel"><a href="DuPopup.html#cancel">cancel</a></li>
-            
-                <li data-name="def"><a href="global.html#def">def</a></li>
-            
-                <li data-name="jstype"><a href="global.html#jstype">jstype</a></li>
-            
-                <li data-name="tr"><a href="global.html#tr">tr</a></li>
-            
-            </ul>
-            <ul class="events itemMembers">
-            
-            </ul>
-        </li>
-    
-    </ul>
 </div>
-    <div class="main">
-        <h1 class="page-title" data-filename="DuSeparator.html">Class: DuSeparator</h1>
-        
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+                <div class="search-wrapper">
+                    <input id="search" type="text" placeholder="Search docs..." class="input">
+                </div>
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>DuESF</h2><h3>Namespaces</h3><ul><li><a href="DuDate.html">DuDate</a></li><li><a href="DuDebug.html">DuDebug</a></li><li><a href="DuESF.html">DuESF</a></li><li><a href="DuFile.html">DuFile</a></li><li><a href="DuFolder.html">DuFolder</a></li><li><a href="DuInterpolation.html">DuInterpolation</a></li><li><a href="DuJSObj.html">DuJSObj</a></li><li><a href="DuMath.html">DuMath</a></li><li><a href="DuNumber.html">DuNumber</a></li><li><a href="DuPath.html">DuPath</a></li><li><a href="DuRegExp.html">DuRegExp</a></li><li><a href="DuString.html">DuString</a></li><li><a href="DuSystem.html">DuSystem</a></li><li><a href="DuURL.html">DuURL</a></li><li><a href="DuXML.html">DuXML</a></li><li><a href="DuXMP.html">DuXMP</a></li><li><a href="DuZip.html">DuZip</a></li></ul><h3>Classes / Third Party</h3><ul><li><a href="colorPicker.html">colorPicker</a></li><li><a href="Matrix.html">Matrix</a></li></ul><h3>Classes</h3><ul><li><a href="DuBinary.html">DuBinary</a></li><li><a href="DuColor.html">DuColor</a></li><li><a href="DuDebugLog.html">DuDebugLog</a></li><li><a href="DuList.html">DuList</a></li><li><a href="DuProcess.html">DuProcess</a></li><li><a href="DuProcessQueue.html">DuProcessQueue</a></li><li><a href="DuSettings.html">DuSettings</a></li><li><a href="DuVersion.html">DuVersion</a></li></ul><h3>Global</h3><ul><li><a href="global.html#def">def</a></li><li><a href="global.html#isdef">isdef</a></li><li><a href="global.html#JSON">JSON</a></li><li><a href="global.html#jstype">jstype</a></li><li><a href="global.html#seedRandom">seedRandom</a></li></ul></div><div class="category"><h2>DuOCA</h2><h3>Namespaces</h3><ul><li><a href="DuOCA.html">DuOCA</a></li></ul><h3>Classes</h3><ul><li><a href="DuOCADocument.html">DuOCADocument</a></li><li><a href="DuOCAFrame.html">DuOCAFrame</a></li><li><a href="DuOCALayer.html">DuOCALayer</a></li></ul></div><div class="category"><h2>DuOCO</h2><h3>Namespaces</h3><ul><li><a href="DuOCO.html">DuOCO</a></li></ul><h3>Classes</h3><ul><li><a href="DuOCOBone.html">DuOCOBone</a></li><li><a href="DuOCODoc.html">DuOCODoc</a></li><li><a href="DuOCOLimb.html">DuOCOLimb</a></li></ul></div><div class="category"><h2>DuScriptUI</h2><h3>Namespaces</h3><ul><li><a href="DuScriptUI.html">DuScriptUI</a></li></ul><h3>Classes</h3><ul><li><a href="DuButton.html">DuButton</a></li><li><a href="DuCheckBox.html">DuCheckBox</a></li><li><a href="DuColorSelector.html">DuColorSelector</a></li><li><a href="DuEditText.html">DuEditText</a></li><li><a href="DuFileSelector.html">DuFileSelector</a></li><li><a href="DuFolderSelector.html">DuFolderSelector</a></li><li><a href="DuForm.html">DuForm</a></li><li><a href="DuLibrary.html">DuLibrary</a></li><li><a href="DuLibraryItem.html">DuLibraryItem</a></li><li><a href="DuListItem.html">DuListItem</a></li><li><a href="DuMultiButton.html">DuMultiButton</a></li><li><a href="DuPanel.html">DuPanel</a></li><li><a href="DuPopup.html">DuPopup</a></li><li><a href="DuProgressBar.html">DuProgressBar</a></li><li><a href="DuScriptPanel.html">DuScriptPanel</a></li><li><a href="DuSelector.html">DuSelector</a></li><li><a href="DuSeparator.html">DuSeparator</a></li><li><a href="DuSettingField.html">DuSettingField</a></li><li><a href="DuSlider.html">DuSlider</a></li><li><a href="DuSmallButton.html">DuSmallButton</a></li><li><a href="DuTab.html">DuTab</a></li><li><a href="DuTabPanel.html">DuTabPanel</a></li><li><a href="DuTitleBar.html">DuTitleBar</a></li></ul></div><div class="category"><h2>DuTranslator</h2><h3>Namespaces</h3><ul><li><a href="DuTranslator.html">DuTranslator</a></li><li><a href="DuTranslator.Settings.html">Settings</a></li></ul><h3>Classes</h3><ul><li><a href="DuTranslation.html">DuTranslation</a></li></ul><h3>Global</h3><ul><li><a href="global.html#tr">tr</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Class</p>
+                    <h1>DuSeparator</h1>
+                </header>
+                
+
 
 
 
 <section>
-    
+
 <header>
-    <h2>
-    DuSeparator
-    </h2>
     
-        <div class="class-description">For use with <a href="DuScriptUI.html"><code>DuScriptUI</code></a>.<br />A DuSeparator.<br />This is not a real class, and cannot be instanciated.<br />Use <a href="DuScriptUI.html#.separator"><code>DuScriptUI.separator</code></a> to create a DuSeparator.<br />The DuSeparator inherits the Group object from ScriptUI and has all of its properties and methods.</div>
+        <h2><span class="attribs"><span class="type-signature"></span></span>DuSeparator<span class="signature">()</span><span class="type-signature"></span></h2>
+        
+            <div class="class-description">For use with <a href="DuScriptUI.html"><code>DuScriptUI</code></a>.<br />A DuSeparator.<br />This is not a real class, and cannot be instanciated.<br />Use <a href="DuScriptUI.html#.separator"><code>DuScriptUI.separator</code></a> to create a DuSeparator.<br />The DuSeparator inherits the Group object from ScriptUI and has all of its properties and methods.</div>
+        
     
-</header>  
+</header>
 
 <article>
     <div class="container-overview">
     
-    
-    
         
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id="DuSeparator">
+            <div class='vertical-section'>
+                <div class="members">
+                    <div class="member">
+                        <div class=name>
+                            <span class="tag">Constructor</span>
+                        </div>
+                        
+
+
+    
+    <h4 class="name" id="DuSeparator">
+        <a class="href-link" href="#DuSeparator">#</a>
+        
+        <span class="code-name">
             
-            new DuSeparator<span class="signature">()</span>
-        </h4>
-    
-        
-        <div class="tag-source">
-            D:/DEV_SRC/RxOT/DuAEF/DuESF/tools/build/output/DuESF.jsxinc, line 9105
-        </div>
-        
-    </div>
-
-    
-</dt>
-<dd>
-    
+                new DuSeparator<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
     
 
     
     
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-        <h5 class="subsection-title">Properties:</h5>
-        
-        <dl>
 
-<table class="props">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+<div class="table-container">
+    <table class="props table">
+        <thead>
         <tr>
             
-                <td class="name"><code>label</code></td>
+            <th>Name</th>
             
+
+            <th>Type</th>
+
             
-            <td class="type">
+
             
-                
-<span class="param-type">StaticText</span>
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>label</code></td>
+    
+
+    <td class="type">
+    
+        
+<code class="param-type">StaticText</code>
 |
 
-<span class="param-type">CheckBox</span>
+<code class="param-type">CheckBox</code>
 
 
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">the label</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>checkable</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
+    
+    </td>
 
+    
 
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">Read-Only | true if a checkbox is displayed</td>
-        </tr>
-	
-	
-	</tbody>
-</table></dl>
+    
+
+    <td class="description last">the label</td>
+</tr>
+
         
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>checkable</code></td>
+    
+
+    <td class="type">
     
         
+<code class="param-type">boolean</code>
+
+
     
+    </td>
+
     
+
+    
+
+    <td class="description last">Read-Only | true if a checkbox is displayed</td>
+</tr>
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
     
 
     
     
+
     
+
     
+
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
+        <p class="tag-source">
+            <a href="DuESF.jsxinc.html" class="button">View Source</a>
+            <span>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line10874">line 10874</a>
+            </span>
+        </p>
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    
-    
-</dd>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        
     
     </div>
     
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
-    
-    
-    
-    
-    
-    
+
     
 </article>
 
-</section>  
+</section>
 
 
 
 
-
-        
-
-        <footer>
-            Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Fri Jul 30 2021 17:01:43 GMT+0200 (heure d’été d’Europe centrale)
-        </footer>
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
     </div>
-</div>
-<script>prettyPrint();</script>
-<script src="scripts/linenumber.js"></script>
-<script src="scripts/main.js"></script>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/search.js"> </script>
+
+
 </body>
 </html>
