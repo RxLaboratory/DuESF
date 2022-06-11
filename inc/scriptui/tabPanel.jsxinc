@@ -24,7 +24,7 @@
  * @param {string} [text=''] - The label of the button.
  * @param {string} [image=''] - The path to the icon.
  * @param {string} [helpTip=''] - The helptip.
- * @param {string} [imageOver=image] - The path to an icon displayed when the mouse is over the button.
+ * @param {bool} [translatable=true] - Set to false to not translate this tab text and helptip
  * @return {DuTab} The new DuTab.
  */
 
@@ -103,10 +103,11 @@ DuScriptUI.tabPanel = function( container, tabOrientation )
     panel.mainGroup = DuScriptUI.group( panel, 'stack' );
     panel.mainGroup.alignment = [ 'fill', 'fill' ];
 
-    panel.addTab = function( text, image, helpTip )
+    panel.addTab = function( text, image, helpTip, translatable )
     {
         text = def( text, '');
         image = def (image, '');
+        translatable = def (translatable, true);
 
         var commonSettings = def( DuESF.scriptSettings.data.common, {} );
         var uiMode = def(commonSettings.uiMode, 0);
