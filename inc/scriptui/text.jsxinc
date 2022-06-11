@@ -196,6 +196,7 @@ DuScriptUI.editText = function( container, text, prefix, suffix, placeHolder, he
         niceEditText.tempText = niceEditText.edit.text;
 
         niceEditText.freeze = freeze;
+        // workaround for ae not sending the event
         if (!niceEditText.freeze) niceEditText.onChanging();
     }
 

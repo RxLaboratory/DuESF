@@ -285,21 +285,19 @@ DuScriptUI.library = function( container, library, options ) {
     }
 
     function parseCmd() {
-        // Check if we're starting a new block
-        var currentCmd = cmdEdit.text;
+        var currentCmd = cmdEdit.tempText;
+
         if ( DuString.endsWith(currentCmd, ' >')) return;
         if ( DuString.fullTrim(currentCmd) == '') {
             updateCategory();
             return;
         }
         var newBlock = DuString.endsWith(currentCmd, ' ');
-        // Search
+
         if (!newBlock) {
-            // Get last block
-            var search = currentCmd.toLowerCase();
+            search = currentCmd.toLowerCase();
             // Reset list
             setCategory(duLibrary.currentCategory);
-            // Filter
             for (var i = libList.items.length -1; i >= 0; i--) {
                 var item = libList.items[i];
                 if ( // unsuccessful search
@@ -309,9 +307,9 @@ DuScriptUI.library = function( container, library, options ) {
                     libList.remove(i);
                 }
             }
+            return;
         }
-        // Select
-        else if (libList.items.length > 0 && currentCmd.length > 0) {
+        if (libList.items.length > 0 && currentCmd.length > 0) {
             var item = libList.items[0];
             if (item.libType == 'parent') {
                 currentCommand.pop();
@@ -423,7 +421,8 @@ DuScriptUI.library = function( container, library, options ) {
         DuScriptUI.String.START_TYPING_CMD
     );
     cmdEdit.alignment = ['fill', 'fill'];
-    cmdEdit.onChanging = cmdEdit.onChange = parseCmd;
+    cmdEdit.onChanging = parseCmd;
+    cmdEdit.onChange = parseCmd;
     cmdEdit.onEnterPressed = run;
 
     var tipGroup = DuScriptUI.group( duLibrary, 'row');
