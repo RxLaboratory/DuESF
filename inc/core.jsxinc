@@ -274,11 +274,8 @@ DuESF.init = function( scriptName, scriptVersion, companyName )
 
     // check if this script has already been run once
     // Check the version from latest run
-    if ( DuESF.settings.data.version !== 'undefined' )
-    {
-        var prevVersion =  DuESF.settings.data.version;
-        if ( prevVersion == scriptVersion ) DuESF.scriptFirstRun = false;
-    }
+    var prevVersion = DuESF.settings.get("version");
+    if ( prevVersion == scriptVersion ) DuESF.scriptFirstRun = false;
 
     // Create a debug log
     if (DuESF.debug) DuDebug.debugLog = new DuDebugLog();

@@ -21,8 +21,8 @@ function DuSettings( namespace, file, dontSavePath )
 	// Get path from duesf settings
 	if ( !isdef( file ) )
 	{
-		var filePath = DuESF.settings.data.scriptSettingsFile;
-		if ( isdef( filePath ) ) file = new File( filePath );
+		var filePath = DuESF.settings.get("scriptSettingsFile");
+		if ( filePath ) file = new File( filePath );
 	}
 
 	// Generate default path
@@ -42,7 +42,7 @@ function DuSettings( namespace, file, dontSavePath )
 	
 	if (!dontSavePath)
 	{
-		DuESF.settings.data.scriptSettingsFile =  this.file.absoluteURI;
+		DuESF.settings.set("scriptSettingsFile", this.file.absoluteURI);
 		DuESF.settings.save();
 	}
 	
@@ -96,7 +96,7 @@ DuSettings.prototype.setFile = function(file, dontSavePath)
 	if (file.exists) this.load();
 	else this.save();
 	if (!dontSavePath) {
-		DuESF.settings.data.scriptSettingsFile =  this.file.absoluteURI;
+		DuESF.settings.set("scriptSettingsFile", this.file.absoluteURI);
 		DuESF.settings.save();
 	}
 }
@@ -109,6 +109,42 @@ DuSettings.prototype.reset = function()
 	this.file.remove();
 	this.data = {};
 }
+
+/**
+ * Gets a value from the settings. The key can be a path separated by /
+ * @property {string} key The setting to get
+ * @property {*} [defaultValue=null] The default value if the key is not set in the settings
+ * @return {*} The value
+ */
+DuSettings.prototype.get = function( key, defaultValue )
+{
+	defaultValue = def(defaultValue, null);
+	var keyArray = key.split("/")
+	var numKeys = keyArray.length;
+	var data = this.data;
+	for( var i = 0; i < numKeys -1; i++) {
+		data = def( data[keyArray[i]], {});
+	}
+	return def( data[keyArray[numKeys-1]], defaultValue);
+}
+
+/**
+ * Sets a value to the settings. The key can be a path separated by /
+ * @property {string} key The setting to set
+ * @property {*} value The value to set
+ */
+DuSettings.prototype.set = function( key, value )
+{
+	var keyArray = key.split("/")
+	var numKeys = keyArray.length;
+	var data = this.data;
+	for( var i = 0; i < numKeys -1; i++) {
+		data[keyArray[i]] = def( data[keyArray[i]], {});
+		data = data[keyArray[i]]
+	}
+	data[keyArray[numKeys-1]] = value;
+}
+
 // Low-level undocumented function. Called by DuESF.init()
 DuSettings.init = function() {
 	DuESF.settings = new DuSettings( 'DuESF', DuFolder.duesfData.absoluteURI + '/duesf_settings.json', true  );
