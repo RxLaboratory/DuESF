@@ -1,6 +1,7 @@
 /**
  * JSON parser.
  * @name JSON
+ * @namespace
  * @see {@link http://www.JSON.org/js.html|Json2}
  * @license Public-Domain
  * @category DuESF
