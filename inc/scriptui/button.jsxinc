@@ -143,8 +143,7 @@ DuScriptUI.button = function(container, text, image, helpTip, addOptionsPanel, o
     options.optionsWithoutPanel = def(options.optionsWithoutPanel, optionsWithoutPanel);
     options.small = def(options.small, false);
     
-    var commonSettings = def(DuESF.scriptSettings.data.common, {});
-    var uiMode = def(commonSettings.uiMode, 0);
+    var uiMode = DuESF.scriptSettings.get("common/uiMode", 0);
     if (uiMode >= 2 && options.image != '' && !options.ignoreUIMode) options.text = '';
 
     if (!isdef( alignment )) {

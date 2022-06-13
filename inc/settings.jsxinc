@@ -158,10 +158,9 @@ DuSettings.init = function() {
 	DuESF.scriptSettings = new DuSettings( DuESF.scriptName );
 	
 	// Load defaults
-	var common  = def(DuESF.scriptSettings.data.common, {});
-	var highlightSelection = def( common.highlightSelection, -1);
-	var highlightColor = new DuColor( def( common.highlightColor, DuColor.Color.APP_HIGHLIGHT_COLOR ) );
-	var debug = def( common.debug, false);
+	var highlightSelection = DuESF.scriptSettings.get("common/highlightSelection", -1);
+	var highlightColor = new DuColor( DuESF.scriptSettings.get("common/highlightColor", DuColor.Color.APP_HIGHLIGHT_COLOR) );
+	var debug = DuESF.scriptSettings.get("common/debug", false);
 
 	// Debug mode
 	DuESF.debug = debug;

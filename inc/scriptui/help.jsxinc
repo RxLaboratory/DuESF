@@ -148,8 +148,7 @@ DuScriptUI.askLanguage = function ( callback, ui )
         ui = new Window('dialog', DuScriptUI.String.ASK_FILES_NETWORK_ACCESS_TITLE)
     }
 
-    var commonSettings = def( DuESF.scriptSettings.data.common, {} );
-    var currentLanguageName = def (commonSettings.currentLanguageName, '');
+    var currentLanguageName = DuESF.scriptSettings.get("common/currentLanguageName", '');
 
     DuTranslator.getAvailable();
     var languages = DuTranslator.getPrettyNames();
@@ -192,9 +191,8 @@ DuScriptUI.askLanguage = function ( callback, ui )
     okButton.onClick = function()
     {
         // Save settings
-        DuESF.scriptSettings.data.common = def( DuESF.scriptSettings.data.common, {} );
-        DuESF.scriptSettings.data.common.language = DuTranslator.getLanguageId(languageSelector.label.text);
-        DuESF.scriptSettings.data.common.currentLanguageName = languageSelector.label.text;
+        DuESF.scriptSettings.set("common/language", DuTranslator.getLanguageId(languageSelector.label.text));
+        DuESF.scriptSettings.set("common/currentLanguageName", languageSelector.label.text);
         DuTranslator.setPrettyLanguage( languageSelector.label.text );
 
         DuESF.scriptSettings.save();
@@ -227,8 +225,7 @@ DuScriptUI.checkUpdate = function ( callback, ui, showAlert )
     if (DuESF.debug) showAlert = true;
 
     //Just once a day
-    DuESF.scriptSettings.data.common  = def(DuESF.scriptSettings.data.common, {});
-    var latestUpdateCheck = def( DuESF.scriptSettings.data.common.latestUpdateCheck, 0);
+    var latestUpdateCheck = DuESF.scriptSettings.get("common/latestUpdateCheck", 0);
     var now = Date.now();
     // 24h
     if (now - latestUpdateCheck < 86400000 && !showAlert && !DuESF.debug) {
@@ -236,7 +233,7 @@ DuScriptUI.checkUpdate = function ( callback, ui, showAlert )
         DuScriptUI.updateFundingInfo();
         return callback();
     }
-    DuESF.scriptSettings.data.common.latestUpdateCheck = now;
+    DuESF.scriptSettings.set("common/latestUpdateCheck", now);
     DuESF.scriptSettings.save();
 
     if ( DuESF.rxVersionURL == '' ) return callback();
@@ -395,21 +392,17 @@ DuScriptUI.checkUpdate = function ( callback, ui, showAlert )
 }
 
 DuScriptUI.updateFundingInfo = function (fund, goal) {
-
-    DuESF.scriptSettings.data.funding = def(DuESF.scriptSettings.data.funding, {});
-    DuESF.scriptSettings.data.funding.monthlyFund = def(DuESF.scriptSettings.data.funding.monthlyFund, 0);
-    DuESF.scriptSettings.data.funding.fundingGoal = def(DuESF.scriptSettings.data.funding.fundingGoal, 4000);
-    
-    fund = def(fund, DuESF.scriptSettings.data.funding.monthlyFund);
-    goal = def(goal, DuESF.scriptSettings.data.funding.fundingGoal);
+   
+    fund = def(fund, DuESF.scriptSettings.get("funding/monthlyFund", 0));
+    goal = def(goal, DuESF.scriptSettings.get("funding/fundingGoal", 4000));
 
     if (fund) {
         fund = parseFloat(fund);
-        DuESF.scriptSettings.data.funding.monthlyFund = fund;        
+        DuESF.scriptSettings.set("funding/monthlyFund", fund);
     }
     if (goal) {
         goal = parseFloat(goal);
-        DuESF.scriptSettings.data.funding.fundingGoal = goal;
+        DuESF.scriptSettings.set("funding/fundingGoal", goal);
     }
 
     DuESF.scriptSettings.save();

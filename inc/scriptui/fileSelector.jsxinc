@@ -38,7 +38,7 @@ DuScriptUI.folderSelector = function ( container, text, textField, helpTip, orie
     helpTip = def(helpTip, '');
     orientation = def(orientation, 'row');
 
-    if (DuESF.scriptSettings.data.common.uiMode >= 1) orientation = 'row';
+    if (DuESF.scriptSettings.get("common/uiMode", 0) >= 1) orientation = 'row';
 
     var folderSelector = container.add('group');
     folderSelector.orientation = orientation;
@@ -140,8 +140,7 @@ DuScriptUI.fileSelector = function ( container, text, textField, helpTip, image,
     filters = def(filters, "All files: *.*");
     orientation = def(orientation, uiMode >= 1 ? 'row' : 'column');
 
-    var commonSettings = def(DuESF.scriptSettings.data.common, {});
-    var uiMode = def( commonSettings.uiMode, 0);
+    var uiMode = DuESF.scriptSettings.get("common/uiMode", 0);
 
     var fileSelector = container.add('group');
     fileSelector.orientation = orientation;

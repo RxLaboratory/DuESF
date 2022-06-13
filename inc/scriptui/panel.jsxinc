@@ -716,8 +716,7 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
 
         panel.settingsGroup.colorSelector.onChange = function()
         {
-            var common  = def(DuESF.scriptSettings.data.common, {});
-            var customColor = new DuColor( def( common.highlightColor, DuColor.Color.APP_HIGHLIGHT_COLOR ) );
+            var customColor = new DuColor( DuESF.scriptSettings.get("common/highlightColor", DuColor.Color.APP_HIGHLIGHT_COLOR) );
             var colorIndex = panel.settingsGroup.colorSelector.index;
             if (colorIndex == panel.settingsGroup.colorSelector.items.length -1 )
             {
@@ -737,12 +736,11 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
         // Load settings
         panel.settingsGroup.reset = function()
         {
-            var common  = def(DuESF.scriptSettings.data.common, {});
-            var highlightSelection = def( common.highlightSelection, 0);
-            var currentLanguageName = def( common.currentLanguageName, 'Esperanto');
-            var debug = def( common.debug, false);
-            var uiMode = def( common.uiMode, 0);
-            var customColor = new DuColor( def( common.highlightColor, DuColor.Color.APP_HIGHLIGHT_COLOR ) );
+            var highlightSelection = DuESF.scriptSettings.get("common/highlightSelection", 0);
+            var currentLanguageName = DuESF.scriptSettings.get("common/currentLanguageName", 'Esperanto');
+            var debug = DuESF.scriptSettings.get("common/debug", false);
+            var uiMode = DuESF.scriptSettings.get("common/uiMode", 0);
+            var customColor = new DuColor( DuESF.scriptSettings.get("common/highlightColor", DuColor.Color.APP_HIGHLIGHT_COLOR) );
             
             // Settings File
             panel.settingsGroup.fileButton.setPath( DuESF.scriptSettings.file.absoluteURI );

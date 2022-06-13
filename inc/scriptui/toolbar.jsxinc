@@ -6,8 +6,7 @@
  */
 DuScriptUI.toolBar = function( container, numCols )
 {
-    var commonSettings = def(DuESF.scriptSettings.data.common, {});
-    var uiMode = def( commonSettings.uiMode, 0);
+    var uiMode = DuESF.scriptSettings.get("common/uiMode", 0);
 
     if (!isdef( numCols ))
     {

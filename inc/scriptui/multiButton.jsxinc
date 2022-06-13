@@ -39,8 +39,7 @@ DuScriptUI.multiButton = function( container, text, image, helpTip, ignoreUIMode
     image = def(image, '');
     ignoreUIMode = def(ignoreUIMode, false);
 
-    var commonSettings = def(DuESF.scriptSettings.data.common, {});
-    var uiMode = def( commonSettings.uiMode, 0);
+    var uiMode = DuESF.scriptSettings.get("common/uiMode", 0);
     if (uiMode >= 2 && image != '' && !ignoreUIMode) text = '';
 
     var multiButton = container.add( 'group' );
