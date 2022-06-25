@@ -222,7 +222,7 @@ DuScriptUI.checkUpdate = function ( callback, ui, showAlert )
         var noCallback = true;
     }
     showAlert = def(showAlert, false);
-    if (DuESF.debug) showAlert = true;
+    //if (DuESF.debug) showAlert = true;
 
     //Just once a day
     var latestUpdateCheck = DuESF.scriptSettings.get("common/latestUpdateCheck", 0);
