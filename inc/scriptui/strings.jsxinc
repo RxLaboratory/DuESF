@@ -60,7 +60,7 @@ DuScriptUI.String = {
     EXPORT_TRANSLATION_TIP: "Export a translation file to be edited with DuTranslator.",
     EYE: "Eye",
     EYES: "Eyes",
-    EYEBROW: "Eye",
+    EYEBROW: "Eyebrow",
     FEATHER: "Feather",
     FEATHERS: "Feathers",
     FEATURE_REQUEST: "Feature request",
