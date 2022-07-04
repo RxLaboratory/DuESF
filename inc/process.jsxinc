@@ -240,14 +240,22 @@ DuProcess.prototype.startCmd = function ( cmd ) {
     * @static
     * @param {string|File} process - The process or a path to the process.
     * @param {string[]} [args=[]] - The arguments to pass to the command.
+    * @param {bool} [detached=false] - The script won't wait for the command to finish.
     * @return {string}	The output from the command.
     */
-DuProcess.run = function( process, args ) {
+DuProcess.run = function( process, args, detached ) {
+    detached = def(detached, false);
     var p;
-    if (process instanceof File) p = new DuProcess(process.absoluteURI);
-    else p = new DuProcess(process);
-    var cmd = p.buildCmd(args);
-    return system.callSystem( cmd );
+    if (process instanceof File) p = new DuProcess(process.absoluteURI, args);
+    else p = new DuProcess(process, args);
+
+    var output = "";
+    if (detached) p.start();
+    else {
+        var cmd = p.buildCmd();
+        output = system.callSystem( cmd );
+    }
+    return output;
 }
 
 /**
