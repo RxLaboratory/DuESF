@@ -1335,13 +1335,14 @@ DuOCODoc.prototype.newFishSpine = function( head, spine, position )
 
 /**
  * Creates a new fin.
+ * @param {DuOCO.Side} [side=DuOCO.Side.LEFT] The side
  * @param {int} [fishbones=5]  Number of feathers
  * @param {float[]} [position] The position of the first bone of the arm.<br />
  * If omitted, computed automatically according to the current character in the doc.
  * @param {DuOCO.View} [view=DuOCO.View.RIGHT] The view
  * @returns {DuOCOLimb} The fin
  */
-DuOCODoc.prototype.newFin = function( side, fishbones, view )
+DuOCODoc.prototype.newFin = function( side, fishbones, view, position )
 {
     side = def(side, DuOCO.Side.LEFT);
     view = def(view, DuOCO.View.RIGHT);
@@ -1367,7 +1368,7 @@ DuOCODoc.prototype.newFin = function( side, fishbones, view )
     var oy = 0;
 
     // offset
-    if (isdef( position ) )
+    if ( isdef(position) )
     {
         ox = position[0] - x;
         oy = position[1] - y;
