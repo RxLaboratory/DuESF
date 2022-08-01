@@ -328,7 +328,6 @@ DuESF.delete = function()
     delete DuSettings;
     delete DuSystem;
     delete DuString;
-    delete DuTranslator;
     delete DuTranslation;
     delete DuVersion;
     delete DuXML;
