@@ -31,8 +31,6 @@ DuScriptUI.settingField = function(container, text, minimumLabelWidth ) {
     settingGroup.spacing = 3;
     settingGroup.alignment = ['fill', 'top'];
 
-    text = tr(text);
-
     var checkbox = DuScriptUI.checkBox( settingGroup, {
         text: text + ':',
         localize: false

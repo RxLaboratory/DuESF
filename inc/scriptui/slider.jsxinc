@@ -67,9 +67,6 @@ DuScriptUI.slider = function( container, defaultValue, min, max, orientation, in
         else textAlignment = 'bottom';
     }
 
-    prefix = tr( prefix );
-    suffix = tr( suffix );
-
     var niceSlider = container.add( 'group' );
     niceSlider.orientation = orientation;
     niceSlider.spacing = 0;
