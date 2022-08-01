@@ -7,18 +7,18 @@ var DuDate = {};
 
 // low-level undocumented list. Use getMonth and getMonthName
 DuDate.MonthNames = [
-	i18n._("January"),
-	i18n._("February"),
-	i18n._("March"),
-	i18n._("April"),
-	i18n._("May"),
-	i18n._("June"),
-	i18n._("July"),
-	i18n._("August"),
-	i18n._("September"),
-	i18n._("October"),
-	i18n._("November"),
-	i18n._("December"),
+	"January",
+	"February",
+	"March",
+	"April",
+	"May",
+	"June",
+	"July",
+	"August",
+	"September",
+	"October",
+	"November",
+	"December",
 ];
 
 /**
@@ -46,7 +46,7 @@ DuDate.getMonth = function (string)
 */
 DuDate.getMonthName = function (index)
 {
-	if (index >= 0 && index < 12) return DuDate.MonthNames[i];
+	if (index >= 0 && index < 12) return i18n._(DuDate.MonthNames[i]);
 
 	return "";
 }

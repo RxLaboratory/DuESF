@@ -56,8 +56,6 @@ DuScriptUI.String = {
     EFFECTS: "Effects",
     EXPERT: "Expert",
     EXPERT_UI_TIP: "The smallest UI, for expert users.",
-    EXPORT_TRANSLATION: "Export translation file",
-    EXPORT_TRANSLATION_TIP: "Export a translation file to be edited with DuTranslator.",
     EYE: "Eye",
     EYES: "Eyes",
     EYEBROW: "Eyebrow",

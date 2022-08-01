@@ -279,6 +279,8 @@ DuESF.init = function( scriptName, scriptVersion, companyName )
 
     // Create a debug log
     if (DuESF.debug) DuDebug.debugLog = new DuDebugLog();
+
+    translationEngine.init();
 }
 
 /**
@@ -328,8 +330,6 @@ DuESF.delete = function()
     delete DuSettings;
     delete DuSystem;
     delete DuString;
-    delete DuTranslator;
-    delete DuTranslation;
     delete DuVersion;
     delete DuXML;
     delete DuXMP;
