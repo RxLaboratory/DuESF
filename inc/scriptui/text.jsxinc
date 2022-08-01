@@ -84,7 +84,7 @@
  * @param {bool} [localize=true] Whether to translate the texts of this control
  * @return {DuEditText}	The custom Group containing the edit text.
  */
-DuScriptUI.editText = function( container, text, prefix, suffix, placeHolder, helpTip, localize )
+DuScriptUI.editText = function( container, text, prefix, suffix, placeHolder, helpTip )
 {
     var options = {};
     text = def(text, '');
@@ -95,22 +95,12 @@ DuScriptUI.editText = function( container, text, prefix, suffix, placeHolder, he
     suffix = def(suffix, '');
     placeHolder = def(placeHolder,'');
     helpTip = def(helpTip, '');
-    localize = def(localize,true);
 
     options.text = def(options.text, text);
     options.suffix = def(options.suffix, suffix);
     options.prefix = def(options.prefix, prefix);
     options.placeHolder = def(options.placeHolder, placeHolder);
     options.helpTip = def(options.text, helpTip);
-    options.localize = def(options.localize, localize);
-
-    if ( options.localize )
-    {
-        options.text = tr( options.text );
-        options.prefix = tr( options.prefix );
-        options.suffix = tr( options.suffix );
-        options.placeHolder = tr( options.placeHolder );
-    }
 
     var niceEditText = container.add( 'group' );
     niceEditText.orientation = 'stack';
@@ -287,7 +277,7 @@ DuScriptUI.editText = function( container, text, prefix, suffix, placeHolder, he
  * @param {bool} [multiLine=false] - Set this to true to add a multiline text. Auto detected by default if the text contains the newline character.
  * @return {StaticText} The ScriptUI StaticText created.
  */
-DuScriptUI.staticText = function( container, text, color, localize, multiLine )
+DuScriptUI.staticText = function( container, text, color, multiLine )
 {
     var options = {};
     text = def(text, '');
@@ -297,14 +287,10 @@ DuScriptUI.staticText = function( container, text, color, localize, multiLine )
     options.text = def(options.text, text);
 
     multiLine = def(multiLine, options.text.indexOf("\n") >= 0 )
-    localize = def(localize, true);
     color = def(color, DuColor.Color.APP_TEXT_COLOR.darker(130) );
 
     options.color = def(options.color, color);
-    options.localize = def(options.localize, localize);
     options.multiLine = def(options.multiLine, multiLine);
-
-    if ( options.localize ) options.text = tr( options.text );
 
     var t = container.add( 'statictext', undefined, options.text,
     {

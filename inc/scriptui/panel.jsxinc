@@ -44,8 +44,6 @@ DuScriptUI.mainPanel = function( container, scriptName, contentAlignment, bless 
     contentAlignment = def(contentAlignment, DuScriptUI.defaultColumnAlignment, false);
     bless = def (bless, false);
 
-    scriptName = tr( scriptName );
-
     var myPal = null;
 
     var winType = 'palette';
@@ -191,7 +189,6 @@ DuScriptUI.popUp = function( title, alignment, modal )
     modal = def(modal, false);
     alignment = def( alignment, [ "fill", "top" ] );
     title = def (title, "");
-    title = tr( title );
     
     var type = 'palette';
     if (modal) type = 'dialog'; 
@@ -568,7 +565,7 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
     panel.settingsGroup.alignment = ['fill', 'top'];
     var settingsTitle = DuScriptUI.titleBar(
         panel.settingsGroup,
-        tr( '{#} ' + DuScriptUI.String.SETTINGS,undefined, DuESF.scriptName),
+        i18n._( "%1 Settings", DuESF.scriptName),
         true,
         false
     );

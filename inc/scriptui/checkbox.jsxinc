@@ -77,11 +77,6 @@ DuScriptUI.checkBox = function( container, text, image, helpTip, textChecked, im
         if (uiMode >= 2 && options.image != '') text = '';
     }
 
-    //translate text and options.helpTip
-    options.text = tr( options.text );
-    options.helpTip = tr( options.helpTip );
-    options.textChecked = tr( options.textChecked );
-
     //create ui
     var duCheckBox = container.add( 'group' );
     duCheckBox.orientation = 'column';

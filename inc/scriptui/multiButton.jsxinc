@@ -33,9 +33,8 @@
 DuScriptUI.multiButton = function( container, text, image, helpTip, ignoreUIMode )
 {
     text = def(text, '');
-    if (text!= '') text = tr(text) + '...';
+    if (text!= '') text = text + '...';
     helpTip = def(helpTip, '');
-    helpTip = tr(helpTip);
     image = def(image, '');
     ignoreUIMode = def(ignoreUIMode, false);
 
@@ -110,7 +109,7 @@ DuScriptUI.multiButton = function( container, text, image, helpTip, ignoreUIMode
     } );
     multiButton.popup.margins = 2;
     multiButton.popup.spacing = 0;
-    multiButton.popup.closeButton = DuScriptUI.button( multiButton.popup, tr(DuScriptUI.String.CANCEL) );
+    multiButton.popup.closeButton = DuScriptUI.button( multiButton.popup, i18n._("Cancel") );
     multiButton.popup.closeButton.onClick = multiButton.popup.onDeactivate = function()
     {
         multiButton.popup.hide();
@@ -128,7 +127,7 @@ DuScriptUI.multiButton = function( container, text, image, helpTip, ignoreUIMode
     //add default button
     multiButton.buttons = [];
 
-    multiButton.addButton = function( text, image, helpTip, addOptionsPanel, localize, optionsWithoutButton, optionsButtonText )
+    multiButton.addButton = function( text, image, helpTip, addOptionsPanel, optionsWithoutButton, optionsButtonText )
     {
         multiButton.popup.hide();
         text = def(text, '-');
@@ -136,12 +135,7 @@ DuScriptUI.multiButton = function( container, text, image, helpTip, ignoreUIMode
         helpTip = def(helpTip, '');
         localize = def(localize, true);
 
-        if (localize)
-        {
-            text = tr( text );
-            helpTip = tr( helpTip );
-        }
-        
+       
         if (multiButton.label)
         {
             var size = text.length * 7;

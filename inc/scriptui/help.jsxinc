@@ -41,8 +41,6 @@ DuScriptUI.addBugButton = function( container, showLabel )
 
     var label = DuScriptUI.String.BUG_REPORT;
     var helpTip = DuScriptUI.String.BUG_REPORT_TIP;
-    label = tr(label);
-    helpTip = tr(helpTip);
 
     var button = DuScriptUI.button(
         container,
@@ -73,8 +71,6 @@ DuScriptUI.addHelpButton = function( container, showLabel )
 
     var label = DuScriptUI.String.HELP;
     var helpTip = DuScriptUI.String.HELP_TIP;
-    label = tr(label);
-    helpTip = tr(helpTip);
 
     var button = DuScriptUI.button(
         container,

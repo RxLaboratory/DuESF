@@ -7,18 +7,18 @@ var DuDate = {};
 
 // low-level undocumented list. Use getMonth and getMonthName
 DuDate.MonthNames = [
-	tr("January"),
-	tr("February"),
-	tr("March"),
-	tr("April"),
-	tr("May"),
-	tr("June"),
-	tr("July"),
-	tr("August"),
-	tr("September"),
-	tr("October"),
-	tr("November"),
-	tr("December"),
+	i18n._("January"),
+	i18n._("February"),
+	i18n._("March"),
+	i18n._("April"),
+	i18n._("May"),
+	i18n._("June"),
+	i18n._("July"),
+	i18n._("August"),
+	i18n._("September"),
+	i18n._("October"),
+	i18n._("November"),
+	i18n._("December"),
 ];
 
 /**

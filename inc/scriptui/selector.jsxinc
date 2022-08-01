@@ -86,7 +86,6 @@
 DuScriptUI.selector = function( container, helpTip, iconOnly )
 {
     helpTip = def(helpTip, '');
-    helpTip = tr(helpTip);
     iconOnly = def(iconOnly, false);
 
     //create main group
@@ -152,7 +151,7 @@ DuScriptUI.selector = function( container, helpTip, iconOnly )
     } );
     selector.popup.margins = 2;
     selector.popup.spacing = 0;
-    selector.popup.closeButton = DuScriptUI.button( selector.popup, tr(DuScriptUI.String.CANCEL) );
+    selector.popup.closeButton = DuScriptUI.button( selector.popup, i18n._("Cancel") );
     selector.popup.closeButton.onClick = selector.popup.onDeactivate = function()
     {
         selector.popup.hide();
@@ -169,7 +168,7 @@ DuScriptUI.selector = function( container, helpTip, iconOnly )
     selector.index = -1;
     selector.currentData = null;
 
-    selector.addButton = function( text, image, helpTip, localize, data )
+    selector.addButton = function( text, image, helpTip, data )
     {
         selector.popup.hide();
 
@@ -184,17 +183,8 @@ DuScriptUI.selector = function( container, helpTip, iconOnly )
         helpTip = def(helpTip, '');
         options.helpTip = def(options.helpTip, helpTip);
 
-        localize = def(localize, true);
-        options.localize = def(options.localize, localize);
-
         data = def(data, null);
         options.data = def(options.data, data);
-
-        if (options.localize)
-        {
-            options.text = tr( options.text );
-            options.helpTip = tr( options.helpTip );
-        }
         
         if (!iconOnly) {
             var size = text.length * 7;

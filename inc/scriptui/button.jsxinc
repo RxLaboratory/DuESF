@@ -107,7 +107,7 @@
  * @param {Boolean}					[optionsWithoutPanel=false]	- Don't create the options popup panel (use <code>DuButton.onOptions</code> to add your own callback when the options are requested)
  * @return {DuButton}			The image button created.
  */
-DuScriptUI.button = function(container, text, image, helpTip, addOptionsPanel, orientation, alignment, localize, ignoreUIMode, optionsWithoutButton, optionsButtonText, optionsWithoutPanel) {
+DuScriptUI.button = function(container, text, image, helpTip, addOptionsPanel, orientation, alignment, ignoreUIMode, optionsWithoutButton, optionsButtonText, optionsWithoutPanel) {
     if (!isdef( container )) {
         throw 'DuScriptUI: DuScriptUI.button(container, text, image, helpTip, imageOver):\nMissing argument: container.';
     }
@@ -136,7 +136,6 @@ DuScriptUI.button = function(container, text, image, helpTip, addOptionsPanel, o
     options.helpTip = def(options.helpTip, helpTip);
     options.options = def(options.options, addOptionsPanel);
     options.orientation = def(options.orientation, orientation);
-    options.localize = def(options.localize, localize);
     options.ignoreUIMode = def(options.ignoreUIMode, ignoreUIMode);
     options.optionsWithoutButton = def(options.optionsWithoutButton, optionsWithoutButton);
     options.optionsButtonText = def(options.optionsButtonText, optionsButtonText);
@@ -152,11 +151,6 @@ DuScriptUI.button = function(container, text, image, helpTip, addOptionsPanel, o
         else alignment = 'top';
     }
     options.alignment = def(options.alignment, alignment);
-
-    if (options.localize) {
-        options.text = tr(options.text);
-        options.helpTip = tr(options.helpTip);
-    }
 
     if (options.options) {
         if (options.helpTip != '') options.helpTip += '\n\n';
@@ -440,9 +434,6 @@ DuScriptUI.button = function(container, text, image, helpTip, addOptionsPanel, o
  */
 DuScriptUI.smallbutton = function(container, text, helpTip, value) {
     if (!isdef( helpTip )) helpTip = '';
-
-    text = tr(text);
-    helpTip = tr(helpTip);
 
     var smallButton = container.add('group');
     smallButton.orientation = 'row';

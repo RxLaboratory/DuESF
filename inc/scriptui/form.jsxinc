@@ -58,8 +58,6 @@ DuScriptUI.form = function( container )
     mainGroup.addField = function( label, type, value, helpTip )
     {
         helpTip = def (helpTip, '');
-        label = tr( label );
-        helpTip = tr( helpTip );
 
         var control = null;
         var height = 20;

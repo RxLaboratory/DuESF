@@ -48,9 +48,6 @@ DuScriptUI.toolBar = function( container, numCols )
         options.optionsWithoutPanel = def(options.optionsWithoutPanel, optionsWithoutPanel);
         options.image = def(options.image, icon);
 
-        text = tr(options.text);
-        helpTip = tr(options.helpTip);
-
         options.localize = false;
         options.orientation = uiMode == 0 ? 'column' : undefined;
         options.helpTip = uiMode == 0 ? helpTip : options.text + "\n\n" + helpTip;

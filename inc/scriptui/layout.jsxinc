@@ -52,14 +52,11 @@ DuScriptUI.group = function( container, orientation )
  * @param {boolean} [translatable=true] - If false, the name won't be translated
  * @return {DuSeparator} The separator
  */
-DuScriptUI.separator = function( container, name, checkable, drawLine, translatable )
+DuScriptUI.separator = function( container, name, checkable, drawLine )
 {
     name = def(name, '' );
     checkable = def( checkable, false );
     drawLine = def( drawLine, true );
-    translatable = def(translatable, true);
-
-    if(translatable) name = tr( name );
 
     var separator = DuScriptUI.group( container );
     separator.margins = 0;
