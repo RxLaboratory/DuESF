@@ -13,6 +13,7 @@
  * @property {string[][]} items  - The buttons, each one is an array with [text, image, helptip]
  * @property {int} index  - The current index
  * @property {string} text  - The current text
+ * @property {*} currentData  - The current data
  * @property {Selector~onChange} onChange  - The function to execute when the index changes.<br />
  * You can set your own function here, which must take no argument.<br />
  * The method is called after the index has changed.
@@ -42,8 +43,7 @@
  * @param {string} [text] - The text displayed by the button
  * @param {string} [image] - The icon, either a path to the file or a PNG represented as a string.
  * @param {string} [helpTip] - The help tip for the entry
- * @param {string} [imageOver] - The roll over icon, either a path to the file or a PNG represented as a string.
- * @param {boolean} [localize=true] - Set to false if the text must not be translated.
+ * @param {*} [data] - Some data to associate with the button.
  */
 
 /**

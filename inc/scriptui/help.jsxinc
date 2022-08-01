@@ -145,12 +145,11 @@ DuScriptUI.askLanguage = function ( callback, ui )
     }
 
     var currentLanguageName = DuESF.scriptSettings.get("common/currentLanguageName", '');
+    var currentLocale = DuESF.scriptSettings.get("common/language", '');
 
-    DuTranslator.getAvailable();
-    var languages = DuTranslator.getPrettyNames();
-    var languageCount = languages.length;
+    var languages = i18n.getAvailableLanguages();
 
-    if (currentLanguageName != '' || languageCount <= 1)
+    if (currentLanguageName != '' || languages.count == 0)
     {
         callback()
         return;
@@ -162,34 +161,35 @@ DuScriptUI.askLanguage = function ( callback, ui )
     ui_languageGroup.add('statictext', undefined, "EN: Select the language you wish to use with this software.", { multiline: true } );
 
     var currentIndex = 0;
-    var languageSelector = DuScriptUI.selector( ui_languageGroup, DuScriptUI.String.LANGUAGE_TIP );
-    for (var i = 0; i < languageCount; i++ )
+    var languageSelector = DuScriptUI.selector( ui_languageGroup, "Set the language of the interface." );
+    var i = 0;
+    for (var locale in languages)
     {
-        languageSelector.addButton(
-            languages[i],
-            w16_language
-        );
-        if (languages[i] == 'Esperanto') currentIndex = i;
+        if (locale == "count") continue;
+        languageSelector.addButton( {
+            text: languages[locale],
+            image: w16_language,
+            data: locale
+        });
+        if (locale == 'eo') currentIndex = i;
+        i++;
     }
 
     languageSelector.setCurrentIndex( currentIndex );
 
-    var okButton = DuScriptUI.button(
-        ui_languageGroup,
-        DuScriptUI.String.APPLY,
-        w12_check,
-        DuScriptUI.String.APPLY_SETTINGS,
-        false,
-        'row',
-        'center'
-    )
+    var okButton = DuScriptUI.button( ui_languageGroup, {
+        text: "Apply",
+        image: w12_check,
+        helpTip: "Apply changes to the settings.",
+        alignment: 'center'
+    });
 
     okButton.onClick = function()
     {
         // Save settings
-        DuESF.scriptSettings.set("common/language", DuTranslator.getLanguageId(languageSelector.label.text));
-        DuESF.scriptSettings.set("common/currentLanguageName", languageSelector.label.text);
-        DuTranslator.setPrettyLanguage( languageSelector.label.text );
+        DuESF.scriptSettings.set("common/language", languageSelector.currentData );
+        DuESF.scriptSettings.set("common/currentLanguageName", languageSelector.text);
+        i18n.setLocale( languageSelector.currentData );
 
         DuESF.scriptSettings.save();
 

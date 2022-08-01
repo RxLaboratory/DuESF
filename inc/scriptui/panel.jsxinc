@@ -581,59 +581,34 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
         // Add default settings
         // language
         // Prepare languages, count how many there are, etc
-        DuTranslator.getAvailable();
-        var languages = DuTranslator.getPrettyNames();
-        var languageCount = languages.length;
+        var languages = i18n.getAvailableLanguages();
 
         var languageGroup = DuScriptUI.group(panel.settingsGroup, 'row');
 
-        if (languageCount > 1)
+        if (languages.count >= 1)
         {
             panel.settingsGroup.languageSelector = DuScriptUI.selector(
                 languageGroup,
-                DuScriptUI.String.LANGUAGE_TIP
+                i18n._("Set the language of the interface.")
             )
 
-            for (var i = 0; i < languageCount; i++ )
+            for (var locale in languages)
             {
-                panel.settingsGroup.languageSelector.addButton(
-                    languages[i],
-                    w16_language
-                );
+                if (locale == "count") continue;
+                panel.settingsGroup.languageSelector.addButton( {
+                    text: languages[locale],
+                    image: w16_language,
+                    data: locale
+                });
             }
 
             panel.settingsGroup.languageSelector.setCurrentIndex(0);
         }
         
-        if (debug)
-        {
-            var languageExportLabel = DuScriptUI.String.EXPORT_TRANSLATION;
-            if (panel.settingsGroup.languageSelector) languageExportLabel = '';
-
-            panel.settingsGroup.exportTranslationButton = DuScriptUI.button(
-                languageGroup,
-                languageExportLabel,
-                DuScriptUI.Icon.LANGUAGE_FILE,
-                DuScriptUI.String.EXPORT_TRANSLATION_TIP
-            );
-
-            if (panel.settingsGroup.languageSelector)
-                panel.settingsGroup.exportTranslationButton.alignment = ['right','fill'];
-
-            panel.settingsGroup.exportTranslationButton.onClick = function() {
-               
-                //Ask for file
-                var file = File.saveDialog ("Export translation File", "JSON: *.json");
-                if (!file) return;
-
-                DuTranslator.generateTranslationFile(file);
-            }
-        }
-
         // settings file
         panel.settingsGroup.fileButton = DuScriptUI.fileSelector (
             panel.settingsGroup,
-            DuScriptUI.String.SETTINGS_FILE + '...',
+            i18n._("Settings file") + '...',
             true,
             DuScriptUI.String.SETTINGS_FILE_TIP,
             w16_settings_file,
@@ -856,8 +831,8 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
         // Language
         if (panel.settingsGroup.languageSelector)
         {
-            DuESF.scriptSettings.set("common/language",  DuTranslator.getLanguageId(panel.settingsGroup.languageSelector.label.text));
-            DuESF.scriptSettings.set("common/currentLanguageName",  panel.settingsGroup.languageSelector.label.text);
+            DuESF.scriptSettings.set("common/language",  panel.settingsGroup.languageSelector.currentData );
+            DuESF.scriptSettings.set("common/currentLanguageName",  panel.settingsGroup.languageSelector.text);
         }
             
         // Dev Mode
