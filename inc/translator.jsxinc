@@ -107,17 +107,6 @@ var translationEngine = function (options) {
     return str;
   };
 
-  var expand_locale = function (locale) {
-    var locales = [locale],
-      i = locale.lastIndexOf('-');
-    while (i > 0) {
-      locale = locale.slice(0, i);
-      locales.push(locale);
-      i = locale.lastIndexOf('-');
-    }
-    return locales;
-  };
-
   var normalizeLocale = function (locale) {
     // Convert locale to BCP 47. If the locale is in POSIX format, locale variant and encoding is discarded.
     locale = locale.replace('_', '-');
@@ -174,7 +163,6 @@ var translationEngine = function (options) {
 
   return {
     strfmt: strfmt, // expose strfmt util
-    expand_locale: expand_locale, // expose expand_locale util
 
     // Declare shortcuts
     tr: function () {
@@ -232,7 +220,7 @@ var translationEngine = function (options) {
 
       if ( def(loadJson, false) ) {
         // Get file and load it
-        var jsonFile = DuPath.join(_folder, _prefix + locale + _suffix);
+        var jsonFile = DuPath.join([_folder, _prefix + locale + _suffix]);
         var jsonData = DuFile.parseJSON(jsonFile);
         this.loadJSON(jsonData);
       }
@@ -244,8 +232,14 @@ var translationEngine = function (options) {
     getLanguage: function() {
       return _languageNames[_locale];
     },
+    getLanguageForLocale: function (locale) {
+      return _languageNames[locale];
+    },
     getLocale: function () {
       return _locale;
+    },
+    getLocaleForLanguage: function (language) {
+      return _languageCodes[language];
     },
     getAvailableLanguages: function( defaultLocale ) {
       defaultLocale = def(defaultLocale, "en");
@@ -295,24 +289,35 @@ var translationEngine = function (options) {
         },
         key = msgctxt ? msgctxt + _ctxt_delimiter + msgid : msgid,
         exist,
-        locale,
-        locales = expand_locale(_locale);
+        locale;
 
-      for (var i in locales) {
-        locale = locales[i];
-        exist = _dictionary[domain] && _dictionary[domain][locale] && _dictionary[domain][locale][key];
+      locale = _locale;
 
-        // because it's not possible to define both a singular and a plural form of the same msgid,
-        // we need to check that the stored form is the same as the expected one.
-        // if not, we'll just ignore the translation and consider it as not translated.
-        if (msgid_plural) {
-          exist = exist && "string" !== typeof _dictionary[domain][locale][key];
-        } else {
-          exist = exist && "string" === typeof _dictionary[domain][locale][key];
+      exist = _dictionary[domain];
+
+      // Find corresponding locale in dict
+      if (exist) {
+        for (j in _dictionary[domain]) {
+          
+          if (locale == j) break;
+
+          // If first part of the locale is ours, use it
+          if (j.indexOf(locale) == 0) {
+            locale = j;
+            break;
+          }
         }
-        if (exist) {
-          break;
-        }
+      }
+
+      exist = exist && _dictionary[domain][locale] && _dictionary[domain][locale][key];
+
+      // because it's not possible to define both a singular and a plural form of the same msgid,
+      // we need to check that the stored form is the same as the expected one.
+      // if not, we'll just ignore the translation and consider it as not translated.
+      if (msgid_plural) {
+        exist = exist && "string" !== typeof _dictionary[domain][locale][key];
+      } else {
+        exist = exist && "string" === typeof _dictionary[domain][locale][key];
       }
 
       if (!exist) {
