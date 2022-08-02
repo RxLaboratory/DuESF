@@ -122,6 +122,7 @@ DuFile.writeln = function(file, content, append, encoding)
 */
 DuFile.parseJSON = function(file)
 {
+	if (!(file instanceof File)) file = new File(file);
 	if (!file.exists) return {};
 	//open and parse file
 	var json = DuFile.read(file);
