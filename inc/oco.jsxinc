@@ -96,8 +96,8 @@ DuOCO.LimbType = {
  * @enum {string}
  */
 DuOCO.Side = {
-    LEFT: DuScriptUI.String.LEFT_SHORT,
-    RIGHT: DuScriptUI.String.RIGHT_SHORT,
+    LEFT: i18n._p("in layer name, left","L"), /// TRANSLATORS: short for Left, must be short enough to be used as a tag in layer names
+    RIGHT: i18n._p("in layer name, right","R"), /// TRANSLATORS: short for Right, must be short enough to be used as a tag in layer names
     NONE: ''
 }
 
@@ -107,12 +107,12 @@ DuOCO.Side = {
  * @enum {string}
  */
 DuOCO.Location = {
-    FRONT: DuScriptUI.String.FRONT_SHORT,
-    BACK: DuScriptUI.String.BACK_LOCATION_SHORT,
-    TAIL: DuScriptUI.String.TAIL_SHORT,
-    MIDDLE: DuScriptUI.String.MIDDLE_SHORT,
-    ABOVE: DuScriptUI.String.ABOVE_SHORT,
-    UNDER: DuScriptUI.String.UNDER_SHORT,
+    FRONT: i18n._p("in layer name, front","Fr"), /// TRANSLATORS: short for Front, must be short enough to be used as a tag in layer names
+    BACK: i18n._p("in layer name, back","Bk"), /// TRANSLATORS: short for Back, must be short enough to be used as a tag in layer names
+    TAIL: i18n._p("in layer name, tail","Tl"), /// TRANSLATORS: short for Tail, must be short enough to be used as a tag in layer names
+    MIDDLE: i18n._p("in layer name, middle","Md"), /// TRANSLATORS: short for Middle, must be short enough to be used as a tag in layer names
+    ABOVE: i18n._p("in layer name, above","Ab"), /// TRANSLATORS: short for Above, must be short enough to be used as a tag in layer names
+    UNDER: i18n._p("in layer name, under","Un"), /// TRANSLATORS: short for Under, must be short enough to be used as a tag in layer names
     NONE: ''
 }
 
@@ -333,7 +333,7 @@ DuOCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, 
 
     // Create limb
     var limb = this.newLimb( DuOCO.Limb.ARM, side, location, type );
-    var b = limb.newArmature( DuScriptUI.String.ARM, num );
+    var b = limb.newArmature( i18n._("Arm"), num );
 
     // side
     var s = 1;
@@ -391,7 +391,7 @@ DuOCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, 
     // for each part, set the location
     if ( shoulder )
     {
-        b.name = DuScriptUI.String.SHOULDER;
+        b.name = i18n._("Shoulder");
         b.type = DuOCO.Bone.CLAVICLE;
         b.x = x + ox;
         b.y = y + oy;
@@ -399,7 +399,7 @@ DuOCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, 
     }
     if ( arm )
     {
-        b.name = DuScriptUI.String.ARM;
+        b.name = i18n._("Arm");
         b.type = DuOCO.Bone.HUMERUS;
         if (hum)
         {
@@ -440,7 +440,7 @@ DuOCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, 
     }
     if ( forearm )
     {
-        b.name = DuScriptUI.String.FOREARM;
+        b.name = i18n._("Forearm");
         b.type = DuOCO.Bone.RADIUS;
         if (hum)
         {
@@ -481,7 +481,7 @@ DuOCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, 
     }
     if ( hand )
     {
-        b.name = DuScriptUI.String.HAND;
+        b.name = i18n._("Hand");
         b.type = DuOCO.Bone.CARPUS;
         if (hum)
         {
@@ -522,7 +522,7 @@ DuOCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, 
     }
     if ( claws )
     {
-        b.name = DuScriptUI.String.CLAWS;
+        b.name = i18n._("Claws");
         b.type = DuOCO.Bone.FINGER;
         if (plan)
         {
@@ -557,7 +557,7 @@ DuOCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, 
         if (b.children.length > 0) b = b.children[0];
     }
     // Tip
-    b.name = DuScriptUI.String.ARM + '_' + DuScriptUI.String.TIP_BONE;
+    b.name = i18n._("Arm") + '_' + i18n._("Arm");
     b.type = DuOCO.Bone.TIP;
     if (hum)
     {
@@ -598,7 +598,7 @@ DuOCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, 
     //Heel
     if (plan)
     {
-        var heelBone = new DuOCOBone( DuScriptUI.String.HEEL );
+        var heelBone = new DuOCOBone( i18n._("Heel") );
         heelBone.type = DuOCO.Bone.HEEL;
         heelBone.x = s * u * .38 + ox;
         heelBone.y = 0 + oy;
@@ -660,7 +660,7 @@ DuOCODoc.prototype.newLeg = function( type, side, thigh, calf, foot, claws, posi
 
     // Create limb
     var limb = this.newLimb( DuOCO.Limb.LEG, side, location, type );
-    var b = limb.newArmature( DuScriptUI.String.LEG, num );
+    var b = limb.newArmature( i18n._("Leg"), num );
 
     // side
     var s = 1;
@@ -699,7 +699,7 @@ DuOCODoc.prototype.newLeg = function( type, side, thigh, calf, foot, claws, posi
     // for each part, set the location
     if ( thigh )
     {
-        b.name = DuScriptUI.String.THIGH;
+        b.name = i18n._("Thigh");
         b.type = DuOCO.Bone.FEMUR;
         b.x = x + ox;
         b.y = y + oy;
@@ -707,7 +707,7 @@ DuOCODoc.prototype.newLeg = function( type, side, thigh, calf, foot, claws, posi
     }
     if ( calf )
     {
-        b.name = DuScriptUI.String.CALF;
+        b.name = i18n._("Calf");
         b.type = DuOCO.Bone.TIBIA;
         if (plan || hum)
         {
@@ -728,7 +728,7 @@ DuOCODoc.prototype.newLeg = function( type, side, thigh, calf, foot, claws, posi
     }
     if ( foot )
     {
-        b.name = DuScriptUI.String.FOOT;
+        b.name = i18n._("Foot");
         b.type = DuOCO.Bone.TARSUS;
         if (plan || hum)
         {
@@ -749,8 +749,8 @@ DuOCODoc.prototype.newLeg = function( type, side, thigh, calf, foot, claws, posi
     }
     if ( claws )
     {
-        b.name = DuScriptUI.String.CLAWS;
-        if (hum) b.name = DuScriptUI.String.TOES;
+        b.name = i18n._("Claws");
+        if (hum) b.name = i18n._("Toes");
         b.type = DuOCO.Bone.TOE;
         if (plan || hum)
         {
@@ -764,14 +764,15 @@ DuOCODoc.prototype.newLeg = function( type, side, thigh, calf, foot, claws, posi
         }
         else if (ung)
         {
-            b.name = DuScriptUI.String.HOOF;
+            b.name = i18n._("Hoof");
             b.x = s * u * -.37 + ox;
             b.y = u*.08 + oy;
         }
         if (b.children.length > 0) b = b.children[0];
     }
     // Tip
-    b.name = DuScriptUI.String.LEG + '_' + DuScriptUI.String.TIP_BONE;
+    b.name = i18n._("Leg") +
+        '_' + i18n._("Tip");
     b.type = DuOCO.Bone.TIP;
     if (plan || hum)
     {
@@ -792,7 +793,7 @@ DuOCODoc.prototype.newLeg = function( type, side, thigh, calf, foot, claws, posi
     //Heel
     if ((plan || hum) && claws)
     {
-        var heelBone = new DuOCOBone( DuScriptUI.String.HEEL );
+        var heelBone = new DuOCOBone( i18n._("Heel") );
         heelBone.type = DuOCO.Bone.HEEL;
         heelBone.x = s * u * .01 + ox;
         heelBone.y = oy;
@@ -834,7 +835,7 @@ DuOCODoc.prototype.newSpine = function( head, neck, spine, hips, position )
 
     // Create limb
     var limb = this.newLimb( DuOCO.Limb.SPINE, DuOCO.Side.NONE, DuOCO.Location.NONE );
-    var b = limb.newArmature( DuScriptUI.String.SPINE, num );
+    var b = limb.newArmature( i18n._("Spine"), num );
 
     // hips position
     var ox = 0;
@@ -852,7 +853,7 @@ DuOCODoc.prototype.newSpine = function( head, neck, spine, hips, position )
     // for each part, set the location
     if ( hips )
     {
-        b.name = DuScriptUI.String.HIPS;
+        b.name = i18n._("Hips");
         b.type = DuOCO.Bone.HIPS;
         b.x = x + ox;
         b.y = y + oy;
@@ -866,14 +867,14 @@ DuOCODoc.prototype.newSpine = function( head, neck, spine, hips, position )
         var spineStart = u*.56;
         for (var i = 0; i < spine-1; i++)
         {
-            b.name = DuScriptUI.String.SPINE;
+            b.name = i18n._("Spine");
             b.type = DuOCO.Bone.SPINE;
             b.y = spineStart + i*spineLength + oy;
             b.x = ox;
             if (b.children.length > 0) b = b.children[0];
         }
         // Torso
-        b.name = DuScriptUI.String.TORSO;
+        b.name = i18n._("Torso");
         b.type = DuOCO.Bone.TORSO;
         b.y = spineStart + (spine-1)*spineLength + oy;
         b.x = ox;
@@ -882,7 +883,7 @@ DuOCODoc.prototype.newSpine = function( head, neck, spine, hips, position )
     else if (spine == 1)
     {
         // Torso
-        b.name = DuScriptUI.String.TORSO;
+        b.name = i18n._("Torso");
         b.type = DuOCO.Bone.TORSO;
         b.x = ox;
         b.y = u*.56 + oy;
@@ -894,7 +895,7 @@ DuOCODoc.prototype.newSpine = function( head, neck, spine, hips, position )
         var neckStart = u*.83;
         for (var i = 0; i < neck; i++)
         {
-            b.name = DuScriptUI.String.NECK;
+            b.name = i18n._("Neck");
             b.type = DuOCO.Bone.NECK;
             b.y = neckStart + i*neckLength + oy;
             b.x = ox;
@@ -903,7 +904,7 @@ DuOCODoc.prototype.newSpine = function( head, neck, spine, hips, position )
     }  
     if ( head )
     {
-        b.name = DuScriptUI.String.HEAD;
+        b.name = i18n._("Head");
         b.type = DuOCO.Bone.SKULL;
         b.x = ox;
         b.y = u*.89 + oy;
@@ -911,7 +912,8 @@ DuOCODoc.prototype.newSpine = function( head, neck, spine, hips, position )
     }
 
     // Tip
-    b.name = DuScriptUI.String.SPINE + '_' + DuScriptUI.String.TIP_BONE;
+    b.name = i18n._("Spine") +
+        '_' + i18n._("Tip");
     b.type = DuOCO.Bone.TIP;
     b.x = ox;
     b.y = u + oy;
@@ -938,12 +940,12 @@ DuOCODoc.prototype.newTail = function( numBones )
 
     // Create limb
     var limb = this.newLimb( DuOCO.Limb.TAIL, DuOCO.Side.NONE, DuOCO.Location.NONE );
-    var b = limb.newArmature( DuScriptUI.String.TAIL, num );
+    var b = limb.newArmature( i18n._("Tail"), num );
 
     // for each part, adjust name and type
     for (var i = 0, n = num-1; i < n; i++)
     {
-        b.name = DuScriptUI.String.TAIL;
+        b.name = i18n._("Tail");
         if ( i <= (n-1) / 3) b.type = DuOCO.Bone.TAIL_ROOT;
         else if ( i <= (n-1)*2 / 3) b.type = DuOCO.Bone.TAIL_MID;
         else b.type = DuOCO.Bone.TAIL_END;
@@ -951,7 +953,8 @@ DuOCODoc.prototype.newTail = function( numBones )
         if (b.children.length > 0) b = b.children[0];
     }
 
-    b.name = DuScriptUI.String.TAIL + '_' + DuScriptUI.String.TIP_BONE;
+    b.name = i18n._("Tail") +
+        '_' + i18n._("Tip");
     b.type = DuOCO.Bone.TIP;
 
     return limb;
@@ -976,14 +979,14 @@ DuOCODoc.prototype.newHairStrand = function( numBones )
 
     // Create limb
     var limb = this.newLimb( DuOCO.Limb.HAIR, DuOCO.Side.NONE, DuOCO.Location.NONE );
-    var b = limb.newArmature( DuScriptUI.String.HAIR, num );
+    var b = limb.newArmature( i18n._("Hair"), num );
 
     var l = 100 / numBones;
 
     // for each part, adjust name and type
     for (var i = 0, n = num-1; i < n; i++)
     {
-        b.name = DuScriptUI.String.HAIR;
+        b.name = i18n._("Hair");
         if ( i <= (n-1) / 3) b.type = DuOCO.Bone.HAIR_ROOT;
         else if ( i <= (n-1)*2 / 3) b.type = DuOCO.Bone.HAIR_MID;
         else b.type = DuOCO.Bone.HAIR_END;
@@ -994,7 +997,8 @@ DuOCODoc.prototype.newHairStrand = function( numBones )
         if (b.children.length > 0) b = b.children[0];
     }
 
-    b.name = DuScriptUI.String.HAIR + '_' + DuScriptUI.String.TIP_BONE;
+    b.name = i18n._("Hair") +
+        '_' + i18n._("Tip");
     b.type = DuOCO.Bone.TIP;
     b.x = 0;
     b.y = 50;
@@ -1037,7 +1041,7 @@ DuOCODoc.prototype.newWing = function( side, arm, forearm, hand, feathers, posit
 
     // Create limb
     var limb = this.newLimb( DuOCO.Limb.WING, side, DuOCO.Location.NONE );
-    var b = limb.newArmature( DuScriptUI.String.WING, num );
+    var b = limb.newArmature( i18n._("Wing"), num );
 
     // side
     var s = 1;
@@ -1069,7 +1073,7 @@ DuOCODoc.prototype.newWing = function( side, arm, forearm, hand, feathers, posit
     // for each part, set the location
     if ( arm )
     {
-        b.name = DuScriptUI.String.ARM;
+        b.name = i18n._("Arm");
         b.type = DuOCO.Bone.HUMERUS;
         b.x = x + ox;
         b.y = y + oy;
@@ -1084,7 +1088,7 @@ DuOCODoc.prototype.newWing = function( side, arm, forearm, hand, feathers, posit
     }
     if (forearm)
     {
-        b.name = DuScriptUI.String.FOREARM;
+        b.name = i18n._("Forearm");
         b.type = DuOCO.Bone.RADIUS;
         b.x = s * u * -.22 + ox;
         b.y = u * .53 + oy;
@@ -1096,7 +1100,7 @@ DuOCODoc.prototype.newWing = function( side, arm, forearm, hand, feathers, posit
     }
     if (hand)
     {
-        b.name = DuScriptUI.String.HAND;
+        b.name = i18n._("Hand");
         b.type = DuOCO.Bone.CARPUS;
         b.x = s * u * -.37 + ox;
         b.y = u * .64 + oy;
@@ -1108,7 +1112,8 @@ DuOCODoc.prototype.newWing = function( side, arm, forearm, hand, feathers, posit
     }
 
     // Tip
-    b.name = DuScriptUI.String.WING + '_' + DuScriptUI.String.TIP_BONE;
+    b.name = i18n._("Wing") +
+        '_' + i18n._("Tip");
     b.type = DuOCO.Bone.TIP;
     b.x = s * u * -.53 + ox;
     b.y = u * .66 + oy;
@@ -1118,14 +1123,15 @@ DuOCODoc.prototype.newWing = function( side, arm, forearm, hand, feathers, posit
 
     function createFeather( xr, yr, xt, yt, p )
     {
-        var boneName = DuString.generateUnique(DuScriptUI.String.FEATHER, names);
+        var boneName = DuString.generateUnique( i18n._("Feather"), names);
         b = new DuOCOBone( boneName );
         b.type = DuOCO.Bone.FEATHER;
         b.x = s * u * xr + ox;
         b.y = u * yr + oy;
 
         // tip
-        var boneName = DuString.generateUnique(DuScriptUI.String.FEATHER + '_' + DuScriptUI.String.TIP_BONE, names);
+        var boneName = DuString.generateUnique( i18n._("Feather") +
+            '_' + i18n._("Tip"), names);
         var bt = new DuOCOBone( boneName );
         bt.type = DuOCO.Bone.TIP;
         bt.x = s * u * xt + ox;
@@ -1192,7 +1198,7 @@ DuOCODoc.prototype.newSnakeSpine = function( head, spine, position )
 
     // Create limb
     var limb = this.newLimb( DuOCO.Limb.SNAKE_SPINE, DuOCO.Side.NONE, DuOCO.Location.NONE );
-    var b = limb.newArmature( DuScriptUI.String.SPINE, num );
+    var b = limb.newArmature( i18n._("Spine"), num );
 
     // hips position
     var ox = 0;
@@ -1211,7 +1217,7 @@ DuOCODoc.prototype.newSnakeSpine = function( head, spine, position )
     var spineLength = u*1.5 / spine;
     for (var i = 0; i < spine; i++)
     {
-        b.name = DuScriptUI.String.SPINE;
+        b.name = i18n._("Spine");
         if ( i <= (spine-1) / 3) b.type = DuOCO.Bone.SNAKE_SPINE_ROOT;
         else if ( i <= (spine-1)*2 / 3) b.type = DuOCO.Bone.SNAKE_SPINE_MID;
         else b.type = DuOCO.Bone.SNAKE_SPINE_END;
@@ -1221,7 +1227,8 @@ DuOCODoc.prototype.newSnakeSpine = function( head, spine, position )
     }
 
     // Tip
-    b.name = DuScriptUI.String.SPINE + '_' + DuScriptUI.String.TIP_BONE;
+    b.name = i18n._("Spine") +
+        '_' + i18n._("Tip");
     b.type = DuOCO.Bone.TIP;
     b.x = -u *.75;
     b.y = y + oy;
@@ -1229,7 +1236,7 @@ DuOCODoc.prototype.newSnakeSpine = function( head, spine, position )
     // Head
     if (head)
     {
-        var b = new DuOCOBone( DuScriptUI.String.HEAD );
+        var b = new DuOCOBone( i18n._("Head") );
         b.type = DuOCO.Bone.SKULL;
         b.x = x;
         b.y = y;
@@ -1239,7 +1246,8 @@ DuOCODoc.prototype.newSnakeSpine = function( head, spine, position )
         limb.armature.push(b);
         b.children.push(s);
 
-        var bt = new DuOCOBone( DuScriptUI.String.HEAD + '_' + DuScriptUI.String.TIP_BONE );
+        var bt = new DuOCOBone( i18n._("Head") +
+            '_' + i18n._("Tip") );
         bt.type = DuOCO.Bone.SKULL_TIP;
         bt.x = x + u*.2;
         bt.y = y;
@@ -1274,7 +1282,7 @@ DuOCODoc.prototype.newFishSpine = function( head, spine, position )
 
     // Create limb
     var limb = this.newLimb( DuOCO.Limb.FISH_SPINE, DuOCO.Side.NONE, DuOCO.Location.NONE );
-    var b = limb.newArmature( DuScriptUI.String.SPINE, num );
+    var b = limb.newArmature( i18n._("Spine"), num );
 
     // hips position
     var ox = 0;
@@ -1293,7 +1301,7 @@ DuOCODoc.prototype.newFishSpine = function( head, spine, position )
     var spineLength = u / spine;
     for (var i = 0; i < spine; i++)
     {
-        b.name = DuScriptUI.String.SPINE;
+        b.name = i18n._("Spine");
         if ( i <= (spine-1) / 3) b.type = DuOCO.Bone.FISH_SPINE_ROOT;
         else if ( i <= (spine-1)*2 / 3) b.type = DuOCO.Bone.FISH_SPINE_MID;
         else b.type = DuOCO.Bone.FISH_SPINE_END;
@@ -1303,7 +1311,8 @@ DuOCODoc.prototype.newFishSpine = function( head, spine, position )
     }
 
     // Tip
-    b.name = DuScriptUI.String.SPINE + '_' + DuScriptUI.String.TIP_BONE;
+    b.name = i18n._("Spine") +
+        '_' + i18n._("Tip");
     b.type = DuOCO.Bone.TIP;
     b.x = -u *.25;
     b.y = y + oy;
@@ -1311,7 +1320,7 @@ DuOCODoc.prototype.newFishSpine = function( head, spine, position )
     // Head
     if (head)
     {
-        var b = new DuOCOBone( DuScriptUI.String.HEAD );
+        var b = new DuOCOBone( i18n._("Head") );
         b.type = DuOCO.Bone.SKULL;
         b.x = x;
         b.y = y;
@@ -1321,7 +1330,8 @@ DuOCODoc.prototype.newFishSpine = function( head, spine, position )
         limb.armature.push(b);
         b.children.push(s);
 
-        var bt = new DuOCOBone( DuScriptUI.String.HEAD + '_' + DuScriptUI.String.TIP_BONE );
+        var bt = new DuOCOBone( i18n._("Head") +
+            '_' + i18n._("Tip") );
         bt.type = DuOCO.Bone.SKULL_TIP;
         bt.x = x + u*.3;
         bt.y = y;
@@ -1375,13 +1385,14 @@ DuOCODoc.prototype.newFin = function( side, fishbones, view, position )
     }
 
     // Create root
-    var rootBone = new DuOCOBone( DuScriptUI.String.FIN );
+    var rootBone = new DuOCOBone( i18n._("Fin") );
     rootBone.type = DuOCO.Bone.FIN;
     rootBone.x = x + ox;
     rootBone.y = y + oy;
     limb.armature.push(rootBone);
     // Tip
-    var bt = new DuOCOBone( DuScriptUI.String.FIN + '_' + DuScriptUI.String.TIP_BONE );
+    var bt = new DuOCOBone( i18n._("Fin") +
+        '_' + i18n._("Tip") );
     bt.type = DuOCO.Bone.TIP;
     bt.x = s * u * -.24 + ox;
     bt.y = u * .62 + oy;
@@ -1395,14 +1406,15 @@ DuOCODoc.prototype.newFin = function( side, fishbones, view, position )
 
     function createFishbone( xr, yr, xt, yt )
     {
-        var boneName = DuString.generateUnique(DuScriptUI.String.FISHBONE, names);
+        var boneName = DuString.generateUnique( i18n._("Fishbone"), names);
         b = new DuOCOBone( boneName );
         b.type = DuOCO.Bone.FIN_FISHBONE;
         b.x = s * u * xr + ox;
         b.y = u * yr + oy;
 
         // tip
-        var boneName = DuString.generateUnique(DuScriptUI.String.FISHBONE + '_' + DuScriptUI.String.TIP_BONE, names);
+        var boneName = DuString.generateUnique( i18n._("Fishbone") +
+            '_' + i18n._("Tip"), names);
         var bt = new DuOCOBone( boneName );
         bt.type = DuOCO.Bone.TIP;
         bt.x = s * u * xt + ox;
