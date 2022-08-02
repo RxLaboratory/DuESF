@@ -557,7 +557,8 @@ DuOCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, 
         if (b.children.length > 0) b = b.children[0];
     }
     // Tip
-    b.name = i18n._("Arm") + '_' + i18n._("Arm");
+    b.name = i18n._("Arm") +
+        '_' + i18n._("Tip");
     b.type = DuOCO.Bone.TIP;
     if (hum)
     {
