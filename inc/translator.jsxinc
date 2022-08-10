@@ -346,6 +346,16 @@ var translationEngine = function (options) {
  */
 var i18n = {};
 
-translationEngine.init = function () {
-  i18n = translationEngine();
+translationEngine.init = function() {
+
+  var trFolder = DuESF.scriptSettings.file.parent.absoluteURI + '/';
+
+  i18n = translationEngine({
+    folder: trFolder,
+    prefix: DuESF.scriptName + "_"
+    });
+  
+  var currentLocale = DuESF.scriptSettings.get("common/language", 'eo');
+  i18n.setLanguage(currentLocale, true);
+  
 }

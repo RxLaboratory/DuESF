@@ -227,12 +227,20 @@ DuESF.host = null;
  */
 DuESF.hostVersion = new DuVersion();
 /**
- * The list of functions to run with {@link DuESF.init}. You can add your own methods here.
+ * The list of functions to run with {@link DuESF.init}. You can add your own methods here.<br />
+ * They're run after the settings have been loaded, but before everything else (especially the translator).
+ * @type {function[]}
+ */
+DuESF.preInitMethods = [];
+/**
+ * The list of functions to run with {@link DuESF.init}. You can add your own methods here.<br />
+ * They're run after the settings and translator have been loaded.
  * @type {function[]}
  */
 DuESF.initMethods = [];
 /**
- * The list of functions to run with {@link DuESF.enterRunTime}. You can add your own methods here.
+ * The list of functions to run with {@link DuESF.enterRunTime}. You can add your own methods here.<br />
+ * They're run after the UI has been created and just before runtime
  * @type {function[]}
  */
 DuESF.enterRunTimeMethods = [];
@@ -267,20 +275,29 @@ DuESF.init = function( scriptName, scriptVersion, companyName )
     DuESF.scriptVersion = new DuVersion(scriptVersion);
     DuESF.companyName = def( companyName, "RxLaboratory" );
 
-    // Everything which needs to be initialized once we have our info
-    for( var i = 0; i < DuESF.initMethods.length; i++) {
-        DuESF.initMethods[i]();
-    }
+    // Init settings
+    DuSettings.init();
+
+    // Create a debug log
+    if (DuESF.debug) DuDebug.debugLog = new DuDebugLog();
 
     // check if this script has already been run once
     // Check the version from latest run
     var prevVersion = DuESF.settings.get("version");
     if ( prevVersion == scriptVersion ) DuESF.scriptFirstRun = false;
 
-    // Create a debug log
-    if (DuESF.debug) DuDebug.debugLog = new DuDebugLog();
+    // Pre translator init
+    for( var i = 0; i < DuESF.preInitMethods.length; i++) {
+        DuESF.preInitMethods[i]();
+    }
 
+    // Init translator
     translationEngine.init();
+
+    // Init everything else
+    for( var i = 0; i < DuESF.initMethods.length; i++) {
+        DuESF.initMethods[i]();
+    }
 }
 
 /**
@@ -288,12 +305,16 @@ DuESF.init = function( scriptName, scriptVersion, companyName )
  */
 DuESF.enterRunTime = function()
 {
+    DuDebug.log( "DuESF: Entering runtime..." );
+
+    DuDebug.log( "DuESF: Getting script version..." );
     DuESF.settings.data.version = DuESF.scriptVersion.fullVersion;
     DuESF.settings.save();
     DuESF.state = DuESF.State.RUNTIME;
 
     // Everything which needs to be run once
     for( var i = 0; i < DuESF.enterRunTimeMethods.length; i++) {
+        
         DuESF.enterRunTimeMethods[i]();
     }
 

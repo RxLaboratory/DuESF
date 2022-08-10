@@ -172,4 +172,3 @@ DuSettings.init = function() {
 	else if (highlightSelection == 3) DuColor.Color.APP_HIGHLIGHT_COLOR = DuColor.Color.AE_ORANGE;
 	else if (highlightSelection > 3) DuColor.Color.APP_HIGHLIGHT_COLOR = highlightColor;
 }
-DuESF.initMethods.push( DuSettings.init );

@@ -468,6 +468,7 @@ DuScriptUI.showUI = function( ui, enterRunTime )
     DuScriptUI.uiShown = true;
     
     if (enterRunTime) DuESF.enterRunTime();
+    DuDebug.log( "DuScriptUI.showUI: Runtime!" );
 
     // Build tabs
     for (var i = 0, n = DuScriptUI.allTabs.length; i < n; i++)
@@ -477,7 +478,8 @@ DuScriptUI.showUI = function( ui, enterRunTime )
         tab.duBuild();
         tab.visible = true;
         tab.tabActivated();
-    }
+    }//*/
+    DuDebug.log( "DuScriptUI.showUI: Tabs built." );
 }
 
 /**
