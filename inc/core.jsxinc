@@ -286,13 +286,19 @@ DuESF.init = function( scriptName, scriptVersion, companyName )
     var prevVersion = DuESF.settings.get("version");
     if ( prevVersion == scriptVersion ) DuESF.scriptFirstRun = false;
 
+    DuDebug.log( "DuESF: loading preinit methods." );
+
     // Pre translator init
     for( var i = 0; i < DuESF.preInitMethods.length; i++) {
         DuESF.preInitMethods[i]();
     }
 
+    DuDebug.log( "DuESF: init translator." );
+
     // Init translator
     translationEngine.init();
+
+    DuDebug.log( "DuESF: loading init methods." );
 
     // Init everything else
     for( var i = 0; i < DuESF.initMethods.length; i++) {
