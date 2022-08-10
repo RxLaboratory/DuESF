@@ -96,8 +96,8 @@ DuOCO.LimbType = {
  * @enum {string}
  */
 DuOCO.Side = {
-    LEFT: i18n._p("in layer name, left","L"), /// TRANSLATORS: short for Left, must be short enough to be used as a tag in layer names
-    RIGHT: i18n._p("in layer name, right","R"), /// TRANSLATORS: short for Right, must be short enough to be used as a tag in layer names
+    LEFT: i18n._p("layer name","L"), /// TRANSLATORS: short for Left, must be short enough to be used as a tag in layer names
+    RIGHT: i18n._p("layer name","R"), /// TRANSLATORS: short for Right, must be short enough to be used as a tag in layer names
     NONE: ''
 }
 
@@ -107,12 +107,12 @@ DuOCO.Side = {
  * @enum {string}
  */
 DuOCO.Location = {
-    FRONT: i18n._p("in layer name, front","Fr"), /// TRANSLATORS: short for Front, must be short enough to be used as a tag in layer names
-    BACK: i18n._p("in layer name, back","Bk"), /// TRANSLATORS: short for Back, must be short enough to be used as a tag in layer names
-    TAIL: i18n._p("in layer name, tail","Tl"), /// TRANSLATORS: short for Tail, must be short enough to be used as a tag in layer names
-    MIDDLE: i18n._p("in layer name, middle","Md"), /// TRANSLATORS: short for Middle, must be short enough to be used as a tag in layer names
-    ABOVE: i18n._p("in layer name, above","Ab"), /// TRANSLATORS: short for Above, must be short enough to be used as a tag in layer names
-    UNDER: i18n._p("in layer name, under","Un"), /// TRANSLATORS: short for Under, must be short enough to be used as a tag in layer names
+    FRONT: i18n._p("layer name","Fr"), /// TRANSLATORS: short for Front, must be short enough to be used as a tag in layer names
+    BACK: i18n._p("layer name","Bk"), /// TRANSLATORS: short for Back, must be short enough to be used as a tag in layer names
+    TAIL: i18n._p("layer name","Tl"), /// TRANSLATORS: short for Tail, must be short enough to be used as a tag in layer names
+    MIDDLE: i18n._p("layer name","Md"), /// TRANSLATORS: short for Middle, must be short enough to be used as a tag in layer names
+    ABOVE: i18n._p("layer name","Ab"), /// TRANSLATORS: short for Above, must be short enough to be used as a tag in layer names
+    UNDER: i18n._p("layer name","Un"), /// TRANSLATORS: short for Under, must be short enough to be used as a tag in layer names
     NONE: ''
 }
 
