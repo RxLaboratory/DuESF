@@ -159,12 +159,12 @@ DuScriptUI.library = function( container, library, options ) {
     options.editListButtons = def(options.editListButtons, true);
     options.refreshInterval = def(options.refreshInterval, -1);
     options.defaultItemIcon = def(options.defaultItemIcon, '');
-    options.itemName = def(options.itemName, DuScriptUI.String.ITEM);
-    options.runHelpTip = def(options.runHelpTip, DuScriptUI.String.RUN);
-    options.folderHelpTip = def(options.folderHelpTip, DuScriptUI.String.OPEN_FOLDER);
-    options.addItemHelpTip = def(options.addItemHelpTip, DuScriptUI.String.ADD_ITEM_OR_CAT);
-    options.editItemHelpTip = def(options.editItemHelpTip, DuScriptUI.String.EDIT_ITEM_OR_CAT);
-    options.removeItemHelpTip = def(options.removeItemHelpTip, DuScriptUI.String.REMOVE_ITEM_OR_CAT);
+    options.itemName = def(options.itemName, i18n._p("project", "Item")); /// TRANSLATORS: an item in the After Effects project
+    options.runHelpTip = def(options.runHelpTip, i18n._p("file", "Run")); /// TRANSLATORS: as in "run script"
+    options.folderHelpTip = def(options.folderHelpTip, i18n._("Open folder"));
+    options.addItemHelpTip = def(options.addItemHelpTip, i18n._("Add item or category"));
+    options.editItemHelpTip = def(options.editItemHelpTip, i18n._("Edit item or category"));
+    options.removeItemHelpTip = def(options.removeItemHelpTip, i18n._("Remove item or category"));
     options.editDataHelpTip = def(options.editDataHelpTip, '');
     options.sortButton = def(options.sortButton, true);
     options.refreshButton = def(options.refreshButton, false);
@@ -408,7 +408,7 @@ DuScriptUI.library = function( container, library, options ) {
         cmdGroup,
         '',
         DuScriptUI.Icon.CLOSE,
-        DuScriptUI.String.CLEAR_LIB_TIP
+        i18n._("Remove all")
     );
     clearButton.alignment = ['left', 'fill'];
     clearButton.onClick = duLibrary.clear;
@@ -418,7 +418,7 @@ DuScriptUI.library = function( container, library, options ) {
         '',
         '',
         '',
-        DuScriptUI.String.START_TYPING_CMD
+        i18n._("Start typing...") /// TRANSLATORS: start typing a command in a command line interface
     );
     cmdEdit.alignment = ['fill', 'fill'];
     cmdEdit.onChanging = parseCmd;
@@ -546,7 +546,7 @@ DuScriptUI.library = function( container, library, options ) {
             listButtonsGroup,
             '',
             DuScriptUI.Icon.UPDATE,
-            DuScriptUI.String.REFRESH_LIB
+            i18n._("Refresh") /// TRANSLATORS: refresh a list
         );
         rfrshButton.alignment = ['right','top'];
         rfrshButton.onClick = duLibrary.refresh;
@@ -564,7 +564,7 @@ DuScriptUI.library = function( container, library, options ) {
             options.itemName
         );
         duLibrary.addCategoryButton = addItemButton.addButton(
-            DuScriptUI.String.CATEGORY
+            i18n._("Category")
         );
 
         duLibrary.addItemButton.onClick = function() {

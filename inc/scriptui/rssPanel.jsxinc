@@ -85,12 +85,12 @@ DuScriptUI.rssPanel = function( container, updateInterval, rssUrl, titleColor, r
 
     ui_prevButton = DuScriptUI.button(
         newsNavGroup,
-        DuScriptUI.String.PREVIOUS,
+        i18n._("Previous"),
         DuBinary.toFile( w12_back )
     );
     ui_nextButton = DuScriptUI.button(
         newsNavGroup,
-        DuScriptUI.String.NEXT,
+        i18n._("Next"),
         DuBinary.toFile( w12_next )
     );
 

@@ -575,6 +575,7 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
     panel.hasCommonSettings = false;
     panel.addCommonSettings = function()
     {
+        DuDebug.log("ScriptUI: adding settings to main panel.");
         if (panel.hasCommonSettings) return;
         panel.hasCommonSettings = true;
 
@@ -597,88 +598,97 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
             for (var locale in languages)
             {
                 if (locale == "count") continue;
+
+                DuDebug.log("ScriptUI: Found locale: " + locale);
+
                 panel.settingsGroup.languageSelector.addButton( {
                     text: languages[locale],
                     image: w16_language,
                     data: locale
-                });
+                }); 
             }
 
             panel.settingsGroup.languageSelector.setCurrentIndex(0);
         }
+        DuDebug.log("ScriptUI: language settings ready.");
         
         // settings file
         panel.settingsGroup.fileButton = DuScriptUI.fileSelector (
             panel.settingsGroup,
             i18n._("Settings file") + '...',
             true,
-            DuScriptUI.String.SETTINGS_FILE_TIP,
+            i18n._("Set the location of the settings file."),
             w16_settings_file,
             'save',
             "JSON: *.json, All Files: *.*",
             'column'
         );
+        DuDebug.log("ScriptUI: settings file ready.");
+
         // color
         panel.settingsGroup.colorSelector = DuScriptUI.selector(
             panel.settingsGroup,
-            DuScriptUI.String.COLOR_HIGHLIGHT_TIP
+            i18n._("Set the highlight color.")
         );
         panel.settingsGroup.colorSelector.addButton(
-            DuScriptUI.String.AE_BLUE,
+            i18n._("After Effects Blue"),
             w8_ae_blue,
-            DuScriptUI.String.AE_BLUE_TIP
+            i18n._("The After Effects highlighting blue")
         );
         panel.settingsGroup.colorSelector.addButton(
-            DuScriptUI.String.RX_PURPLE,
+            i18n._("RxLab Purple"),
             w8_rx_purple,
-            DuScriptUI.String.RX_PURPLE_TIP
+            i18n._("The RxLaboratory Purple")
         );
         panel.settingsGroup.colorSelector.addButton(
-            DuScriptUI.String.RX_RED,
+            i18n._("Rainbox Red"),
             w8_rx_red,
-            DuScriptUI.String.RX_RED_TIP
+            i18n._("The Rainbox Productions Red")
         );
         panel.settingsGroup.colorSelector.addButton(
-            DuScriptUI.String.AE_ORANGE,
+            i18n._("After Effects Orange (CS6)"),
             w8_ae_orange,
-            DuScriptUI.String.AE_ORANGE_TIP
+            i18n._("The After Effects highlighting orange from good ol'CS6")
         );
         panel.settingsGroup.colorSelector.addButton(
-            DuScriptUI.String.CUSTOM + '...',
+            i18n._("Custom..."),
             undefined,
-            DuScriptUI.String.CUSTOM_COLOR_TIP
+            i18n._("Select a custom color.")
         );
         panel.settingsGroup.colorSelector.setCurrentIndex(0);
+        DuDebug.log("ScriptUI: color ready.");
         // ui mode
         panel.settingsGroup.uiModeSelector = DuScriptUI.selector(
             panel.settingsGroup,
-            DuScriptUI.String.UI_MODE_TIP
+            i18n._("Select the UI mode.")
         )
         panel.settingsGroup.uiModeSelector.addButton(
-            DuScriptUI.String.ROOKIE,
+            i18n._("Rookie"),
             w16_rookie,
-            DuScriptUI.String.ROOKIE_UI_TIP
+            i18n._("The easiest-to-use mode, but also the biggest UI.")
         );
         panel.settingsGroup.uiModeSelector.addButton(
-            DuScriptUI.String.STANDARD,
+            i18n._("Standard"),
             w16_standard,
-            DuScriptUI.String.STANDARD_UI_TIP
+            i18n._("The standard not-too-big UI.")
         );
         panel.settingsGroup.uiModeSelector.addButton(
-            DuScriptUI.String.EXPERT,
+            i18n._("Expert"),
             w16_expert,
-            DuScriptUI.String.EXPERT_UI_TIP
+            i18n._("The smallest UI, for expert users.")
         );
         panel.settingsGroup.uiModeSelector.setCurrentIndex(0);
+        DuDebug.log("ScriptUI: ui mode ready.");
         // dev & debug
         panel.settingsGroup.debugButton = DuScriptUI.checkBox (
             panel.settingsGroup,
-            DuScriptUI.String.NORMAL_MODE,
+            i18n._("Normal mode"),
             w16_user,
-            DuScriptUI.String.DEV_MODE_TIP,
-            DuScriptUI.String.DEV_MODE,
+            i18n._("Use at your own risk!"),
+            i18n._("Dev and Debug mode"),
             w16_bug
-        )
+        );
+        DuDebug.log("ScriptUI: Dev and debug mode ready.");
 
         panel.settingsGroup.fileButton.onChange = function()
         {
@@ -706,6 +716,8 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
                 panel.settingsGroup.colorSelector.customColor = newColor;
             }
         }
+
+        DuDebug.log("ScriptUI: events ready.");
 
         // Load settings
         panel.settingsGroup.reset = function()
@@ -744,16 +756,20 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
             panel.onResetSettings();
         }
 
+        DuDebug.log("ScriptUI: calling reset method...");
+
         panel.settingsGroup.reset();
+
+        DuDebug.log("ScriptUI: settings panel ready!");
     }
 
     DuScriptUI.separator( rootSettingsGroup );
 
     panel.settingsGroup.updateButton = DuScriptUI.button(
         rootSettingsGroup,
-        DuScriptUI.String.CHECK_UPDATE,
+        i18n._("Check for updates"),
         DuScriptUI.Icon.DOWNLOAD,
-        DuScriptUI.String.CHECK_UPDATE,
+        i18n._("Check for updates"),
         false,
         'row',
         'center'
@@ -765,18 +781,18 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
 
     panel.settingsGroup.resetButton = DuScriptUI.button(
         validGroup,
-        DuScriptUI.String.DEFAULT,
+        i18n._("Default"),
         w12_reset,
-        DuScriptUI.String.RESET_SETTINGS,
+        i18n._("Reset the settings to their default values."),
         false,
         'row',
         'center'
     );
     panel.settingsGroup.validButton = DuScriptUI.button(
         validGroup,
-        DuScriptUI.String.APPLY,
+        i18n._("Apply"),
         w12_check,
-        DuScriptUI.String.APPLY_SETTINGS,
+        i18n._("Apply settings."),
         false,
         'row',
         'center'
@@ -850,7 +866,7 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
 
         // Restart script
         var ok = DuScriptUI.refreshPanel( panel, scriptFile );
-        if (!ok) alert(DuScriptUI.String.APPLY_SETTINGS_ALERT);
+        if (!ok) alert(i18n._("You may need to restart the script for all changes to take effect."));
     }
 
     panel.settingsGroup.resetButton.onClick = function()
@@ -879,7 +895,7 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
         DuScriptUI.fundingBar = bottomUberGroup.add( 'progressbar' );
         DuScriptUI.fundingBar.maximumSize = [32000, 2];
         DuScriptUI.fundingBar.alignment = ['fill', 'top'];
-        DuScriptUI.fundingBar.helpTip = DuScriptUI.String.FUNDING_BAR_TIP;
+        DuScriptUI.fundingBar.helpTip = i18n._("Thank you for your donations!");
         DuScriptUI.updateFundingInfo();
     }
 
@@ -898,7 +914,7 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
             panel.bottomGroup,
             '',
             w12_settings,
-            DuScriptUI.String.EDIT_SETTINGS
+            i18n._("Edit settings")
             );
         settingsButton.alignment = ['left', 'fill'];
 
@@ -999,7 +1015,7 @@ DuScriptUI.stringPrompt = function ( title, defaultString )
 
     var nameOKButton = DuScriptUI.button(
         nameButtons,
-        DuScriptUI.String.OK,
+        i18n._("OK"),
         DuScriptUI.Icon.CHECK,
         title,
         false,

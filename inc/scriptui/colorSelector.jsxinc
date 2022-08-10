@@ -62,7 +62,7 @@ DuScriptUI.colorSelector = function ( container, helpTip )
     var editText = DuScriptUI.editText( colorSelector, "A526C4", '#', '', '000000', helpTip );
     editText.alignment = ['fill', 'fill'];
 
-    var randomButton = DuScriptUI.button( colorSelector, '', DuScriptUI.Icon.RANDOM, DuScriptUI.String.RANDOM_TIP );
+    var randomButton = DuScriptUI.button( colorSelector, '', DuScriptUI.Icon.RANDOM, i18n._("Set a random value.") );
     randomButton.alignment = ['right', 'center'];
 
     colorSelector.onChange = function() {};

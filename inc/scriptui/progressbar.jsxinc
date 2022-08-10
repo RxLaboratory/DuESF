@@ -10,7 +10,7 @@
 DuProgressBar = function( )
 {
     this.window = new Window('palette', '', [0,0,360,86]);
-    this.stage = this.window.add( 'statictext', { x:20, y:15, width:320, height:16 }, DuScriptUI.String.WORKING);
+    this.stage = this.window.add( 'statictext', { x:20, y:15, width:320, height:16 }, i18n._("Working"));
     
     var barGroup = this.window.add('group', { x:20, y:37, width:320, height:12 });
     barGroup.orientation = 'stacked';
@@ -20,7 +20,7 @@ DuProgressBar = function( )
     
     this.label = this.window.add( 'statictext', { x:20, y:51, width:320, height:16 });
 
-    this.message =  DuScriptUI.String.MAGIC + '%1';
+    this.message =  i18n._("Magic is happening") + ' %1';
 
     this.window.center();
 
@@ -29,7 +29,7 @@ DuProgressBar = function( )
     {
         var ok = this.bar.maxvalue != 0;
         if (ok) this.label.text = DuString.replace(this.message, '%1', this.bar.value + ' / ' + this.bar.maxvalue);
-        else this.label.text = DuScriptUI.String.MAGIC + '!';
+        else this.label.text = i18n._("Magic is happening") + '!';
         this.bar.visible = ok;
         this.image.visible = !ok;
         this.window.update();
@@ -76,8 +76,8 @@ DuProgressBar.prototype.reset = function( maxValue )
     maxValue = def(maxValue, 0);
     this.bar.value = 0;
     this.bar.maxvalue = maxValue;
-    this.stg( DuScriptUI.String.WORKING );
-    this.msg( DuScriptUI.String.MAGIC + '%1' );
+    this.stg( i18n._("Working") );
+    this.msg( i18n._("Magic is happening") + ' %1' );
 }
 
 /**
@@ -131,8 +131,12 @@ DuProgressBar.prototype.close = function( )
     this.window.close();
 }
 
-/**
- * Show this progress bar before long operations with {@link DuProgressBar.show} and DuESF will update it.
- * @type {DuProgressBar}
- */
-DuScriptUI.progressBar = new DuProgressBar();
+DuProgressBar.init = function()
+{
+    /**
+    * Show this progress bar before long operations with {@link DuProgressBar.show} and DuESF will update it.
+    * @type {DuProgressBar}
+    */
+    DuScriptUI.progressBar = new DuProgressBar();
+}
+DuESF.initMethods.push( DuProgressBar.init );

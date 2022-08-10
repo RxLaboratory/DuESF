@@ -154,7 +154,7 @@ DuScriptUI.button = function(container, text, image, helpTip, addOptionsPanel, o
 
     if (options.options) {
         if (options.helpTip != '') options.helpTip += '\n\n';
-        options.helpTip += DuScriptUI.String.MORE_OPTIONS_TIP;
+        options.helpTip += i18n._("[Shift]: More options...");
     }  
 
     if (options.image == '' && options.text == '') options.text = 'button';

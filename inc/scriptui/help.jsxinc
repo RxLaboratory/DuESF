@@ -39,8 +39,8 @@ DuScriptUI.addBugButton = function( container, showLabel )
 {
     showLabel = def(showLabel, false);
 
-    var label = DuScriptUI.String.BUG_REPORT;
-    var helpTip = DuScriptUI.String.BUG_REPORT_TIP;
+    var label = i18n._("Bug Report or Feature Request");
+    var helpTip = i18n._("Bug report\nFeature request\n\nTell us what's wrong or request a new feature.");
 
     var button = DuScriptUI.button(
         container,
@@ -69,8 +69,8 @@ DuScriptUI.addHelpButton = function( container, showLabel )
 {
     showLabel = def(showLabel, false);
 
-    var label = DuScriptUI.String.HELP;
-    var helpTip = DuScriptUI.String.HELP_TIP;
+    var label = i18n._("Help");
+    var helpTip = i18n._("Get help.");
 
     var button = DuScriptUI.button(
         container,
@@ -141,7 +141,7 @@ DuScriptUI.askLanguage = function ( callback, ui )
 {
     if (! (ui instanceof Panel || ui instanceof Window) )
     {
-        ui = new Window('dialog', DuScriptUI.String.ASK_FILES_NETWORK_ACCESS_TITLE)
+        ui = new Window('dialog', "Language")
     }
 
     var currentLanguageName = DuESF.scriptSettings.get("common/currentLanguageName", '');
@@ -267,7 +267,7 @@ DuScriptUI.checkUpdate = function ( callback, ui, showAlert )
     if (! (ui instanceof Panel || ui instanceof Window) )
     {
         reuseUI = false;
-        ui = new Window('dialog', DuScriptUI.String.NEW_VERSION_TITLE,undefined,
+        ui = new Window('dialog',i18n._("New version"),undefined,
         {
             resizeable: true
         } );
@@ -405,13 +405,13 @@ DuScriptUI.updateFundingInfo = function (fund, goal) {
 
     if (!fund || !goal && DuScriptUI.fundingBar) {
         DuScriptUI.fundingBar.value = 0;
-        DuScriptUI.fundingBar.helpTip = DuScriptUI.String.FUNDING_BAR_TIP;
+        DuScriptUI.fundingBar.helpTip = i18n._("Thank you for your donations!");
         return;
     }
 
     var ratio = Math.round( fund / goal * 100);
-    var helpTip = DuScriptUI.String.FUNDING_BAR_TIP + '\n\n' + 
-            DuString.args( DuScriptUI.String.FUNDING_BAR_TIP_DETAILS, [DuESF.companyName, fund, ratio, goal] );
+    var helpTip = i18n._("Thank you for your donations!") + '\n\n' + 
+            i18n._( "This month, the %1 fund is $%2.\nThat's %3% of our monthly goal ( $%4 )\n\nClick on this button to join the development fund!", DuESF.companyName, fund, ratio, goal );
 
     if (DuScriptUI.fundingBar) {
         DuScriptUI.fundingBar.value = ratio;

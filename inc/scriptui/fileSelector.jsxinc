@@ -62,7 +62,7 @@ DuScriptUI.folderSelector = function ( container, text, textField, helpTip, orie
             '',
             '',
             '',
-            DuScriptUI.String.PATH + '...',
+            i18n._("file system", "Path..."), /// TRANSLATORS: path for a file or a folder
             helpTip
             );
         folderSelector.editText.alignment = ['fill','center'];
@@ -164,7 +164,7 @@ DuScriptUI.fileSelector = function ( container, text, textField, helpTip, image,
             '',
             '',
             '',
-            DuScriptUI.String.PATH + '...',
+            i18n._("file system", "Path..."), /// TRANSLATORS: path for a file or a folder
             helpTip
             );
         fileSelector.editText.alignment = ['fill','center'];

@@ -52,7 +52,7 @@ DuScriptUI.titleBar = function( container, title, closeButton, pinButton ) {
 
     // Pin button
     if(pinButton) {
-        titleBar.pinButton = DuScriptUI.checkBox(titleBar, '', w12_pin, DuScriptUI.String.PIN_TIP, '', w12_pinned);
+        titleBar.pinButton = DuScriptUI.checkBox(titleBar, '', w12_pin, i18n._("Keep this panel open"), '', w12_pinned);
         titleBar.pinButton.alignment = [ 'left', 'center' ];
         titleBar.pinButton.onClick = function() {
             titleBar.pinned = titleBar.pinButton.checked;
