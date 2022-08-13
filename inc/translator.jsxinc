@@ -218,9 +218,20 @@ var translationEngine = function (options) {
     },
     setLocale: function (locale, loadJson) {
 
+      if (locale == "en") {
+        DuDebug.log("gettext: Using default (en - English)")
+        _locale = "en";
+        return;
+      }
+
       if ( def(loadJson, false) ) {
         // Get file and load it
         var jsonFile = DuPath.join([_folder, _prefix + locale + _suffix]);
+        if (!File(jsonFile).exists)
+        {
+          DuDebug.log("gettext: Can't find translation file: " + jsonFile)
+          return;
+        }
         var jsonData = DuFile.parseJSON(jsonFile);
         this.loadJSON(jsonData);
       }
@@ -293,10 +304,12 @@ var translationEngine = function (options) {
 
       locale = _locale;
 
-      exist = _dictionary[domain];
+      if (locale == "en") exist = _dictionary[domain];
+      else exist = false;
 
       // Find corresponding locale in dict
-      if (exist) {
+      // Ignore en to improve perf
+      if (exist && locale != "en") {
         for (j in _dictionary[domain]) {
           
           if (locale == j) break;
