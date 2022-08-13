@@ -42,12 +42,26 @@ DuScriptUI.addBugButton = function( container, showLabel )
     var label = i18n._("Bug Report or Feature Request");
     var helpTip = i18n._("Bug report\nFeature request\n\nTell us what's wrong or request a new feature.");
 
-    var button = DuScriptUI.button(
-        container,
-        showLabel ? label : "",
-        w12_bugreport,
-        helpTip
+    var button;
+
+    if (container.addButton) 
+    {
+        button = container.addButton(
+            label,
+            w12_bugreport,
+            helpTip
         );
+    }
+    else 
+    {
+        button = DuScriptUI.button(
+            container,
+            showLabel ? label : "",
+            w12_bugreport,
+            helpTip
+            );
+    }
+
     button.onClick = function ()
     {
         DuSystem.openURL( DuESF.bugReportURL );
@@ -72,16 +86,74 @@ DuScriptUI.addHelpButton = function( container, showLabel )
     var label = i18n._("Help");
     var helpTip = i18n._("Get help.");
 
-    var button = DuScriptUI.button(
-        container,
-        showLabel ? label : "",
-        w12_help,
-        helpTip
-    );
+    var button;
+
+    if (container.addButton) 
+    {
+        button = container.addButton(
+            label,
+            w12_help,
+            helpTip
+        );
+    }
+    else 
+    {
+        button = DuScriptUI.button(
+            container,
+            showLabel ? label : "",
+            w12_help,
+            helpTip
+            );
+    }
 
     button.onClick = function ()
     {
         DuSystem.openURL( DuESF.docURL );
+    }
+    button.onAltClick = function ()
+    {
+        DuSystem.openURL( 'http://bat-ultra-bunny.tumblr.com' );
+    }
+
+    return button;
+}
+
+/**
+ * Creates a button opening the help panel.
+ * @param {Panel|Window|Group} container - The ScriptUI Object which will contain and display the button.
+ * @param {bool} [showLabel=false] - When true, the button includes a "Help" label.
+ * @return {DuButton} The help button created.
+ */
+DuScriptUI.addTranslateButton = function( container, showLabel )
+{
+    showLabel = def(showLabel, false);
+
+    var label = i18n._("Translate %1", DuESF.scriptName);
+    var helpTip = i18n._("Help translating %1 to make it available to more people.", DuESF.scriptName);
+
+    var button;
+
+    if (container.addButton) 
+    {
+        button = container.addButton(
+            label,
+            w12_language,
+            helpTip
+        );
+    }
+    else 
+    {
+        button = DuScriptUI.button(
+            container,
+            showLabel ? label : "",
+            w12_language,
+            helpTip
+            );
+    }
+
+    button.onClick = function ()
+    {
+        DuSystem.openURL( DuESF.translateURL );
     }
     button.onAltClick = function ()
     {

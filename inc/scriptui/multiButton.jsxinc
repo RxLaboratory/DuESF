@@ -32,14 +32,23 @@
  */
 DuScriptUI.multiButton = function( container, text, image, helpTip, ignoreUIMode )
 {
+    var options = {};
     text = def(text, '');
-    if (text!= '') text = text + '...';
+
+    if (jstype(text) != 'string') options = text;
+    options.text = def(options.text, text);
+
+    if (options.text != '') options.text = options.text + '...';
     helpTip = def(helpTip, '');
     image = def(image, '');
     ignoreUIMode = def(ignoreUIMode, false);
 
+    options.image = def(options.image, image);
+    options.helpTip = def(options.helpTip, helpTip);
+    options.ignoreUIMode = def(options.ignoreUIMode, ignoreUIMode);
+
     var uiMode = DuESF.scriptSettings.get("common/uiMode", 0);
-    if (uiMode >= 2 && image != '' && !ignoreUIMode) text = '';
+    if (uiMode >= 2 && image != '' && !options.ignoreUIMode) options.text = '';
 
     var multiButton = container.add( 'group' );
     multiButton.orientation = 'row';
@@ -58,18 +67,18 @@ DuScriptUI.multiButton = function( container, text, image, helpTip, ignoreUIMode
     multiButton.helpTip = helpTip;
 
     //the menu button
-    if ( text != '' )
+    if ( options.text != '' || (options.text == "" && options.image == ""))
     {
         multiButton.menuButton = multiButton.mainGroup.add( 'image', undefined, DuScriptUI.Icon.MORE.binAsString );
         multiButton.menuButton.alignment = [ 'left', 'center' ];
-        multiButton.menuButton.helpTip = helpTip;
+        multiButton.menuButton.helpTip = options.helpTip;
     }
 
     //the image
-    if (image != '')
+    if (options.image != '')
     {
         var iconGroup = multiButton.mainGroup.add('group');
-        if ( text == '' ) {
+        if ( options.text == '' ) {
             iconGroup.minimumSize = [16,16];
             iconGroup.alignment = ['center', 'fill'];
         }
@@ -78,13 +87,13 @@ DuScriptUI.multiButton = function( container, text, image, helpTip, ignoreUIMode
             iconGroup.margins = 2;
             iconGroup.alignment = ['left', 'fill'];
         }
-        if (image instanceof DuBinary) image = image.binAsString;
-        multiButton.icon = iconGroup.add( 'image', undefined, image );
+        if (options.image instanceof DuBinary) options.image = options.image.binAsString;
+        multiButton.icon = iconGroup.add( 'image', undefined, options.image );
         multiButton.icon.alignment = [ 'center', 'center' ];
-        multiButton.icon.helpTip = helpTip;
+        multiButton.icon.helpTip = options.helpTip;
     }
 
-    if ( text != '')
+    if ( options.text != '')
     {
         //add fillers to be able to click anywhere on the button
         multiButton.fillerM = multiButton.mainGroup.add( 'statictext', undefined, " " );
@@ -92,10 +101,10 @@ DuScriptUI.multiButton = function( container, text, image, helpTip, ignoreUIMode
         multiButton.fillerM.size = [ 0, -1];
 
         //the text
-        multiButton.label = multiButton.mainGroup.add( 'statictext', undefined, text );
+        multiButton.label = multiButton.mainGroup.add( 'statictext', undefined, options.text );
         multiButton.label.helpTip = '';
         multiButton.label.alignment = [ 'fill', 'center' ];
-        multiButton.label.helpTip = helpTip;
+        multiButton.label.helpTip = options.helpTip;
 
         //add fillers to be able to click anywhere on the button
         multiButton.fillerR = multiButton.mainGroup.add( 'statictext', undefined, " " );
@@ -133,9 +142,7 @@ DuScriptUI.multiButton = function( container, text, image, helpTip, ignoreUIMode
         text = def(text, '-');
         image = def(image, '');
         helpTip = def(helpTip, '');
-        localize = def(localize, true);
 
-       
         if (multiButton.label)
         {
             var size = text.length * 7;
@@ -143,7 +150,16 @@ DuScriptUI.multiButton = function( container, text, image, helpTip, ignoreUIMode
         }
         
         //add to popup
-        var button = DuScriptUI.button( multiButton.popup.buttons, text, image, helpTip, addOptionsPanel, undefined, undefined, false, true, optionsWithoutButton, optionsButtonText );
+        var button = DuScriptUI.button( multiButton.popup.buttons,
+            {
+                text: text,
+                image: image,
+                helpTip: helpTip,
+                options: addOptionsPanel,
+                ignoreUIMode: true,
+                optionsWithoutButton: optionsWithoutButton,
+                optionsButtonText: optionsButtonText
+            } );
         multiButton.buttons.push( button );
         button.bgColor = DuColor.Color.OBSIDIAN;
         button.dim();

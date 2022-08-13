@@ -902,50 +902,65 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
     panel.bottomGroup = DuScriptUI.group(bottomUberGroup, 'row');
     panel.bottomGroup.margins = 0;
 
-    if (DuESF.bugReportURL != '')
+    if (DuESF.bugReportURL != '' || addSettingsButton || addHelpButton || DuESF.translateURL != '')
     {
-        var bugButton = DuScriptUI.addBugButton( panel.bottomGroup );
-        bugButton.alignment = ['left', 'fill'];
-    }
-    
-    if (addSettingsButton)
-    {
-        var settingsButton = DuScriptUI.button(
-            panel.bottomGroup,
-            '',
-            w12_settings,
-            i18n._("Edit settings")
-            );
-        settingsButton.alignment = ['left', 'fill'];
-
-        settingsButton.onClick = function()
-        {
-            if (!rootSettingsGroup.visible)
+        panel.moreButton = DuScriptUI.multiButton( panel.bottomGroup,
             {
-                if(panel.hasCommonSettings) panel.settingsGroup.reset();
-                panel.mainGroup.visible = false;
-                rootSettingsGroup.visible = true;
+                text: "",
+                helpTip: i18n._("Help and options")
             }
-            else
+        );
+        panel.moreButton.alignment = ['left', 'center'];
+
+        if (DuESF.bugReportURL != '')
+        {
+            var bugButton = DuScriptUI.addBugButton( panel.moreButton );
+            bugButton.alignment = ['left', 'fill'];
+        }
+        
+        if (addSettingsButton)
+        {
+            var settingsButton = panel.moreButton.addButton(
+                i18n._("Edit settings"),
+                w12_settings,
+                i18n._("Edit settings")
+                );
+            settingsButton.alignment = ['left', 'fill'];
+
+            settingsButton.onClick = function()
             {
+                if (!rootSettingsGroup.visible)
+                {
+                    if(panel.hasCommonSettings) panel.settingsGroup.reset();
+                    panel.mainGroup.visible = false;
+                    rootSettingsGroup.visible = true;
+                }
+                else
+                {
+                    panel.mainGroup.visible = true;
+                    rootSettingsGroup.visible = false;
+                }
+            }
+
+            settingsTitle.onClose = function()
+            {
+                if( panel.hasCommonSettings ) panel.settingsGroup.reset();
                 panel.mainGroup.visible = true;
                 rootSettingsGroup.visible = false;
-            }
+            }           
         }
 
-        settingsTitle.onClose = function()
+        if (DuESF.translateURL != '')
         {
-            if( panel.hasCommonSettings ) panel.settingsGroup.reset();
-            panel.mainGroup.visible = true;
-            rootSettingsGroup.visible = false;
+            var translateButton = DuScriptUI.addTranslateButton( panel.moreButton );
+            translateButton.alignment = ['left', 'fill'];
         }
 
-    }
-
-    if (addHelpButton)
-    {
-        var helpButton = DuScriptUI.addHelpButton( panel.bottomGroup, false );
-        helpButton.alignment = ['left', 'fill'];
+        if (addHelpButton)
+        {
+            var helpButton = DuScriptUI.addHelpButton( panel.moreButton, false );
+            helpButton.alignment = ['left', 'fill'];
+        }
     }
 
     var donateButton = DuScriptUI.addDonateButton( panel.bottomGroup, true);

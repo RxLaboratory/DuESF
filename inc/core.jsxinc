@@ -172,6 +172,11 @@ DuESF.companyIcon = '';
  */
 DuESF.rxVersionURL = '';
 /**
+ * A URL where people can help localizing the script
+ * @type {string}
+ */
+DuESF.translateURL = 'http://translate.rxlab.io'
+/**
  * Is this script a prerelease version? This info is used when checking for updates.
  * @type {bool}
  */
