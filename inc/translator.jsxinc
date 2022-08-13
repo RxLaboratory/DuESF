@@ -196,6 +196,8 @@ var translationEngine = function (options) {
       if (!_dictionary[domain])
         _dictionary[domain] = {};
 
+      DuDebug.log("Loaded " + locale + " dictionnary.");
+
       _dictionary[domain][locale] = messages;
 
       return this;
@@ -224,6 +226,8 @@ var translationEngine = function (options) {
         return;
       }
 
+      DuDebug.log("gettext: Using " + locale);
+
       if ( def(loadJson, false) ) {
         // Get file and load it
         var jsonFile = DuPath.join([_folder, _prefix + locale + _suffix]);
@@ -237,6 +241,8 @@ var translationEngine = function (options) {
       }
 
       _locale = normalizeLocale(locale);
+
+      DuDebug.log("gettext: Ready! " + this.getLanguage());
 
       return this;
     },
@@ -304,7 +310,7 @@ var translationEngine = function (options) {
 
       locale = _locale;
 
-      if (locale == "en") exist = _dictionary[domain];
+      if (locale != "en") exist = _dictionary[domain];
       else exist = false;
 
       // Find corresponding locale in dict

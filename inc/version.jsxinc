@@ -213,7 +213,6 @@ DuVersion.checkUpdate = function()
 			"osVersion": DuSystem.osVersion,
 			"host": DuESF.host,
 			"hostVersion": DuESF.hostVersion.fullVersion,
-			"language": i18n.getLanguage(),
 			"languageCode": i18n.getLocale()
 		}
 		if (DuESF.isPreRelease) args["prerelease"] = '';
@@ -227,7 +226,6 @@ DuVersion.checkUpdate = function()
 			"OS Version: " + DuSystem.osVersion + '\r\n' +
 			"Host: " + DuESF.host + '\r\n' +
 			"Host Version: " + DuESF.hostVersion.fullVersion + '\r\n' +
-			"Language: " + i18n.getLanguage() + '\r\n' +
 			"Language Code: " + i18n.getLocale() + '\r\n\r\n' +
 			"Request: " + request
 			);
