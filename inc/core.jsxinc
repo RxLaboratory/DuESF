@@ -278,9 +278,6 @@ DuESF.init = function( scriptName, scriptVersion, companyName )
     // Init settings
     DuSettings.init();
 
-    // Create a debug log
-    if (DuESF.debug) DuDebug.debugLog = new DuDebugLog();
-
     // check if this script has already been run once
     // Check the version from latest run
     var prevVersion = DuESF.settings.get("version");

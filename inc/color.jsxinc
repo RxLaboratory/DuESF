@@ -309,6 +309,23 @@ DuColor.Color =
 // Get the app colors
 DuColor.init = function() 
 {
+		var highlightSelection = DuESF.scriptSettings.get("common/highlightSelection", -1);
+		var highlightColor = new DuColor( DuESF.scriptSettings.get("common/highlightColor", DuColor.Color.APP_HIGHLIGHT_COLOR) );
+		DuDebug.log("DuColor: Highlight color selection: " + highlightSelection);
+
+		// Highlight color
+		if (highlightSelection > 0)
+		{
+			if (highlightSelection == 1) DuColor.Color.APP_HIGHLIGHT_COLOR = DuColor.Color.RX_PURPLE;
+			else if (highlightSelection == 2) DuColor.Color.APP_HIGHLIGHT_COLOR = DuColor.Color.RAINBOX_RED;
+			else if (highlightSelection == 3) DuColor.Color.APP_HIGHLIGHT_COLOR = DuColor.Color.AE_ORANGE;
+			else if (highlightSelection > 3) DuColor.Color.APP_HIGHLIGHT_COLOR = highlightColor;
+
+			return;
+
+			DuDebug.log("DuColor: Highlight color is: " + DuColor.Color.APP_HIGHLIGHT_COLOR.hex());
+		}
+
 	// ScriptUIGraphics object does not contain foreground & background colors in After Effects...
 	if (DuESF.host == DuESF.HostApplication.AFTER_EFFECTS) 
 	{
@@ -344,9 +361,7 @@ DuColor.init = function()
 		
 		DuColor.Color.APP_HIGHLIGHT_COLOR = DuColor.Color.RX_PURPLE;
 	}
-	
 }
-DuESF.initMethods.push( DuColor.init );
 
 /**
 	* Creates a new DuColor from a hex code/array

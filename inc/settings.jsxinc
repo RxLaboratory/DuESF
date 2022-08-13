@@ -147,6 +147,8 @@ DuSettings.prototype.set = function( key, value )
 
 // Low-level undocumented function. Called by DuESF.init()
 DuSettings.init = function() {
+	DuDebug.log("DuSettings: loading settings...");
+
 	DuESF.settings = new DuSettings( 'DuESF', DuFolder.duesfData.absoluteURI + '/duesf_settings.json', true  );
 	
 	/**
@@ -158,17 +160,12 @@ DuSettings.init = function() {
 	DuESF.scriptSettings = new DuSettings( DuESF.scriptName );
 	
 	// Load defaults
-	var highlightSelection = DuESF.scriptSettings.get("common/highlightSelection", -1);
-	var highlightColor = new DuColor( DuESF.scriptSettings.get("common/highlightColor", DuColor.Color.APP_HIGHLIGHT_COLOR) );
 	var debug = DuESF.scriptSettings.get("common/debug", false);
 
 	// Debug mode
 	DuESF.debug = debug;
+	// Create a debug log
+    if (DuESF.debug) DuDebug.debugLog = new DuDebugLog();
 
-	// Highlight color
-	if (highlightSelection == 0) DuColor.Color.APP_HIGHLIGHT_COLOR = DuColor.Color.AFTER_EFFECTS_BLUE;
-	else if (highlightSelection == 1) DuColor.Color.APP_HIGHLIGHT_COLOR = DuColor.Color.RX_PURPLE;
-	else if (highlightSelection == 2) DuColor.Color.APP_HIGHLIGHT_COLOR = DuColor.Color.RAINBOX_RED;
-	else if (highlightSelection == 3) DuColor.Color.APP_HIGHLIGHT_COLOR = DuColor.Color.AE_ORANGE;
-	else if (highlightSelection > 3) DuColor.Color.APP_HIGHLIGHT_COLOR = highlightColor;
+	DuDebug.log("DuSettings: Settings ready!");
 }
