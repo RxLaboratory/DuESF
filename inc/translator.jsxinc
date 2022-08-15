@@ -207,7 +207,11 @@ var translationEngine = function (options) {
         jsonData = JSON.parse(jsonData);
 
       if (!jsonData[''] || !jsonData['']['language'] || !jsonData['']['plural-forms'])
-        throw new Error('Wrong JSON, it must have an empty key ("") with "language" and "plural-forms" information');
+      {
+        if (DuESF.debug) throw new Error('Wrong JSON, it must have an empty key ("") with "language" and "plural-forms" information');
+        else return;
+      }
+        
 
       var headers = jsonData[''];
       delete jsonData[''];
@@ -230,8 +234,8 @@ var translationEngine = function (options) {
 
       if ( def(loadJson, false) ) {
         // Get file and load it
-        var jsonFile = DuPath.join([_folder, _prefix + locale + _suffix]);
-        if (!File(jsonFile).exists)
+        var jsonFile = new File( DuPath.join([_folder, _prefix + locale + _suffix]) );
+        if (!jsonFile.exists)
         {
           DuDebug.log("gettext: Can't find translation file: " + jsonFile)
           return;

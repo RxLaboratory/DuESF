@@ -21,7 +21,7 @@ function DuSettings( namespace, file, dontSavePath )
 	// Get path from duesf settings
 	if ( !isdef( file ) )
 	{
-		var filePath = DuESF.settings.get("scriptSettingsFile");
+		var filePath = DuESF.settings.get(namespace + "/scriptSettingsFile");
 		if ( filePath ) file = new File( filePath );
 	}
 
@@ -42,7 +42,7 @@ function DuSettings( namespace, file, dontSavePath )
 	
 	if (!dontSavePath)
 	{
-		DuESF.settings.set("scriptSettingsFile", this.file.absoluteURI);
+		DuESF.settings.set(namespace + "/scriptSettingsFile", this.file.absoluteURI);
 		DuESF.settings.save();
 	}
 	
@@ -96,7 +96,7 @@ DuSettings.prototype.setFile = function(file, dontSavePath)
 	if (file.exists) this.load();
 	else this.save();
 	if (!dontSavePath) {
-		DuESF.settings.set("scriptSettingsFile", this.file.absoluteURI);
+		DuESF.settings.set(namespace + "/scriptSettingsFile", this.file.absoluteURI);
 		DuESF.settings.save();
 	}
 }
@@ -150,7 +150,7 @@ DuSettings.init = function() {
 	DuDebug.log("DuSettings: loading settings...");
 
 	DuESF.settings = new DuSettings( 'DuESF', DuFolder.duesfData.absoluteURI + '/duesf_settings.json', true  );
-	
+
 	/**
 	 * The settings to store the script specific settings.
 	 * @type {DuSettings}
