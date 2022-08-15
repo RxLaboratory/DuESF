@@ -237,7 +237,7 @@ var translationEngine = function (options) {
         var jsonFile = new File( DuPath.join([_folder, _prefix + locale + _suffix]) );
         if (!jsonFile.exists)
         {
-          DuDebug.log("gettext: Can't find translation file: " + jsonFile)
+          DuDebug.log("gettext: Can't find translation file: " + jsonFile.fsName)
           return;
         }
         var jsonData = DuFile.parseJSON(jsonFile);
