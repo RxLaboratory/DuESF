@@ -315,6 +315,8 @@ DuESF.enterRunTime = function()
 {
     DuDebug.log( "DuESF: Entering runtime..." );
 
+    DuDebug.log( "DuESF: Language is set to: " + i18n.getLocale());
+
     DuDebug.log( "DuESF: Getting script version..." );
     DuESF.settings.data.version = DuESF.scriptVersion.fullVersion;
     DuESF.settings.save();

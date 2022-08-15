@@ -208,10 +208,9 @@ var translationEngine = function (options) {
 
       if (!jsonData[''] || !jsonData['']['language'] || !jsonData['']['plural-forms'])
       {
-        if (DuESF.debug) throw new Error('Wrong JSON, it must have an empty key ("") with "language" and "plural-forms" information');
-        else return;
+        DuDebug.log('gettext: Wrong JSON, it must have an empty key ("") with "language" and "plural-forms" information');
+        return;
       }
-        
 
       var headers = jsonData[''];
       delete jsonData[''];

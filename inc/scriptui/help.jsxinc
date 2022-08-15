@@ -221,7 +221,7 @@ DuScriptUI.askLanguage = function ( callback, ui )
 
     var languages = i18n.getAvailableLanguages();
 
-    if (currentLanguageName != '' || languages.count == 0)
+    if (currentLocale != '' || languages.count == 0)
     {
         callback()
         return;
@@ -261,7 +261,7 @@ DuScriptUI.askLanguage = function ( callback, ui )
         // Save settings
         DuESF.scriptSettings.set("common/language", languageSelector.currentData );
         DuESF.scriptSettings.set("common/currentLanguageName", languageSelector.text);
-        i18n.setLocale( languageSelector.currentData );
+        i18n.setLocale( languageSelector.currentData, true );
 
         DuESF.scriptSettings.save();
 
