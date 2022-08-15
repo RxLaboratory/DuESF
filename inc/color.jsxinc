@@ -362,6 +362,7 @@ DuColor.init = function()
 		DuColor.Color.APP_HIGHLIGHT_COLOR = DuColor.Color.RX_PURPLE;
 	}
 }
+DuESF.initMethods.push(DuColor.init);
 
 /**
 	* Creates a new DuColor from a hex code/array
