@@ -267,6 +267,7 @@ DuScriptUI.selector = function( container, helpTip, iconOnly )
 
     selector.setCurrentData = function( data )
     {
+        selector.setCurrentIndex(0);
         for (var i = 0, n = selector.items.length; i < n; i++)
         {
             if (selector.items[i][3] == data)
