@@ -889,6 +889,9 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
     bottomUberGroup.margins = 0;
     bottomUberGroup.spacing = 0;*/
 
+    // Add a progress bar
+    panel.progressBar = new DuProgressBar("", bottomUberGroup);
+
     // Draw a thin line like other panels.
     //var bottomLine = DuScriptUI.separator( bottomUberGroup );
     if ( DuESF.rxVersionURL != '' ) {
@@ -1061,4 +1064,16 @@ DuScriptUI.stringPrompt = function ( title, defaultString )
     nameEditor.addEventListener('enterkey', nameEditor.accept );
 
     return nameEditor;
+}
+
+/**
+ * Finds the window containing this ScriptUI Control
+ * @param {Control} scriptUIControl The ScriptUI Control
+ * @return {Window} The containing ScriptUI Window
+ */
+DuScriptUI.parentWindow = function ( scriptUIControl )
+{
+    var p = scriptUIControl;
+    while(p.parent) p = p.parent;
+    return p;
 }

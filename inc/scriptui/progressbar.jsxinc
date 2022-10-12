@@ -4,25 +4,83 @@
     * @classdesc A simple progress bar.<br />
     * This was inspired by {@link https://github.com/indiscripts/extendscript/blob/master/scriptui/ProgressBar.jsx the progress bar}
     * by {@link  https://www.indiscripts.com/ Marc Autret / IndiScripts}.
-    * @param {string} title The title of the progress bar
+    * @param {string} [title="Magic is happening"] The title of the progress bar
+    * @param {Group} [container] A ScriptUI Group to add the progress bar. If not provided, the bar will be added in a new window popup
  * @category DuScriptUI
  */
-DuProgressBar = function( )
+DuProgressBar = function( title, container )
 {
-    this.window = new Window('palette', '', [0,0,360,86]);
-    this.stage = this.window.add( 'statictext', { x:20, y:15, width:320, height:16 }, i18n._("Working"));
-    
-    var barGroup = this.window.add('group', { x:20, y:37, width:320, height:12 });
-    barGroup.orientation = 'stacked';
-    barGroup.margins = 0;
-    this.bar = barGroup.add( 'progressbar', { x:0, y:0, width:320, height:12 }, 0, 0);
-    this.image = barGroup.add( 'image', { x:0, y:0, width:320, height:12 }, DuScriptUI.Icon.PROGRESS.binAsString );
-    
-    this.label = this.window.add( 'statictext', { x:20, y:51, width:320, height:16 });
+    title = def(title, i18n._("Magic is happening"));
+    if (title == "") title = i18n._("Magic is happening");
+    this.container = def(container, null );
+    this.isPopup = !this.container;
+    if (!this.isPopup) this.window = DuScriptUI.parentWindow(this.container);
+    else this.window = null;
 
-    this.message =  i18n._("Magic is happening") + ' %1';
+    this.built = false;
 
-    this.window.center();
+    // Create ui
+    this.__setupUI = function()
+    {
+        if (this.built) return;
+
+        if (this.isPopup)
+        {
+            this.window = new Window('palette', '', [0,0,360,86]);
+            this.container = this.window;
+        }
+
+        this.rootGroup = this.container.add('group');
+        this.rootGroup.margins = 0;
+        this.rootGroup.orientation = 'column';
+
+        this.stage = this.rootGroup.add( 'statictext', this.isPopup ? { x:20, y:15, width:320, height:16 } : undefined, i18n._("Working"));
+
+        this.barGroup = this.rootGroup.add('group', this.isPopup ? { x:20, y:37, width:320, height:12 } : undefined);
+        this.barGroup.orientation = 'stacked';
+        this.barGroup.margins = 0;
+        this.bar = this.barGroup.add( 'progressbar', this.isPopup ? { x:0, y:0, width:320, height:12 } : undefined, 0, 0);
+        this.image = this.barGroup.add( 'image', this.isPopup ? { x:0, y:0, width:320, height:12 } : undefined, DuScriptUI.Icon.PROGRESS.binAsString );
+        
+        this.label = this.rootGroup.add( 'statictext', this.isPopup ? { x:20, y:51, width:320, height:16 } : undefined);
+
+        this.message =  title + ' %1';
+
+        if (this.isPopup) this.window.center();
+
+        DuScriptUI.layout( this.container );
+
+        this.built = true;
+    }
+
+    // Destroy ui
+    this.__delete = function()
+    {
+        if (!this.built) return;
+        // Remove controls
+        this.rootGroup.remove( this.label );
+        this.barGroup.remove( this.bar );
+        this.barGroup.remove( this.image );
+        this.rootGroup.remove( this.barGroup );
+        this.rootGroup.remove( this.stage );
+        this.container.remove( this.rootGroup );
+        // Delete to (try to) free memory
+        delete this.label;
+        delete this.image;
+        delete this.bar;
+        delete this.barGroup;
+        delete this.stage;
+        delete this.rootGroup;
+        if (this.isPopup)
+        {
+            delete this.container;
+            delete this.window;
+        }
+        this.built = false;
+
+        // Garbage collection
+        $.gc();
+    }
 
     // A private method to update with the message and the value
     this.__ = function()
@@ -32,7 +90,7 @@ DuProgressBar = function( )
         else this.label.text = i18n._("Magic is happening") + '!';
         this.bar.visible = ok;
         this.image.visible = !ok;
-        this.window.update();
+        if (this.window.update) this.window.update();
     };
 }
 
@@ -42,6 +100,7 @@ DuProgressBar = function( )
  */
 DuProgressBar.prototype.msg = function( message )
 {
+    this.__setupUI();
     if(isdef( message )) this.message = message;
     this.__();
 }
@@ -52,6 +111,7 @@ DuProgressBar.prototype.msg = function( message )
  */
 DuProgressBar.prototype.stg = function( stage )
 {
+    this.__setupUI();
     this.stage.text = stage;
     this.msg();
 }
@@ -63,21 +123,20 @@ DuProgressBar.prototype.stg = function( stage )
  */
 DuProgressBar.prototype.show = function( message )
 {
-    this.window.show();
+    this.__setupUI();
+    this.rootGroup.show();
+    if (this.isPopup) this.window.show();
     this.msg(message);  
 }
 
 /**
- * Resets the progress bar to 0
- * @param {int} [maxValue=0] The new maximum value
+ * Hides and resets the progress bar to 0 and default texts
  */
-DuProgressBar.prototype.reset = function( maxValue )
+DuProgressBar.prototype.reset = function(  )
 {
-    maxValue = def(maxValue, 0);
-    this.bar.value = 0;
-    this.bar.maxvalue = maxValue;
-    this.stg( i18n._("Working") );
-    this.msg( i18n._("Magic is happening") + ' %1' );
+    this.hide();
+    this.close();
+    this.__delete();
 }
 
 /**
@@ -87,6 +146,7 @@ DuProgressBar.prototype.reset = function( maxValue )
  */
 DuProgressBar.prototype.hit = function( value, message )
 {
+    this.__setupUI();
     value = def(value, 1);
     this.bar.value += value;
     this.msg(message);
@@ -99,6 +159,7 @@ DuProgressBar.prototype.hit = function( value, message )
  */
 DuProgressBar.prototype.setMax = function( maxValue, onlyIfZero )
 {
+    this.__setupUI();
     onlyIfZero = def(onlyIfZero, true);
     if (onlyIfZero && this.bar.maxvalue != 0) return;
     this.bar.maxvalue = maxValue;
@@ -111,6 +172,7 @@ DuProgressBar.prototype.setMax = function( maxValue, onlyIfZero )
  */
 DuProgressBar.prototype.addMax = function( maxValue )
 {
+    this.__setupUI();
     maxValue = def(maxValue, 1);
     this.setMax(this.bar.maxvalue + maxValue, false);
 }
@@ -120,7 +182,10 @@ DuProgressBar.prototype.addMax = function( maxValue )
  */
 DuProgressBar.prototype.hide = function( )
 {
-    this.window.hide();
+    if (!this.built) return;
+    this.rootGroup.hide();
+    this.__delete();
+    if (!this.isPopup) DuScriptUI.layout( this.container );
 }
 
 /**
@@ -128,7 +193,9 @@ DuProgressBar.prototype.hide = function( )
  */
 DuProgressBar.prototype.close = function( )
 {
-    this.window.close();
+    if (!this.built) return;
+    if (this.isPopup) this.window.close();
+    this.hide();
 }
 
 DuProgressBar.init = function()
