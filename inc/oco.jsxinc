@@ -219,6 +219,22 @@ function DuOCODoc(name)
     this.resolution = [1920,1080];
     this.world = [960,980];
     this.pixelsPerCm = 4.22;
+
+    // Private: Converts a pixel coordinate relative to the world to a coordinate relative to the top left corner
+    this.fromWorld = function( point )
+    {
+        var x = point[0] + this.world[0];
+        var y = this.world[1] - point[1];
+        return [x,y];
+    }
+
+    // Private: Converts a pixel coordinate relative to the top left corner to a coordinate relative to the world
+    this.toWorld = function( point )
+    {
+        var x = point[0] - this.world[0];
+        var y = this.world[1] - point[1];
+        return [x, y];
+    }
 }
 
 /**
@@ -1448,37 +1464,89 @@ DuOCODoc.prototype.newFin = function( side, fishbones, view, position )
 /**
  * Converts a doc coordinate in centimeters to pixel coordinates
  * @param {float[]} point The coordinate to convert
- * @returns {int[]} The coordinates in pixels relative to the comp
+ * @returns {int[]} The coordinates in pixels
  */
 DuOCODoc.prototype.toPixels = function( point )
 {
     // First, convert to pixels
     var x = point[0]*this.pixelsPerCm;
-    // minus because in 2D apps, 0 is top
-    var y = -point[1]*this.pixelsPerCm;
-    // We're relative to the world, add its coordinates
-    x += this.world[0];
-    y += this.world[1];
-    return [x, y];
+    var y = point[1]*this.pixelsPerCm;
+    // We're relative to the world, adjust
+    return this.fromWorld( [x, y] );
 }
 
 /**
- * Converts a pixel coordinate in pixels to centimeters doc coordinates
+ * Converts coordinates in pixels in the world to centimeters coordinates in the doc
  * @param {int[]} point The coordinate to convert
  * @returns {float[]} The coordinates in centimeters relative to the doc
  */
 DuOCODoc.prototype.fromPixels = function( point )
 {
+    // We need to be relative to the world
+    point = this.toWorld(point);
     var x = point[0];
     var y = point[1];
-    // We're relative to the world, remove its coordinates
-    x -= this.world[0];
-    y -= this.world[1];
     // Convert to cm
     x /= this.pixelsPerCm;
-    // Y coordinate is at bottm in OCO, top in 2D docs
-    y /= -this.pixelsPerCm;
+    // Y coordinate is at bottom in OCO, top in 2D docs
+    y /= this.pixelsPerCm;
     return [x, y];
+}
+
+/**
+ * Creates a js object containing this document data.<br/>
+ * This object could then be exported to JSON for example.
+ * @return {Object} the JS Object
+ */
+DuOCODoc.prototype.toObject = function()
+{
+    var data = {
+        'type': this.type,
+        'name': this.name,
+        'height': this.height,
+        'width': this.width,
+        'centerOfMass': this.centerOfMass,
+        'limbs': [],
+        'resolution': this.resolution,
+        'world': this.world,
+        'pixelsPerCm': this.pixelsPerCm
+    }
+
+    for (var i = 0, n  = this.limbs.length; i < n; i++)
+    {
+        var limbData = this.limbs[i].toObject();
+        data['limbs'].push(limbData);
+    }
+
+    return data;
+}
+
+/**
+ * Creates a JSON string representing this document
+ * @return {string} the JSON document
+ */
+DuOCODoc.prototype.toJson = function()
+{
+    var data  = this.toObject();
+    return JSON.stringify(data, null, 4);
+}
+
+/**
+ * Exports the current document to an oco file
+ * @param {File|string} file The file.
+ * @return {File} the file.
+ */
+DuOCODoc.prototype.toFile = function ( file )
+{
+    if (jstype(file) == 'string') file = new File(file);
+    file.encoding = 'UTF-8';
+    var data = this.toJson();
+
+    if (!file.open('w')) return file;
+    file.write(data);
+    file.close();
+
+    return file;
 }
 
 /**
@@ -1584,6 +1652,30 @@ DuOCOLimb.prototype.newArmature = function( name, num, length )
 }
 
 /**
+ * Creates a js object containing this limb data.<br/>
+ * This object could then be exported to JSON for example.
+ * @return {Object} the JS Object
+ */
+DuOCOLimb.prototype.toObject = function()
+{
+    var data = {
+        'limb': this.limb,
+        'type': this.type,
+        'side': this.side,
+        'location': this.location,
+        'armature': []
+    }
+
+    for (var i = 0, n = this.armature.length; i < n; i++)
+    {
+        var boneData = this.armature[i].toObject();
+        data['armature'].push(boneData);
+    }
+
+    return data;
+}
+
+/**
  * Creates a new OCO Bone.
  * @class
  * @classdesc A bone contained in an OCO Limb.
@@ -1686,4 +1778,36 @@ DuOCOBone.prototype.translateTo = function( x, y, translateChildren ) {
             this.children[i].translate(offsetX, offsetY);
         }
     }
+}
+
+/**
+ * Creates a js object containing this bone data.<br/>
+ * This object could then be exported to JSON for example.
+ * @return {Object} the JS Object
+ */
+DuOCOBone.prototype.toObject = function()
+{
+    var data = {
+        'name': this.name,
+        'x': this.x,
+        'y': this.y,
+        'attached': this.attached,
+        'children': [],
+        'limbs': [],
+        'type': this.type
+    }
+
+    for (var i = 0, n = this.children.length; i < n; i++)
+    {
+        var boneData = this.children[i].toObject();
+        data['children'].push(boneData);
+    }
+
+    for (var i = 0, n = this.limbs.length; i < n; i++)
+    {
+        var limbData = this.limbs[i].toObject();
+        data['limbs'].push(limbData);
+    }
+
+    return data;
 }
