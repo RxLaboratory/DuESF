@@ -1,15 +1,15 @@
 /**
- * Methods to load and create OCO Documents and armatures
+ * Methods to load and create OCO (Open Cut Out) Documents and armatures
  * @namespace
- * @category DuOCO
+ * @category OCO
  */
-var DuOCO = {};
+var OCO = {};
 
 /**
  * Types of OCO armatures
  * @enum {string}
  */
-DuOCO.Type = {
+OCO.Type = {
     /**
      * A meta-rig, used to automatically create a default armature to be used with an auto-rig.
      */
@@ -24,7 +24,7 @@ DuOCO.Type = {
  * Predefined limbs
  * @enum {string}
  */
-DuOCO.Limb = {
+OCO.Limb = {
     SPINE: 'spine',
     ARM: 'arm',
     LEG: 'leg',
@@ -41,7 +41,7 @@ DuOCO.Limb = {
  * Some bone identifierss
  * @enum {string}
  */
-DuOCO.Bone = {
+OCO.Bone = {
     CUSTOM: 'custom',
     TIP: 'tip',
     CLAVICLE: 'clavicle',
@@ -81,7 +81,7 @@ DuOCO.Bone = {
  * Types of limbs
  * @enum {string}
  */
-DuOCO.LimbType = {
+OCO.LimbType = {
     HOMINOID: 'hominoid',
     PLANTIGRADE: 'plantigrade',
     DIGITIGRADE: 'digitigrade',
@@ -91,22 +91,22 @@ DuOCO.LimbType = {
 }
 
 /**
- * Sides for the limbs Use these with {@link DuOCO.Location} to differenciate similar limbs,<br />
+ * Sides for the limbs Use these with {@link OCO.Location} to differenciate similar limbs,<br />
  * for example, a leg can be Front-Right, Front-Left, Back-Right, Back-Left, etc.
  * @enum {string}
  */
-DuOCO.Side = {
+OCO.Side = {
     LEFT: "L",
     RIGHT: "R",
     NONE: ''
 }
 
 /**
- * Locations for the limbs. Use these with {@link DuOCO.Side} to differenciate similar limbs,<br />
+ * Locations for the limbs. Use these with {@link OCO.Side} to differenciate similar limbs,<br />
  * for example, a leg can be Front-Right, Front-Left, Back-Right, Back-Left, etc.
  * @enum {string}
  */
-DuOCO.Location = {
+OCO.Location = {
     FRONT: "Fr",
     BACK: "Bk",
     TAIL: "Tl",
@@ -116,7 +116,7 @@ DuOCO.Location = {
     NONE: ''
 }
 
-DuOCO.View = {
+OCO.View = {
     FRONT: 0,
     LEFT: 1,
     RIGHT: 2,
@@ -127,10 +127,10 @@ DuOCO.View = {
 
 /**
  * Gets the boundaries of an armature (a chain of bones)
- * @param {DuOCOBone[]} armature The chain of bones
+ * @param {OCOBone[]} armature The chain of bones
  * @returns {float[]} [left, top, right, bottom]
  */
-DuOCO.getBounds = function ( armature )
+OCO.getBounds = function ( armature )
 {
     var left = 9999;
     var right = -9999;
@@ -146,7 +146,7 @@ DuOCO.getBounds = function ( armature )
         if (b.y < bottom) bottom = b.y;
         if (b.y > top) top = b.y;
         // Check children
-        var childBounds = DuOCO.getBounds( b.children );
+        var childBounds = OCO.getBounds( b.children );
         if (childBounds[0] < left) left = childBounds[0];
         if (childBounds[1] < top) top = childBounds[1];
         if (childBounds[2] < right) right = childBounds[2];
@@ -170,50 +170,50 @@ DuOCO.getBounds = function ( armature )
  * @class
  * @classdesc An Open Cut-Out character or meta-rig document.
  * @param {string} name The name of the character or the meta rig
- * @category DuOCO
+ * @category OCO
  */
-function DuOCODoc(name)
+function OCODoc(name)
 {
     /**
      * The type of this OCO Doc
      * @name type
-     * @memberof DuOCODoc
+     * @memberof OCODoc
      * @type {string}
      */
-    this.type = DuOCO.Type.META;
+    this.type = OCO.Type.META;
     /**
      * The name of this OCO Doc
      * @name name
-     * @memberof DuOCODoc
+     * @memberof OCODoc
      * @type {string}
      */
     this.name = name;
     /**
      * The height of the character. Should always be 1!
      * @name height
-     * @memberof DuOCODoc
+     * @memberof OCODoc
      * @type {float}
      */
     this.height = 185.0;
     /**
      * The width of the character.
      * @name width
-     * @memberof DuOCODoc
+     * @memberof OCODoc
      * @type {float}
      */
     this.width = 60.0,
     /**
      * The coordinates of the center of mass of the character. [X, Y].
      * @name centerOfMass
-     * @memberof DuOCODoc
+     * @memberof OCODoc
      * @type {float[]}
      */
     this.centerOfMass = [0.0, 107.0];
     /**
      * The limbs/ Armatures
      * @name limbs
-     * @memberof DuOCOLimb
-     * @type {DuOCOLimb[]}
+     * @memberof OCOLimb
+     * @type {OCOLimb[]}
      */
     this.limbs = [];
     this.resolution = [1920,1080];
@@ -241,7 +241,7 @@ function DuOCODoc(name)
  * Gets the boundaries of the doc
  * @returns {float[]} [left, top, right, bottom]
  */
-DuOCODoc.prototype.bounds = function ()
+OCODoc.prototype.bounds = function ()
 {
     var left = 9999;
     var right = -9999;
@@ -264,7 +264,7 @@ DuOCODoc.prototype.bounds = function ()
  * Updates the width and height of the character, according to the content.<br />
  * This method should be called each time a limb/bone is added/removed/edited and the bounds may change.
  */
-DuOCODoc.prototype.updateSize = function()
+OCODoc.prototype.updateSize = function()
 {
     // Update doc width & height
     var bounds = this.bounds();
@@ -276,23 +276,23 @@ DuOCODoc.prototype.updateSize = function()
 
 /**
  * Creates a new limb and adds it to the doc
- * @param {DuOCO.Limb} [limb=DuOCO.Limb.CUSTOM] A Predefined limb
- * @param {DuOCO.Side} [side=DuOCO.Side.NONE] - The side of the limb
- * @param {DuOCO.Location} [location=DuOCO.Location.NONE] - The location of the limb
- * @param {DuOCO.LimbType} [type=DuOCO.LimbType.CUSTOM] - The type of the limb
- * @return {DuOCOLimb} The new limb
+ * @param {OCO.Limb} [limb=OCO.Limb.CUSTOM] A Predefined limb
+ * @param {OCO.Side} [side=OCO.Side.NONE] - The side of the limb
+ * @param {OCO.Location} [location=OCO.Location.NONE] - The location of the limb
+ * @param {OCO.LimbType} [type=OCO.LimbType.CUSTOM] - The type of the limb
+ * @return {OCOLimb} The new limb
  */
-DuOCODoc.prototype.newLimb = function( limb, side, location, type )
+OCODoc.prototype.newLimb = function( limb, side, location, type )
 {
-    var l = new DuOCOLimb( limb, side, location, type );
+    var l = new OCOLimb( limb, side, location, type );
     this.limbs.push(l);
     return l;
 }
 
 /**
  * Creates a new arm.
- * @param {DuOCO.LimbType} [type=DuOCO.LimbType.HOMINOID] The type of limb
- * @param {DuOCO.Side} [side=DuOCO.Side.LEFT] The side
+ * @param {OCO.LimbType} [type=OCO.LimbType.HOMINOID] The type of limb
+ * @param {OCO.Side} [side=OCO.Side.LEFT] The side
  * @param {Boolean} [shoulder=false] Whether to create a shoulder
  * @param {Boolean} [arm=true]  Whether to create an arm / humerus
  * @param {Boolean} [forearm=true]  Whether to create a forearm
@@ -300,15 +300,15 @@ DuOCODoc.prototype.newLimb = function( limb, side, location, type )
  * @param {Boolean} [claws=false]  Whether to add claws
  * @param {float[]} [position] The position of the first bone of the arm.<br />
  * If omitted, computed automatically according to the current character in the doc.
- * @param {DuOCO.Location} [location=DuOCO.Location.FRONT] The location of the limb
- * @param {DuOCO.View} [view] The view
- * @returns {DuOCOLimb} The arm
+ * @param {OCO.Location} [location=OCO.Location.FRONT] The location of the limb
+ * @param {OCO.View} [view] The view
+ * @returns {OCOLimb} The arm
  */
-DuOCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, claws, position, location, view )
+OCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, claws, position, location, view )
 {
-    side = def(side, DuOCO.Side.LEFT);
-    type = def(type, DuOCO.LimbType.HOMINOID);
-    location = def(location, DuOCO.Location.FRONT);
+    side = def(side, OCO.Side.LEFT);
+    type = def(type, OCO.LimbType.HOMINOID);
+    location = def(location, OCO.Location.FRONT);
 
     shoulder = def( shoulder, false );
     arm = def( arm, true );
@@ -320,21 +320,21 @@ DuOCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, 
     var u = this.height;
 
     // type
-    var hum = type == DuOCO.LimbType.HOMINOID;
-    var hum = type == DuOCO.LimbType.PLANTIGRADE && !claws;
-    var plan = type == DuOCO.LimbType.PLANTIGRADE && claws;
-    var dig = type == DuOCO.LimbType.DIGITIGRADE;
-    var ung = type == DuOCO.LimbType.UNGULATE;
-    var artF = type == DuOCO.LimbType.ARTHROPOD && location != DuOCO.Location.MIDDLE && location != DuOCO.Location.BACK;
-    var artM = type == DuOCO.LimbType.ARTHROPOD && location == DuOCO.Location.MIDDLE;
-    var artB = type == DuOCO.LimbType.ARTHROPOD && location == DuOCO.Location.BACK;
+    var hum = type == OCO.LimbType.HOMINOID;
+    var hum = type == OCO.LimbType.PLANTIGRADE && !claws;
+    var plan = type == OCO.LimbType.PLANTIGRADE && claws;
+    var dig = type == OCO.LimbType.DIGITIGRADE;
+    var ung = type == OCO.LimbType.UNGULATE;
+    var artF = type == OCO.LimbType.ARTHROPOD && location != OCO.Location.MIDDLE && location != OCO.Location.BACK;
+    var artM = type == OCO.LimbType.ARTHROPOD && location == OCO.Location.MIDDLE;
+    var artB = type == OCO.LimbType.ARTHROPOD && location == OCO.Location.BACK;
     if ( !hum && !plan && !dig && !ung && !artF && !artM && !artB ) hum = true;
 
     // View
     if (!isdef( view ))
     {
-        if (type == DuOCO.LimbType.PLANTIGRADE && !claws) view = DuOCO.View.FRONT;
-        else view = DuOCO.View.RIGHT;
+        if (type == OCO.LimbType.PLANTIGRADE && !claws) view = OCO.View.FRONT;
+        else view = OCO.View.RIGHT;
     }
 
     // count how many bones we need
@@ -348,14 +348,14 @@ DuOCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, 
     if (num == 1) return null;
 
     // Create limb
-    var limb = this.newLimb( DuOCO.Limb.ARM, side, location, type );
+    var limb = this.newLimb( OCO.Limb.ARM, side, location, type );
     var b = limb.newArmature( i18n._("Arm"), num );
 
     // side
     var s = 1;
-    if ( side == DuOCO.Side.RIGHT && view == DuOCO.View.FRONT ) s = -1;
-    else if ( side == DuOCO.Side.LEFT && view == DuOCO.View.BACK ) s = -1;
-    else if ( view == DuOCO.View.LEFT ) s = -1;  
+    if ( side == OCO.Side.RIGHT && view == OCO.View.FRONT ) s = -1;
+    else if ( side == OCO.Side.LEFT && view == OCO.View.BACK ) s = -1;
+    else if ( view == OCO.View.LEFT ) s = -1;  
 
     // shoulder position
     var x, y;
@@ -408,7 +408,7 @@ DuOCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, 
     if ( shoulder )
     {
         b.name = i18n._("Shoulder");
-        b.type = DuOCO.Bone.CLAVICLE;
+        b.type = OCO.Bone.CLAVICLE;
         b.x = x + ox;
         b.y = y + oy;
         if (b.children.length > 0) b = b.children[0];
@@ -416,7 +416,7 @@ DuOCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, 
     if ( arm )
     {
         b.name = i18n._("Arm");
-        b.type = DuOCO.Bone.HUMERUS;
+        b.type = OCO.Bone.HUMERUS;
         if (hum)
         {
             b.x = s * u * .12 + ox;
@@ -457,7 +457,7 @@ DuOCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, 
     if ( forearm )
     {
         b.name = i18n._("Forearm");
-        b.type = DuOCO.Bone.RADIUS;
+        b.type = OCO.Bone.RADIUS;
         if (hum)
         {
             b.x = s * u * .15 + ox;
@@ -498,7 +498,7 @@ DuOCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, 
     if ( hand )
     {
         b.name = i18n._("Hand");
-        b.type = DuOCO.Bone.CARPUS;
+        b.type = OCO.Bone.CARPUS;
         if (hum)
         {
             b.x = s * u * .12 + ox;
@@ -539,7 +539,7 @@ DuOCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, 
     if ( claws )
     {
         b.name = i18n._("Claws");
-        b.type = DuOCO.Bone.FINGER;
+        b.type = OCO.Bone.FINGER;
         if (plan)
         {
             b.x = s * u * .455 + ox;
@@ -575,7 +575,7 @@ DuOCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, 
     // Tip
     b.name = i18n._("Arm") +
         '_' + i18n._("Tip");
-    b.type = DuOCO.Bone.TIP;
+    b.type = OCO.Bone.TIP;
     if (hum)
     {
         b.x = s * u * .08 + ox;
@@ -615,8 +615,8 @@ DuOCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, 
     //Heel
     if (plan)
     {
-        var heelBone = new DuOCOBone( i18n._("Heel") );
-        heelBone.type = DuOCO.Bone.HEEL;
+        var heelBone = new OCOBone( i18n._("Heel") );
+        heelBone.type = OCO.Bone.HEEL;
         heelBone.x = s * u * .38 + ox;
         heelBone.y = 0 + oy;
         b.children.push(heelBone);
@@ -627,23 +627,23 @@ DuOCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, 
 
 /**
  * Creates a new leg.
- * @param {DuOCO.LimbType} [type=DuOCO.LimbType.HOMINOID] The type of limb
- * @param {DuOCO.Side} [side=DuOCO.Side.LEFT] The side
+ * @param {OCO.LimbType} [type=OCO.LimbType.HOMINOID] The type of limb
+ * @param {OCO.Side} [side=OCO.Side.LEFT] The side
  * @param {Boolean} [thigh=true]  Whether to create a thigh
  * @param {Boolean} [calf=true]  Whether to create a calf
  * @param {Boolean} [foot=true]  Whether to create a foot
  * @param {Boolean} [claws=false]  Whether to add claws
  * @param {float[]} [position] The position of the first bone of the arm.<br />
  * If omitted, computed automatically according to the current character in the doc.
- * @param {DuOCO.Location} [location=DuOCO.Location.BACK] The location of the limb
- * @param {DuOCO.View} [view] The view
- * @returns {DuOCOLimb} The leg
+ * @param {OCO.Location} [location=OCO.Location.BACK] The location of the limb
+ * @param {OCO.View} [view] The view
+ * @returns {OCOLimb} The leg
  */
-DuOCODoc.prototype.newLeg = function( type, side, thigh, calf, foot, claws, position, location, view )
+OCODoc.prototype.newLeg = function( type, side, thigh, calf, foot, claws, position, location, view )
 {
-    side = def(side, DuOCO.Side.LEFT);
-    type = def(type, DuOCO.LimbType.HOMINOID);
-    location = def(location, DuOCO.Location.BACK);
+    side = def(side, OCO.Side.LEFT);
+    type = def(type, OCO.LimbType.HOMINOID);
+    location = def(location, OCO.Location.BACK);
 
     thigh = def( thigh, true );
     calf = def( calf, true );
@@ -654,16 +654,16 @@ DuOCODoc.prototype.newLeg = function( type, side, thigh, calf, foot, claws, posi
     var u = this.height;
 
     // type
-    var plan = type == DuOCO.LimbType.PLANTIGRADE;
-    var dig = type == DuOCO.LimbType.DIGITIGRADE;
-    var ung = type == DuOCO.LimbType.UNGULATE;
-    var hum = type == DuOCO.LimbType.HOMINOID;
+    var plan = type == OCO.LimbType.PLANTIGRADE;
+    var dig = type == OCO.LimbType.DIGITIGRADE;
+    var ung = type == OCO.LimbType.UNGULATE;
+    var hum = type == OCO.LimbType.HOMINOID;
 
     // View
     if (!isdef( view ))
     {
-        if (type == DuOCO.LimbType.PLANTIGRADE) view = DuOCO.View.FRONT;
-        else view = DuOCO.View.RIGHT;
+        if (type == OCO.LimbType.PLANTIGRADE) view = OCO.View.FRONT;
+        else view = OCO.View.RIGHT;
     }
 
     // count how many bones we need
@@ -676,15 +676,15 @@ DuOCODoc.prototype.newLeg = function( type, side, thigh, calf, foot, claws, posi
     if (num == 1) return null;
 
     // Create limb
-    var limb = this.newLimb( DuOCO.Limb.LEG, side, location, type );
+    var limb = this.newLimb( OCO.Limb.LEG, side, location, type );
     var b = limb.newArmature( i18n._("Leg"), num );
 
     // side
     var s = 1;
 
-    if ( side == DuOCO.Side.RIGHT && view == DuOCO.View.FRONT ) s = -1;
-    else if ( side == DuOCO.Side.LEFT && view == DuOCO.View.BACK ) s = -1;
-    else if ( view == DuOCO.View.LEFT ) s = -1;
+    if ( side == OCO.Side.RIGHT && view == OCO.View.FRONT ) s = -1;
+    else if ( side == OCO.Side.LEFT && view == OCO.View.BACK ) s = -1;
+    else if ( view == OCO.View.LEFT ) s = -1;
 
     // thigh position
     var x, y;
@@ -717,7 +717,7 @@ DuOCODoc.prototype.newLeg = function( type, side, thigh, calf, foot, claws, posi
     if ( thigh )
     {
         b.name = i18n._("Thigh");
-        b.type = DuOCO.Bone.FEMUR;
+        b.type = OCO.Bone.FEMUR;
         b.x = x + ox;
         b.y = y + oy;
         if (b.children.length > 0) b = b.children[0];
@@ -725,7 +725,7 @@ DuOCODoc.prototype.newLeg = function( type, side, thigh, calf, foot, claws, posi
     if ( calf )
     {
         b.name = i18n._("Calf");
-        b.type = DuOCO.Bone.TIBIA;
+        b.type = OCO.Bone.TIBIA;
         if (plan || hum)
         {
             b.x = s * u * .05 + ox;
@@ -746,7 +746,7 @@ DuOCODoc.prototype.newLeg = function( type, side, thigh, calf, foot, claws, posi
     if ( foot )
     {
         b.name = i18n._("Foot");
-        b.type = DuOCO.Bone.TARSUS;
+        b.type = OCO.Bone.TARSUS;
         if (plan || hum)
         {
             b.x = s * u * .036 + ox;
@@ -768,7 +768,7 @@ DuOCODoc.prototype.newLeg = function( type, side, thigh, calf, foot, claws, posi
     {
         b.name = i18n._("Claws");
         if (hum) b.name = i18n._("Toes");
-        b.type = DuOCO.Bone.TOE;
+        b.type = OCO.Bone.TOE;
         if (plan || hum)
         {
             b.x = s * u * .10 + ox;
@@ -790,7 +790,7 @@ DuOCODoc.prototype.newLeg = function( type, side, thigh, calf, foot, claws, posi
     // Tip
     b.name = i18n._("Leg") +
         '_' + i18n._("Tip");
-    b.type = DuOCO.Bone.TIP;
+    b.type = OCO.Bone.TIP;
     if (plan || hum)
     {
         b.x = s * u * .145 + ox;
@@ -810,8 +810,8 @@ DuOCODoc.prototype.newLeg = function( type, side, thigh, calf, foot, claws, posi
     //Heel
     if ((plan || hum) && claws)
     {
-        var heelBone = new DuOCOBone( i18n._("Heel") );
-        heelBone.type = DuOCO.Bone.HEEL;
+        var heelBone = new OCOBone( i18n._("Heel") );
+        heelBone.type = OCO.Bone.HEEL;
         heelBone.x = s * u * .01 + ox;
         heelBone.y = oy;
         b.children.push(heelBone);
@@ -828,10 +828,10 @@ DuOCODoc.prototype.newLeg = function( type, side, thigh, calf, foot, claws, posi
  * @param {Boolean} [hips=true]  Whether to create hips
  * @param {float[]} [position] The position of the first bone of the arm.<br />
  * If omitted, computed automatically according to the current character in the doc.
- * @param {DuOCO.View} [view] The view
- * @returns {DuOCOLimb} The spine
+ * @param {OCO.View} [view] The view
+ * @returns {OCOLimb} The spine
  */
-DuOCODoc.prototype.newSpine = function( head, neck, spine, hips, position )
+OCODoc.prototype.newSpine = function( head, neck, spine, hips, position )
 {
     head = def( head, true );
     neck = def( neck, 1 );
@@ -851,7 +851,7 @@ DuOCODoc.prototype.newSpine = function( head, neck, spine, hips, position )
     if (num == 1) return null;
 
     // Create limb
-    var limb = this.newLimb( DuOCO.Limb.SPINE, DuOCO.Side.NONE, DuOCO.Location.NONE );
+    var limb = this.newLimb( OCO.Limb.SPINE, OCO.Side.NONE, OCO.Location.NONE );
     var b = limb.newArmature( i18n._("Spine"), num );
 
     // hips position
@@ -871,7 +871,7 @@ DuOCODoc.prototype.newSpine = function( head, neck, spine, hips, position )
     if ( hips )
     {
         b.name = i18n._("Hips");
-        b.type = DuOCO.Bone.HIPS;
+        b.type = OCO.Bone.HIPS;
         b.x = x + ox;
         b.y = y + oy;
         if (b.children.length > 0) b = b.children[0];
@@ -885,14 +885,14 @@ DuOCODoc.prototype.newSpine = function( head, neck, spine, hips, position )
         for (var i = 0; i < spine-1; i++)
         {
             b.name = i18n._("Spine");
-            b.type = DuOCO.Bone.SPINE;
+            b.type = OCO.Bone.SPINE;
             b.y = spineStart + i*spineLength + oy;
             b.x = ox;
             if (b.children.length > 0) b = b.children[0];
         }
         // Torso
         b.name = i18n._("Torso");
-        b.type = DuOCO.Bone.TORSO;
+        b.type = OCO.Bone.TORSO;
         b.y = spineStart + (spine-1)*spineLength + oy;
         b.x = ox;
         if (b.children.length > 0) b = b.children[0];
@@ -901,7 +901,7 @@ DuOCODoc.prototype.newSpine = function( head, neck, spine, hips, position )
     {
         // Torso
         b.name = i18n._("Torso");
-        b.type = DuOCO.Bone.TORSO;
+        b.type = OCO.Bone.TORSO;
         b.x = ox;
         b.y = u*.56 + oy;
         if (b.children.length > 0) b = b.children[0];
@@ -913,7 +913,7 @@ DuOCODoc.prototype.newSpine = function( head, neck, spine, hips, position )
         for (var i = 0; i < neck; i++)
         {
             b.name = i18n._("Neck");
-            b.type = DuOCO.Bone.NECK;
+            b.type = OCO.Bone.NECK;
             b.y = neckStart + i*neckLength + oy;
             b.x = ox;
             if (b.children.length > 0) b = b.children[0];
@@ -922,7 +922,7 @@ DuOCODoc.prototype.newSpine = function( head, neck, spine, hips, position )
     if ( head )
     {
         b.name = i18n._("Head");
-        b.type = DuOCO.Bone.SKULL;
+        b.type = OCO.Bone.SKULL;
         b.x = ox;
         b.y = u*.89 + oy;
         if (b.children.length > 0) b = b.children[0];
@@ -931,7 +931,7 @@ DuOCODoc.prototype.newSpine = function( head, neck, spine, hips, position )
     // Tip
     b.name = i18n._("Spine") +
         '_' + i18n._("Tip");
-    b.type = DuOCO.Bone.TIP;
+    b.type = OCO.Bone.TIP;
     b.x = ox;
     b.y = u + oy;
 
@@ -941,9 +941,9 @@ DuOCODoc.prototype.newSpine = function( head, neck, spine, hips, position )
 /**
  * Creates a new tail.
  * @param {int} [numBones=3] Number of tail bones
- * @returns {DuOCOLimb} The spine
+ * @returns {OCOLimb} The spine
  */
-DuOCODoc.prototype.newTail = function( numBones )
+OCODoc.prototype.newTail = function( numBones )
 {
     numBones = def( numBones, 3 );
 
@@ -956,23 +956,23 @@ DuOCODoc.prototype.newTail = function( numBones )
     if (num == 1) return null;
 
     // Create limb
-    var limb = this.newLimb( DuOCO.Limb.TAIL, DuOCO.Side.NONE, DuOCO.Location.NONE );
+    var limb = this.newLimb( OCO.Limb.TAIL, OCO.Side.NONE, OCO.Location.NONE );
     var b = limb.newArmature( i18n._("Tail"), num );
 
     // for each part, adjust name and type
     for (var i = 0, n = num-1; i < n; i++)
     {
         b.name = i18n._("Tail");
-        if ( i <= (n-1) / 3) b.type = DuOCO.Bone.TAIL_ROOT;
-        else if ( i <= (n-1)*2 / 3) b.type = DuOCO.Bone.TAIL_MID;
-        else b.type = DuOCO.Bone.TAIL_END;
+        if ( i <= (n-1) / 3) b.type = OCO.Bone.TAIL_ROOT;
+        else if ( i <= (n-1)*2 / 3) b.type = OCO.Bone.TAIL_MID;
+        else b.type = OCO.Bone.TAIL_END;
         
         if (b.children.length > 0) b = b.children[0];
     }
 
     b.name = i18n._("Tail") +
         '_' + i18n._("Tip");
-    b.type = DuOCO.Bone.TIP;
+    b.type = OCO.Bone.TIP;
 
     return limb;
 }
@@ -980,9 +980,9 @@ DuOCODoc.prototype.newTail = function( numBones )
 /**
  * Creates a new hair strand.
  * @param {int} [numBones=3] Number of hair bones
- * @returns {DuOCOLimb} The hair
+ * @returns {OCOLimb} The hair
  */
-DuOCODoc.prototype.newHairStrand = function( numBones )
+OCODoc.prototype.newHairStrand = function( numBones )
 {
     numBones = def( numBones, 3 );
 
@@ -995,7 +995,7 @@ DuOCODoc.prototype.newHairStrand = function( numBones )
     if (num == 1) return null;
 
     // Create limb
-    var limb = this.newLimb( DuOCO.Limb.HAIR, DuOCO.Side.NONE, DuOCO.Location.NONE );
+    var limb = this.newLimb( OCO.Limb.HAIR, OCO.Side.NONE, OCO.Location.NONE );
     var b = limb.newArmature( i18n._("Hair"), num );
 
     var l = 100 / numBones;
@@ -1004,9 +1004,9 @@ DuOCODoc.prototype.newHairStrand = function( numBones )
     for (var i = 0, n = num-1; i < n; i++)
     {
         b.name = i18n._("Hair");
-        if ( i <= (n-1) / 3) b.type = DuOCO.Bone.HAIR_ROOT;
-        else if ( i <= (n-1)*2 / 3) b.type = DuOCO.Bone.HAIR_MID;
-        else b.type = DuOCO.Bone.HAIR_END;
+        if ( i <= (n-1) / 3) b.type = OCO.Bone.HAIR_ROOT;
+        else if ( i <= (n-1)*2 / 3) b.type = OCO.Bone.HAIR_MID;
+        else b.type = OCO.Bone.HAIR_END;
 
         b.x = 0;
         b.y = 150 - i*l;
@@ -1016,7 +1016,7 @@ DuOCODoc.prototype.newHairStrand = function( numBones )
 
     b.name = i18n._("Hair") +
         '_' + i18n._("Tip");
-    b.type = DuOCO.Bone.TIP;
+    b.type = OCO.Bone.TIP;
     b.x = 0;
     b.y = 50;
 
@@ -1025,20 +1025,20 @@ DuOCODoc.prototype.newHairStrand = function( numBones )
 
 /**
  * Creates a new wing.
- * @param {DuOCO.Side} [side=DuOCO.Side.LEFT] The side
+ * @param {OCO.Side} [side=OCO.Side.LEFT] The side
  * @param {Boolean} [arm=true]  Whether to create an arm / humerus
  * @param {Boolean} [forearm=true]  Whether to create a forearm
  * @param {Boolean} [hand=true]  Whether to create a hand
  * @param {int} [feathers=5]  Number of feathers
  * @param {float[]} [position] The position of the first bone of the arm.<br />
  * If omitted, computed automatically according to the current character in the doc.
- * @param {DuOCO.View} [view=DuOCO.View.TOP] The view
- * @returns {DuOCOLimb} The wing
+ * @param {OCO.View} [view=OCO.View.TOP] The view
+ * @returns {OCOLimb} The wing
  */
-DuOCODoc.prototype.newWing = function( side, arm, forearm, hand, feathers, position, view )
+OCODoc.prototype.newWing = function( side, arm, forearm, hand, feathers, position, view )
 {
-    side = def(side, DuOCO.Side.LEFT);
-    view = def(view, DuOCO.View.TOP);
+    side = def(side, OCO.Side.LEFT);
+    view = def(view, OCO.View.TOP);
 
     arm = def( arm, true );
     forearm = def( forearm, true );
@@ -1057,18 +1057,18 @@ DuOCODoc.prototype.newWing = function( side, arm, forearm, hand, feathers, posit
     if (num == 1) return null;
 
     // Create limb
-    var limb = this.newLimb( DuOCO.Limb.WING, side, DuOCO.Location.NONE );
+    var limb = this.newLimb( OCO.Limb.WING, side, OCO.Location.NONE );
     var b = limb.newArmature( i18n._("Wing"), num );
 
     // side
     var s = 1;
-    if ( side == DuOCO.Side.RIGHT && (view == DuOCO.View.TOP || view == DuOCO.View.BACK) ) s = -1;
-    else if ( side == DuOCO.Side.LEFT && (view == DuOCO.View.BOTTOM || view == DuOCO.View.FRONT) ) s = -1;
-    else if ( view == DuOCO.View.LEFT ) s = -1;
+    if ( side == OCO.Side.RIGHT && (view == OCO.View.TOP || view == OCO.View.BACK) ) s = -1;
+    else if ( side == OCO.Side.LEFT && (view == OCO.View.BOTTOM || view == OCO.View.FRONT) ) s = -1;
+    else if ( view == OCO.View.LEFT ) s = -1;
 
     // arm position
     var x, y;
-    if ( view == DuOCO.View.TOP || view == DuOCO.View.BOTTOM )
+    if ( view == OCO.View.TOP || view == OCO.View.BOTTOM )
     {
         x = s * u * -.12;
         y = u * .64;
@@ -1091,7 +1091,7 @@ DuOCODoc.prototype.newWing = function( side, arm, forearm, hand, feathers, posit
     if ( arm )
     {
         b.name = i18n._("Arm");
-        b.type = DuOCO.Bone.HUMERUS;
+        b.type = OCO.Bone.HUMERUS;
         b.x = x + ox;
         b.y = y + oy;
 
@@ -1106,7 +1106,7 @@ DuOCODoc.prototype.newWing = function( side, arm, forearm, hand, feathers, posit
     if (forearm)
     {
         b.name = i18n._("Forearm");
-        b.type = DuOCO.Bone.RADIUS;
+        b.type = OCO.Bone.RADIUS;
         b.x = s * u * -.22 + ox;
         b.y = u * .53 + oy;
 
@@ -1118,7 +1118,7 @@ DuOCODoc.prototype.newWing = function( side, arm, forearm, hand, feathers, posit
     if (hand)
     {
         b.name = i18n._("Hand");
-        b.type = DuOCO.Bone.CARPUS;
+        b.type = OCO.Bone.CARPUS;
         b.x = s * u * -.37 + ox;
         b.y = u * .64 + oy;
 
@@ -1131,7 +1131,7 @@ DuOCODoc.prototype.newWing = function( side, arm, forearm, hand, feathers, posit
     // Tip
     b.name = i18n._("Wing") +
         '_' + i18n._("Tip");
-    b.type = DuOCO.Bone.TIP;
+    b.type = OCO.Bone.TIP;
     b.x = s * u * -.53 + ox;
     b.y = u * .66 + oy;
 
@@ -1141,16 +1141,16 @@ DuOCODoc.prototype.newWing = function( side, arm, forearm, hand, feathers, posit
     function createFeather( xr, yr, xt, yt, p )
     {
         var boneName = DuString.generateUnique( i18n._("Feather"), names);
-        b = new DuOCOBone( boneName );
-        b.type = DuOCO.Bone.FEATHER;
+        b = new OCOBone( boneName );
+        b.type = OCO.Bone.FEATHER;
         b.x = s * u * xr + ox;
         b.y = u * yr + oy;
 
         // tip
         var boneName = DuString.generateUnique( i18n._("Feather") +
             '_' + i18n._("Tip"), names);
-        var bt = new DuOCOBone( boneName );
-        bt.type = DuOCO.Bone.TIP;
+        var bt = new OCOBone( boneName );
+        bt.type = OCO.Bone.TIP;
         bt.x = s * u * xt + ox;
         bt.y = u * yt + oy;
 
@@ -1198,9 +1198,9 @@ DuOCODoc.prototype.newWing = function( side, arm, forearm, hand, feathers, posit
  * @param {int} [spine=5] Number of spine bones
  * @param {float[]} [position] The position of the first bone of the arm.<br />
  * If omitted, computed automatically according to the current character in the doc.
- * @returns {DuOCOLimb} The snake spine
+ * @returns {OCOLimb} The snake spine
  */
-DuOCODoc.prototype.newSnakeSpine = function( head, spine, position )
+OCODoc.prototype.newSnakeSpine = function( head, spine, position )
 {
     head = def( head, true );
     spine = def( spine, 5 );
@@ -1214,7 +1214,7 @@ DuOCODoc.prototype.newSnakeSpine = function( head, spine, position )
     if (num == 1) return null;
 
     // Create limb
-    var limb = this.newLimb( DuOCO.Limb.SNAKE_SPINE, DuOCO.Side.NONE, DuOCO.Location.NONE );
+    var limb = this.newLimb( OCO.Limb.SNAKE_SPINE, OCO.Side.NONE, OCO.Location.NONE );
     var b = limb.newArmature( i18n._("Spine"), num );
 
     // hips position
@@ -1235,9 +1235,9 @@ DuOCODoc.prototype.newSnakeSpine = function( head, spine, position )
     for (var i = 0; i < spine; i++)
     {
         b.name = i18n._("Spine");
-        if ( i <= (spine-1) / 3) b.type = DuOCO.Bone.SNAKE_SPINE_ROOT;
-        else if ( i <= (spine-1)*2 / 3) b.type = DuOCO.Bone.SNAKE_SPINE_MID;
-        else b.type = DuOCO.Bone.SNAKE_SPINE_END;
+        if ( i <= (spine-1) / 3) b.type = OCO.Bone.SNAKE_SPINE_ROOT;
+        else if ( i <= (spine-1)*2 / 3) b.type = OCO.Bone.SNAKE_SPINE_MID;
+        else b.type = OCO.Bone.SNAKE_SPINE_END;
         b.y = y + oy;
         b.x = x - spineLength*i - ox;
         if (b.children.length > 0) b = b.children[0];
@@ -1246,15 +1246,15 @@ DuOCODoc.prototype.newSnakeSpine = function( head, spine, position )
     // Tip
     b.name = i18n._("Spine") +
         '_' + i18n._("Tip");
-    b.type = DuOCO.Bone.TIP;
+    b.type = OCO.Bone.TIP;
     b.x = -u *.75;
     b.y = y + oy;
 
     // Head
     if (head)
     {
-        var b = new DuOCOBone( i18n._("Head") );
-        b.type = DuOCO.Bone.SKULL;
+        var b = new OCOBone( i18n._("Head") );
+        b.type = OCO.Bone.SKULL;
         b.x = x;
         b.y = y;
 
@@ -1263,9 +1263,9 @@ DuOCODoc.prototype.newSnakeSpine = function( head, spine, position )
         limb.armature.push(b);
         b.children.push(s);
 
-        var bt = new DuOCOBone( i18n._("Head") +
+        var bt = new OCOBone( i18n._("Head") +
             '_' + i18n._("Tip") );
-        bt.type = DuOCO.Bone.SKULL_TIP;
+        bt.type = OCO.Bone.SKULL_TIP;
         bt.x = x + u*.2;
         bt.y = y;
         bt.attached = true;
@@ -1282,9 +1282,9 @@ DuOCODoc.prototype.newSnakeSpine = function( head, spine, position )
  * @param {int} [spine=3] Number of spine bones
  * @param {float[]} [position] The position of the first bone of the spine.<br />
  * If omitted, computed automatically according to the current character in the doc.
- * @returns {DuOCOLimb} The fish spine
+ * @returns {OCOLimb} The fish spine
  */
-DuOCODoc.prototype.newFishSpine = function( head, spine, position )
+OCODoc.prototype.newFishSpine = function( head, spine, position )
 {
     head = def( head, true );
     spine = def( spine, 3 );
@@ -1298,7 +1298,7 @@ DuOCODoc.prototype.newFishSpine = function( head, spine, position )
     if (num == 1) return null;
 
     // Create limb
-    var limb = this.newLimb( DuOCO.Limb.FISH_SPINE, DuOCO.Side.NONE, DuOCO.Location.NONE );
+    var limb = this.newLimb( OCO.Limb.FISH_SPINE, OCO.Side.NONE, OCO.Location.NONE );
     var b = limb.newArmature( i18n._("Spine"), num );
 
     // hips position
@@ -1319,9 +1319,9 @@ DuOCODoc.prototype.newFishSpine = function( head, spine, position )
     for (var i = 0; i < spine; i++)
     {
         b.name = i18n._("Spine");
-        if ( i <= (spine-1) / 3) b.type = DuOCO.Bone.FISH_SPINE_ROOT;
-        else if ( i <= (spine-1)*2 / 3) b.type = DuOCO.Bone.FISH_SPINE_MID;
-        else b.type = DuOCO.Bone.FISH_SPINE_END;
+        if ( i <= (spine-1) / 3) b.type = OCO.Bone.FISH_SPINE_ROOT;
+        else if ( i <= (spine-1)*2 / 3) b.type = OCO.Bone.FISH_SPINE_MID;
+        else b.type = OCO.Bone.FISH_SPINE_END;
         b.y = y + oy;
         b.x = x - spineLength*i - ox;
         if (b.children.length > 0) b = b.children[0];
@@ -1330,15 +1330,15 @@ DuOCODoc.prototype.newFishSpine = function( head, spine, position )
     // Tip
     b.name = i18n._("Spine") +
         '_' + i18n._("Tip");
-    b.type = DuOCO.Bone.TIP;
+    b.type = OCO.Bone.TIP;
     b.x = -u *.25;
     b.y = y + oy;
 
     // Head
     if (head)
     {
-        var b = new DuOCOBone( i18n._("Head") );
-        b.type = DuOCO.Bone.SKULL;
+        var b = new OCOBone( i18n._("Head") );
+        b.type = OCO.Bone.SKULL;
         b.x = x;
         b.y = y;
 
@@ -1347,9 +1347,9 @@ DuOCODoc.prototype.newFishSpine = function( head, spine, position )
         limb.armature.push(b);
         b.children.push(s);
 
-        var bt = new DuOCOBone( i18n._("Head") +
+        var bt = new OCOBone( i18n._("Head") +
             '_' + i18n._("Tip") );
-        bt.type = DuOCO.Bone.SKULL_TIP;
+        bt.type = OCO.Bone.SKULL_TIP;
         bt.x = x + u*.3;
         bt.y = y;
         bt.attached = true;
@@ -1362,17 +1362,17 @@ DuOCODoc.prototype.newFishSpine = function( head, spine, position )
 
 /**
  * Creates a new fin.
- * @param {DuOCO.Side} [side=DuOCO.Side.LEFT] The side
+ * @param {OCO.Side} [side=OCO.Side.LEFT] The side
  * @param {int} [fishbones=5]  Number of feathers
  * @param {float[]} [position] The position of the first bone of the arm.<br />
  * If omitted, computed automatically according to the current character in the doc.
- * @param {DuOCO.View} [view=DuOCO.View.RIGHT] The view
- * @returns {DuOCOLimb} The fin
+ * @param {OCO.View} [view=OCO.View.RIGHT] The view
+ * @returns {OCOLimb} The fin
  */
-DuOCODoc.prototype.newFin = function( side, fishbones, view, position )
+OCODoc.prototype.newFin = function( side, fishbones, view, position )
 {
-    side = def(side, DuOCO.Side.LEFT);
-    view = def(view, DuOCO.View.RIGHT);
+    side = def(side, OCO.Side.LEFT);
+    view = def(view, OCO.View.RIGHT);
 
     fishbones = def( fishbones, 5 );
 
@@ -1380,13 +1380,13 @@ DuOCODoc.prototype.newFin = function( side, fishbones, view, position )
     var u = this.height;
 
     // Create limb
-    var limb = this.newLimb( DuOCO.Limb.FIN, side, DuOCO.Location.NONE );
+    var limb = this.newLimb( OCO.Limb.FIN, side, OCO.Location.NONE );
 
     // side
     var s = 1;
-    if ( side == DuOCO.Side.RIGHT && (view == DuOCO.View.TOP || view == DuOCO.View.BACK) ) s = -1;
-    else if ( side == DuOCO.Side.LEFT && (view == DuOCO.View.BOTTOM || view == DuOCO.View.FRONT) ) s = -1;
-    else if ( view == DuOCO.View.LEFT ) s = -1;
+    if ( side == OCO.Side.RIGHT && (view == OCO.View.TOP || view == OCO.View.BACK) ) s = -1;
+    else if ( side == OCO.Side.LEFT && (view == OCO.View.BOTTOM || view == OCO.View.FRONT) ) s = -1;
+    else if ( view == OCO.View.LEFT ) s = -1;
 
     // arm position
     var x = s * u * -.17;
@@ -1402,15 +1402,15 @@ DuOCODoc.prototype.newFin = function( side, fishbones, view, position )
     }
 
     // Create root
-    var rootBone = new DuOCOBone( i18n._("Fin") );
-    rootBone.type = DuOCO.Bone.FIN;
+    var rootBone = new OCOBone( i18n._("Fin") );
+    rootBone.type = OCO.Bone.FIN;
     rootBone.x = x + ox;
     rootBone.y = y + oy;
     limb.armature.push(rootBone);
     // Tip
-    var bt = new DuOCOBone( i18n._("Fin") +
+    var bt = new OCOBone( i18n._("Fin") +
         '_' + i18n._("Tip") );
-    bt.type = DuOCO.Bone.TIP;
+    bt.type = OCO.Bone.TIP;
     bt.x = s * u * -.24 + ox;
     bt.y = u * .62 + oy;
     bt.attached = true;
@@ -1424,16 +1424,16 @@ DuOCODoc.prototype.newFin = function( side, fishbones, view, position )
     function createFishbone( xr, yr, xt, yt )
     {
         var boneName = DuString.generateUnique( i18n._("Fishbone"), names);
-        b = new DuOCOBone( boneName );
-        b.type = DuOCO.Bone.FIN_FISHBONE;
+        b = new OCOBone( boneName );
+        b.type = OCO.Bone.FIN_FISHBONE;
         b.x = s * u * xr + ox;
         b.y = u * yr + oy;
 
         // tip
         var boneName = DuString.generateUnique( i18n._("Fishbone") +
             '_' + i18n._("Tip"), names);
-        var bt = new DuOCOBone( boneName );
-        bt.type = DuOCO.Bone.TIP;
+        var bt = new OCOBone( boneName );
+        bt.type = OCO.Bone.TIP;
         bt.x = s * u * xt + ox;
         bt.y = u * yt + oy;
         bt.attached = true;
@@ -1466,7 +1466,7 @@ DuOCODoc.prototype.newFin = function( side, fishbones, view, position )
  * @param {float[]} point The coordinate to convert
  * @returns {int[]} The coordinates in pixels
  */
-DuOCODoc.prototype.toPixels = function( point )
+OCODoc.prototype.toPixels = function( point )
 {
     // First, convert to pixels
     var x = point[0]*this.pixelsPerCm;
@@ -1480,7 +1480,7 @@ DuOCODoc.prototype.toPixels = function( point )
  * @param {int[]} point The coordinate to convert
  * @returns {float[]} The coordinates in centimeters relative to the doc
  */
-DuOCODoc.prototype.fromPixels = function( point )
+OCODoc.prototype.fromPixels = function( point )
 {
     // We need to be relative to the world
     point = this.toWorld(point);
@@ -1498,7 +1498,7 @@ DuOCODoc.prototype.fromPixels = function( point )
  * This object could then be exported to JSON for example.
  * @return {Object} the JS Object
  */
-DuOCODoc.prototype.toObject = function()
+OCODoc.prototype.toObject = function()
 {
     var data = {
         'type': this.type,
@@ -1525,7 +1525,7 @@ DuOCODoc.prototype.toObject = function()
  * Creates a JSON string representing this document
  * @return {string} the JSON document
  */
-DuOCODoc.prototype.toJson = function()
+OCODoc.prototype.toJson = function()
 {
     var data  = this.toObject();
     return JSON.stringify(data, null, 4);
@@ -1536,7 +1536,7 @@ DuOCODoc.prototype.toJson = function()
  * @param {File|string} file The file.
  * @return {File} the file.
  */
-DuOCODoc.prototype.toFile = function ( file )
+OCODoc.prototype.toFile = function ( file )
 {
     if (jstype(file) == 'string') file = new File(file);
     file.encoding = 'UTF-8';
@@ -1553,47 +1553,47 @@ DuOCODoc.prototype.toFile = function ( file )
  * Creates a new OCO Limb.
  * @class
  * @classdesc A limb contained in an OCO Doc.
- * @param {DuOCO.Limb} [limb=DuOCO.Limb.CUSTOM] A Predefined limb
- * @param {DuOCO.Side} [side=DuOCO.Side.NONE] - The side of the limb
- * @param {DuOCO.Location} [location=DuOCO.Location.NONE] - The location of the limb
- * @param {DuOCO.LimbType} [type=DuOCO.LimbType.CUSTOM] - The type of the limb
- * @category DuOCO
+ * @param {OCO.Limb} [limb=OCO.Limb.CUSTOM] A Predefined limb
+ * @param {OCO.Side} [side=OCO.Side.NONE] - The side of the limb
+ * @param {OCO.Location} [location=OCO.Location.NONE] - The location of the limb
+ * @param {OCO.LimbType} [type=OCO.LimbType.CUSTOM] - The type of the limb
+ * @category OCO
  */
-function DuOCOLimb(limb, side, location, type )
+function OCOLimb(limb, side, location, type )
 {
     /**
      * The predefined limb
      * @name limb
-     * @memberof DuOCOLimb
-     * @type {DuOCO.Limb}
+     * @memberof OCOLimb
+     * @type {OCO.Limb}
      */
-    this.limb = def(limb, DuOCO.Limb.CUSTOM);
+    this.limb = def(limb, OCO.Limb.CUSTOM);
     /**
      * The type of the limb
      * @name type
-     * @memberof DuOCOLimb
-     * @type {DuOCO.LimbType}
+     * @memberof OCOLimb
+     * @type {OCO.LimbType}
      */
-    this.type = def(type, DuOCO.LimbType.CUSTOM);
+    this.type = def(type, OCO.LimbType.CUSTOM);
     /**
      * The sided of the limb
      * @name side
-     * @memberof DuOCOLimb
-     * @type {DuOCO.Side}
+     * @memberof OCOLimb
+     * @type {OCO.Side}
      */
-    this.side = def( side, DuOCO.Side.NONE);
+    this.side = def( side, OCO.Side.NONE);
     /**
      * The location of the limb
      * @name location
-     * @memberof DuOCOLimb
-     * @type { DuOCO.Location}
+     * @memberof OCOLimb
+     * @type { OCO.Location}
      */
-    this.location = def( location, DuOCO.Location.NONE);
+    this.location = def( location, OCO.Location.NONE);
     /**
      * The bones of the limb
      * @name location
-     * @memberof DuOCOLimb
-     * @type {DuOCOBone[]}
+     * @memberof OCOLimb
+     * @type {OCOBone[]}
      */
     this.armature = [];
 }
@@ -1602,9 +1602,9 @@ function DuOCOLimb(limb, side, location, type )
  * Gets the boundaries of the limb
  * @returns {float[]} [left, top, right, bottom]
  */
-DuOCOLimb.prototype.bounds = function( )
+OCOLimb.prototype.bounds = function( )
 {
-    return DuOCO.getBounds( this.armature );
+    return OCO.getBounds( this.armature );
 }
 
 /**
@@ -1612,9 +1612,9 @@ DuOCOLimb.prototype.bounds = function( )
  * @param {string} name The name of the bones (will increment if needed)
  * @param {int} [num=2] The number of bones in the chain
  * @param {float} [length=100.0] The length in centimeters
- * @return {DuOCOBone} The root bone.
+ * @return {OCOBone} The root bone.
  */
-DuOCOLimb.prototype.newArmature = function( name, num, length )
+OCOLimb.prototype.newArmature = function( name, num, length )
 {
     num = def(num, 2);
     length = def(length, 100.0);
@@ -1628,7 +1628,7 @@ DuOCOLimb.prototype.newArmature = function( name, num, length )
     for (var i = 0; i < num; i++)
     {
         var boneName = DuString.generateUnique(name, names);
-        var bone = new DuOCOBone( boneName );
+        var bone = new OCOBone( boneName );
         names.push(boneName);
         bone.y = 100;
         bone.x = x;
@@ -1656,7 +1656,7 @@ DuOCOLimb.prototype.newArmature = function( name, num, length )
  * This object could then be exported to JSON for example.
  * @return {Object} the JS Object
  */
-DuOCOLimb.prototype.toObject = function()
+OCOLimb.prototype.toObject = function()
 {
     var data = {
         'limb': this.limb,
@@ -1680,59 +1680,59 @@ DuOCOLimb.prototype.toObject = function()
  * @class
  * @classdesc A bone contained in an OCO Limb.
  * @param {string} name The name
- * @category DuOCO
+ * @category OCO
  */
-function DuOCOBone(name)
+function OCOBone(name)
 {
     /**
      * The name of the bone
      * @name name
-     * @memberof DuOCOBone
+     * @memberof OCOBone
      * @type {string}
      */
     this.name = name;
     /**
      * The x coordinate of the bone
      * @name x
-     * @memberof DuOCOBone
+     * @memberof OCOBone
      * @type {float}
      */
     this.x = 0.0;
     /**
      * The y coordinate of the bone
      * @name y
-     * @memberof DuOCOBone
+     * @memberof OCOBone
      * @type {float}
      */
     this.y = 0.0;
     /**
      * true if this bone is attached to its parent.
      * @name attached
-     * @memberof DuOCOBone
+     * @memberof OCOBone
      * @type {Boolean}
      */
     this.attached = false;
     /**
      * The child bones.
      * @name children
-     * @memberof DuOCOBone
-     * @type {DuOCOBone[]}
+     * @memberof OCOBone
+     * @type {OCOBone[]}
      */
     this.children = [];
     /**
      * The child limbs.
      * @name limbs
-     * @memberof DuOCOBone
-     * @type {DuOCOLimb[]}
+     * @memberof OCOBone
+     * @type {OCOLimb[]}
      */
     this.limbs = [];
     /**
      * The type of bone.
      * @name type
-     * @memberof DuOCOBone
-     * @type {DuOCO.Bone}
+     * @memberof OCOBone
+     * @type {OCO.Bone}
      */
-    this.type = DuOCO.Bone.CUSTOM;
+    this.type = OCO.Bone.CUSTOM;
 }
 
 /**
@@ -1741,7 +1741,7 @@ function DuOCOBone(name)
  * @param {int} [y=0] The vertical offset
  * @param {bool} [translateChildren=true] If false, the children stay at their current location
  */
-DuOCOBone.prototype.translate = function( x, y, translateChildren ) {
+OCOBone.prototype.translate = function( x, y, translateChildren ) {
     translateChildren = def(translateChildren, true);
     x = def(x, 0);
     y = def(y, 0);
@@ -1762,7 +1762,7 @@ DuOCOBone.prototype.translate = function( x, y, translateChildren ) {
  * @param {int} [y] The new Y value. If omitted, moves the layer horizontally
  * @param {bool} [translateChildren=true] If false, the children stay at their current location
  */
-DuOCOBone.prototype.translateTo = function( x, y, translateChildren ) {
+OCOBone.prototype.translateTo = function( x, y, translateChildren ) {
     translateChildren = def(translateChildren, true);
     x = def(x, this.x);
     y = def(y, this.y);
@@ -1785,7 +1785,7 @@ DuOCOBone.prototype.translateTo = function( x, y, translateChildren ) {
  * This object could then be exported to JSON for example.
  * @return {Object} the JS Object
  */
-DuOCOBone.prototype.toObject = function()
+OCOBone.prototype.toObject = function()
 {
     var data = {
         'name': this.name,
