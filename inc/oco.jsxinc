@@ -133,6 +133,123 @@ OCO._d = function( val, defaultVal )
 	return typeof val !== 'undefined' ? val : defaultVal;
 }
 
+OCO._escapeRegEx = function (string)
+{
+	return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+}
+
+// Generates a unique string
+OCO._uniqueString = function( newString, stringList, increment)
+{
+    increment = def(increment, true);
+    if (!increment) newString += ' ';
+
+    //detect digits
+    var reg = "( *)(\\d+)([.,]?\\d*)$";
+    //clean input
+    var regexClean = new RegExp(reg);
+    newString = newString.replace(regexClean, "");
+    //go!
+    var regex = new RegExp(OCO._escapeRegEx(newString) + reg);
+    //The greatest number found
+    var greatestNumber = 0;
+    //The number of digits for the number as string
+    var numDigits = 0;
+    var spaceString = "";
+    for (var i = 0; i < stringList.length; i++) {
+        var currentNumberMatch = stringList[i].match(regex);
+        if (stringList[i] === newString && greatestNumber == 0) greatestNumber++;
+        else if (currentNumberMatch !== null) {
+            //if its a decimal number, keep only the integer part
+            var numberAsString = currentNumberMatch[2];
+            //convert to int
+            var numberAsInt = parseInt(currentNumberMatch[2], 10);
+            if (isNaN(numberAsInt)) continue;
+            if (numberAsInt >= greatestNumber) {
+                greatestNumber = numberAsInt + 1;
+                spaceString = currentNumberMatch[1];
+            }
+            //check if there are zeroes before the number, count the digits
+            if (numberAsInt.toString().length < numberAsString.length && numDigits < numberAsString.length) numDigits = numberAsString.length;
+        }
+    }
+
+    //add leading 0 if needed
+    if (greatestNumber > 0) {
+        //convert to string with leading zeroes
+        if (greatestNumber == 1) {
+            greatestNumber++;
+            spaceString = " ";
+        }
+        newString += spaceString;
+        greatestNumber = OCO._numberToString(greatestNumber, numDigits);
+        newString += greatestNumber;
+    }
+
+    if (!increment) newString = newString.substr(0, newString.length - 1);
+
+    return newString;
+}
+
+// Converts a number to a string, with leading zeroes
+OCO._numberToString = function (num, numDigits, base)
+{
+    if (base == undefined) base = 10;
+	var result = num.toString(base);
+	while(numDigits > result.length)
+	{
+		result  = "0" + result ;
+	}
+	return result;
+}
+
+// Interpolates a value
+OCO._linearInterpolation = function(value, min, max, targetMin, targetMax, clamp) {
+    min = def(min, 0);
+    max = def(max, 1);
+    targetMin = def(targetMin, 0);
+    targetMax = def(targetMax, 1);
+    clamp = def(clamp, false);
+
+    // Handle stupid values
+    if (min == targetMin && max == targetMax) return value;
+    if (min == max) return value;
+    if (targetMin == targetMax) return targetMin;
+    if (value == min) return targetMin;
+    if (value == max) return targetMax;
+
+    var result = targetMin + (value - min) / (max - min) * (targetMax - targetMin);
+    if (clamp) result = OCO._clamp(value, targetMin, targetMax);
+    return result;
+}
+
+// Clamps the value
+OCO._clamp = function(values, min, max) {
+    if (!isdef( min )) min = 0;
+    if (!isdef( max )) max = 1;
+
+    if (max < min) {
+        var t = max;
+        max = min;
+        min = t;
+    }
+
+    var isArray = true;
+    var result = [];
+    if (!(values instanceof Array)) {
+        isArray = false;
+        values = [values];
+    }
+    for (var i = 0, num = values.length; i < num; i++) {
+        var v = values[i];
+        if (v < min) v = min;
+        if (v > max) v = max;
+        result.push(v);
+    }
+    if (isArray) return result;
+    else return result[0];
+}
+
 /**
  * Gets the boundaries of an armature (a chain of bones)
  * @param {OCOBone[]} armature The chain of bones
@@ -1148,14 +1265,14 @@ OCODoc.prototype.newWing = function( side, arm, forearm, hand, feathers, positio
 
     function createFeather( xr, yr, xt, yt, p )
     {
-        var boneName = DuString.generateUnique( i18n._("Feather"), names);
+        var boneName = OCO._uniqueString( i18n._("Feather"), names);
         b = new OCOBone( boneName );
         b.type = OCO.Bone.FEATHER;
         b.x = s * u * xr + ox;
         b.y = u * yr + oy;
 
         // tip
-        var boneName = DuString.generateUnique( i18n._("Feather") +
+        var boneName = OCO._uniqueString( i18n._("Feather") +
             '_' + i18n._("Tip"), names);
         var bt = new OCOBone( boneName );
         bt.type = OCO.Bone.TIP;
@@ -1181,18 +1298,18 @@ OCODoc.prototype.newWing = function( side, arm, forearm, hand, feathers, positio
     {
         if ( i < n/2)
         {
-            var x = DuMath.linear( i, 0, n/2, -.54, -.38);
-            var y = DuMath.linear( i, 0, n/2, .66, .63);
-            var xt = DuMath.linear( i, 0, n/2, -.96, -.56);
-            var yt = DuMath.linear( i, 0, n/2, .62, .28);
+            var x = OCO._linearInterpolation( i, 0, n/2, -.54, -.38);
+            var y = OCO._linearInterpolation( i, 0, n/2, .66, .63);
+            var xt = OCO._linearInterpolation( i, 0, n/2, -.96, -.56);
+            var yt = OCO._linearInterpolation( i, 0, n/2, .62, .28);
             createFeather( x, y, xt, yt, parent2 );
         }
         else 
         {
-            var x = DuMath.linear( i, n/2, n-1, -.38, -.22);
-            var y = DuMath.linear( i, n/2, n-1, .63, .51);
-            var xt = DuMath.linear( i, n/2, n-1, -.56, -.08);
-            var yt = DuMath.linear( i, n/2, n-1, .28, .39);
+            var x = OCO._linearInterpolation( i, n/2, n-1, -.38, -.22);
+            var y = OCO._linearInterpolation( i, n/2, n-1, .63, .51);
+            var xt = OCO._linearInterpolation( i, n/2, n-1, -.56, -.08);
+            var yt = OCO._linearInterpolation( i, n/2, n-1, .28, .39);
             createFeather( x, y, xt, yt, parent1 );
         }
     }
@@ -1431,14 +1548,14 @@ OCODoc.prototype.newFin = function( side, fishbones, view, position )
 
     function createFishbone( xr, yr, xt, yt )
     {
-        var boneName = DuString.generateUnique( i18n._("Fishbone"), names);
+        var boneName = OCO._uniqueString( i18n._("Fishbone"), names);
         b = new OCOBone( boneName );
         b.type = OCO.Bone.FIN_FISHBONE;
         b.x = s * u * xr + ox;
         b.y = u * yr + oy;
 
         // tip
-        var boneName = DuString.generateUnique( i18n._("Fishbone") +
+        var boneName = OCO._uniqueString( i18n._("Fishbone") +
             '_' + i18n._("Tip"), names);
         var bt = new OCOBone( boneName );
         bt.type = OCO.Bone.TIP;
@@ -1459,10 +1576,10 @@ OCODoc.prototype.newFin = function( side, fishbones, view, position )
 
     for (var i = 0, n = fishbones; i < n; i++)
     {
-        var x = DuMath.linear( i, 0, n-1, -.24, -.15);
-        var y = DuMath.linear( i, 0, n-1, .63, .41);
-        var xt = DuMath.linear( i, 0, n-1, -.82, -.17);
-        var yt = DuMath.linear( i, 0, n-1, .60, .29);
+        var x = OCO._linearInterpolation( i, 0, n-1, -.24, -.15);
+        var y = OCO._linearInterpolation( i, 0, n-1, .63, .41);
+        var xt = OCO._linearInterpolation( i, 0, n-1, -.82, -.17);
+        var yt = OCO._linearInterpolation( i, 0, n-1, .60, .29);
         createFishbone( x, y, xt, yt );
     }
 
@@ -1679,7 +1796,7 @@ OCOLimb.prototype.newArmature = function( name, num, length )
 
     for (var i = 0; i < num; i++)
     {
-        var boneName = DuString.generateUnique(name, names);
+        var boneName = OCO._uniqueString(name, names);
         var bone = new OCOBone( boneName );
         names.push(boneName);
         bone.y = 100;
