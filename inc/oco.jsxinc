@@ -116,6 +116,10 @@ OCO.Location = {
     NONE: ''
 }
 
+/**
+ * View axis for limbs.
+ * @enum {int}
+ */
 OCO.View = {
     FRONT: 0,
     LEFT: 1,
@@ -124,6 +128,25 @@ OCO.View = {
     TOP: 4,
     BOTTOM: 5
 }
+
+/**
+ * How images are encoded in the OCO file
+ * @enum {string}
+ */
+OCO.ImageEncoding = {
+    PNG_BASE64: 'PNG/BASE64',
+    RELATIVE_PATH: 'PATH',
+    ABSOLUTE_PATH: 'ABS_PATH'
+}
+
+/**
+ * The path where the OCO Library is stored.
+ * This is in the User Documents/OCO/OCO Library if the script has write access in this folder.<br/>
+ * In rare cases on MacOS we can't write files in the documents folder. In this case the default library path in a temp folder.<br/>
+ * You can change this path to a custom path before using the OCO API.
+ * @type {string}
+ */
+OCO.libraryPath = "";
 
 // === PRIVATE ===
 
@@ -250,6 +273,212 @@ OCO._clamp = function(values, min, max) {
     else return result[0];
 }
 
+// Checks if the script can write files in the folder
+OCO._canWrite = function( folder ) {
+    if ( !(folder instanceof Folder) ) folder = new Folder(folder);
+	if ( !folder.exists ) return false;
+
+	var content = 'test-write-access';
+	var f = new File(folder.absoluteURI + '/' + content);
+
+	if (f.open('w')) {
+		try {
+			f.write(content);
+			f.close();
+			f.remove();
+			return true;
+		}
+		catch(e) { return false };
+	} else return false;
+}
+
+OCO._base64Chars = [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I",
+        "J",
+        "K",
+        "L",
+        "M",
+        "N",
+        "O",
+        "P",
+        "Q",
+        "R",
+        "S",
+        "T",
+        "U",
+        "V",
+        "W",
+        "X",
+        "Y",
+        "Z",
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+        "g",
+        "h",
+        "i",
+        "j",
+        "k",
+        "l",
+        "m",
+        "n",
+        "o",
+        "p",
+        "q",
+        "r",
+        "s",
+        "t",
+        "u",
+        "v",
+        "w",
+        "x",
+        "y",
+        "z",
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "+",
+        "/",
+    ];
+// Encodes a file as a base string
+OCO._base64 = function( file ) {
+    if (!(file instanceof File)) file = new File(file);
+    if (!file.exists) return "";
+
+    file.encoding = "binary";
+    file.open("r");
+    var binStr = file.read();
+    file.close();
+
+    var ecdStr = "";
+    var binLen = binStr.length - (binStr.length % 3); 
+
+    for (i=0;i<binLen;i+=3) // Get 3 chars starting at the begining of the binary string
+    {
+        ecdStr += OCO._base64Chars[binStr.charCodeAt (i) >> 2];
+        ecdStr += OCO._base64Chars[((binStr.charCodeAt (i) & 0x3) << 4) | (binStr.charCodeAt (i+1) >> 4)];
+        ecdStr += OCO._base64Chars[((binStr.charCodeAt (i+1) & 15) << 2) | (binStr.charCodeAt (i+2) >> 6)];
+        ecdStr += OCO._base64Chars[binStr.charCodeAt (i+2) & 0x3f];
+    }
+
+    switch (binStr.length % 3)
+    {
+        case 2: //padding 1 characters.
+            ecdStr += OCO._base64Chars[binStr.charCodeAt (i) >> 2];
+            ecdStr += OCO._base64Chars[((binStr.charCodeAt (i) & 0x3) << 4) | (binStr.charCodeAt (i+1) >> 4)];
+            ecdStr += OCO._base64Chars[((binStr.charCodeAt (i+1) & 15) << 2) | (binStr.charCodeAt (i+2) >> 6)];
+            ecdStr += "=";
+        break;
+        case 1: //padding 2 character.
+            ecdStr += OCO._base64Chars[binStr.charCodeAt (i) >> 2];
+            ecdStr += OCO._base64Chars[((binStr.charCodeAt (i) & 0x3) << 4) | (binStr.charCodeAt (i+1) >> 4)];
+            ecdStr += "=="
+        break;
+    }
+
+    return ecdStr;
+}
+
+// Checks if this is a valid base64 encoding
+OCO._checkBase64 = function( b64 ) {
+    var len = b64.length
+
+    if (len % 4 > 0) {
+        return false;
+    }
+
+    // If there's a dot, that's probably a file name
+    if ( b64.indexOf(".") >= 0 )
+        return false;
+
+    return true;
+}
+
+// Decodes base64 content to a file; returns the File object or null
+OCO._fromBase64 = function( b64, file )
+{
+    if (b64 == "") return null;
+    if (!OCO._checkBase64(b64)) return null;
+
+    var revLookup = []
+    for (var i = 0, len = OCO._base64Chars.length; i < len; ++i) {
+        revLookup[OCO._base64Chars[i].charCodeAt(0)] = i;
+    }
+    
+    var validLen = b64.indexOf('=');
+    var placeHoldersLen = validLen === b64.length ? 0 : 4 - (validLen % 4);
+
+    var byteLen = ((validLen + placeHoldersLen) * 3 / 4) - placeHoldersLen;
+    var arr = new Array( byteLen );
+
+    var curByte = 0;
+
+    // if there are placeholders, only get up to the last complete 4 chars
+    var len = placeHoldersLen > 0 ? validLen - 4 : validLen;
+
+    var i
+    for (i = 0; i < len; i += 4) {
+        tmp =
+            (revLookup[b64.charCodeAt(i)] << 18) |
+            (revLookup[b64.charCodeAt(i + 1)] << 12) |
+            (revLookup[b64.charCodeAt(i + 2)] << 6) |
+            revLookup[b64.charCodeAt(i + 3)];
+        arr[curByte++] = (tmp >> 16) & 0xFF;
+        arr[curByte++] = (tmp >> 8) & 0xFF;
+        arr[curByte++] = tmp & 0xFF;
+    }
+
+    if (placeHoldersLen === 2) {
+        tmp =
+            (revLookup[b64.charCodeAt(i)] << 2) |
+            (revLookup[b64.charCodeAt(i + 1)] >> 4);
+        arr[curByte++] = tmp & 0xFF;
+    }
+
+    if (placeHoldersLen === 1) {
+        tmp =
+            (revLookup[b64.charCodeAt(i)] << 10) |
+            (revLookup[b64.charCodeAt(i + 1)] << 4) |
+            (revLookup[b64.charCodeAt(i + 2)] >> 2);
+        arr[curByte++] = (tmp >> 8) & 0xFF;
+        arr[curByte++] = tmp & 0xFF;
+    }
+
+    // Convert to string
+    var binStr = String.fromCharCode.apply(null, arr);
+
+    // Write to file
+    if (!(file instanceof File)) file = new File( file );
+    file.encoding = 'BINARY';
+
+    try
+	{
+        if (!file.open('w')) return null;
+        file.write(binStr);
+		file.close();
+		return file;
+    }
+    catch (e) { return null; }
+}
+
 /**
  * Gets the boundaries of an armature (a chain of bones)
  * @param {OCOBone[]} armature The chain of bones
@@ -289,6 +518,42 @@ OCO.getBounds = function ( armature )
 
     return [left, top, right, bottom];
 }
+
+// Makes a path relative to a file
+OCO._relativePath = function ( path, destinationFile )
+{
+    if (!(destinationFile instanceof File)) destinationFile = new File(destinationFile);
+    var sourceFile = new File( path );
+    var sourceFolder = sourceFile.parent;
+    var destFolder = destinationFile.parent;
+    var destPath = destFolder.absoluteURI;
+    var sourcePath = sourceFolder.absoluteURI;
+    var count = 0;
+    while (sourcePath.indexOf(destPath) != 0)
+    {
+        // Up one folder and check again
+        count++;
+        destFolder = destFolder.parent;
+        if (!destFolder) destPath = "";
+        else destPath = destFolder.absoluteURI;
+    }
+    // Add ups
+    var relativePath = "";
+    for (var i = 0; i < count; i++)
+    {
+        relativePath += '../';
+    }
+    if (destPath.length > 0)
+        relativePath += sourcePath.substr( destPath.length + 1 ) + '/';
+    else
+        relativePath += sourcePath + '/';
+    relativePath += sourceFile.name;
+    return relativePath;
+}
+
+// === INIT ===
+if ( OCO._canWrite( Folder.myDocuments ) ) OCO.libraryPath = Folder.myDocuments.absoluteURI + "/OCO/OCO Library";
+else OCO.libraryPath = Folder.temp.absoluteURI + "/OCO/OCO Library";
 
 /**
  * Creates a new OCO Document.
@@ -341,9 +606,26 @@ function OCODoc(name)
      * @type {OCOLimb[]}
      */
     this.limbs = [];
+    /**
+     * The resolution, in pixels, of the document
+     * @type {int[]}
+     */
     this.resolution = [1920,1080];
+    /**
+     * The world origin in pixels in the document
+     * @type {float[]}
+     */
     this.world = [960,980];
+    /**
+     * The definition
+     * @type {float}
+     */
     this.pixelsPerCm = 4.22;
+    /**
+     * An icon or thumbnail path
+     * @type {string}
+     */
+    this.icon = ""
 
     // Private: Converts a pixel coordinate relative to the world to a coordinate relative to the top left corner
     this.fromWorld = function( point )
@@ -1634,7 +1916,8 @@ OCODoc.prototype.toObject = function()
         'limbs': [],
         'resolution': this.resolution,
         'world': this.world,
-        'pixelsPerCm': this.pixelsPerCm
+        'pixelsPerCm': this.pixelsPerCm,
+        'icon': this.icon
     }
 
     for (var i = 0, n  = this.limbs.length; i < n; i++)
@@ -1648,24 +1931,42 @@ OCODoc.prototype.toObject = function()
 
 /**
  * Creates a JSON string representing this document
+ * @param {OCO.ImageEncoding} [imageEncoding=OCO.ImageEncoding.PATH] How to encode images in the OCO File
+ * @param {File} [destinationFile] If imageEncoding is `OCO.ImageEncoding.PATH`, you must provide the OCO file to make the paths relative to it.
  * @return {string} the JSON document
  */
-OCODoc.prototype.toJson = function()
+OCODoc.prototype.toJson = function( imageEncoding, destinationFile )
 {
+    imageEncoding = OCO._d(imageEncoding, OCO.ImageEncoding.PATH);
     var data  = this.toObject();
+
+    data.imageEncoding = imageEncoding;
+
+    if (imageEncoding == OCO.ImageEncoding.PNG_BASE64) {
+        data.icon = OCO._base64( data.icon );
+    }
+    else if (imageEncoding == OCO.ImageEncoding.PATH) {
+        data.icon = OCO._relativePath( data.icon, destinationFile );
+    }
+    else if (imageEncoding == OCO.ImageEncoding.ABS_PATH) {
+        var iconFile = new File( data.icon );
+        data.icon = iconFile.absoluteURI();
+    }
+
     return JSON.stringify(data, null, 4);
 }
 
 /**
  * Exports the current document to an oco file
  * @param {File|string} file The file.
+ * @param {OCO.ImageEncoding} [imageEncoding=OCO.ImageEncoding.PATH] How to encode images in the OCO File
  * @return {File} the file.
  */
-OCODoc.prototype.toFile = function ( file )
+OCODoc.prototype.toFile = function ( file, imageEncoding )
 {
     if (!(file instanceof File)) file = new File(file);
     file.encoding = 'UTF-8';
-    var data = this.toJson();
+    var data = this.toJson( imageEncoding );
 
     if (!file.open('w')) return file;
     file.write(data);
