@@ -125,6 +125,14 @@ OCO.View = {
     BOTTOM: 5
 }
 
+// === PRIVATE ===
+
+// Gets a value or a default value if it is undefined
+OCO._d = function( val, defaultVal )
+{
+	return typeof val !== 'undefined' ? val : defaultVal;
+}
+
 /**
  * Gets the boundaries of an armature (a chain of bones)
  * @param {OCOBone[]} armature The chain of bones
@@ -306,15 +314,15 @@ OCODoc.prototype.newLimb = function( limb, side, location, type )
  */
 OCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, claws, position, location, view )
 {
-    side = def(side, OCO.Side.LEFT);
-    type = def(type, OCO.LimbType.HOMINOID);
-    location = def(location, OCO.Location.FRONT);
+    side = OCO._d(side, OCO.Side.LEFT);
+    type = OCO._d(type, OCO.LimbType.HOMINOID);
+    location = OCO._d(location, OCO.Location.FRONT);
 
-    shoulder = def( shoulder, false );
-    arm = def( arm, true );
-    forearm = def( forearm, true );
-    hand = def( hand, true );
-    claws = def( claws, false );
+    shoulder = OCO._d( shoulder, false );
+    arm = OCO._d( arm, true );
+    forearm = OCO._d( forearm, true );
+    hand = OCO._d( hand, true );
+    claws = OCO._d( claws, false );
 
     // Unit
     var u = this.height;
@@ -331,7 +339,7 @@ OCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, cl
     if ( !hum && !plan && !dig && !ung && !artF && !artM && !artB ) hum = true;
 
     // View
-    if (!isdef( view ))
+    if (!isOCO._d( view ))
     {
         if (type == OCO.LimbType.PLANTIGRADE && !claws) view = OCO.View.FRONT;
         else view = OCO.View.RIGHT;
@@ -398,7 +406,7 @@ OCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, cl
     }
 
     // offset
-    if (isdef( position ) )
+    if (isOCO._d( position ) )
     {
         ox = position[0] - x;
         oy = position[1] - y;
@@ -641,14 +649,14 @@ OCODoc.prototype.newArm = function( type, side, shoulder, arm, forearm, hand, cl
  */
 OCODoc.prototype.newLeg = function( type, side, thigh, calf, foot, claws, position, location, view )
 {
-    side = def(side, OCO.Side.LEFT);
-    type = def(type, OCO.LimbType.HOMINOID);
-    location = def(location, OCO.Location.BACK);
+    side = OCO._d(side, OCO.Side.LEFT);
+    type = OCO._d(type, OCO.LimbType.HOMINOID);
+    location = OCO._d(location, OCO.Location.BACK);
 
-    thigh = def( thigh, true );
-    calf = def( calf, true );
-    foot = def( foot, true );
-    claws = def( claws, false );
+    thigh = OCO._d( thigh, true );
+    calf = OCO._d( calf, true );
+    foot = OCO._d( foot, true );
+    claws = OCO._d( claws, false );
 
     // Unit
     var u = this.height;
@@ -660,7 +668,7 @@ OCODoc.prototype.newLeg = function( type, side, thigh, calf, foot, claws, positi
     var hum = type == OCO.LimbType.HOMINOID;
 
     // View
-    if (!isdef( view ))
+    if (!isOCO._d( view ))
     {
         if (type == OCO.LimbType.PLANTIGRADE) view = OCO.View.FRONT;
         else view = OCO.View.RIGHT;
@@ -707,7 +715,7 @@ OCODoc.prototype.newLeg = function( type, side, thigh, calf, foot, claws, positi
     }
 
     // offset
-    if (isdef( position ) )
+    if (isOCO._d( position ) )
     {
         ox = position[0] - x;
         oy = position[1] - y;
@@ -833,10 +841,10 @@ OCODoc.prototype.newLeg = function( type, side, thigh, calf, foot, claws, positi
  */
 OCODoc.prototype.newSpine = function( head, neck, spine, hips, position )
 {
-    head = def( head, true );
-    neck = def( neck, 1 );
-    spine = def( spine, 2 );
-    hips = def( hips, false );
+    head = OCO._d( head, true );
+    neck = OCO._d( neck, 1 );
+    spine = OCO._d( spine, 2 );
+    hips = OCO._d( hips, false );
 
     // Unit
     var u = this.height;
@@ -861,7 +869,7 @@ OCODoc.prototype.newSpine = function( head, neck, spine, hips, position )
     var y = u * .53;
 
     // offset
-    if (isdef( position ) )
+    if (isOCO._d( position ) )
     {
         ox = position[0] - x;
         oy = position[1] - y;
@@ -945,7 +953,7 @@ OCODoc.prototype.newSpine = function( head, neck, spine, hips, position )
  */
 OCODoc.prototype.newTail = function( numBones )
 {
-    numBones = def( numBones, 3 );
+    numBones = OCO._d( numBones, 3 );
 
     // Unit
     var u = this.height;
@@ -984,7 +992,7 @@ OCODoc.prototype.newTail = function( numBones )
  */
 OCODoc.prototype.newHairStrand = function( numBones )
 {
-    numBones = def( numBones, 3 );
+    numBones = OCO._d( numBones, 3 );
 
     // Unit
     var u = this.height;
@@ -1037,13 +1045,13 @@ OCODoc.prototype.newHairStrand = function( numBones )
  */
 OCODoc.prototype.newWing = function( side, arm, forearm, hand, feathers, position, view )
 {
-    side = def(side, OCO.Side.LEFT);
-    view = def(view, OCO.View.TOP);
+    side = OCO._d(side, OCO.Side.LEFT);
+    view = OCO._d(view, OCO.View.TOP);
 
-    arm = def( arm, true );
-    forearm = def( forearm, true );
-    hand = def( hand, true );
-    feathers = def( feathers, 5 );
+    arm = OCO._d( arm, true );
+    forearm = OCO._d( forearm, true );
+    hand = OCO._d( hand, true );
+    feathers = OCO._d( feathers, 5 );
 
     // Unit
     var u = this.height;
@@ -1078,7 +1086,7 @@ OCODoc.prototype.newWing = function( side, arm, forearm, hand, feathers, positio
     var oy = 0;
 
     // offset
-    if (isdef( position ) )
+    if (isOCO._d( position ) )
     {
         ox = position[0] - x;
         oy = position[1] - y;
@@ -1202,8 +1210,8 @@ OCODoc.prototype.newWing = function( side, arm, forearm, hand, feathers, positio
  */
 OCODoc.prototype.newSnakeSpine = function( head, spine, position )
 {
-    head = def( head, true );
-    spine = def( spine, 5 );
+    head = OCO._d( head, true );
+    spine = OCO._d( spine, 5 );
 
     // Unit
     var u = this.height;
@@ -1224,7 +1232,7 @@ OCODoc.prototype.newSnakeSpine = function( head, spine, position )
     var y = u * .5;
 
     // offset
-    if (isdef( position ) )
+    if (isOCO._d( position ) )
     {
         ox = position[0] - x;
         oy = position[1] - y;
@@ -1286,8 +1294,8 @@ OCODoc.prototype.newSnakeSpine = function( head, spine, position )
  */
 OCODoc.prototype.newFishSpine = function( head, spine, position )
 {
-    head = def( head, true );
-    spine = def( spine, 3 );
+    head = OCO._d( head, true );
+    spine = OCO._d( spine, 3 );
 
     // Unit
     var u = this.height;
@@ -1308,7 +1316,7 @@ OCODoc.prototype.newFishSpine = function( head, spine, position )
     var y = u * .5;
 
     // offset
-    if (isdef( position ) )
+    if (isOCO._d( position ) )
     {
         ox = position[0] - x;
         oy = position[1] - y;
@@ -1371,10 +1379,10 @@ OCODoc.prototype.newFishSpine = function( head, spine, position )
  */
 OCODoc.prototype.newFin = function( side, fishbones, view, position )
 {
-    side = def(side, OCO.Side.LEFT);
-    view = def(view, OCO.View.RIGHT);
+    side = OCO._d(side, OCO.Side.LEFT);
+    view = OCO._d(view, OCO.View.RIGHT);
 
-    fishbones = def( fishbones, 5 );
+    fishbones = OCO._d( fishbones, 5 );
 
     // Unit
     var u = this.height;
@@ -1395,7 +1403,7 @@ OCODoc.prototype.newFin = function( side, fishbones, view, position )
     var oy = 0;
 
     // offset
-    if ( isdef(position) )
+    if ( isOCO._d(position) )
     {
         ox = position[0] - x;
         oy = position[1] - y;
@@ -1538,7 +1546,7 @@ OCODoc.prototype.toJson = function()
  */
 OCODoc.prototype.toFile = function ( file )
 {
-    if (jstype(file) == 'string') file = new File(file);
+    if (!(file instanceof File)) file = new File(file);
     file.encoding = 'UTF-8';
     var data = this.toJson();
 
@@ -1547,6 +1555,50 @@ OCODoc.prototype.toFile = function ( file )
     file.close();
 
     return file;
+}
+
+/**
+ * Creates a new doc by reading a file
+ * @param {File|string} file The file
+ * @return {OCODoc|null} The document or null if the file couldn't be read or parsed
+ */
+OCODoc.fromFile = function ( file )
+{
+    if (!(file instanceof File)) file = new File(file);
+    file.encoding = 'UTF-8';
+    if (!file.open('r')) return null;
+    var json = file.read();
+    file.close();
+    if (json == '') return null;
+    var data = {};
+    try { data  = JSON.parse(json); } catch (e) { return null; }
+    
+    var doc = new OCODoc( OCO._d( data.name, "Character" ) );
+    doc.type = OCO._d( data.type, OCO.Type.META );
+    doc.height = OCO._d( data.height, 185 );
+    doc.width = OCO._d( data.width, 60 );
+    doc.centerOfMass = OCO._d( data.centerOfMass, [0.0, 107.0] );
+    doc.resolution = OCO._d( data.resolution, [1920, 1080] );
+    doc.world = OCO._d( data.world, [960, 980] );
+    doc.pixelsPerCm = OCO._d( data.pixelsPerCm, 4.22 );
+
+    // Check Data
+    if (doc.resolution[0] <= 0 || doc.resolution[0] > 30000)
+        throw "Invalid resolution; the width must be in the range [0, 30000]";
+
+    if (doc.resolution[1] <= 0 || doc.resolution[1] > 30000)
+        throw "Invalid resolution; the height must be in the range [0, 30000]";
+
+
+    // Parse limbs
+    data.limbs = OCO._d( data.limbs, [] );
+    for (var i = 0, ni = data.limbs.length; i < ni; i++)
+    {
+        doc.limbs.push( OCOLimb.fromObject(data.limbs[i]) );
+    }
+
+
+    return doc;
 }
 
 /**
@@ -1567,28 +1619,28 @@ function OCOLimb(limb, side, location, type )
      * @memberof OCOLimb
      * @type {OCO.Limb}
      */
-    this.limb = def(limb, OCO.Limb.CUSTOM);
+    this.limb = OCO._d(limb, OCO.Limb.CUSTOM);
     /**
      * The type of the limb
      * @name type
      * @memberof OCOLimb
      * @type {OCO.LimbType}
      */
-    this.type = def(type, OCO.LimbType.CUSTOM);
+    this.type = OCO._d(type, OCO.LimbType.CUSTOM);
     /**
      * The sided of the limb
      * @name side
      * @memberof OCOLimb
      * @type {OCO.Side}
      */
-    this.side = def( side, OCO.Side.NONE);
+    this.side = OCO._d( side, OCO.Side.NONE);
     /**
      * The location of the limb
      * @name location
      * @memberof OCOLimb
      * @type { OCO.Location}
      */
-    this.location = def( location, OCO.Location.NONE);
+    this.location = OCO._d( location, OCO.Location.NONE);
     /**
      * The bones of the limb
      * @name location
@@ -1616,8 +1668,8 @@ OCOLimb.prototype.bounds = function( )
  */
 OCOLimb.prototype.newArmature = function( name, num, length )
 {
-    num = def(num, 2);
-    length = def(length, 100.0);
+    num = OCO._d(num, 2);
+    length = OCO._d(length, 100.0);
     var boneLength = length / (num-1);
 
     var x = -length / 2;
@@ -1654,7 +1706,7 @@ OCOLimb.prototype.newArmature = function( name, num, length )
 /**
  * Creates a js object containing this limb data.<br/>
  * This object could then be exported to JSON for example.
- * @return {Object} the JS Object
+ * @return {Object} The JS Object
  */
 OCOLimb.prototype.toObject = function()
 {
@@ -1673,6 +1725,28 @@ OCOLimb.prototype.toObject = function()
     }
 
     return data;
+}
+
+/**
+ * Creates a limb from a js object.
+ * @param {Object} data The js object representing the limb
+ * @return {OCOLimb} The new limb
+ */
+OCOLimb.fromObject = function( data )
+{
+    var limb = OCO._d( data.limb, OCO.Limb.CUSTOM);
+    var side = OCO._d( data.side, OCO.Side.NONE);
+    var location = OCO._d( data.location, OCO.Location.NONE);
+    var type = OCO._d( data.type, OCO.LimbType.CUSTOM);
+    var l = new OCOLimb( limb, side, location, type);
+
+    // Parse armature
+    data.armature = OCO._d( data.armature, [] );
+    for (var i = 0, ni = data.armature.length; i < ni; i++)
+    {
+        l.armature.push( OCOBone.fromObject( data.armature[i] ) );
+    }
+    return l;
 }
 
 /**
@@ -1742,9 +1816,9 @@ function OCOBone(name)
  * @param {bool} [translateChildren=true] If false, the children stay at their current location
  */
 OCOBone.prototype.translate = function( x, y, translateChildren ) {
-    translateChildren = def(translateChildren, true);
-    x = def(x, 0);
-    y = def(y, 0);
+    translateChildren = OCO._d(translateChildren, true);
+    x = OCO._d(x, 0);
+    y = OCO._d(y, 0);
 
     this.x += x;
     this.y += y;
@@ -1763,9 +1837,9 @@ OCOBone.prototype.translate = function( x, y, translateChildren ) {
  * @param {bool} [translateChildren=true] If false, the children stay at their current location
  */
 OCOBone.prototype.translateTo = function( x, y, translateChildren ) {
-    translateChildren = def(translateChildren, true);
-    x = def(x, this.x);
-    y = def(y, this.y);
+    translateChildren = OCO._d(translateChildren, true);
+    x = OCO._d(x, this.x);
+    y = OCO._d(y, this.y);
 
     var offsetX = x - this.x;
     var offsetY = y - this.y;
@@ -1810,4 +1884,34 @@ OCOBone.prototype.toObject = function()
     }
 
     return data;
+}
+
+/**
+ * Creates a bone from a js object.
+ * @param {Object} data The js object representing the bone
+ * @return {OCOBone} The new bone
+ */
+OCOBone.fromObject = function( data )
+{
+    var bone = new OCOBone( OCO._d(data.name, "Bone"));
+    bone.x = OCO._d(data.x, 0.0);
+    bone.y = OCO._d(data.y, 0.0);
+    bone.attached = OCO._d(data.attached, false);
+    bone.type = OCO._d(data.type, OCO.Bone.CUSTOM);
+
+    // Parse children
+    data.children = OCO._d(data.children, []);
+    for( var i = 0, ni = data.children.length; i < ni; i++)
+    {
+        bone.children.push( OCOBone.fromObject(data.children[i]) );
+    }
+
+    // Parse limbs
+    data.limbs = OCO._d(data.limbs, []);
+    for (var i = 0, ni = data.limbs.length; i < ni; i++)
+    {
+        bone.limbs.push( OCOLimb.fromObject(data.limbs[i]) );
+    }
+
+    return bone;
 }
