@@ -6,6 +6,77 @@
 var DuFile = {};
 
 /**
+ * The list of legit characters for base64 encoding
+ * @type {string[]}
+ */
+DuFile.base64Chars = [
+	"A",
+	"B",
+	"C",
+	"D",
+	"E",
+	"F",
+	"G",
+	"H",
+	"I",
+	"J",
+	"K",
+	"L",
+	"M",
+	"N",
+	"O",
+	"P",
+	"Q",
+	"R",
+	"S",
+	"T",
+	"U",
+	"V",
+	"W",
+	"X",
+	"Y",
+	"Z",
+	"a",
+	"b",
+	"c",
+	"d",
+	"e",
+	"f",
+	"g",
+	"h",
+	"i",
+	"j",
+	"k",
+	"l",
+	"m",
+	"n",
+	"o",
+	"p",
+	"q",
+	"r",
+	"s",
+	"t",
+	"u",
+	"v",
+	"w",
+	"x",
+	"y",
+	"z",
+	"0",
+	"1",
+	"2",
+	"3",
+	"4",
+	"5",
+	"6",
+	"7",
+	"8",
+	"9",
+	"+",
+	"/",
+];
+
+/**
 	* Checks if the given path exists
 	* @param {string}	 [path]	- The file path
 	* @return {boolean} True or false
@@ -61,6 +132,7 @@ DuFile.read = function(file,encoding)
 */
 DuFile.write = function(file, content, append, encoding)
 {
+	if (!(file instanceof File)) file = new File(file);
 	append = def(append, false);
 	encoding = def(encoding, 'UTF-8');
 	//open and parse file
@@ -185,6 +257,74 @@ DuFile.parseCSV = function(file,delimiter,textSeparator)
 		}
 	}
 	return data;
+}
+
+/**
+ * Encodes a file to a base64 string.
+ * @param {string|File} file The file or its path
+ * @return {string} The base64 string
+ */
+DuFile.toBase64 = function( file )
+{
+	if (!(file instanceof File)) file = new File(file);
+    if (!file.exists) return "";
+
+    file.encoding = "binary";
+    file.open("r");
+    var bin = file.read();
+    file.close();
+
+    var ecdStr = Base64.btoa(bin);
+
+    return ecdStr;
+}
+
+/**
+ * Checks if the base64 string seems valid
+ * @param {string} b64 The string to check
+ * @return {bool}
+ */
+DuFile.checkBase64 = function ( b64 )
+{
+	var len = b64.length
+
+    if (len % 4 > 0) {
+        return false;
+    }
+
+    // If there's a dot, that's probably a file name
+    if ( b64.indexOf(".") >= 0 )
+        return false;
+
+    return true;
+}
+
+/**
+ * Writes a file from a base64 string.
+ * @param {string} b64 The base64 string
+ * @param {string|File} file The destination file or its path
+ * @return {File|null} The File object or null if it fails
+ */
+DuFile.fromBase64 = function( b64, file )
+{
+	if (b64 == "") return null;
+    if (!DuFile.checkBase64(b64)) return null;
+
+    // Convert to bin
+    var bin = Base64.atob(b64);
+
+    // Write to file
+    if (!(file instanceof File)) file = new File( file );
+    file.encoding = 'BINARY';
+
+    try
+	{
+        if (!file.open('w')) return null;
+        file.write(bin);
+		file.close();
+		return file;
+    }
+    catch (e) { return null; }
 }
 
 /**

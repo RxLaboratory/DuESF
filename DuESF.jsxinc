@@ -12,6 +12,7 @@
 #include "inc/third-party/Matrix.jsxinc"
 #include "inc/third-party/SeedRandom.jsxinc"
 #include "inc/third-party/colorPicker.jsxinc"
+#include "inc/third-party/base64.jsxinc"
 #include "inc/version.jsxinc"
 #include "inc/string.jsxinc"
 #include "inc/file.jsxinc"

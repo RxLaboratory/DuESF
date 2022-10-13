@@ -127,6 +127,7 @@ DuScriptUI.folderSelector = function ( container, text, textField, helpTip, orie
  * @param {string} [helpTip=''] - The helptip for this control.
  * @param {string|DuBinary} [image] - The image to use as an icon; a "file" icon by default.
  * @param {string} [mode='open'] - The open mode, either 'open' or 'save'.
+ * @param {string} [filters] - The file type filters.
  * @param {string} [orientation='row'] - The orientation of the control (button+edittext).
  * @return {DuFileSelector} The control.
  */
