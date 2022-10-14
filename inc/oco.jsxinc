@@ -1767,35 +1767,45 @@ OCODoc.prototype.newFin = function( side, fishbones, view, position )
 }
 
 /**
- * Converts a doc coordinate in centimeters to pixel coordinates
+ * Converts a doc coordinate/value in centimeters to pixel coordinates.<br/>
+ * For multidimensionnal values (coordinates), the origin is adjusted from doc to image.
  * @param {float[]} point The coordinate to convert
  * @returns {int[]} The coordinates in pixels
  */
 OCODoc.prototype.toPixels = function( point )
 {
-    // First, convert to pixels
-    var x = point[0]*this.pixelsPerCm;
-    var y = point[1]*this.pixelsPerCm;
-    // We're relative to the world, adjust
-    return this.fromWorld( [x, y] );
+    if (point.length)
+    {
+        // First, convert to pixels
+        var x = point[0]*this.pixelsPerCm;
+        var y = point[1]*this.pixelsPerCm;
+        // We're relative to the world, adjust
+        return this.fromWorld( [x, y] );
+    }
+    return point * this.pixelsPerCm;
 }
 
 /**
- * Converts coordinates in pixels in the world to centimeters coordinates in the doc
- * @param {int[]} point The coordinate to convert
- * @returns {float[]} The coordinates in centimeters relative to the doc
+ * Converts coordinates in pixels in the world to centimeters coordinates in the doc<br/>
+ * For multidimensionnal values (coordinates), the origin is adjusted image to doc.
+ * @param {float[]|float} point The coordinate to convert
+ * @returns {float[]|float} The coordinates in centimeters relative to the doc
  */
 OCODoc.prototype.fromPixels = function( point )
 {
-    // We need to be relative to the world
-    point = this.toWorld(point);
-    var x = point[0];
-    var y = point[1];
-    // Convert to cm
-    x /= this.pixelsPerCm;
-    // Y coordinate is at bottom in OCO, top in 2D docs
-    y /= this.pixelsPerCm;
-    return [x, y];
+    if (point.length)
+    {
+        // We need to be relative to the world
+        point = this.toWorld(point);
+        var x = point[0];
+        var y = point[1];
+        // Convert to cm
+        x /= this.pixelsPerCm;
+        // Y coordinate is at bottom in OCO, top in 2D docs
+        y /= this.pixelsPerCm;
+        return [x, y];
+    }
+    return point / this.pixelsPerCm;
 }
 
 /**
@@ -2145,6 +2155,26 @@ function OCOBone(name)
      * @type {OCO.Bone}
      */
     this.type = OCO.Bone.CUSTOM;
+    /**
+     * The envelop of the bone,<br/>
+     * In a meta rig, this is a silhouette which will contain the design,
+     * and can be used to help locate the joint, link the design to the bone, etc.<br/>
+     * In a rigged character, this should be a simple silhouette close to the artwork silhouette.
+     */
+    this.envelop = {};
+    /**
+     * The width of the envelop, around the joint
+     * @type {float}
+     */
+    this.envelop.width = 0.0;
+    /**
+     * The offset of the envelop, in the local X-axis<br/>
+     * 0.0 is centered around the joint,<br/>
+     * positive values are on the right of the joint when the bone is oriented towards the ground,<br/>
+     * negative values are on the left of the joint when the bone is oriented towards the ground.
+     * @type {float}
+     */
+    this.envelop.offset = 0.0;
 }
 
 /**
@@ -2208,6 +2238,9 @@ OCOBone.prototype.toObject = function()
         'limbs': [],
         'type': this.type
     }
+    data.envelop = {};
+    data.envelop.width = this.envelop.width;
+    data.envelop.offset = this.envelop.offset;
 
     for (var i = 0, n = this.children.length; i < n; i++)
     {
@@ -2236,6 +2269,10 @@ OCOBone.fromObject = function( data )
     bone.y = OCO._d(data.y, 0.0);
     bone.attached = OCO._d(data.attached, false);
     bone.type = OCO._d(data.type, OCO.Bone.CUSTOM);
+    data.envelop = OCO._d(data.envelop, {});
+    bone.envelop.width = OCO._d(data.envelop.width, bone.envelop.width);
+    bone.envelop.offset = OCO._d(data.envelop.offset, bone.envelop.offset);
+
 
     // Parse children
     data.children = OCO._d(data.children, []);
