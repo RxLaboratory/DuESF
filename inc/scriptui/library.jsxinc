@@ -629,7 +629,7 @@ DuScriptUI.library = function( container, library, options ) {
     setCategory(duLibrary.library);
 
     // Refresh
-    if (options.refreshInterval > 0) DuScriptUI.addEvent(duLibrary.refresh, 10000);
+    if (options.refreshInterval > 0) DuScriptUI.addEvent(duLibrary.refresh, options.refreshInterval);
 
     return duLibrary;
 }

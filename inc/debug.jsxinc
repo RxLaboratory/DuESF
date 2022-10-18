@@ -41,10 +41,13 @@ DuDebug.log = function (message,level)
  * The error is actually thrown only if JS Debugging is enabled in the host application, otherwise it is just shown in an alert.
  * @param {Error|string} error - An error thrown and catched
  */
-DuDebug.error = function (error)
+DuDebug.error = function (error, msg)
 {
+	msg = def(msg, "");
 	var file = new File( error.fileName );
-	var errorString = 'An error has occured in file\n\n' + file.name + '\n\nlocated in:\n' + file.parent.fsName + '\n\nat line ' + error.line + '\n\n' + error.description;
+	var errorString = 'An error has occured in file\n\n' + file.name + '\n\nlocated in:\n' + file.parent.fsName + '\n\nat line ' + error.line + '\n\n';
+	if (msg == "") errorString += error.description;
+	else errorString += msg;
 	DuDebug.log( errorString, DuDebug.LogLevel.WARNING );
 	if ( DuESF.debug )
 	{
