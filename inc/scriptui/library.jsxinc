@@ -386,7 +386,9 @@ DuScriptUI.library = function( container, library, options ) {
     };
 
     duLibrary.refresh = function () {
-        duLibrary.onRefresh(duLibrary.currentCategory);
+        // Only if visible
+        if (!duLibrary.visible) return;
+        //duLibrary.onRefresh(duLibrary.currentCategory);
         setCategory(duLibrary.currentCategory);
         updateBreadCrumbs();
     };
