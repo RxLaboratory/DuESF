@@ -543,6 +543,20 @@ function OCODoc(name)
 }
 
 /**
+    * Counts the total number of bones in this doc
+    * @return {int}
+    */
+OCODoc.prototype.numBones = function ()
+{
+    var count = 0;
+    for (var i = 0, ni = this.limbs.length; i < ni; i++ )
+    {
+        count += this.limbs[i].numBones();
+    }
+    return count;
+}
+
+/**
  * Gets the boundaries of the doc
  * @returns {float[]} [left, top, right, bottom]
  */
@@ -1905,9 +1919,7 @@ OCODoc.extractIcon = function( file, destination )
         return OCO._fromBase64(data.icon, destination);
     }
     return null;
-
-
-    
+ 
 }
 
 /**
@@ -1996,6 +2008,20 @@ function OCOLimb(limb, side, location, type )
      * @type {OCOBone[]}
      */
     this.armature = [];
+}
+
+/**
+    * Counts the total number of bones in this limb
+    * @return {int}
+    */
+OCOLimb.prototype.numBones = function ()
+{
+    var count = 0;
+    for (var i = 0, ni = this.armature.length; i < ni; i++ )
+    {
+        count += this.armature[i].numBones();
+    }
+    return count;
 }
 
 /**
@@ -2175,6 +2201,24 @@ function OCOBone(name)
      * @type {float}
      */
     this.envelop.offset = 0.0;
+}
+
+/**
+    * Counts the total number of child bones
+    * @return {int}
+    */
+OCOBone.prototype.numBones = function ()
+{
+    var count = 1;
+    for (var i = 0, ni = this.children.length; i < ni; i++ )
+    {
+        count += this.children[i].numBones();
+    }
+    for (var i = 0, ni = this.limbs.length; i < ni; i++ )
+    {
+        count += this.limbs[i].numBones();
+    }
+    return count;
 }
 
 /**
