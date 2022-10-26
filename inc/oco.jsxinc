@@ -444,6 +444,26 @@ OCO._parseJsonFile = function (file )
     return data;
 }
 
+/**
+ * Measures the vector length between two points
+ * @param {int[]} value1 - The first value
+ * @param {int[]} value2 - The second value
+ * @return {float} The length
+ */
+OCO._length = function(value1, value2) {
+    if (typeof value1 !== typeof value2) {
+        return null;
+    }
+    if (value1.length > 0) {
+        var result = 0;
+        for (var dim = 0; dim < value1.length; dim++) {
+            result += (value1[dim] - value2[dim]) * (value1[dim] - value2[dim]);
+        }
+        result = Math.sqrt(result);
+        return result;
+    } else return Math.abs(value1 - value2);
+}
+
 // === INIT ===
 if ( OCO._canWrite( Folder.myDocuments ) ) OCO.libraryPath = Folder.myDocuments.absoluteURI + "/OCO/OCO Library";
 else OCO.libraryPath = Folder.temp.absoluteURI + "/OCO/OCO Library";
@@ -2201,6 +2221,17 @@ function OCOBone(name)
      * @type {float}
      */
     this.envelop.offset = 0.0;
+}
+
+/**
+ * The length of the bone (this distance with its first child)
+ * @return {int} The length
+ */
+OCOBone.prototype.length = function ()
+{
+    if (this.children.length == 0) return 0;
+    var child = this.children[0];
+    return OCO._length([this.x, this.y], [child.x, child.y]);
 }
 
 /**
