@@ -2177,6 +2177,7 @@ OCOLimb.prototype.newArmature = function( name, num, length )
         names.push(boneName);
         bone.y = 100;
         bone.x = x;
+        bone.zIndex = length - i;
 
         if (b != null)
         {
@@ -2325,7 +2326,7 @@ function OCOBone(name)
      */
     this.y = 0.0;
     /**
-     * An arbitrary Z-index. Higher is above, lower is under
+     * An arbitrary Z-index. Higher is under, lower is above
      * @name zIndex
      * @memberof OCOBone
      * @type {int}
@@ -2466,6 +2467,7 @@ OCOBone.prototype.toObject = function()
         'name': this.name,
         'x': this.x,
         'y': this.y,
+        'zIndex': this.zIndex,
         'attached': this.attached,
         'children': [],
         'limbs': [],
@@ -2566,6 +2568,7 @@ OCOBone.fromObject = function( data )
     var bone = new OCOBone( OCO._d(data.name, "Bone"));
     bone.x = OCO._d(data.x, 0.0);
     bone.y = OCO._d(data.y, 0.0);
+    bone.zIndex = OCO._d(data.zIndex, 0);
     bone.attached = OCO._d(data.attached, false);
     bone.type = OCO._d(data.type, OCO.Bone.CUSTOM);
     data.envelop = OCO._d(data.envelop, {});
