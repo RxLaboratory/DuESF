@@ -464,6 +464,53 @@ OCO._length = function(value1, value2) {
     } else return Math.abs(value1 - value2);
 }
 
+// Clamp values between min and max
+OCO._clamp = function(values, min, max) {
+    min = OCO._d(min, 0);
+    max = OCO._d(max, 1);
+
+    if (max < min) {
+        var t = max;
+        max = min;
+        min = t;
+    }
+
+    var isArray = true;
+    var result = [];
+    if (!(values instanceof Array)) {
+        isArray = false;
+        values = [values];
+    }
+    for (var i = 0, num = values.length; i < num; i++) {
+        var v = values[i];
+        if (v < min) v = min;
+        if (v > max) v = max;
+        result.push(v);
+    }
+    if (isArray) return result;
+    else return result[0];
+}
+
+// Linear interpolation
+OCO._linear = function(value, min, max, targetMin, targetMax, clamp) {
+    min = OCO._d(min, 0);
+    max = OCO._d(max, 1);
+    targetMin = OCO._d(targetMin, 0);
+    targetMax = OCO._d(targetMax, 1);
+    clamp = OCO._d(clamp, false);
+
+    // Handle stupid values
+    if (min == targetMin && max == targetMax) return value;
+    if (min == max) return value;
+    if (targetMin == targetMax) return targetMin;
+    if (value == min) return targetMin;
+    if (value == max) return targetMax;
+
+    var result = targetMin + (value - min) / (max - min) * (targetMax - targetMin);
+    if (clamp) result = DuMath.clamp(value, targetMin, targetMax);
+    return result;
+}
+
 // === INIT ===
 if ( OCO._canWrite( Folder.myDocuments ) ) OCO.libraryPath = Folder.myDocuments.absoluteURI + "/OCO/OCO Library";
 else OCO.libraryPath = Folder.temp.absoluteURI + "/OCO/OCO Library";
@@ -1915,6 +1962,58 @@ OCODoc.prototype.toFile = function ( file )
 }
 
 /**
+ * Gets all the bones sorted by z index
+ * @return {OCOBone[]} The list of bones
+ */
+OCODoc.prototype.getBones = function ()
+{
+    var allBones = [];
+    for (var i = 0, ni = this.limbs.length; i < ni; i++)
+    {
+        allBones = allBones.concat(this.limbs[i].getBones());
+    }
+
+    allBones.sort( OCOBone._zSorter );
+
+    return allBones;
+}
+
+/**
+ * Normalizes the Z indices of all bones so they're positive (including 0) and continuous integers.
+ * @param {int} [offset=0] An offset/start number
+ * @return {int} The highest index
+ */
+OCODoc.prototype.normalizeZIndices = function( offset )
+{
+    offset = OCO._d(offset, 0);
+    var numBones = this.numBones();
+    // List all bones
+    var bs = this.getBones();
+    // Update indices
+    for(var i = 0, ni = bs.length; i < ni; i++)
+    {
+        bs[i].zIndex = offset + i;
+    }
+}
+
+/**
+ * Finds the maximum and minimum Z index from all bones
+ * @return {int[]} The [min, max] Z indices
+ */
+OCODoc.zBounds = function()
+{
+    var maxZ = Number.NEGATIVE_INFINITY;
+    var minZ = Number.POSITIVE_INFINITY;
+    for (var i = 0, ni = this.limbs.length; i < ni; i++)
+    {
+        var zb = this.limbs[i].zBounds();
+        if (zb[0] < minZ) minZ = zb[0];
+        if (zb[1] > maxZ) maxZ = zb[1];
+    }
+    return [minZ, maxZ];
+}
+
+/**
  * Extracts the icon from the OCO file
  * @param {string|File} file The OCO file
  * @param {string|File} [destination] The destination file if the file is included in the OCO file. Next to the OCO file by default.
@@ -2122,6 +2221,58 @@ OCOLimb.prototype.toObject = function()
 }
 
 /**
+ * Normalizes the Z indices of all bones so they're positive (including 0) and continuous integers
+ * @param {int} [offset=0] An offset/start number
+ * @return {int} The highest index
+ */
+OCOLimb.prototype.normalizeZIndices = function( offset )
+{
+    offset = OCO._d(offset, 0);
+    var numBones = this.numBones();
+    // List all bones
+    var bs = this.getBones();
+    // Update indices
+    for(var i = 0, ni = bs.length; i < ni; i++)
+    {
+        bs[i].zIndex = offset + i;
+    }
+}
+
+/**
+ * Gets all the bones sorted by z index
+ * @return {OCOBone[]} The list of bones
+ */
+OCOLimb.prototype.getBones = function ()
+{
+    var allBones = [];
+    for (var i = 0, ni = this.armature.length; i < ni; i++)
+    {
+        allBones = allBones.concat(this.armature[i].getBones());
+    }
+
+    allBones.sort( OCOBone._zSorter );
+
+    return allBones;
+}
+
+/**
+ * Finds the maximum and minimum Z index from all bones
+ * @return {int[]} The [min, max] Z indices
+ */
+OCOLimb.prototype.zBounds = function()
+{
+    var maxZ = Number.NEGATIVE_INFINITY;
+    var minZ = Number.POSITIVE_INFINITY;
+    for (var i = 0, ni = this.armature.length; i < ni; i++)
+    {
+        var zb = this.armature[i].zBounds();
+        if (zb[0] < minZ) minZ = zb[0];
+        if (zb[1] > maxZ) maxZ = zb[1];
+    }
+    return [minZ, maxZ];
+}
+
+/**
  * Creates a limb from a js object.
  * @param {Object} data The js object representing the limb
  * @return {OCOLimb} The new limb
@@ -2173,6 +2324,13 @@ function OCOBone(name)
      * @type {float}
      */
     this.y = 0.0;
+    /**
+     * An arbitrary Z-index. Higher is above, lower is under
+     * @name zIndex
+     * @memberof OCOBone
+     * @type {int}
+     */
+    this.zIndex = 0;
     /**
      * true if this bone is attached to its parent.
      * @name attached
@@ -2333,6 +2491,72 @@ OCOBone.prototype.toObject = function()
 }
 
 /**
+ * Normalizes the Z indices of all bones so they're positive (including 0) and continuous integers
+ * @param {int} [offset=0] An offset/start number
+ * @return {int} The highest index
+ */
+OCOBone.prototype.normalizeZIndices = function( offset )
+{
+    offset = OCO._d(offset, 0);
+    var numBones = this.numBones();
+    // List all bones
+    var bs = this.getBones();
+    // Update indices
+    for(var i = 0, ni = bs.length; i < ni; i++)
+    {
+        bs[i].zIndex = offset + i;
+    }
+}
+
+/**
+ * Gets all the bones sorted by z index
+ * @return {OCOBone[]} The list of bones
+ */
+OCOBone.prototype.getBones = function ()
+{
+    var allBones = [];
+    for (var i = 0, ni = this.limbs.length; i < ni; i++)
+    {
+        allBones = allBones.concat(this.limbs[i].getBones());
+    }
+    for (var i = 0, ni = this.children.length; i < ni; i++)
+    {
+        allBones = allBones.concat(this.children[i].getBones());
+    }
+    allBones.push(this);
+
+    allBones.sort( OCOBone._zSorter );
+
+    return allBones;
+}
+
+/**
+ * Finds the maximum and minimum Z index from all bones
+ * @return {int[]} The [min, max] Z indices
+ */
+OCOBone.zBounds = function()
+{
+    var maxZ = Number.NEGATIVE_INFINITY;
+    var minZ = Number.POSITIVE_INFINITY;
+    for (var i = 0, ni = this.limbs.length; i < ni; i++)
+    {
+        var zb = this.limbs[i].zBounds();
+        if (zb[0] < minZ) minZ = zb[0];
+        if (zb[1] > maxZ) maxZ = zb[1];
+    }
+    for (var i = 0, ni = this.children.length; i < ni; i++)
+    {
+        var zb = this.children[i].zBounds();
+        if (zb[0] < minZ) minZ = zb[0];
+        if (zb[1] > maxZ) maxZ = zb[1];
+    }
+
+    if (this.zIndex < minZ) minZ = this.zIndex;
+    if (this.zIndex > maxZ) maxZ = this.zIndex;
+    return [minZ, maxZ];
+}
+
+/**
  * Creates a bone from a js object.
  * @param {Object} data The js object representing the bone
  * @return {OCOBone} The new bone
@@ -2364,4 +2588,10 @@ OCOBone.fromObject = function( data )
     }
 
     return bone;
+}
+
+// Sorter for bones according to the z index
+OCOBone._zSorter = function (ba, bb)
+{
+    return ba.zIndex - bb.zIndex;
 }

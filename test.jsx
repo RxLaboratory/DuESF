@@ -1,7 +1,12 @@
 (function (thisObj) {
 
-    #include "DuESF.jsxinc"
+    //#include "DuESF.jsxinc"
 
-    alert( DuMath.linear( 3, 2.5, 3, .63, .51 ) );
+    var i = 3;
+    var m = Number.NEGATIVE_INFINITY;
+    if (i < m)
+        alert( 'no' );
+    else
+        alert( 'yes' );
 
 })(this);
