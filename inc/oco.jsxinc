@@ -2371,7 +2371,7 @@ function OCOBone(name)
      * The width of the envelop, around the joint
      * @type {float}
      */
-    this.envelop.width = 0.0;
+    this.envelop.width = -1.0;
     /**
      * The offset of the envelop, in the local X-axis<br/>
      * 0.0 is centered around the joint,<br/>
