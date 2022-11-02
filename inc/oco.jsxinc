@@ -2394,6 +2394,21 @@ OCOBone.prototype.length = function ()
 }
 
 /**
+ * Creates a new limb and adds it to the bone
+ * @param {OCO.Limb} [limb=OCO.Limb.CUSTOM] A Predefined limb
+ * @param {OCO.Side} [side=OCO.Side.NONE] - The side of the limb
+ * @param {OCO.Location} [location=OCO.Location.NONE] - The location of the limb
+ * @param {OCO.LimbType} [type=OCO.LimbType.CUSTOM] - The type of the limb
+ * @return {OCOLimb} The new limb
+ */
+OCOBone.prototype.newLimb = function( limb, side, location, type )
+{
+    var l = new OCOLimb( limb, side, location, type );
+    this.limbs.push(l);
+    return l;
+}
+
+/**
     * Counts the total number of child bones
     * @return {int}
     */
