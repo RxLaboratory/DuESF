@@ -2475,7 +2475,7 @@ OCOBone.prototype.numBones = function ()
     */
 OCOBone.prototype.numLimbs = function ()
 {
-    var count = 1;
+    var count = 0;
     for (var i = 0, ni = this.children.length; i < ni; i++ )
     {
         count += this.children[i].numLimbs();
