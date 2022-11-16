@@ -40,7 +40,7 @@ DuMath.isLocationRight = function(location) {
  * @param {DuMath.Location} location The location
  * @returns {boolean}
  */
- DuMath.isLocationHCenter = function(location) {
+DuMath.isLocationHCenter = function(location) {
     if (location == DuMath.Location.TOP) return true;
     if (location == DuMath.Location.CENTER) return true;
     if (location == DuMath.Location.BOTTOM) return true;
@@ -52,7 +52,7 @@ DuMath.isLocationRight = function(location) {
  * @param {DuMath.Location} location The location
  * @returns {boolean}
  */
- DuMath.isLocationLeft = function(location) {
+DuMath.isLocationLeft = function(location) {
     if (location == DuMath.Location.TOP_LEFT) return true;
     if (location == DuMath.Location.LEFT) return true;
     if (location == DuMath.Location.BOTTOM_LEFT) return true;
@@ -64,7 +64,7 @@ DuMath.isLocationRight = function(location) {
  * @param {DuMath.Location} location The location
  * @returns {boolean}
  */
- DuMath.isLocationTop = function(location) {
+DuMath.isLocationTop = function(location) {
     if (location == DuMath.Location.TOP) return true;
     if (location == DuMath.Location.TOP_RIGHT) return true;
     if (location == DuMath.Location.TOP_LEFT) return true;
@@ -76,7 +76,7 @@ DuMath.isLocationRight = function(location) {
  * @param {DuMath.Location} location The location
  * @returns {boolean}
  */
- DuMath.isLocationVCenter = function(location) {
+DuMath.isLocationVCenter = function(location) {
     if (location == DuMath.Location.LEFT) return true;
     if (location == DuMath.Location.CENTER) return true;
     if (location == DuMath.Location.RIGHT) return true;
@@ -88,7 +88,7 @@ DuMath.isLocationRight = function(location) {
  * @param {DuMath.Location} location The location
  * @returns {boolean}
  */
- DuMath.isLocationBottom = function(location) {
+DuMath.isLocationBottom = function(location) {
     if (location == DuMath.Location.BOTTOM_RIGHT) return true;
     if (location == DuMath.Location.CENTER) return true;
     if (location == DuMath.Location.BOTTOM_LEFT) return true;
@@ -535,4 +535,22 @@ DuMath.isInflexionPoint = function(previousVelocity, pointVelocity, nextVelocity
 		if ( p <= pv && p <= nx) return true;
     }
 	return false;
+}
+
+/**
+ * Finds the angle formed by three points
+ * @param {float[]} anglePoint The point at which to measure the angle
+ * @param {float[]} oppositePointA One of the opposite points
+ * @param {float[]} oppositePointB The other opposite point
+ * @return {float} The angle in radians.
+ */
+DuMath.angleFromSides = function( anglePoint, oppositePointA, oppositePointB ) {
+    var sideA = DuMath.length(anglePoint, oppositePointA);
+    var sideB = DuMath.length(anglePoint, oppositePointB);
+    var oppositeSide = DuMath.length(oppositePointA, oppositePointB);
+
+    var result = sideA*sideA + sideB*sideB - oppositeSide*oppositeSide;
+    result = result / (2*sideA*sideB);
+    result = Math.acos(result);
+    return result;
 }
