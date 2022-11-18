@@ -135,7 +135,7 @@ DuFile.write = function(file, content, append, encoding)
 	if (!(file instanceof File)) file = new File(file);
 	append = def(append, false);
 	encoding = def(encoding, 'UTF-8');
-	//open and parse file
+
 	file.encoding = encoding;
 	var mode = 'w';
 	if (append) mode = 'a';

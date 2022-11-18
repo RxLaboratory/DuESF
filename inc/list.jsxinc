@@ -476,7 +476,7 @@ DuList.prototype.concat = function(other) {
 /**
  * Adds one or more elements to the end of the list and returns the new length of the list, only if the value is not already in the list<br />
  * The internal list may be converted to an Array if needed.
- * @param {function} [comparisonFunction] A function which compares two values which returns true if the values are considered the same.
+ * @param {function} comparisonFunction A function which compares two values which returns true if the values are considered the same.
  * @param {any} element0 The element(s) to add to the end of the array.
  * @param {any} element1 The element(s) to add to the end of the array.
  * @param {any} element... The element(s) to add to the end of the array.
@@ -485,8 +485,6 @@ DuList.prototype.concat = function(other) {
  */
 DuList.prototype.pushUnique = function(comparisonFunction) {
     this.convertToArray();
-
-    var args = [];
 
     for (var i = 1, n = arguments.length; i < n; i++) {
         var arg = arguments[i];
