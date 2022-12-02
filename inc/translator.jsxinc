@@ -22,6 +22,7 @@
  * @copyright 2022 Nicolas Dufresne, RxLaboratory
  * @version 1.0.0
  * @license MIT
+ * @category gettext.jsxinc
  */
 var translationEngine = function (options) {
   options = options || {};

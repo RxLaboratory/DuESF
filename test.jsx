@@ -1,12 +1,8 @@
 (function (thisObj) {
 
-    //#include "DuESF.jsxinc"
+    #include "DuESF.jsxinc"
 
-    var i = 3;
-    var m = Number.NEGATIVE_INFINITY;
-    if (i < m)
-        alert( 'no' );
-    else
-        alert( 'yes' );
+    var str = "bidule machin_truc.chose-autre";
+    alert( DuString.split(str, ["_","-", ".", " "]));
 
 })(this);

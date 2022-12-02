@@ -257,3 +257,34 @@ DuString.unCapitalize = function(text) {
     firstChar = firstChar.toLowerCase();
     return firstChar + newText.substring(1);
 }
+
+/**
+ * Caculates the score of a string against a query, using Duduf's fuzzy-search.jsxinc
+ * @param {string} item The string to test
+ * @param {string} query The string to search
+ * @param {bool} [caseSensitive=false] Whether to check the case or not
+ * @return {float} The score, a positive value.<br/>
+ * - <code>0</code>: no match<br/>
+ * - <code>1</code>: perfect match<br/>
+ * - <code>>1</code>: the lower the score, the better the match<br/>
+ */
+DuString.match = function(str, query, caseSensitive) {
+    return FuzzySearch.match(str, query, caseSensitive);
+}
+
+/**
+ * Same as JS String.split except that it works with a list of separators too
+ * @param {string} str The string to split
+ * @param {string|string[]|DuList.<string>} separators The separator(s)
+ * @return {string[]} The array of strings.
+ */
+DuString.split = function(str, separators) {
+    separators = new DuList(separators);
+    var lastSep = separators.last();
+    var arr = str.split(separators.first());
+    separators.do( function(sep) {
+        if (separators.current == 0) return;
+        arr = arr.join(lastSep).split(sep);
+    });
+    return arr;
+}
