@@ -125,7 +125,9 @@ DuProgressBar.prototype.show = function( message )
 {
     this.__setupUI();
     this.rootGroup.show();
-    if (this.isPopup) this.window.show();
+    if (this.isPopup) {
+        this.window.show();
+    }
     this.msg(message);  
 }
 
