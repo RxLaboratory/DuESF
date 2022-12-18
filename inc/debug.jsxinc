@@ -70,7 +70,7 @@ DuDebug.safeRun = function (callback)
 	if (!isdef( callback )) throw "Error: DuDebug.safeRun(callback): Invalid parameter: callback cannot be undefined";
 	if (callback == '') throw "Error: DuDebug.safeRun(callback): Invalid parameter: callback cannot be an empty string";
 	var call = '';
-	if (jstype(callback) != 'string' && arguments.legnth > 1)
+	if (jstype(callback) != 'string' && arguments.length > 1)
 	{
 		var args = [];
 		for (var i = 1, num = arguments.length; i < num; i++)
@@ -81,7 +81,7 @@ DuDebug.safeRun = function (callback)
 		call = 'var result = callback(' + params + '); result;'
 	}
 	else if (jstype(callback) == 'string') call = callback;
-	
+
 	try
 	{
 		if (call != '')

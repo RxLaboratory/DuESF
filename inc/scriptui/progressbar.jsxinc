@@ -18,6 +18,7 @@ DuProgressBar = function( title, container )
     else this.window = null;
 
     this.built = false;
+    this.coordinates = null;
 
     // Create ui
     this.__setupUI = function()
@@ -46,7 +47,7 @@ DuProgressBar = function( title, container )
 
         this.message =  title + ' %1';
 
-        if (this.isPopup) this.window.center();
+        //if (this.isPopup) this.window.center();
 
         DuScriptUI.layout( this.container );
 
@@ -119,16 +120,23 @@ DuProgressBar.prototype.stg = function( stage )
 /**
  * Shows the progress bar and updates the value and text
  * @param {string} [message=''] The text
- * @param {int} [maxValue=100] The maximum value
+ * @param {int[]} [eventCoordinates] - Provide the screen coordinates to center the progress bar on the corresponding screen.
  */
-DuProgressBar.prototype.show = function( message )
+DuProgressBar.prototype.show = function( message, eventCoordinates )
 {
+    eventCoordinates = def(eventCoordinates, null);
+
     this.__setupUI();
     this.rootGroup.show();
+    this.msg(message);  
     if (this.isPopup) {
+        if (eventCoordinates) this.coordinates = DuScriptUI.centerInScreen( eventCoordinates, this.window.frameSize );
+
+        if (this.coordinates) this.window.location = this.coordinates;
+        else this.window.center();
+
         this.window.show();
     }
-    this.msg(message);  
 }
 
 /**

@@ -23,6 +23,27 @@ DuScriptUI.moveInsideScreen = function (location, size)
 }
 
 /**
+ * Centers the coordinates in their screen
+ * @param {int[]} location The coordinates [top, left]
+ * @param {Dimension} size The rectangle size, an object which has two properties: width and height
+ * @return {int[]} the new location
+ */ 
+DuScriptUI.centerInScreen = function (location, size)
+{
+    var screen = DuScriptUI.getClosestScreen(location);
+    if (!screen) return location;
+
+    var x = (screen.left + screen.right) / 2;
+    var y = (screen.top + screen.bottom) / 2;
+
+    // offset
+    x -= size[0] / 2;
+    y -= size[1] / 2;
+
+    return [x, y];
+}
+
+/**
  * Gets the corners of the screen the closest to (or containing) the location
  * @param {int[]} location The coordinates
  * @return {Object} The screen object with a top, left, right and bottom property. 
