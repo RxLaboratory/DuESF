@@ -60,6 +60,7 @@ OCO.Bone = {
     NECK: 'neck',
     SKULL_TIP: 'skullTip',
     SKULL: 'skull',
+    TAIL: 'tail',
     TAIL_ROOT: 'tail1',
     TAIL_MID: 'tail2',
     TAIL_END: 'tail3',
@@ -70,9 +71,10 @@ OCO.Bone = {
     FISH_SPINE_ROOT: 'fishSpine1',
     FISH_SPINE_MID: 'fishSpine2',
     FISH_SPINE_END: 'fishSpine3',
-    HAIR_ROOT: 'snakeSpine1',
-    HAIR_MID: 'snakeSpine2',
-    HAIR_END: 'snakeSpine3',
+    HAIR: 'hair',
+    HAIR_ROOT: 'hair1',
+    HAIR_MID: 'hair2',
+    HAIR_END: 'hair3',
     FIN: 'fin',
     FIN_FISHBONE: 'finBone'
 }
