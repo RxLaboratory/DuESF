@@ -120,6 +120,7 @@ DuBinary.prototype.toJsxincFile = function( outputFilePath, varName )
     
     return outputFile;
 }
+
 // =============== STATIC =====================
 
 /**

@@ -288,3 +288,27 @@ DuString.split = function(str, separators) {
     });
     return arr;
 }
+
+/**
+ * Splits the string into same-length substrings.
+ * @param {string} str The string to split
+ * @param {int} subStringLength The length of the substrings
+ * @return {string[]} The array of strings. The last one may be shorter than <code>subStringLength</code> if the original string length is not a multiple of it.
+ */
+DuString.chunk = function(str, subStringLength) {
+
+    return str.match(new RegExp("([\\s\\S]{1," + subStringLength + "})", "g"));
+
+    /*var strArr = [];
+    for (var i = 0, ni = str.length; i < ni; i) {
+        // don't split escaped characters
+        var end = subStringLength;
+
+        while ( str[i+end-1] == "\\" ) end++;
+
+        strArr.push(str.substr(i, end));
+
+        i += end;
+    }*/
+    return strArr;
+}

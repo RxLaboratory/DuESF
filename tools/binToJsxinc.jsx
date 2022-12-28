@@ -14,6 +14,6 @@
 
     for (var i = 0 ; i < file.length ; i++)
     {
-        DuBinary.toJsxincFile(file[i],file[i].parent.name);
+        DuBinary.toJsxincFile(file[i],file[i].parent.name, undefined, undefined);
     }
 })();
