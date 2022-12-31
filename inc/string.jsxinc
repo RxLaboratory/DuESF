@@ -163,6 +163,7 @@ DuString.generateUnique = function(newString, stringList, increment) {
  * @return {String} The trimmed string
  */
 DuString.trim = function(str) {
+    if (typeof str === 'undefined') return "";
     return str.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
 }
 
