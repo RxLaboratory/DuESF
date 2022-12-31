@@ -96,6 +96,27 @@ DuMath.isLocationBottom = function(location) {
 }
 
 /**
+ * Returns the location of the point relative to the origin. Works with 2D values, the first two coordinates.
+ * Considers the coordinate [0,0] to be the top left corner of the system: positive values are right, bottom
+ * @param {float[]} point The point to check
+ * @param {float[]} [origin=[0,0]] The coordinates of the origin
+ * @return {DuMath.Location} The location
+ */
+DuMath.relativeLocation = function(point, origin) {
+    var x = point[0] - origin[0];
+    var y = point[1] - origin[1];
+    if (x == 0 && y == 0) return DuMath.Location.CENTER;
+    if (x < 0 && y < 0) return DuMath.Location.TOP_LEFT;
+    if (x < 0 && y == 0) return DuMath.Location.LEFT;
+    if (x < 0 && y > 0) return DuMath.Location.BOTTOM_LEFT;
+    if (x == 0 && y > 0) return DuMath.Location.BOTTOM;
+    if (x > 0 && y > 0) return DuMath.Location.BOTTOM_RIGHT;
+    if (x > 0 && y == 0) return DuMath.Location.RIGHT;
+    if (x > 0 && y < 0) return DuMath.Location.TOP_RIGHT;
+    if (x == 0 && y < 0) return DuMath.Location.TOP;
+}
+
+/**
  * Generates a random integer between minimum and maximum
  * @memberof DuMath
  * @param {int}	[min=0]	- The minimum value
