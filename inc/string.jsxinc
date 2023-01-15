@@ -313,3 +313,18 @@ DuString.chunk = function(str, subStringLength) {
     }*/
     return strArr;
 }
+
+/**
+ * Checks if the string contains one of the substrings
+ * @param {string} str The string to check
+ * @param {string|string[]|DuList.<string>} subStrs The substrings to look for
+ * @return {boolean}
+ */
+DuString.contains = function(str, subStrs) {
+    subStrs = new DuList(subStrs);
+
+    for (var i = 0, ni = subStrs.length(); i < ni; i++) {
+        if ( str.indexOf( subStrs.at(i) ) >= 0 ) return true;
+    }
+    return false;
+}
