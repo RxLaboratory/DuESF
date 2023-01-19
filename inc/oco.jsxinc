@@ -1507,7 +1507,7 @@ OCODoc.prototype.newWing = function( side, arm, forearm, hand, feathers, positio
     // for each part, set the location
     if ( arm )
     {
-        b.name = i18n._("Arm");
+        b.name = i18n._p("Anatomy", "Arm");
         b.type = OCO.Bone.HUMERUS;
         b.x = x + ox;
         b.y = y + oy;
@@ -1522,7 +1522,7 @@ OCODoc.prototype.newWing = function( side, arm, forearm, hand, feathers, positio
     }
     if (forearm)
     {
-        b.name = i18n._("Forearm");
+        b.name = i18n._p("Anatomy", "Forearm");
         b.type = OCO.Bone.RADIUS;
         b.x = s * u * -.22 + ox;
         b.y = u * .53 + oy;
@@ -1534,7 +1534,7 @@ OCODoc.prototype.newWing = function( side, arm, forearm, hand, feathers, positio
     }
     if (hand)
     {
-        b.name = i18n._("Hand");
+        b.name = i18n._p("Anatomy", "Hand");
         b.type = OCO.Bone.CARPUS;
         b.x = s * u * -.37 + ox;
         b.y = u * .64 + oy;
@@ -1546,8 +1546,8 @@ OCODoc.prototype.newWing = function( side, arm, forearm, hand, feathers, positio
     }
 
     // Tip
-    b.name = i18n._("Wing") +
-        '_' + i18n._("Tip");
+    b.name = i18n._p("Anatomy", "Wing") +
+        '_' + i18n._p("Anatomy", "Tip");
     b.type = OCO.Bone.TIP;
     b.x = s * u * -.53 + ox;
     b.y = u * .66 + oy;
@@ -1557,14 +1557,14 @@ OCODoc.prototype.newWing = function( side, arm, forearm, hand, feathers, positio
 
     function createFeather( xr, yr, xt, yt, p )
     {
-        var boneName = OCO._uniqueString( i18n._("Feather"), names);
+        var boneName = OCO._uniqueString( i18n._p("Anatomy", "Feather"), names);
         b = new OCOBone( boneName );
         b.type = OCO.Bone.FEATHER;
         b.x = s * u * xr + ox;
         b.y = u * yr + oy;
 
         // tip
-        var boneName = OCO._uniqueString( i18n._("Feather") +
+        var boneName = OCO._uniqueString( i18n._p("Anatomy", "Feather") +
             '_' + i18n._("Tip"), names);
         var bt = new OCOBone( boneName );
         bt.type = OCO.Bone.TIP;
@@ -1632,7 +1632,7 @@ OCODoc.prototype.newSnakeSpine = function( head, spine, position )
 
     // Create limb
     var limb = this.newLimb( OCO.Limb.SNAKE_SPINE, OCO.Side.NONE, OCO.Location.NONE );
-    var b = limb.newArmature( i18n._("Spine"), num );
+    var b = limb.newArmature( i18n._p("Anatomy", "Spine"), num );
 
     // hips position
     var ox = 0;
@@ -1651,7 +1651,7 @@ OCODoc.prototype.newSnakeSpine = function( head, spine, position )
     var spineLength = u*1.5 / spine;
     for (var i = 0; i < spine; i++)
     {
-        b.name = i18n._("Spine");
+        b.name = i18n._p("Anatomy", "Spine");
         if ( i <= (spine-1) / 3) b.type = OCO.Bone.SNAKE_SPINE_ROOT;
         else if ( i <= (spine-1)*2 / 3) b.type = OCO.Bone.SNAKE_SPINE_MID;
         else b.type = OCO.Bone.SNAKE_SPINE_END;
@@ -1661,8 +1661,8 @@ OCODoc.prototype.newSnakeSpine = function( head, spine, position )
     }
 
     // Tip
-    b.name = i18n._("Spine") +
-        '_' + i18n._("Tip");
+    b.name = i18n._p("Anatomy", "Spine") +
+        '_' + i18n._p("Anatomy", "Tip");
     b.type = OCO.Bone.TIP;
     b.x = -u *.75;
     b.y = y + oy;
@@ -1680,8 +1680,8 @@ OCODoc.prototype.newSnakeSpine = function( head, spine, position )
         limb.armature.push(b);
         b.children.push(s);
 
-        var bt = new OCOBone( i18n._("Head") +
-            '_' + i18n._("Tip") );
+        var bt = new OCOBone( i18n._p("Anatomy", "Head") +
+            '_' + i18n._p("Anatomy", "Tip") );
         bt.type = OCO.Bone.SKULL_TIP;
         bt.x = x + u*.2;
         bt.y = y;
@@ -1716,7 +1716,7 @@ OCODoc.prototype.newFishSpine = function( head, spine, position )
 
     // Create limb
     var limb = this.newLimb( OCO.Limb.FISH_SPINE, OCO.Side.NONE, OCO.Location.NONE );
-    var b = limb.newArmature( i18n._("Spine"), num );
+    var b = limb.newArmature( i18n._p("Anatomy", "Spine"), num );
 
     // hips position
     var ox = 0;
@@ -1735,7 +1735,7 @@ OCODoc.prototype.newFishSpine = function( head, spine, position )
     var spineLength = u / spine;
     for (var i = 0; i < spine; i++)
     {
-        b.name = i18n._("Spine");
+        b.name = i18n._p("Anatomy", "Spine");
         if ( i <= (spine-1) / 3) b.type = OCO.Bone.FISH_SPINE_ROOT;
         else if ( i <= (spine-1)*2 / 3) b.type = OCO.Bone.FISH_SPINE_MID;
         else b.type = OCO.Bone.FISH_SPINE_END;
@@ -1745,8 +1745,8 @@ OCODoc.prototype.newFishSpine = function( head, spine, position )
     }
 
     // Tip
-    b.name = i18n._("Spine") +
-        '_' + i18n._("Tip");
+    b.name = i18n._p("Anatomy", "Spine") +
+        '_' + i18n._p("Anatomy", "Tip");
     b.type = OCO.Bone.TIP;
     b.x = -u *.25;
     b.y = y + oy;
@@ -1754,7 +1754,7 @@ OCODoc.prototype.newFishSpine = function( head, spine, position )
     // Head
     if (head)
     {
-        var b = new OCOBone( i18n._("Head") );
+        var b = new OCOBone( i18n._p("Anatomy", "Head") );
         b.type = OCO.Bone.SKULL;
         b.x = x;
         b.y = y;
@@ -1764,8 +1764,8 @@ OCODoc.prototype.newFishSpine = function( head, spine, position )
         limb.armature.push(b);
         b.children.push(s);
 
-        var bt = new OCOBone( i18n._("Head") +
-            '_' + i18n._("Tip") );
+        var bt = new OCOBone( i18n._p("Anatomy", "Head") +
+            '_' + i18n._p("Anatomy", "Tip") );
         bt.type = OCO.Bone.SKULL_TIP;
         bt.x = x + u*.3;
         bt.y = y;
@@ -1819,14 +1819,14 @@ OCODoc.prototype.newFin = function( side, fishbones, view, position )
     }
 
     // Create root
-    var rootBone = new OCOBone( i18n._("Fin") );
+    var rootBone = new OCOBone( i18n._p("Anatomy", "Fin") );
     rootBone.type = OCO.Bone.FIN;
     rootBone.x = x + ox;
     rootBone.y = y + oy;
     limb.armature.push(rootBone);
     // Tip
-    var bt = new OCOBone( i18n._("Fin") +
-        '_' + i18n._("Tip") );
+    var bt = new OCOBone( i18n._p("Anatomy", "Fin") +
+        '_' + i18n._p("Anatomy", "Tip") );
     bt.type = OCO.Bone.TIP;
     bt.x = s * u * -.24 + ox;
     bt.y = u * .62 + oy;
@@ -1840,15 +1840,15 @@ OCODoc.prototype.newFin = function( side, fishbones, view, position )
 
     function createFishbone( xr, yr, xt, yt )
     {
-        var boneName = OCO._uniqueString( i18n._("Fishbone"), names);
+        var boneName = OCO._uniqueString( i18n._p("Anatomy", "Fishbone"), names);
         b = new OCOBone( boneName );
         b.type = OCO.Bone.FIN_FISHBONE;
         b.x = s * u * xr + ox;
         b.y = u * yr + oy;
 
         // tip
-        var boneName = OCO._uniqueString( i18n._("Fishbone") +
-            '_' + i18n._("Tip"), names);
+        var boneName = OCO._uniqueString( i18n._p("Anatomy", "Fishbone") +
+            '_' + i18n._p("Anatomy", "Tip"), names);
         var bt = new OCOBone( boneName );
         bt.type = OCO.Bone.TIP;
         bt.x = s * u * xt + ox;
