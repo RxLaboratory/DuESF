@@ -1,3 +1,5 @@
+@echo off
+
 cd ..
 cd ..
 del /s /q docs
@@ -17,5 +19,4 @@ cd ..
 cd ..
 cd docs
 xcopy /Y DuESF.html index.html
-echo duesf.rxlab.io > "CNAME"
 pause
