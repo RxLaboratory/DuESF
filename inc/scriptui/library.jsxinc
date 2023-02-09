@@ -309,6 +309,7 @@ DuScriptUI.library = function( container, library, options ) {
             }
             return;
         }
+
         if (libList.items.length > 0 && currentCmd.length > 0) {
             var item = libList.items[0];
             if (item.libType == 'parent') {
@@ -334,7 +335,12 @@ DuScriptUI.library = function( container, library, options ) {
         parseCmd();
         cmdEdit.setText(cmdEdit.text + ' ');
         parseCmd();
-        if (libList.items.length < 0) return;
+        if (libList.items.length == 0) {
+            cmdEdit.setText('');
+            parseCmd();
+            tipLabel.text = i18n._("Item not found.");
+            return;
+        }
         var item = libList.items[0];
         if (item.libType == 'item') {
             duLibrary.onRun(item);
@@ -374,15 +380,12 @@ DuScriptUI.library = function( container, library, options ) {
     };
 
     duLibrary.clear = function () {
-        var currentCmd = cmdEdit.text;
         // Empty
-        if ( DuString.fullTrim(currentCmd) == '') {
-            currentCommand = [];
-            updateBreadCrumbs();
-            updateCategory();
-        }
+        currentCommand = [];
         cmdEdit.setText('');
-        parseCmd();
+        updateBreadCrumbs();
+        updateCategory();
+        //parseCmd();
     };
 
     duLibrary.refresh = function () {
