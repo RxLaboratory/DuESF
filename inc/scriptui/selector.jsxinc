@@ -298,7 +298,8 @@ DuScriptUI.selector = function( container, helpTip, iconOnly )
         else
         {
             var index = selector.index;
-            if ( e.ctrlKey ) index = -1;
+            if ( e.ctrlKey && DuSystem.win ) index = -1;
+            if ( e.metaKey && DuSystem.mac ) index = -1;
             if ( index == selector.items.length - 1 ) index = 0;
             else index++;
             selector.setCurrentIndex( index );

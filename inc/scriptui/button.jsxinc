@@ -392,10 +392,14 @@ DuScriptUI.button = function(container, text, image, helpTip, addOptionsPanel, o
         duButton.screenX = e.screenX - e.clientX;
         duButton.screenY = e.screenY - e.clientY;
 
+        var ctrl = false;
+        if (DuSystem.win && e.ctrlKey) ctrl = true;
+        if (DuSystem.mac && e.metaKey) ctrl = true;
+
         if (e.shiftKey) duButton.shiftClicked();
-        else if (e.altKey && e.ctrlKey) duButton.ctrlAltClicked();
+        else if (e.altKey && ctrl) duButton.ctrlAltClicked();
         else if (e.altKey) duButton.altClicked();
-        else if (e.ctrlKey) duButton.ctrlClicked();
+        else if (ctrl) duButton.ctrlClicked();
         else duButton.clicked();
     }
 
