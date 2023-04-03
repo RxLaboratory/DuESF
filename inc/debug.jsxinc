@@ -100,6 +100,13 @@ DuDebug.safeRun = function (callback)
 		DuDebug.error(error);
 		return null;
 	}
+	finally
+	{
+		// Try to close any undo group
+		if (DuESF.host == DuESF.HostApplication.AFTER_EFFECTS) {
+			app.endUndoGroup();
+		}
+	}
 }
 
 /**
