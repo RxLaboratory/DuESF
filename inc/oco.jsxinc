@@ -1,9 +1,24 @@
 /**
- * Methods to load and create OCO (Open Cut Out) Documents and armatures
- * @namespace
- * @category OCO
+ * The Main OCO Class
+ * @class
+ * @classdesc The Open Cut-Out Library.
+ * @param {string} [libPath] The path containing the library and settings
  */
-var OCO = {};
+function OCO( libPath ) {
+
+    if (OCO._instance === null) {
+        var defaultPath = OCO.libraryPath = Folder.myDocuments.absoluteURI + "/OCO/OCO Library";
+        if (!OCO._canWrite( defaultPath )) defaultPath = Folder.temp.absoluteURI + "/OCO/OCO Library";
+
+        OCO.setLibraryPath( defaultPath );
+
+        OCO._instance = this;
+    }
+    
+    return OCO._instance;
+}
+
+OCO._instance = null;
 
 /**
  * Types of OCO armatures
@@ -145,10 +160,22 @@ OCO.ImageEncoding = {
  * The path where the OCO Library is stored.
  * This is in the User Documents/OCO/OCO Library if the script has write access in this folder.<br/>
  * In rare cases on MacOS we can't write files in the documents folder. In this case the default library path in a temp folder.<br/>
- * You can change this path to a custom path before using the OCO API.
+ * You can change this path to a custom path before using the OCO API using {@link OCO.setLibraryPath}.
  * @type {string}
  */
 OCO.libraryPath = "";
+
+/**
+ * The settings shared by all OCO plugins/scripts/etc
+ * @type {DuSettings}
+ */
+OCO.settings = null;
+
+/**
+ * The OCO library metadata
+ * @type {DuSettings}
+ */
+OCO.libraryMetaData = null;
 
 // === PRIVATE ===
 
@@ -513,9 +540,19 @@ OCO._linear = function(value, min, max, targetMin, targetMax, clamp) {
     return result;
 }
 
-// === INIT ===
-if ( OCO._canWrite( Folder.myDocuments ) ) OCO.libraryPath = Folder.myDocuments.absoluteURI + "/OCO/OCO Library";
-else OCO.libraryPath = Folder.temp.absoluteURI + "/OCO/OCO Library";
+/**
+ * Sets a new path for the library and settings
+ * @param {string} newPath The new path
+ */
+OCO.setLibraryPath = function( newPath ) {
+    OCO.libraryPath = newPath;
+
+    var libFolder = new Folder(newPath);
+    if (!libFolder.exists) libFolder.create();
+
+    OCO.settings = new DuSettings("OCO_Settings", libFolder.absoluteURI + "/OCO_Settings.json");
+    OCO.libraryMetaData = new DuSettings("OCO_library", libFolder.absoluteURI + "/OCO_library.json");
+}
 
 /**
  * Creates a new OCO Document.
