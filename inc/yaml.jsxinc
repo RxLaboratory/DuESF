@@ -19,7 +19,7 @@ DuYAML.load = function (yaml_string) {
     var startLine = 0
     for (var i = 0, n = yaml.length; i < n; i++) {
         var line = yaml[i];
-        line = DuString.fullTrim(line);
+        line = DuYAML._trim(line);
         if (line == '---') {
             startLine = i+1;
             break;
@@ -56,7 +56,7 @@ DuYAML._load_block = function( yaml_array, startIndex ) {
 
     // Parse the first line to knonw what we're getting (obj or array)
     var line = yaml_array[startIndex];
-    var indentation = DuString.indentation(line);
+    var indentation = DuYAML._indentation(line);
     var lineData = DuYAML._parse_line( line );
     var key = lineData[0];
     var value = lineData[1];
@@ -78,9 +78,9 @@ DuYAML._load_block = function( yaml_array, startIndex ) {
         if (line == '...') return [obj,n];
 
         // Ignore empty lines
-        if (DuString.fullTrim(line) == '') continue;
+        if (DuYAML._trim(line) == '') continue;
 
-        currentIndentation = DuString.indentation(line);
+        currentIndentation = DuYAML._indentation(line);
         // Finished
         if (currentIndentation < indentation) return [obj,i-1];
 
@@ -131,8 +131,8 @@ DuYAML._load_block = function( yaml_array, startIndex ) {
             var nextLine = yaml_array[j];
             if (nextLine == '...') return [obj, n];
 
-            if (DuString.fullTrim(nextLine) == '') continue;
-            nextIndentation = DuString.indentation(nextLine);
+            if (DuYAML._trim(nextLine) == '') continue;
+            nextIndentation = DuYAML._indentation(nextLine);
 
             if (nextIndentation <= indentation) {
                 throw 'YAML Value Error at line ' + i + ': Key "' + key + '" doesn\'t have a value.';
@@ -247,15 +247,15 @@ DuYAML._dump_value = function(val) {
 }
 
 DuYAML._is_comment = function( str ) {
-    str = DuString.fullTrim(str);
-    return DuString.startsWith(str, '#');
+    str = DuYAML._trim(str);
+    return str.indexOf('#') == 0;
 }
 
 DuYAML._parse_line = function( str ) {
 
     if (DuYAML._is_comment( str )) return ['',''];
 
-    str = DuString.fullTrim(str);
+    str = DuYAML._trim(str);
     if (str == '') return ['',''];
 
     // Check if there's a colon
@@ -294,7 +294,7 @@ DuYAML._parse_line = function( str ) {
 }
 
 DuYAML._parse_value = function ( str ) {
-    str = DuString.fullTrim(str);
+    str = DuYAML._trim(str);
 
     // if this is the start of a paragraph
     if ( str == '>' || str == '|') {
@@ -317,30 +317,69 @@ DuYAML._parse_value = function ( str ) {
 
     // Remove the comment if any
     str = str.split('# ')[0];
-    str = DuString.fullTrim(str);
+    str = DuYAML._trim(str);
 
     // This may be a bool
     if (str.toLowerCase() == 'true') return true;
     if (str.toLowerCase() == 'false') return false;
 
     // Is it a float?
-    if ( DuString.isFloat(str) ) return parseFloat(str);
+    if ( DuYAML._is_float(str) ) return parseFloat(str);
     // Or an int?
-    if ( DuString.isInt(str) ) return parseInt(str);
+    if ( DuYAML._is_int(str) ) return parseInt(str);
 
     // Let's keep it as a string
     return str;
 }
 
 DuYAML._parse_key = function (str) {
-    str = DuString.fullTrim(str);
+    str = DuYAML._trim(str);
     str = str.replace(':','');
-    if (DuString.startsWith(str, '- ')) str = str.substring(2);
+    if (str.indexOf('- ') == 0) str = str.substring(2);
     return str;
 }
 
 DuYAML._string_quote = function(str) {
-    if ( DuString.startsWith(str, '"') && DuString.endsWith(str, '"') ) return '"';
-    if ( DuString.startsWith(str, "'") && DuString.endsWith(str, "'") ) return "'";
+    if ( str.indexOf('"') == 0 && DuYAML._str_ends_with(str, '"') ) return '"';
+    if ( str.indexOf("'") == 0 && DuYAML._str_ends_with(str, "'") ) return "'";
     return '';
+}
+
+DuYAML._trim = function(str) {
+    var newStr = str.replace(/[\s\uFEFF\xA0]+/g, ' ');
+    return newStr.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
+}
+
+DuYAML._is_indented = function(str) {
+    if (DuYAML._trim(str) == '') return false;
+    return str.indexOf(' ') == 0 || str.indexOf('\t') == 0;
+}
+
+DuYAML._indentation = function(str) {
+    var testStr = str;
+
+    var c = 0;
+    while (DuYAML._is_indented(testStr)) {
+        testStr = testStr.substring(1);
+        c++;
+    }
+    return c;
+}
+
+DuYAML._is_float = function(str) {
+    var re = /^\d*\.\d+$/
+    return re.test( str );
+}
+
+DuYAML._is_int = function( str ) {
+    var re = /^\d+\.?$/
+    return re.test( str );
+}
+
+DuYAML._is_number = function( str ) {
+    return (DuYAML._is_int(str) || DuYAML._is_float(str));
+}
+
+DuYAML._str_ends_with = function (str, suffix) {
+    return str.indexOf(suffix, str.length - suffix.length) !== -1;
 }

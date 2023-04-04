@@ -381,5 +381,5 @@ DuString.isInt = function( str ) {
  * @return {boolean}
  */
 DuString.isNumber = function( str ) {
-    return (DuString.isNumber(str) || DuString.isFloat(str));
+    return (DuString.isInt(str) || DuString.isFloat(str));
 }
