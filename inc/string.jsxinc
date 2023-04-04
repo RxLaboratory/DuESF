@@ -328,3 +328,58 @@ DuString.contains = function(str, subStrs) {
     }
     return false;
 }
+
+/**
+ * Counts the spaces at the beginning of the line
+ * @param {string} str The string
+ * @return {int}
+ */
+DuString.indentation = function(str) {
+    var testStr = str;
+
+    var c = 0;
+    while (DuString.isIndented(testStr)) {
+        testStr = testStr.substring(1);
+        c++;
+    }
+    return c;
+}
+
+/**
+ * Checks if the string is indented (starts with a space or tab)
+ * @param {string} str The string to test
+ * @return {bool}
+ */
+DuString.isIndented = function(str) {
+    if (DuString.fullTrim(str) == '') return false;
+    return DuString.startsWith(str, ' ') || DuString.startsWith(str, '\t');
+}
+
+/**
+ * Checks if this string represents a float (strict, the string must include a ".")
+ * @param {string} str The string
+ * @return {boolean}
+ */
+DuString.isFloat = function( str ) {
+    var re = /^\d*\.\d+$/
+    return re.test( str );
+}
+
+/**
+ * Checks if this string represents an integer
+ * @param {string} str The string
+ * @return {boolean}
+ */
+DuString.isInt = function( str ) {
+    var re = /^\d+\.?$/
+    return re.test( str );
+}
+
+/**
+ * Checks if this string represents a number (int or float)
+ * @param {string} str The string
+ * @return {boolean}
+ */
+DuString.isNumber = function( str ) {
+    return (DuString.isNumber(str) || DuString.isFloat(str));
+}

@@ -16,6 +16,7 @@
 #include "inc/version.jsxinc"
 #include "inc/fuzzy-search.jsxinc"
 #include "inc/string.jsxinc"
+#include "inc/yaml.jsxinc"
 #include "inc/file.jsxinc"
 #include "inc/regexp.jsxinc"
 #include "inc/number.jsxinc"
