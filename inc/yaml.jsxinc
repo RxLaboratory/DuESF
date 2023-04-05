@@ -212,6 +212,7 @@ YAML._dump_object = function(obj, tab) {
         if (!obj.hasOwnProperty(key)) continue;
         
         var d = obj[key];
+        if (typeof d === 'undefined') continue;
 
         if (YAML._is_object(d)) {
 
