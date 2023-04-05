@@ -3,15 +3,15 @@
 * @namespace
 * @category DuESF
 */
-var DuYAML = {};
+var YAML = {};
 
 /**
  * Parses a string formatted in yaml.
- * @memberof DuYAML
+ * @memberof YAML
  * @param {string} yaml_string - The yaml to parse
  * @return {any|null} null if the yaml could not be parsed
  */
-DuYAML.load = function (yaml_string) {
+YAML.load = function (yaml_string) {
     // Split by lines
     yaml = yaml_string.split('\n');
 
@@ -19,50 +19,50 @@ DuYAML.load = function (yaml_string) {
     var startLine = 0
     for (var i = 0, n = yaml.length; i < n; i++) {
         var line = yaml[i];
-        line = DuYAML._trim(line);
+        line = YAML._trim(line);
         if (line == '---') {
             startLine = i+1;
             break;
         }
     }
 
-    return DuYAML._load_block( yaml, startLine )[0];
+    return YAML._load_block( yaml, startLine )[0];
 }
 
 /**
  * Dumps some data as a yaml string.
- * @memberof DuYAML
+ * @memberof YAML
  * @param {any} data The data
  * @param {int} [numIdents=2] The indentation
  * @return {string} The Yaml
  */
-DuYAML.dump = function( data, numIdents ) {
+YAML.dump = function( data, numIdents ) {
     if (typeof numIdents === 'undefined') numIdents = 2;
 
     var tab = '';
     while(tab.length < numIdents) tab += ' ';
     
     var lines = [];
-    if (DuYAML._is_object(data)) lines = DuYAML._dump_object(data, tab);
-    else if (data instanceof Array) lines = DuYAML._dump_array(data, tab);
-    else lines = [DuYAML._dump_value(data)];
+    if (YAML._is_object(data)) lines = YAML._dump_object(data, tab);
+    else if (data instanceof Array) lines = YAML._dump_array(data, tab);
+    else lines = [YAML._dump_value(data)];
 
     return lines.join('\n');
 }
 
 // PRIVATE METHODS //
 
-DuYAML._load_block = function( yaml_array, startIndex ) {
+YAML._load_block = function( yaml_array, startIndex ) {
 
     // Parse the first line to knonw what we're getting (obj or array)
     var line = yaml_array[startIndex];
-    var indentation = DuYAML._indentation(line);
-    var lineData = DuYAML._parse_line( line );
+    var indentation = YAML._indentation(line);
+    var lineData = YAML._parse_line( line );
     var key = lineData[0];
     var value = lineData[1];
 
     // If the line is empty, skip, get to the next
-    if (key === '' && value == '') return DuYAML._load_block( yaml_array, startIndex + 1);
+    if (key === '' && value === '') return YAML._load_block( yaml_array, startIndex + 1);
 
     var obj = null;
     if (key === '') obj = [];
@@ -78,13 +78,13 @@ DuYAML._load_block = function( yaml_array, startIndex ) {
         if (line == '...') return [obj,n];
 
         // Ignore empty lines
-        if (DuYAML._trim(line) == '') continue;
+        if (YAML._trim(line) == '') continue;
 
-        currentIndentation = DuYAML._indentation(line);
+        currentIndentation = YAML._indentation(line);
         // Finished
         if (currentIndentation < indentation) return [obj,i-1];
 
-        lineData = DuYAML._parse_line( line );
+        lineData = YAML._parse_line( line );
         key = lineData[0];
         value = lineData[1];
 
@@ -131,15 +131,15 @@ DuYAML._load_block = function( yaml_array, startIndex ) {
             var nextLine = yaml_array[j];
             if (nextLine == '...') return [obj, n];
 
-            if (DuYAML._trim(nextLine) == '') continue;
-            nextIndentation = DuYAML._indentation(nextLine);
+            if (YAML._trim(nextLine) == '') continue;
+            nextIndentation = YAML._indentation(nextLine);
 
             if (nextIndentation <= indentation) {
                 throw 'YAML Value Error at line ' + i + ': Key "' + key + '" doesn\'t have a value.';
                 break;
             }
 
-            var subBlock = DuYAML._load_block(yaml_array, j);
+            var subBlock = YAML._load_block(yaml_array, j);
 
             if (obj instanceof Array) {
                 var v = {};
@@ -159,7 +159,7 @@ DuYAML._load_block = function( yaml_array, startIndex ) {
     return [obj,n];
 }
 
-DuYAML._dump_array = function(array, tab) {
+YAML._dump_array = function(array, tab) {
 
     var lines = [];
 
@@ -168,11 +168,11 @@ DuYAML._dump_array = function(array, tab) {
 
         if (d instanceof Array)
             throw "YAML Dump Error: an array can't have another array in it's items. Sub-arrays must be included as objects.";
-        if (DuYAML._num_keys(d) > 1)
+        if (YAML._num_keys(d) > 1)
             throw "YAML Dump Error: an array can contain only objects with a single property, not objects with multiple properties.";
         
-        if (DuYAML._is_object(d)) {
-            var objLines = DuYAML._dump_object(d, tab);
+        if (YAML._is_object(d)) {
+            var objLines = YAML._dump_object(d, tab);
 
             lines.push('- ' + objLines[0])
 
@@ -181,14 +181,14 @@ DuYAML._dump_array = function(array, tab) {
             }
         }
         else {
-            lines.push('- ' + DuYAML._dump_value(d));
+            lines.push('- ' + YAML._dump_value(d));
         }
     }
 
     return lines;
 }
 
-DuYAML._is_object = function(obj) {
+YAML._is_object = function(obj) {
     if (obj instanceof Array) return false;
     for (var key in obj) {
         if (obj.hasOwnProperty(key)) return true;
@@ -196,7 +196,7 @@ DuYAML._is_object = function(obj) {
     return false;
 }
 
-DuYAML._num_keys = function(obj) {
+YAML._num_keys = function(obj) {
     if (obj instanceof Array) return 0;
     var i = 0;
     for (var key in obj) {
@@ -205,7 +205,7 @@ DuYAML._num_keys = function(obj) {
     return i;
 }
 
-DuYAML._dump_object = function(obj, tab) {
+YAML._dump_object = function(obj, tab) {
     var lines = [];
 
     for (var key in obj) {
@@ -213,11 +213,11 @@ DuYAML._dump_object = function(obj, tab) {
         
         var d = obj[key];
 
-        if (DuYAML._is_object(d)) {
+        if (YAML._is_object(d)) {
 
             lines.push(key + ':');
 
-            var objLines = DuYAML._dump_object(d, tab);
+            var objLines = YAML._dump_object(d, tab);
 
             for (var i = 0, n = objLines.length; i < n; i++) {
                 lines.push(tab + objLines[i]);
@@ -226,36 +226,55 @@ DuYAML._dump_object = function(obj, tab) {
         else if (d instanceof Array) {
             lines.push(key + ':');
 
-            var arrayLines = DuYAML._dump_array(d, tab);
+            var arrayLines = YAML._dump_array(d, tab);
             
             for (var i = 0, n = arrayLines.length; i < n; i++) {
                 lines.push(tab + arrayLines[i]);
             }
         }
         else {
-            lines.push(key + ': ' + DuYAML._dump_value(d));
+            lines.push(key + ': ' + YAML._dump_value(d));
         }
     }
 
     return lines;
 }
 
-DuYAML._dump_value = function(val) {
+YAML._dump_value = function(val) {
     //if (typeof val === 'string' || val instanceof String)
     //    return '"' + val + '"';
+    if (val instanceof Date) {
+        var hour = val.getHours();
+        var minute = val.getMinutes();
+        var second = val.getSeconds();
+        var day = val.getDate();
+        var month = val.getMonth();
+        var year = val.getFullYear();
+
+        return year + "-" + YAML._pad_int(month+1) + "-" + YAML._pad_int(day) + " " + YAML._pad_int(hour) + ":" + YAML._pad_int(minute) + ":" + YAML._pad_int(second);
+    }
     return val.toString();
 }
 
-DuYAML._is_comment = function( str ) {
-    str = DuYAML._trim(str);
+YAML._pad_int = function( val, numDigits) {
+    if (typeof numDigits === 'undefined')
+        numDigits = 2;
+    val = val.toString();
+    while(val.length < numDigits)
+        val = '0'+val;
+    return val;
+}
+
+YAML._is_comment = function( str ) {
+    str = YAML._trim(str);
     return str.indexOf('#') == 0;
 }
 
-DuYAML._parse_line = function( str ) {
+YAML._parse_line = function( str ) {
 
-    if (DuYAML._is_comment( str )) return ['',''];
+    if (YAML._is_comment( str )) return ['',''];
 
-    str = DuYAML._trim(str);
+    str = YAML._trim(str);
     if (str == '') return ['',''];
 
     // Check if there's a colon
@@ -272,29 +291,29 @@ DuYAML._parse_line = function( str ) {
         }
         // Remove the leading "-"
         str = str.substring(2);
-        return ['', DuYAML._parse_value(str)];
+        return ['', YAML._parse_value(str)];
     }
 
     // Just a key
     if (colonIndex == str.length -1)
-        return [ DuYAML._parse_key(str), '' ];
+        return [ YAML._parse_key(str), '' ];
 
     colonIndex = str.indexOf(': ');
 
     // Just a value
     if (colonIndex < 1) {
-        return ['', DuYAML._parse_value(str)];
+        return ['', YAML._parse_value(str)];
     }
 
     // Separate the value and the key
     return [
-        DuYAML._parse_key( str.substring(0, colonIndex) ),
-        DuYAML._parse_value( str.substring(colonIndex + 2))
+        YAML._parse_key( str.substring(0, colonIndex) ),
+        YAML._parse_value( str.substring(colonIndex + 2))
     ];
 }
 
-DuYAML._parse_value = function ( str ) {
-    str = DuYAML._trim(str);
+YAML._parse_value = function ( str ) {
+    str = YAML._trim(str);
 
     // if this is the start of a paragraph
     if ( str == '>' || str == '|') {
@@ -303,7 +322,7 @@ DuYAML._parse_value = function ( str ) {
     }
 
     // Check if this is a quoted string
-    var quote = DuYAML._string_quote(str);
+    var quote = YAML._string_quote(str);
     if ( quote != '' ) {
         if (quote == '"') {
             // Parse escaped stuff using JSON
@@ -317,69 +336,69 @@ DuYAML._parse_value = function ( str ) {
 
     // Remove the comment if any
     str = str.split('# ')[0];
-    str = DuYAML._trim(str);
+    str = YAML._trim(str);
 
     // This may be a bool
     if (str.toLowerCase() == 'true') return true;
     if (str.toLowerCase() == 'false') return false;
 
     // Is it a float?
-    if ( DuYAML._is_float(str) ) return parseFloat(str);
+    if ( YAML._is_float(str) ) return parseFloat(str);
     // Or an int?
-    if ( DuYAML._is_int(str) ) return parseInt(str);
+    if ( YAML._is_int(str) ) return parseInt(str);
 
     // Let's keep it as a string
     return str;
 }
 
-DuYAML._parse_key = function (str) {
-    str = DuYAML._trim(str);
+YAML._parse_key = function (str) {
+    str = YAML._trim(str);
     str = str.replace(':','');
     if (str.indexOf('- ') == 0) str = str.substring(2);
     return str;
 }
 
-DuYAML._string_quote = function(str) {
-    if ( str.indexOf('"') == 0 && DuYAML._str_ends_with(str, '"') ) return '"';
-    if ( str.indexOf("'") == 0 && DuYAML._str_ends_with(str, "'") ) return "'";
+YAML._string_quote = function(str) {
+    if ( str.indexOf('"') == 0 && YAML._str_ends_with(str, '"') ) return '"';
+    if ( str.indexOf("'") == 0 && YAML._str_ends_with(str, "'") ) return "'";
     return '';
 }
 
-DuYAML._trim = function(str) {
+YAML._trim = function(str) {
     var newStr = str.replace(/[\s\uFEFF\xA0]+/g, ' ');
     return newStr.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
 }
 
-DuYAML._is_indented = function(str) {
-    if (DuYAML._trim(str) == '') return false;
+YAML._is_indented = function(str) {
+    if (YAML._trim(str) == '') return false;
     return str.indexOf(' ') == 0 || str.indexOf('\t') == 0;
 }
 
-DuYAML._indentation = function(str) {
+YAML._indentation = function(str) {
     var testStr = str;
 
     var c = 0;
-    while (DuYAML._is_indented(testStr)) {
+    while (YAML._is_indented(testStr)) {
         testStr = testStr.substring(1);
         c++;
     }
     return c;
 }
 
-DuYAML._is_float = function(str) {
+YAML._is_float = function(str) {
     var re = /^\d*\.\d+$/
     return re.test( str );
 }
 
-DuYAML._is_int = function( str ) {
+YAML._is_int = function( str ) {
     var re = /^\d+\.?$/
     return re.test( str );
 }
 
-DuYAML._is_number = function( str ) {
-    return (DuYAML._is_int(str) || DuYAML._is_float(str));
+YAML._is_number = function( str ) {
+    return (YAML._is_int(str) || YAML._is_float(str));
 }
 
-DuYAML._str_ends_with = function (str, suffix) {
+YAML._str_ends_with = function (str, suffix) {
     return str.indexOf(suffix, str.length - suffix.length) !== -1;
 }
