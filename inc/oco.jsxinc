@@ -1,9 +1,9 @@
 /**
- * The Main OCO Class
- * @class
- * @classdesc The Open Cut-Out Library.
- * @param {string} [libPath] The path containing the library and settings
+ * The Open Cut Out library
+ * @namespace
  * @requires yaml.jsxinc
+ * @requires json.jsxinc
+ * @category OCO
  */
 var OCO = {};
 
@@ -198,14 +198,14 @@ OCO.getBounds = function ( armature )
 // Initializes OCO with the default values
 OCO._init = function() 
 {
-    // Set the default config path
-    new OCOConfig();
-
     var hostName = BridgeTalk.appName;
     var hostVersion = BridgeTalk.appVersion;
     // On Ae, app.version is more precise
     if (hostName == 'aftereffects') hostVersion = app.version;
     OCO._host = hostName + ' (' + hostVersion + ')';
+
+    // Set the default config path
+    new OCOConfig();
 }
 
 // Gets a value or a default value if it is undefined
@@ -450,6 +450,35 @@ OCO._absolutePath = function ( path, relativeTo )
     return absPath;
 }
 
+// Checks if a path is absolute
+OCO._is_path_absolute = function( path )
+{
+    var re = /^(?:[\/\\]|[a-zA-Z]:)/;
+    return re.test(path);
+}
+
+OCO._path_join = function( pathElements ) {
+    var path = pathElements.join('/');
+    path = path.split('/');
+    OCO._array_remove_empty_strings(path);
+    path = path.join('/').split('\\');
+    OCO._array_remove_empty_strings(path);
+    return path.join('/');
+}
+
+OCO._array_remove_empty_strings = function(arr, inplace) {
+    if(typeof inplace === 'undefined') inplace = true;
+    var newArr = [];
+    for (var i = arr.length-1; i >= 0; i--) {
+        if (arr[i] === '') {
+            if (!inplace) continue;
+            arr.splice(i,1);
+        }
+        if (!inplace) newArr.push(arr[i]);
+    }
+    if (!inplace) return newArr;
+}
+
 OCO._parseJsonFile = function (file )
 {
     if (!(file instanceof File)) file = new File(file);
@@ -463,12 +492,7 @@ OCO._parseJsonFile = function (file )
     return data;
 }
 
-/**
- * Measures the vector length between two points
- * @param {int[]} value1 - The first value
- * @param {int[]} value2 - The second value
- * @return {float} The length
- */
+// Measures the vector length between two points
 OCO._length = function(value1, value2) {
     if (typeof value1 !== typeof value2) {
         return null;
@@ -556,7 +580,7 @@ OCOConfig.prototype.setConfig = function( ocoConfigFile ) {
 
     // Get default path
     if (typeof ocoConfigFile === 'undefined') {
-        ocoConfigPath = OCO.libraryPath = Folder.myDocuments.absoluteURI + "/OCO/";
+        ocoConfigFile = Folder.myDocuments.absoluteURI + "/OCO/";
         if (!OCO._canWrite( ocoConfigFile )) ocoConfigFile = Folder.temp.absoluteURI + "/OCO/";
         ocoConfigFile += 'OCO.config';
     }
@@ -583,8 +607,8 @@ OCOConfig.prototype.setConfig = function( ocoConfigFile ) {
  * Get the current config file
  * @return {File|null} The File object representing the config file.
  */
-OCOConfig.prototype.configFile = function() {
-    return this._file;
+OCOConfig.prototype.absoluteURI = function() {
+    return this._file.absoluteURI;
 }
 
 /**
@@ -631,7 +655,7 @@ OCOConfig.prototype.set = function( key, value ) {
     fileContent += YAML.dump(root, 2);
 
     if (!this._file.open('w'))
-        throw "OCOConfig: IOError: The config file can't be opened in writing mode.";
+        throw "OCOConfig: IOError: The config file '" + this._file.absoluteURI + "' can't be opened in writing mode.";
     this._file.write(fileContent);
     this._file.close();
 }
@@ -673,6 +697,39 @@ OCOConfig.prototype._load = function() {
     data = YAML.load(data);
     if (!data) data = {};
     return data;
+}
+
+/**
+ * Creates a new OCO Library
+ * @class
+ * @classdesc A library is used to store and get metarigs
+ * @param {string|Folder} [path] The path of the library. If omitted, it will use the current path as saved in the current OCO.config; else it will be saved in the current OCO.config.
+ * @category OCO
+ */
+function OCOLibrary( path ) {
+    if(typeof path === 'undefined') path = this.absoluteURI();
+    else this.setPath(path);
+}
+
+OCOLibrary.prototype.setPath = function( path ) {
+    OCO.config.set("library/path", path);
+    if (!OCO._is_path_absolute(path))
+        path = OCO._absolutePath(path, OCO.config._file );
+    var folder = new Folder(path);
+    if (!folder.exists) folder.create();
+}
+
+OCOLibrary.prototype.absoluteURI = function() {
+    var libPath = OCO.config.get("library/path", "OCO Library");
+    if (OCO._is_path_absolute(libPath)) return libPath;
+    return OCO._absolutePath(libPath, OCO.config._file);
+}
+
+OCOLibrary.prototype.settingsAbsoluteURI = function() {
+    return OCO._path_join([
+        this.absoluteURI(),
+        "OCO_library.json"
+        ]);
 }
 
 /**
