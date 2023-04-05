@@ -3,22 +3,9 @@
  * @class
  * @classdesc The Open Cut-Out Library.
  * @param {string} [libPath] The path containing the library and settings
+ * @requires yaml.jsxinc
  */
-function OCO( libPath ) {
-
-    if (OCO._instance === null) {
-        var defaultPath = OCO.libraryPath = Folder.myDocuments.absoluteURI + "/OCO/OCO Library";
-        if (!OCO._canWrite( defaultPath )) defaultPath = Folder.temp.absoluteURI + "/OCO/OCO Library";
-
-        OCO.setLibraryPath( defaultPath );
-
-        OCO._instance = this;
-    }
-    
-    return OCO._instance;
-}
-
-OCO._instance = null;
+var OCO = {};
 
 /**
  * Types of OCO armatures
@@ -157,27 +144,69 @@ OCO.ImageEncoding = {
 }
 
 /**
- * The path where the OCO Library is stored.
- * This is in the User Documents/OCO/OCO Library if the script has write access in this folder.<br/>
- * In rare cases on MacOS we can't write files in the documents folder. In this case the default library path in a temp folder.<br/>
- * You can change this path to a custom path before using the OCO API using {@link OCO.setLibraryPath}.
- * @type {string}
+ * The OCO Configuration. This is changed everytime a new OCOConfig object is instantiated.
+ * @example
+ * new OCOConfig('path/to/the/OCO.config');
+ * OCO.config === ocoConf; // This is true, OCO.config has been changed by the previous line.
+ * var configPath = OCO.config.path(); // Returns the path of the current config file.
+ * @type {OCOConfig}
  */
-OCO.libraryPath = "";
+OCO.config = null;
 
 /**
- * The settings shared by all OCO plugins/scripts/etc
- * @type {DuSettings}
+ * Gets the boundaries of an armature (a chain of bones)
+ * @param {OCOBone[]} armature The chain of bones
+ * @returns {float[]} [left, top, right, bottom]
  */
-OCO.settings = null;
+OCO.getBounds = function ( armature )
+{
+    var left = 9999;
+    var right = -9999;
+    var top = 9999;
+    var bottom = -9999;
 
-/**
- * The OCO library metadata
- * @type {DuSettings}
- */
-OCO.libraryMetaData = null;
+    for (var i = 0, n = armature.length; i < n; i++)
+    {
+        var b = armature[i];
+        // Check current bone
+        if (b.x < left) left = b.x;
+        if (b.x > right) right = b.x;
+        if (b.y < bottom) bottom = b.y;
+        if (b.y > top) top = b.y;
+        // Check children
+        var childBounds = OCO.getBounds( b.children );
+        if (childBounds[0] < left) left = childBounds[0];
+        if (childBounds[1] < top) top = childBounds[1];
+        if (childBounds[2] < right) right = childBounds[2];
+        if (childBounds[3] < bottom) bottom = childBounds[3];
+        // Check other limbs
+        for ( var j = 0, nL = b.limbs.length; j < nL; j++ )
+        {
+            var limbBounds = b.limbs[i].bounds();
+            if (limbBounds[0] < left) left = limbBounds[0];
+            if (limbBounds[1] < top) top = limbBounds[1];
+            if (limbBounds[2] < right) right = limbBounds[2];
+            if (limbBounds[3] < bottom) bottom = limbBounds[3];
+        }
+    }
+
+    return [left, top, right, bottom];
+}
 
 // === PRIVATE ===
+
+// Initializes OCO with the default values
+OCO._init = function() 
+{
+    // Set the default config path
+    new OCOConfig();
+
+    var hostName = BridgeTalk.appName;
+    var hostVersion = BridgeTalk.appVersion;
+    // On Ae, app.version is more precise
+    if (hostName == 'aftereffects') hostVersion = app.version;
+    OCO._host = hostName + ' (' + hostVersion + ')';
+}
 
 // Gets a value or a default value if it is undefined
 OCO._d = function( val, defaultVal )
@@ -185,6 +214,7 @@ OCO._d = function( val, defaultVal )
 	return typeof val !== 'undefined' ? val : defaultVal;
 }
 
+// Escapes a string to be used in a regex
 OCO._escapeRegEx = function (string)
 {
 	return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
@@ -374,46 +404,6 @@ OCO._fromBase64 = function( b64, file )
     catch (e) { return null; }
 }
 
-/**
- * Gets the boundaries of an armature (a chain of bones)
- * @param {OCOBone[]} armature The chain of bones
- * @returns {float[]} [left, top, right, bottom]
- */
-OCO.getBounds = function ( armature )
-{
-    var left = 9999;
-    var right = -9999;
-    var top = 9999;
-    var bottom = -9999;
-
-    for (var i = 0, n = armature.length; i < n; i++)
-    {
-        var b = armature[i];
-        // Check current bone
-        if (b.x < left) left = b.x;
-        if (b.x > right) right = b.x;
-        if (b.y < bottom) bottom = b.y;
-        if (b.y > top) top = b.y;
-        // Check children
-        var childBounds = OCO.getBounds( b.children );
-        if (childBounds[0] < left) left = childBounds[0];
-        if (childBounds[1] < top) top = childBounds[1];
-        if (childBounds[2] < right) right = childBounds[2];
-        if (childBounds[3] < bottom) bottom = childBounds[3];
-        // Check other limbs
-        for ( var j = 0, nL = b.limbs.length; j < nL; j++ )
-        {
-            var limbBounds = b.limbs[i].bounds();
-            if (limbBounds[0] < left) left = limbBounds[0];
-            if (limbBounds[1] < top) top = limbBounds[1];
-            if (limbBounds[2] < right) right = limbBounds[2];
-            if (limbBounds[3] < bottom) bottom = limbBounds[3];
-        }
-    }
-
-    return [left, top, right, bottom];
-}
-
 // Makes a path relative to a file
 OCO._relativePath = function ( path, destinationFile )
 {
@@ -540,18 +530,149 @@ OCO._linear = function(value, min, max, targetMin, targetMax, clamp) {
     return result;
 }
 
+// === Classes ===
+
 /**
- * Sets a new path for the library and settings
- * @param {string} newPath The new path
+ * Sets a new config file to be used by OCO
+ * @class
+ * @classdesc Handles the global configuration of OCO
+ * @param {string|File} [ocoConfigFile] The config file to be used. If not set, will use the default file in the user's documents OCO folder.
+ * @category OCO
  */
-OCO.setLibraryPath = function( newPath ) {
-    OCO.libraryPath = newPath;
+function OCOConfig( ocoConfigFile )
+{
+    this.setConfig(ocoConfigFile);
+}
 
-    var libFolder = new Folder(newPath);
-    if (!libFolder.exists) libFolder.create();
+/**
+ * Sets the config file to be used by OCO
+ * @param {string|File} [ocoConfigFile] The config file to be used. If not set, will use the default file in the user's documents OCO folder.<br/>
+ * If this is a File object, it's encoding will be ignored and always be set to UTF-8, as per the OCO specifications.
+ * @return {boolean} Success.
+ */
+OCOConfig.prototype.setConfig = function( ocoConfigFile ) {
 
-    OCO.settings = new DuSettings("OCO_Settings", libFolder.absoluteURI + "/OCO_Settings.json");
-    OCO.libraryMetaData = new DuSettings("OCO_library", libFolder.absoluteURI + "/OCO_library.json");
+    this._file = null;
+
+    // Get default path
+    if (typeof ocoConfigFile === 'undefined') {
+        ocoConfigPath = OCO.libraryPath = Folder.myDocuments.absoluteURI + "/OCO/";
+        if (!OCO._canWrite( ocoConfigFile )) ocoConfigFile = Folder.temp.absoluteURI + "/OCO/";
+        ocoConfigFile += 'OCO.config';
+    }
+    // Make it a File object
+    if (!(ocoConfigFile instanceof File)) ocoConfigFile = new File(ocoConfigFile);
+
+    // Create path if it doesn't exists
+    var folder = ocoConfigFile.parent;
+    if (!folder.exists) folder.create();
+
+    // Set the file.
+    this._file = ocoConfigFile;
+    this._file.encoding = 'UTF-8';
+
+    // Create file if it doesn't exists
+    if (!this._file.exists) {
+        this.set('metadata/created', new Date());
+        this.set('metadata/created by', OCO._host);
+    }
+    OCO.config = this;
+}
+
+/**
+ * Get the current config file
+ * @return {File|null} The File object representing the config file.
+ */
+OCOConfig.prototype.configFile = function() {
+    return this._file;
+}
+
+/**
+ * Sets a new Key/Value pair in the config.
+ * The key 
+ * @param {string} key The key. It can be a path-like string (i.e. 'after effects/bone type').
+ * @param {*} value The value to set
+ */
+OCOConfig.prototype.set = function( key, value ) {
+    // Checks
+    if (typeof key === 'undefined') 
+        throw "OCOConfig: ArgError: missing key.";
+    if (typeof value === 'undefined')
+        throw "OCOConfig: ArgError: missing value.";
+    if (typeof key !== 'string' && !(key instanceof String))
+        throw "OCOConfig: TypeError: key must be a string."
+    if (key === '')
+        throw "OCO: ValueError: can't use an empty string as a key.";
+
+    // Update data
+    var root = this._load();
+    var data = root;
+    var keyArray = key.split('/');
+    var numKeys = keyArray.length;
+    for( var i = 0; i < numKeys -1; i++) {
+		data[keyArray[i]] = OCO._d( data[keyArray[i]], {});
+		data = data[keyArray[i]];
+	}
+    // Already the same value, return
+	if (data[keyArray[numKeys-1]] === value) return;
+
+    data[keyArray[numKeys-1]] = value;
+
+    root['metadata'] = OCO._d( root['metadata'], {});
+    root['metadata']['modified'] = new Date();
+    root['metadata']['modified by'] = OCO._host;
+
+    var fileContent = [
+        "---",
+        "# This is an Open Cut-Out Config file.",
+        ''
+    ].join('\n');
+
+    fileContent += YAML.dump(root, 2);
+
+    if (!this._file.open('w'))
+        throw "OCOConfig: IOError: The config file can't be opened in writing mode.";
+    this._file.write(fileContent);
+    this._file.close();
+}
+
+/**
+ * Gets a value from the config. The key can be a path separated by /
+ * @property {string} key The setting to get
+ * @property {*} [defaultValue=null] The default value if the key is not set in the settings
+ * @return {*} The value
+ */
+OCOConfig.prototype.get = function( key, defaultValue ) {
+    // Checks
+    if (typeof key === 'undefined') 
+        throw "OCOConfig: ArgError: missing key.";
+    if (typeof key !== 'string' && !(key instanceof String))
+        throw "OCOConfig: TypeError: key must be a string."
+    if (key === '')
+        throw "OCO: ValueError: can't use an empty string as a key.";
+
+    defaultValue = OCO._d(defaultValue, null);
+
+    var data = this._load();
+	var keyArray = key.split("/")
+	var numKeys = keyArray.length;
+	for( var i = 0; i < numKeys -1; i++) {
+		data = OCO._d( data[keyArray[i]], {});
+	}
+	return OCO._d( data[keyArray[numKeys-1]], defaultValue);
+}
+
+// === Private ===
+
+// Loads the config file
+OCOConfig.prototype._load = function() {
+    if (!this._file.exists) return {};
+    if (!this._file.open('r')) return {};
+    var data = this._file.read();
+    this._file.close();
+    data = YAML.load(data);
+    if (!data) data = {};
+    return data;
 }
 
 /**
@@ -2711,3 +2832,7 @@ OCOBone._zSorter = function (ba, bb)
 {
     return ba.zIndex - bb.zIndex;
 }
+
+// === INIT OCO on Include ===
+
+OCO._init();
