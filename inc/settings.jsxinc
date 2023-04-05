@@ -140,7 +140,7 @@ DuSettings.prototype.set = function( key, value )
 	var data = this.data;
 	for( var i = 0; i < numKeys -1; i++) {
 		data[keyArray[i]] = def( data[keyArray[i]], {});
-		data = data[keyArray[i]]
+		data = data[keyArray[i]];
 	}
 	data[keyArray[numKeys-1]] = value;
 }
