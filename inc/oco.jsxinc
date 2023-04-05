@@ -439,6 +439,10 @@ OCO._relativePath = function ( path, destinationFile )
 // Makes a path absolute
 OCO._absolutePath = function ( path, relativeTo )
 {
+    if (path.indexOf('~') == 0) {
+        path = new File(path);
+        return path.absoluteURI;
+    }
     if (!(relativeTo instanceof File)) relativeTo = new File(relativeTo);
     var absFolder = relativeTo.parent;
     while (path.indexOf("../") == 0)
@@ -448,6 +452,14 @@ OCO._absolutePath = function ( path, relativeTo )
     }
     var absPath = absFolder.absoluteURI + '/' + path;
     return absPath;
+}
+
+OCO._sanitize_path = function( path ) {
+    path = OCO._path_join([path]);
+    if (path.indexOf('~') == 0) {
+        path = new File(path);
+        return path.absoluteURI;
+    }
 }
 
 // Checks if a path is absolute
@@ -637,6 +649,11 @@ OCOConfig.prototype.set = function( key, value ) {
 		data[keyArray[i]] = OCO._d( data[keyArray[i]], {});
 		data = data[keyArray[i]];
 	}
+
+    // Sanitize data
+    var key = keyArray[numKeys-1];
+    if (key == 'path') value = OCO._sanitize_path(value);
+
     // Already the same value, return
 	if (data[keyArray[numKeys-1]] === value) return;
 
@@ -708,7 +725,7 @@ OCOConfig.prototype._load = function() {
  */
 function OCOLibrary( path ) {
     if(typeof path === 'undefined') path = this.absoluteURI();
-    else this.setPath(path);
+    this.setPath(path);
 }
 
 OCOLibrary.prototype.setPath = function( path ) {
