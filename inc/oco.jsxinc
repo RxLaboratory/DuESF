@@ -859,6 +859,20 @@ OCODoc.prototype.getSpine = function()
 }
 
 /**
+ * Recursively gets all the limbs contained in the doc
+ * @return {OCOLimb[]} The array of all limbs
+ */
+OCODoc.prototype.getLimbs = function()
+{
+    var limbs = this.limbs;
+    for (var i = 0, n = this.limbs.length; i < n; i++) 
+    {
+        limbs = limbs.concat( this.limbs[i].getLimbs() );
+    }
+    return limbs;
+}
+
+/**
     * Counts the total number of bones in this doc
     * @return {int}
     */
@@ -2421,6 +2435,20 @@ OCOLimb.prototype.numLimbs = function ()
 }
 
 /**
+ * Recursively gets all the children limbs of this limb
+ * @return {OCOLimb[]} The array of all limbs
+ */
+OCOLimb.prototype.getLimbs = function()
+{
+    var limbs = [];
+    for (var i = 0, n = this.armature.length; i < n; i++) 
+    {
+        limbs = limbs.concat( this.armature[i].getLimbs() );
+    }
+    return limbs;
+}
+
+/**
  * Gets the boundaries of the limb
  * @returns {float[]} [left, top, right, bottom]
  */
@@ -2717,6 +2745,20 @@ OCOBone.prototype.numLimbs = function ()
     count += this.limbs.length;
 
     return count;
+}
+
+/**
+ * Recursively gets all the children limbs of this bone
+ * @return {OCOLimb[]} The array of all limbs
+ */
+OCOBone.prototype.getLimbs = function()
+{
+    var limbs = this.limbs;
+    for (var i = 0, n = this.children.length; i < n; i++) 
+    {
+        limbs = limbs.concat( this.children[i].getLimbs() );
+    }
+    return limbs;
 }
 
 /**
