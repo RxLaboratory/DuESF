@@ -905,7 +905,7 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
     panel.bottomGroup = DuScriptUI.group(bottomUberGroup, 'row');
     panel.bottomGroup.margins = 0;
 
-    if (DuESF.bugReportURL != '' || addSettingsButton || addHelpButton || DuESF.translateURL != '')
+    /*if (DuESF.bugReportURL != '' || addSettingsButton || addHelpButton || DuESF.translateURL != '')
     {
         panel.moreButton = DuScriptUI.multiButton( panel.bottomGroup,
             {
@@ -964,6 +964,55 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
             var helpButton = DuScriptUI.addHelpButton( panel.moreButton, false );
             helpButton.alignment = ['left', 'fill'];
         }
+    }*/
+
+    if (DuESF.bugReportURL != '')
+    {
+        var bugButton = DuScriptUI.addBugButton( panel.bottomGroup );
+        bugButton.alignment = ['left', 'fill'];
+    }
+
+    if (addSettingsButton) {
+        var settingsButton =  DuScriptUI.button( panel.bottomGroup, {
+            text: '',
+            image: w12_settings,
+            helpTip: i18n._("Edit settings")
+        });
+        settingsButton.alignment = ['left', 'fill'];
+
+        settingsButton.onClick = function()
+        {
+            if (!rootSettingsGroup.visible)
+            {
+                if(panel.hasCommonSettings) panel.settingsGroup.reset();
+                panel.mainGroup.visible = false;
+                rootSettingsGroup.visible = true;
+            }
+            else
+            {
+                panel.mainGroup.visible = true;
+                rootSettingsGroup.visible = false;
+            }
+        }
+
+        settingsTitle.onClose = function()
+        {
+            if( panel.hasCommonSettings ) panel.settingsGroup.reset();
+            panel.mainGroup.visible = true;
+            rootSettingsGroup.visible = false;
+        }           
+    }
+
+    if (DuESF.translateURL != '')
+    {
+        var translateButton = DuScriptUI.addTranslateButton( panel.bottomGroup );
+        translateButton.alignment = ['left', 'fill'];
+    }
+
+    if (addHelpButton)
+    {
+        var helpButton = DuScriptUI.addHelpButton( panel.bottomGroup, false );
+        helpButton.alignment = ['left', 'fill'];
     }
 
     var donateButton = DuScriptUI.addDonateButton( panel.bottomGroup, true);
