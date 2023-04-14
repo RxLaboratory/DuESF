@@ -966,12 +966,6 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
         }
     }*/
 
-    if (DuESF.bugReportURL != '')
-    {
-        var bugButton = DuScriptUI.addBugButton( panel.bottomGroup );
-        bugButton.alignment = ['left', 'fill'];
-    }
-
     if (addSettingsButton) {
         var settingsButton =  DuScriptUI.button( panel.bottomGroup, {
             text: '',
@@ -1007,6 +1001,12 @@ DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, 
     {
         var translateButton = DuScriptUI.addTranslateButton( panel.bottomGroup );
         translateButton.alignment = ['left', 'fill'];
+    }
+
+    if (DuESF.bugReportURL != '')
+    {
+        var bugButton = DuScriptUI.addBugButton( panel.bottomGroup );
+        bugButton.alignment = ['left', 'fill'];
     }
 
     if (addHelpButton)
