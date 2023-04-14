@@ -221,6 +221,12 @@ DuESF.HostApplication = {
     PHOTOSHOP: 'photoshop',
     INDESIGN: 'indesign'
 }
+DuESF.HostApplicationName = {
+    'aftereffects': 'After Effects',
+    'illustrator': 'Illustrator',
+    'photoshop': 'Photoshop',
+    'indesign': 'InDesign',
+}
 DuESF.hostIsBeta = false;
 /**
  * The host application
@@ -266,6 +272,7 @@ DuESF.init = function( scriptName, scriptVersion, companyName )
     }
 
     DuESF.host = host;
+    DuESF.hostApplicationName = DuESF.HostApplicationName[host];
 
     DuESF.hostVersion = new DuVersion( BridgeTalk.appVersion );
     if (DuESF.host == DuESF.HostApplication.AFTER_EFFECTS) {
