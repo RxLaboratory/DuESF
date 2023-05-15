@@ -248,29 +248,32 @@ DuVersion.checkUpdate = function()
 		// Sanitize reply (strip http headers, and parse)
 		DuDebug.log( "Version check - Reply\r\n" + reply );
 		var replyBody = reply.substring( reply.indexOf('{'), reply.lastIndexOf('}')+1 );
+
 		if (DuString.fullTrim(replyBody) == '') {
 			if (DuESF.debug) alert("Can't check for updates:\nThe server did not reply.");
 			return null;
 		}
 
 		try {
-			replyBody = JSON.parse(replyBody);
-			// Parse lists
-			if (replyBody.description) {
-				var descriptionList = replyBody.description.split('\n');
-				for (var i = 0; i < descriptionList.length; i++) {
-					var trimmedLine = DuString.trim(descriptionList[i]);
-					if (DuString.startsWith(trimmedLine, "- ")) {
-						descriptionList[i] = descriptionList[i].replace("- ", "• ");
-					}
-				}
-				reply.description = descriptionList.join("\n");
-			}
+			reply = JSON.parse(replyBody);
 		}
 		catch (e) {
 			if (DuESF.debug) alert("Can't check for updates:\n" + e.message + '\n\nThis is the content of the server reply:\n\n' + reply);
+			return null;
 		}
-		
+
+		// Parse lists
+		if (reply['description']) {
+			var descriptionList = reply['description'].split('\n');
+			for (var i = 0; i < descriptionList.length; i++) {
+				var trimmedLine = DuString.trim(descriptionList[i]);
+				if (DuString.startsWith(trimmedLine, "- ")) {
+					descriptionList[i] = descriptionList[i].replace("- ", "• ");
+				}
+			}
+			reply.description = descriptionList.join("\n");
+		}
+
 		return reply;
     }
 
