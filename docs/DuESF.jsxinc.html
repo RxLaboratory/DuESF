@@ -5930,7 +5930,7 @@ DuVersion.checkUpdate = function()
 			for (var i = 0; i &lt; descriptionList.length; i++) {
 				var trimmedLine = DuString.trim(descriptionList[i]);
 				if (DuString.startsWith(trimmedLine, "- ")) {
-					descriptionList[i] = descriptionList[i].replace("- ", "• ");
+					descriptionList[i] = descriptionList[i].replace("- ", "\u2022 ");
 				}
 			}
 			reply.description = descriptionList.join("\n");
