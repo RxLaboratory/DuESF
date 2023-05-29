@@ -253,6 +253,7 @@ DuList.prototype.removeDuplicates = function(comparisonFunction) {
  * The items in the arrays must be compatible with the == operand if you don't provide a comparison function
  * @memberof DuList
  * @param {Array|Collection|DuList} other - The other list
+ * @param {function}	[comparisonFunction] - A function which compares two values which returns true if the values are considered the same.
  * @param {int} [floatPrecision=-1] - The precision for (float) number comparison, number of decimals. Set to -1 to not use.
  * @return {boolean} true if the two arrays contain the same values
  */

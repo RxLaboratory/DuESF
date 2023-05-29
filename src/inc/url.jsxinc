@@ -8,6 +8,7 @@ var DuURL = {};
 
 /**
  * The list of escaped characters in URLs
+ @enum {string}
  */
 DuURL.EscapedChars = {
     "%": "%25",

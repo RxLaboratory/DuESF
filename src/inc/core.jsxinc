@@ -66,7 +66,7 @@
  * @namespace
  * @author Nicolas Dufresne and contributors
  * @copyright 2021-2023 Nicolas Dufresne, RxLaboratory
- * @version 1.0.1
+ * @version {duesfVersion}
  * @license GPL-3.0 <br />
  * This program is free software: you can redistribute it and/or modify<br />
  * it under the terms of the GNU General Public License as published by<br />
@@ -90,7 +90,7 @@ var DuESF = {};
  * @memberof DuESF
  * @type {DuVersion}
  */
-DuESF.version = new DuVersion('1.0.1');
+DuESF.version = new DuVersion('{duesfVersion}');
 /**
  * Set to true and enable debug mode if you're a developper
  * @memberof DuESF
@@ -235,6 +235,7 @@ DuESF.hostIsBeta = false;
 DuESF.host = null;
 /**
  * The version of the host application
+ * @type {DuVersion}
  */
 DuESF.hostVersion = new DuVersion();
 /**

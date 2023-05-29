@@ -25,13 +25,13 @@
 /**
  * The function to execute when the index changes.<br />
  * The method is called after the index has changed.
- * @callback Selector~onChange
+ * @callback DuSelector~onChange
  * @memberof DuSelector
  */
 
 /**
  * The function to execute to refresh the content.
- * @callback Selector~onRefresh
+ * @callback DuSelector~onRefresh
  * @memberof DuSelector
  */
 

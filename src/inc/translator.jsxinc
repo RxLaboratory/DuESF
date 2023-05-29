@@ -366,6 +366,7 @@ var translationEngine = function (options) {
 // Init the engine
 /**
  * The translation engine
+ * @type {translationEngine}
  */
 var i18n = {};
 

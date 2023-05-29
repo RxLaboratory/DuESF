@@ -2670,6 +2670,7 @@ function OCOBone(name)
      * In a meta rig, this is a silhouette which will contain the design,
      * and can be used to help locate the joint, link the design to the bone, etc.<br/>
      * In a rigged character, this should be a simple silhouette close to the artwork silhouette.
+     * @type {Object}
      */
     this.envelop = {};
     /**

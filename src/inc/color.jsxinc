@@ -254,7 +254,7 @@ DuColor.prototype.toJSON = function ()
 /**
  * Creates a color adjusted according to the brightness setting of the application.<br />
  * For now, works only in After Effects
- * @return The new color
+ * @return {DuColor} The new color
  */
 DuColor.prototype.adjusted = function( )
 {
