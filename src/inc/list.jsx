@@ -48,9 +48,9 @@ function DuList(obj) {
             newList instanceof OMCollection ||
             newList instanceof RQItemCollection
         ) {
-            // @ts-ignore
+            /// @ts-ignore
             this.isCollection = true;
-            // @ts-ignore
+            /// @ts-ignore
             this.isArray = false;
         }
     }
@@ -181,7 +181,7 @@ DuList.prototype.indexOf = function(value, comparisonFunction) {
  * @return {Boolean}
  */
 DuList.prototype.contains = function(value, comparisonFunction) {
-    // @ts-ignore
+    /// @ts-ignore
     return this.indexOf(value, comparisonFunction) >= 0;
 }
 
@@ -239,18 +239,18 @@ DuList.prototype.removeDuplicates = function(comparisonFunction) {
     for (var i = 0, n = this.length(); i < n; i++) {
         for (var j = n - 1; j > i; j--) {
             if (!useFunction && this.at(i) == this.at(j)) {
-                // @ts-ignore The list  was converted to an array
+                /// @ts-ignore The list  was converted to an array
                 removed = removed.concat(this.list.splice(j, 1));
             } else if (useFunction && comparisonFunction(this.at(i), this.at(j))) {
-                // @ts-ignore The list  was converted to an array
+                /// @ts-ignore The list  was converted to an array
                 removed = removed.concat(this.list.splice(j, 1));
             }
         }
     }
 
-    // @ts-ignore
+    /// @ts-ignore
     this.valid = false;
-    // @ts-ignore
+    /// @ts-ignore
     this.current = -1;
 
     return new DuList(removed);
@@ -362,11 +362,11 @@ DuList.prototype.convertToArray = function(index) {
         arr.push(this.list[i]);
     }
 
-    // @ts-ignore
+    /// @ts-ignore
     this.isCollection = false;
-    // @ts-ignore
+    /// @ts-ignore
     this.isArray = true;
-    // @ts-ignore
+    /// @ts-ignore
     this.list = arr;
 
 }
@@ -379,12 +379,12 @@ DuList.prototype.convertToArray = function(index) {
 DuList.prototype.remove = function(index) {
     // Convert to an Array
     this.convertToArray();
-    // @ts-ignore The list was conerted to an Array
+    /// @ts-ignore The list was conerted to an Array
     this.list.splice(index, 1);
 
-    // @ts-ignore
+    /// @ts-ignore
     this.valid = false;
-    // @ts-ignore
+    /// @ts-ignore
     this.current = -1;
 }
 
@@ -402,9 +402,9 @@ DuList.prototype.removeOne = function(value, comparisonFunction) {
     var index = this.indexOf(value, comparisonFunction);
     if (index >= 0) this.remove(index);
 
-    // @ts-ignore
+    /// @ts-ignore
     this.valid = false;
-    // @ts-ignore
+    /// @ts-ignore
     this.current = -1;
 }
 
@@ -429,9 +429,9 @@ DuList.prototype.removeAll = function(value, comparisonFunction) {
     }
     while (index >= 0);
 
-    // @ts-ignore
+    /// @ts-ignore
     this.valid = false;
-    // @ts-ignore
+    /// @ts-ignore
     this.current = -1;
 
     return count;
@@ -448,17 +448,17 @@ DuList.prototype.sort = function(compareFunction) {
     // Convert to an Array
     this.convertToArray();
 
-    // @ts-ignore The list was converted to an Array
+    /// @ts-ignore The list was converted to an Array
     if (!isdef( compareFunction )) this.list.sort();
-    // @ts-ignore The list was converted to an Array
+    /// @ts-ignore The list was converted to an Array
     else this.list.sort(compareFunction);
 
-    // @ts-ignore
+    /// @ts-ignore
     this.valid = false;
-    // @ts-ignore
+    /// @ts-ignore
     this.current = -1;
 
-    // @ts-ignore The list was converted to an Array
+    /// @ts-ignore The list was converted to an Array
     return this.list;
 }
 
@@ -474,11 +474,11 @@ DuList.prototype.push = function() {
 
     var items = [];
     if (arguments.length == 1 && arguments[0] instanceof Array) items = arguments[0];
-    // @ts-ignore
+    /// @ts-ignore
     else items = arguments;
 
     for (var i = 0, n = items.length; i < n; i++) {
-        // @ts-ignore The list was converted to an Array
+        /// @ts-ignore The list was converted to an Array
         this.list.push(items[i]);
     }
 
@@ -498,7 +498,7 @@ DuList.prototype.concat = function(other) {
     // Convert to arrays
     other.convertToArray();
     current.convertToArray();
-    // @ts-ignore The list was converted to an Array
+    /// @ts-ignore The list was converted to an Array
     return new DuList( current.list.concat(other.list) );
 }
 
@@ -518,7 +518,7 @@ DuList.prototype.pushUnique = function(comparisonFunction) {
         items = arguments[1];
     }
     else {
-        // @ts-ignore
+        /// @ts-ignore
         items = arguments;
         i =  1;
     }
@@ -560,7 +560,7 @@ DuList.prototype.appendUnique = DuList.prototype.pushUnique;
 DuList.prototype.merge = function(arr) {
     this.convertToArray();
 
-    // @ts-ignore
+    /// @ts-ignore
     this.list = this.list.concat(arr);
 
     return this.list.length;
@@ -593,7 +593,7 @@ DuList.prototype.mergeUnique = function(arr, comparisonFunction) {
  * @return {string} The new length of the list.
  */
 DuList.prototype.join = function(separator) {
-    // @ts-ignore
+    /// @ts-ignore
     if (this.isArray) return this.list.join(separator);
 
     // Collection without "name" property
@@ -658,7 +658,7 @@ DuList.prototype.replace = function(previousValue, newValue, comparisonFunction)
  */
 DuList.prototype.pop = function() {
     this.convertToArray();
-    // @ts-ignore
+    /// @ts-ignore
     return this.list.pop();
 }
 
@@ -677,24 +677,24 @@ DuList.prototype.reinitIterator = function() {
  * @return {*} The item at index, or null if the index is invalid
  */
 DuList.prototype.goTo = function(index) {
-    // @ts-ignore
+    /// @ts-ignore
     this.current = index;
 
     var count = this.length();
 
-    // @ts-ignore
+    /// @ts-ignore
     if (this.current < 0 || this.current >= count) this.valid = false;
-    // @ts-ignore
+    /// @ts-ignore
     else this.valid = true;
 
-    // @ts-ignore
+    /// @ts-ignore
     if (this.current == 0) this.atStart = true;
-    // @ts-ignore
+    /// @ts-ignore
     else this.atStart = false;
 
-    // @ts-ignore
+    /// @ts-ignore
     if (this.current == count - 1) this.atEnd = true;
-    // @ts-ignore
+    /// @ts-ignore
     else this.atEnd = false;
 
     if (this.valid) return this.at(this.current);
@@ -774,9 +774,9 @@ DuList.prototype.do = function(callBack, reverse) {
     if (reverse)
     {
         for (var i = this.length() - 1; i >= 0; i--) {
-            // @ts-ignore
+            /// @ts-ignore
             this.valid = true;
-            // @ts-ignore
+            /// @ts-ignore
             this.current = i;
             callBack(this.at(i));
         }
@@ -784,9 +784,9 @@ DuList.prototype.do = function(callBack, reverse) {
     else
     {
         for (var i = 0, n = this.length(); i < n; i++) {
-            // @ts-ignore
+            /// @ts-ignore
             this.valid = true;
-            // @ts-ignore
+            /// @ts-ignore
             this.current = i;
             callBack(this.at(i));
         }
