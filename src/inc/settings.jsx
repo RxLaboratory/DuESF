@@ -112,8 +112,8 @@ DuSettings.prototype.reset = function()
 
 /**
  * Gets a value from the settings. The key can be a path separated by /
- * @property {string} key The setting to get
- * @property {*} [defaultValue=null] The default value if the key is not set in the settings
+ * @param {string} key The setting to get
+ * @param {*} [defaultValue=null] The default value if the key is not set in the settings
  * @return {*} The value
  */
 DuSettings.prototype.get = function( key, defaultValue )

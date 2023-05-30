@@ -276,8 +276,8 @@ DuColor.prototype.adjusted = function( )
 	* Enum for predefined colors. float [R,G,B,A]
 	* @readonly
 	* @static
-	* @enum {DuColor[]}
-	*/
+	* @enum {DuColor}
+	* @ts-ignore */
 DuColor.Color =
 {
 	TRANSPARENT: new DuColor([0,0,0,0]),

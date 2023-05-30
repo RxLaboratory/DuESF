@@ -256,9 +256,15 @@ DuESF.initMethods = [];
  * @type {function[]}
  */
 DuESF.enterRunTimeMethods = [];
+
+/**
+ * The settings used by DuESF
+ * @type {DuSettings}
+ */
+DuESF.settings = null;
+
 /**
  * This method has to be called once at the very beginning of the script, just after the inclusion of DuESF <code>#include DuESF.jsxinc</code>
- * @param {DuESF.host} hostApplication - The host application of the script.
  * @param {string} [scriptName="DuESF"] - The name of your script, as it has to be displayed in the UI and the filesystem
  * @param {string} [scriptVersion="0.0.0"] - The version of your script, in the form "XX.XX.XX-Comment", for example "1.0.12-Beta". The "-Comment" part is optional.
  * @param {string} [companyName="RxLaboratory"] - The name of the company/organisation/individual developping this script.
