@@ -163,23 +163,50 @@ DuMath.gaussRandom = function(min, max, bounded) {
 }
 
 /**
+ * Generates a zero value
+ * @param {number} dimensions The number of needed dimensions
+ * @return {number[]} Zero [0, ..., 0]
+ */
+DuMath.zero = function( dimensions ) {
+    var z = new Array(dimensions);
+    for (var i = 0; i < dimensions; i++) {
+        z[i] = 0;
+    }
+    return z;
+}
+
+/**
  * Measures the vector length between two points
- * @param {int[]} value1 - The first value
- * @param {int[]} value2 - The second value
- * @return {float} The length
+ * @param {number|number[]} value1 - The first value
+ * @param {number|number[]} [value2=[0,0]] - The second value. If omitted, returns the difference between the two first values of value1
+ * @return {number} The length
  */
 DuMath.length = function(value1, value2) {
-    if (typeof value1 !== typeof value2) {
-        return null;
+    if (typeof value2  === 'undefined') {
+        if (!(value1 instanceof Array)) return value1;
+        value2 = DuMath.zero(value1.length);
     }
-    if (value1.length > 0) {
-        var result = 0;
-        for (var dim = 0; dim < value1.length; dim++) {
-            result += (value1[dim] - value2[dim]) * (value1[dim] - value2[dim]);
-        }
-        result = Math.sqrt(result);
-        return result;
-    } else return Math.abs(value1 - value2);
+
+    if (typeof value1 !== typeof value2) {
+        throw "DuMath.length(): TypeError: value1 and value2 must be the same time but value is " + typeof value1 + " and value2 is " + typeof value2 + ".";
+    }
+
+    if (!(value1 instanceof Array)) {
+        value1 = [value1];
+        /// @ts-ignore
+        value2 = [value2];
+    }
+
+
+    /// @ts-ignore
+    while (value2.length < value1.length) value2.push(0);
+    
+    var result = 0;
+    for (var dim = 0; dim < value1.length; dim++) {
+        result += (value1[dim] - value2[dim]) * (value1[dim] - value2[dim]);
+    }
+    result = Math.sqrt(result);
+    return result;
 }
 
 /**
