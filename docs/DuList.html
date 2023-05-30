@@ -116,9 +116,9 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>DuList<span class="signature">()</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>DuList<span class="signature">(obj<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h2>
         
-            <div class="class-description">DuList helps manipulating JS Arrays and After Effects Collections the same way. It is faster than converting a Collection to an Array.<br />Other specific Adobe Lists in other Applications may be supported later.<br />The first item of a DuList is always at index 0, the last at index length-1.<br />Accessor is the <a href="DuList.html#at"><code>DuList.at()</code></a> method instead of <code>Array</code>.<br />List length is given by the <a href="DuList.html#length"><code>DuList.length()</code></a> method instead of a property.<br />DuList does not reimplement methods to add or remove items, use the source list instead with the <a href="DuList.html#list"><code>DuList.list()</code></a> propertyand the original methods (from the <code>Collection</code> instance or <code>Array</code>).<br />DuList can also be used as an iterator with iterator-like methods like <a href="DuList.html#next"><code>DuList.next()</code></a>.<br />You can also run a function on each item with <a href="DuList.html#do"><code>DuList.do()</code></a>.</div>
+            <div class="class-description">DuList helps manipulating JS Arrays and After Effects Collections the same way. It is faster than converting a Collection to an Array.<br />Other specific Adobe Lists in other Applications may be supported later.<br />The first item of a DuList is always at index 0, the last at index length-1.<br />Accessor is the <code>DuList.at()</code> method instead of <code>Array</code>.<br />List length is given by the <code>DuList.length()</code> method instead of a property.<br />DuList does not reimplement methods to add or remove items, use the source list instead with the <code>DuList.list()</code> propertyand the original methods (from the <code>Collection</code> instance or <code>Array</code>).<br />DuList can also be used as an iterator with iterator-like methods like <code>DuList.next()</code>.<br />You can also run a function on each item with <a href="DuList.html"><code>do DuList.do()</code></a>.</div>
         
     
 </header>
@@ -142,7 +142,7 @@
         
         <span class="code-name">
             
-                new DuList<span class="signature">()</span><span class="type-signature"></span>
+                new DuList<span class="signature">(obj<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span>
             
         </span>
     </h4>
@@ -162,6 +162,75 @@
 
 
 
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+            <th>Attributes</th>
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>obj</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Array.&lt;any></code>
+|
+
+<code class="param-type">Collection</code>
+|
+
+<code class="param-type"><a href="DuList.html">DuList</a></code>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+          &lt;optional><br>
+      
+
+      
+
+      
+      </td>
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -397,7 +466,7 @@
         <p class="tag-source">
             <a href="DuESF.jsxinc.html" class="button">View Source</a>
             <span>
-                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1526">line 1526</a>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1529">line 1529</a>
             </span>
         </p>
     
@@ -478,7 +547,7 @@
         <p class="tag-source">
             <a href="DuESF.jsxinc.html" class="button">View Source</a>
             <span>
-                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1518">line 1518</a>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1521">line 1521</a>
             </span>
         </p>
     
@@ -495,7 +564,7 @@
     <span class="method-parameter is-pulled-right">
         <label>Type:</label>
         
-<code class="param-type">int</code>
+<code class="param-type">number</code>
 
 
     </span>
@@ -559,7 +628,7 @@
         <p class="tag-source">
             <a href="DuESF.jsxinc.html" class="button">View Source</a>
             <span>
-                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1510">line 1510</a>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1513">line 1513</a>
             </span>
         </p>
     
@@ -640,7 +709,7 @@
         <p class="tag-source">
             <a href="DuESF.jsxinc.html" class="button">View Source</a>
             <span>
-                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1468">line 1468</a>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1469">line 1469</a>
             </span>
         </p>
     
@@ -721,7 +790,7 @@
         <p class="tag-source">
             <a href="DuESF.jsxinc.html" class="button">View Source</a>
             <span>
-                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1460">line 1460</a>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1461">line 1461</a>
             </span>
         </p>
     
@@ -805,7 +874,7 @@
         <p class="tag-source">
             <a href="DuESF.jsxinc.html" class="button">View Source</a>
             <span>
-                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1502">line 1502</a>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1505">line 1505</a>
             </span>
         </p>
     
@@ -886,7 +955,7 @@
         <p class="tag-source">
             <a href="DuESF.jsxinc.html" class="button">View Source</a>
             <span>
-                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1534">line 1534</a>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1537">line 1537</a>
             </span>
         </p>
     
@@ -977,6 +1046,9 @@
 |
 
 <code class="param-type">Collection</code>
+|
+
+<code class="param-type"><a href="DuList.html">DuList</a></code>
 
 
   
@@ -1034,7 +1106,7 @@
         <p class="tag-source">
             <a href="DuESF.jsxinc.html" class="button">View Source</a>
             <span>
-                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line2193">line 2193</a>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line2243">line 2243</a>
             </span>
         </p>
     
@@ -1156,7 +1228,7 @@
         <p class="tag-source">
             <a href="DuESF.jsxinc.html" class="button">View Source</a>
             <span>
-                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1934">line 1934</a>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1970">line 1970</a>
             </span>
         </p>
     
@@ -1253,7 +1325,7 @@
         <p class="tag-source">
             <a href="DuESF.jsxinc.html" class="button">View Source</a>
             <span>
-                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1943">line 1943</a>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1979">line 1979</a>
             </span>
         </p>
     
@@ -1343,7 +1415,7 @@
   <td class="type">
   
       
-<code class="param-type">int</code>
+<code class="param-type">number</code>
 
 
   
@@ -1401,7 +1473,7 @@
         <p class="tag-source">
             <a href="DuESF.jsxinc.html" class="button">View Source</a>
             <span>
-                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1567">line 1567</a>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1570">line 1570</a>
             </span>
         </p>
     
@@ -1577,7 +1649,7 @@
         <p class="tag-source">
             <a href="DuESF.jsxinc.html" class="button">View Source</a>
             <span>
-                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1902">line 1902</a>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1929">line 1929</a>
             </span>
         </p>
     
@@ -1795,7 +1867,7 @@
         <p class="tag-source">
             <a href="DuESF.jsxinc.html" class="button">View Source</a>
             <span>
-                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1615">line 1615</a>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1618">line 1618</a>
             </span>
         </p>
     
@@ -1915,7 +1987,7 @@
         <p class="tag-source">
             <a href="DuESF.jsxinc.html" class="button">View Source</a>
             <span>
-                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1782">line 1782</a>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1790">line 1790</a>
             </span>
         </p>
     
@@ -2012,7 +2084,7 @@
         <p class="tag-source">
             <a href="DuESF.jsxinc.html" class="button">View Source</a>
             <span>
-                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1552">line 1552</a>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1555">line 1555</a>
             </span>
         </p>
     
@@ -2143,7 +2215,7 @@
   <td class="type">
   
       
-<code class="param-type">Bool</code>
+<code class="param-type">Boolean</code>
 
 
   
@@ -2217,7 +2289,7 @@
         <p class="tag-source">
             <a href="DuESF.jsxinc.html" class="button">View Source</a>
             <span>
-                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line2155">line 2155</a>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line2201">line 2201</a>
             </span>
         </p>
     
@@ -2393,7 +2465,7 @@
   <td class="type">
   
       
-<code class="param-type">int</code>
+<code class="param-type">number</code>
 
 
   
@@ -2467,7 +2539,7 @@
         <p class="tag-source">
             <a href="DuESF.jsxinc.html" class="button">View Source</a>
             <span>
-                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1695">line 1695</a>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1703">line 1703</a>
             </span>
         </p>
     
@@ -2589,7 +2661,7 @@
         <p class="tag-source">
             <a href="DuESF.jsxinc.html" class="button">View Source</a>
             <span>
-                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1773">line 1773</a>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1781">line 1781</a>
             </span>
         </p>
     
@@ -2711,7 +2783,7 @@
         <p class="tag-source">
             <a href="DuESF.jsxinc.html" class="button">View Source</a>
             <span>
-                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1638">line 1638</a>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1642">line 1642</a>
             </span>
         </p>
     
@@ -2826,7 +2898,7 @@
   <td class="type">
   
       
-<code class="param-type">int</code>
+<code class="param-type">number</code>
 
 
   
@@ -2884,7 +2956,7 @@
         <p class="tag-source">
             <a href="DuESF.jsxinc.html" class="button">View Source</a>
             <span>
-                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line2075">line 2075</a>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line2114">line 2114</a>
             </span>
         </p>
     
@@ -3006,7 +3078,7 @@
         <p class="tag-source">
             <a href="DuESF.jsxinc.html" class="button">View Source</a>
             <span>
-                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line2097">line 2097</a>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line2143">line 2143</a>
             </span>
         </p>
     
@@ -3128,7 +3200,7 @@
         <p class="tag-source">
             <a href="DuESF.jsxinc.html" class="button">View Source</a>
             <span>
-                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line2106">line 2106</a>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line2152">line 2152</a>
             </span>
         </p>
     
@@ -3250,7 +3322,7 @@
         <p class="tag-source">
             <a href="DuESF.jsxinc.html" class="button">View Source</a>
             <span>
-                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1624">line 1624</a>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1628">line 1628</a>
             </span>
         </p>
     
@@ -3312,7 +3384,7 @@
         
         <span class="code-name">
             
-                indexOf<span class="signature">(value, comparisonFunction<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {int}</span>
+                indexOf<span class="signature">(value, comparisonFunction<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {number}</span>
             
         </span>
     </h4>
@@ -3468,7 +3540,7 @@
         <p class="tag-source">
             <a href="DuESF.jsxinc.html" class="button">View Source</a>
             <span>
-                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1595">line 1595</a>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1598">line 1598</a>
             </span>
         </p>
     
@@ -3505,7 +3577,7 @@
     <div class='column is-5 has-text-left'>
         <label>Type: </label>
         
-<code class="param-type">int</code>
+<code class="param-type">number</code>
 
 
     </div>
@@ -3590,7 +3662,7 @@
         <p class="tag-source">
             <a href="DuESF.jsxinc.html" class="button">View Source</a>
             <span>
-                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1756">line 1756</a>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1764">line 1764</a>
             </span>
         </p>
     
@@ -3761,7 +3833,7 @@
         <p class="tag-source">
             <a href="DuESF.jsxinc.html" class="button">View Source</a>
             <span>
-                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1993">line 1993</a>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line2030">line 2030</a>
             </span>
         </p>
     
@@ -3883,7 +3955,7 @@
         <p class="tag-source">
             <a href="DuESF.jsxinc.html" class="button">View Source</a>
             <span>
-                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1764">line 1764</a>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1772">line 1772</a>
             </span>
         </p>
     
@@ -3945,7 +4017,7 @@
         
         <span class="code-name">
             
-                length<span class="signature">()</span><span class="type-signature"> &rarr; {int}</span>
+                length<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span>
             
         </span>
     </h4>
@@ -4005,7 +4077,7 @@
         <p class="tag-source">
             <a href="DuESF.jsxinc.html" class="button">View Source</a>
             <span>
-                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1548">line 1548</a>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1551">line 1551</a>
             </span>
         </p>
     
@@ -4042,7 +4114,7 @@
     <div class='column is-5 has-text-left'>
         <label>Type: </label>
         
-<code class="param-type">int</code>
+<code class="param-type">number</code>
 
 
     </div>
@@ -4067,7 +4139,7 @@
         
         <span class="code-name">
             
-                merge<span class="signature">(arr)</span><span class="type-signature"> &rarr; {int}</span>
+                merge<span class="signature">(arr)</span><span class="type-signature"> &rarr; {number}</span>
             
         </span>
     </h4>
@@ -4178,7 +4250,7 @@
         <p class="tag-source">
             <a href="DuESF.jsxinc.html" class="button">View Source</a>
             <span>
-                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1959">line 1959</a>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1995">line 1995</a>
             </span>
         </p>
     
@@ -4215,7 +4287,7 @@
     <div class='column is-5 has-text-left'>
         <label>Type: </label>
         
-<code class="param-type">int</code>
+<code class="param-type">number</code>
 
 
     </div>
@@ -4240,7 +4312,7 @@
         
         <span class="code-name">
             
-                mergeUnique<span class="signature">(arr, comparisonFunction<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {int}</span>
+                mergeUnique<span class="signature">(arr, comparisonFunction<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {number}</span>
             
         </span>
     </h4>
@@ -4399,7 +4471,7 @@
         <p class="tag-source">
             <a href="DuESF.jsxinc.html" class="button">View Source</a>
             <span>
-                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1976">line 1976</a>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line2013">line 2013</a>
             </span>
         </p>
     
@@ -4436,7 +4508,7 @@
     <div class='column is-5 has-text-left'>
         <label>Type: </label>
         
-<code class="param-type">int</code>
+<code class="param-type">number</code>
 
 
     </div>
@@ -4521,7 +4593,7 @@
         <p class="tag-source">
             <a href="DuESF.jsxinc.html" class="button">View Source</a>
             <span>
-                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line2116">line 2116</a>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line2162">line 2162</a>
             </span>
         </p>
     
@@ -4643,7 +4715,7 @@
         <p class="tag-source">
             <a href="DuESF.jsxinc.html" class="button">View Source</a>
             <span>
-                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line2056">line 2056</a>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line2094">line 2094</a>
             </span>
         </p>
     
@@ -4768,7 +4840,7 @@
         <p class="tag-source">
             <a href="DuESF.jsxinc.html" class="button">View Source</a>
             <span>
-                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line2136">line 2136</a>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line2182">line 2182</a>
             </span>
         </p>
     
@@ -4830,7 +4902,7 @@
         
         <span class="code-name">
             
-                push<span class="signature">(element0, element1, elementN)</span><span class="type-signature"> &rarr; {int}</span>
+                push<span class="signature">(elements)</span><span class="type-signature"> &rarr; {number}</span>
             
         </span>
     </h4>
@@ -4877,13 +4949,13 @@
             
 <tr class="deep-level-0">
   
-      <td class="name"><code>element0</code></td>
+      <td class="name"><code>elements</code></td>
   
 
   <td class="type">
   
       
-<code class="param-type">any</code>
+<code class="param-type">Array.&lt;any></code>
 
 
   
@@ -4893,82 +4965,7 @@
 
   
 
-  <td class="description last">The element(s) to add to the end of the array.</td>
-</tr>
-
-
-        
-
-            
-<tr class="deep-level-0">
-  
-      <td class="name"><code>element1</code></td>
-  
-
-  <td class="type">
-  
-      
-<code class="param-type">any</code>
-
-
-  
-  </td>
-
-  
-
-  
-
-  <td class="description last">The element(s) to add to the end of the array.</td>
-</tr>
-
-
-        
-
-            
-<tr class="deep-level-0">
-  
-      <td class="name"><code>element...</code></td>
-  
-
-  <td class="type">
-  
-      
-<code class="param-type">any</code>
-
-
-  
-  </td>
-
-  
-
-  
-
-  <td class="description last">The element(s) to add to the end of the array.</td>
-</tr>
-
-
-        
-
-            
-<tr class="deep-level-0">
-  
-      <td class="name"><code>elementN</code></td>
-  
-
-  <td class="type">
-  
-      
-<code class="param-type">any</code>
-
-
-  
-  </td>
-
-  
-
-  
-
-  <td class="description last">The element(s) to add to the end of the array.</td>
+  <td class="description last">The element(s) to add to the end of the array. You can pass an array or multiple arguments</td>
 </tr>
 
 
@@ -5016,7 +5013,7 @@
         <p class="tag-source">
             <a href="DuESF.jsxinc.html" class="button">View Source</a>
             <span>
-                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1886">line 1886</a>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1907">line 1907</a>
             </span>
         </p>
     
@@ -5053,7 +5050,7 @@
     <div class='column is-5 has-text-left'>
         <label>Type: </label>
         
-<code class="param-type">int</code>
+<code class="param-type">number</code>
 
 
     </div>
@@ -5078,7 +5075,7 @@
         
         <span class="code-name">
             
-                pushUnique<span class="signature">(comparisonFunction, element0, element1, elementN)</span><span class="type-signature"> &rarr; {int}</span>
+                pushUnique<span class="signature">(comparisonFunction, element0)</span><span class="type-signature"> &rarr; {number}</span>
             
         </span>
     </h4>
@@ -5156,7 +5153,7 @@
   <td class="type">
   
       
-<code class="param-type">any</code>
+<code class="param-type">Array.&lt;any></code>
 
 
   
@@ -5166,82 +5163,7 @@
 
   
 
-  <td class="description last">The element(s) to add to the end of the array.</td>
-</tr>
-
-
-        
-
-            
-<tr class="deep-level-0">
-  
-      <td class="name"><code>element1</code></td>
-  
-
-  <td class="type">
-  
-      
-<code class="param-type">any</code>
-
-
-  
-  </td>
-
-  
-
-  
-
-  <td class="description last">The element(s) to add to the end of the array.</td>
-</tr>
-
-
-        
-
-            
-<tr class="deep-level-0">
-  
-      <td class="name"><code>element...</code></td>
-  
-
-  <td class="type">
-  
-      
-<code class="param-type">any</code>
-
-
-  
-  </td>
-
-  
-
-  
-
-  <td class="description last">The element(s) to add to the end of the array.</td>
-</tr>
-
-
-        
-
-            
-<tr class="deep-level-0">
-  
-      <td class="name"><code>elementN</code></td>
-  
-
-  <td class="type">
-  
-      
-<code class="param-type">any</code>
-
-
-  
-  </td>
-
-  
-
-  
-
-  <td class="description last">The element(s) to add to the end of the array.</td>
+  <td class="description last">The element(s) to add to the end of the array. You can pass an array or a list of separated arguments</td>
 </tr>
 
 
@@ -5289,7 +5211,7 @@
         <p class="tag-source">
             <a href="DuESF.jsxinc.html" class="button">View Source</a>
             <span>
-                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1922">line 1922</a>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1947">line 1947</a>
             </span>
         </p>
     
@@ -5326,7 +5248,7 @@
     <div class='column is-5 has-text-left'>
         <label>Type: </label>
         
-<code class="param-type">int</code>
+<code class="param-type">number</code>
 
 
     </div>
@@ -5411,7 +5333,7 @@
         <p class="tag-source">
             <a href="DuESF.jsxinc.html" class="button">View Source</a>
             <span>
-                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line2066">line 2066</a>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line2105">line 2105</a>
             </span>
         </p>
     
@@ -5501,7 +5423,7 @@
   <td class="type">
   
       
-<code class="param-type">int</code>
+<code class="param-type">number</code>
 
 
   
@@ -5559,7 +5481,7 @@
         <p class="tag-source">
             <a href="DuESF.jsxinc.html" class="button">View Source</a>
             <span>
-                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1803">line 1803</a>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1814">line 1814</a>
             </span>
         </p>
     
@@ -5596,7 +5518,7 @@
         
         <span class="code-name">
             
-                removeAll<span class="signature">(index, comparisonFunction<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {int}</span>
+                removeAll<span class="signature">(value, comparisonFunction<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {number}</span>
             
         </span>
     </h4>
@@ -5645,13 +5567,13 @@
             
 <tr class="deep-level-0">
   
-      <td class="name"><code>index</code></td>
+      <td class="name"><code>value</code></td>
   
 
   <td class="type">
   
       
-<code class="param-type">int</code>
+<code class="param-type">number</code>
 
 
   
@@ -5669,7 +5591,7 @@
 
   
 
-  <td class="description last">The index.</td>
+  <td class="description last">The value.</td>
 </tr>
 
 
@@ -5752,7 +5674,7 @@
         <p class="tag-source">
             <a href="DuESF.jsxinc.html" class="button">View Source</a>
             <span>
-                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1838">line 1838</a>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1854">line 1854</a>
             </span>
         </p>
     
@@ -5789,7 +5711,7 @@
     <div class='column is-5 has-text-left'>
         <label>Type: </label>
         
-<code class="param-type">int</code>
+<code class="param-type">number</code>
 
 
     </div>
@@ -5814,7 +5736,7 @@
         
         <span class="code-name">
             
-                removeDuplicates<span class="signature">(comparisonFunction<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Array}</span>
+                removeDuplicates<span class="signature">(comparisonFunction<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="DuList.html">DuList</a>}</span>
             
         </span>
     </h4>
@@ -5937,7 +5859,7 @@
         <p class="tag-source">
             <a href="DuESF.jsxinc.html" class="button">View Source</a>
             <span>
-                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1663">line 1663</a>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1667">line 1667</a>
             </span>
         </p>
     
@@ -5974,7 +5896,7 @@
     <div class='column is-5 has-text-left'>
         <label>Type: </label>
         
-<code class="param-type">Array</code>
+<code class="param-type"><a href="DuList.html">DuList</a></code>
 
 
     </div>
@@ -5999,7 +5921,7 @@
         
         <span class="code-name">
             
-                removeOne<span class="signature">(index, comparisonFunction<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span>
+                removeOne<span class="signature">(value, comparisonFunction<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span>
             
         </span>
     </h4>
@@ -6048,13 +5970,13 @@
             
 <tr class="deep-level-0">
   
-      <td class="name"><code>index</code></td>
+      <td class="name"><code>value</code></td>
   
 
   <td class="type">
   
       
-<code class="param-type">int</code>
+<code class="param-type">any</code>
 
 
   
@@ -6072,7 +5994,7 @@
 
   
 
-  <td class="description last">The index.</td>
+  <td class="description last">The value.</td>
 </tr>
 
 
@@ -6155,7 +6077,7 @@
         <p class="tag-source">
             <a href="DuESF.jsxinc.html" class="button">View Source</a>
             <span>
-                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1819">line 1819</a>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1833">line 1833</a>
             </span>
         </p>
     
@@ -6192,7 +6114,7 @@
         
         <span class="code-name">
             
-                replace<span class="signature">(what, with, comparisonFunction<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {int}</span>
+                replace<span class="signature">(previousValue, newValue, comparisonFunction<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {number}</span>
             
         </span>
     </h4>
@@ -6241,7 +6163,7 @@
             
 <tr class="deep-level-0">
   
-      <td class="name"><code>what</code></td>
+      <td class="name"><code>previousValue</code></td>
   
 
   <td class="type">
@@ -6274,7 +6196,7 @@
             
 <tr class="deep-level-0">
   
-      <td class="name"><code>with</code></td>
+      <td class="name"><code>newValue</code></td>
   
 
   <td class="type">
@@ -6381,7 +6303,7 @@
         <p class="tag-source">
             <a href="DuESF.jsxinc.html" class="button">View Source</a>
             <span>
-                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line2031">line 2031</a>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line2069">line 2069</a>
             </span>
         </p>
     
@@ -6418,7 +6340,7 @@
     <div class='column is-5 has-text-left'>
         <label>Type: </label>
         
-<code class="param-type">int</code>
+<code class="param-type">number</code>
 
 
     </div>
@@ -6554,7 +6476,7 @@
         <p class="tag-source">
             <a href="DuESF.jsxinc.html" class="button">View Source</a>
             <span>
-                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1864">line 1864</a>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line1882">line 1882</a>
             </span>
         </p>
     
