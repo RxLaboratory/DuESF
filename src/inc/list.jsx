@@ -11,7 +11,7 @@
  * and the original methods (from the <code>Collection</code> instance or <code>Array</code>).<br />
  * DuList can also be used as an iterator with iterator-like methods like {@link DuListnext DuList.next()}.<br />
  * You can also run a function on each item with {@link DuList do DuList.do()}.
- * @param {any[] | Collection | DuList} [obj]
+ * @param {any | any[] | Collection | DuList} [obj] If a single obj is passed, it's used as the only element in the list
  * @property {boolean} isCollection - true if the original list is an After Effects Collection, false otherwise
  * @property {boolean} isArray - true if the original  list is an Array, false otherwise
  * @category DuESF
