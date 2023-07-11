@@ -3263,9 +3263,9 @@ declare namespace DuScriptUI {
      * Creates a toolbar with a lighter background
      * @param container - The ScriptUI Object which will contain and display the toolbar.
      * @param [numCols] - The number of columns to use when adding the buttons.
-     * @returns The toolbar, a ScriptUI Group
+     * @returns The toolbar
      */
-    function toolBar(container: Panel | Window | Group, numCols?: number): Group;
+    function toolBar(container: Panel | Window | Group, numCols?: number): DuToolBar;
     /**
      * Adds a new {@link DuLibrary} to the container.
      * @param container - The ScriptUI Object which will contain and display the library.

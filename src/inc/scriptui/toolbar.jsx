@@ -25,7 +25,7 @@
  * Creates a toolbar with a lighter background
  * @param {Panel|Window|Group} container The ScriptUI Object which will contain and display the toolbar.
  * @param {Number} [numCols] The number of columns to use when adding the buttons.
- * @returns {Group} The toolbar, a ScriptUI Group
+ * @returns {DuToolBar} The toolbar
  */
 DuScriptUI.toolBar = function( container, numCols )
 {
