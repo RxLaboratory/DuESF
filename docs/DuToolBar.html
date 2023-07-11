@@ -5,7 +5,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> DuSeparator</title>
+  <title> DuToolBar</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -105,7 +105,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Class</p>
-                    <h1>DuSeparator</h1>
+                    <h1>DuToolBar</h1>
                 </header>
                 
 
@@ -116,9 +116,9 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>DuSeparator<span class="signature">()</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>DuToolBar<span class="signature">()</span><span class="type-signature"></span></h2>
         
-            <div class="class-description">For use with <a href="DuScriptUI.html"><code>DuScriptUI</code></a>.<br />A DuSeparator.<br />This is not a real class, and cannot be instanciated.<br />Use <a href="DuScriptUI.html#.separator"><code>DuScriptUI.separator</code></a> to create a DuSeparator.<br />The DuSeparator inherits the Group object from ScriptUI and has all of its properties and methods.</div>
+            <div class="class-description">For use with <a href="DuScriptUI.html"><code>DuScriptUI</code></a>.<br />A Tool Bar.<br />This is not a real class, and cannot be instanciated.<br />Use <a href="DuScriptUI.html#.toolBar"><code>DuScriptUI.toolBar</code></a> to create a Tool Bar.<br />The DuToolBar inherits the <code>Group</code> object from ScriptUI and has all of its properties and methods.</div>
         
     
 </header>
@@ -137,12 +137,12 @@
 
 
     
-    <h4 class="name" id="DuSeparator">
-        <a class="href-link" href="#DuSeparator">#</a>
+    <h4 class="name" id="DuToolBar">
+        <a class="href-link" href="#DuToolBar">#</a>
         
         <span class="code-name">
             
-                new DuSeparator<span class="signature">()</span><span class="type-signature"></span>
+                new DuToolBar<span class="signature">()</span><span class="type-signature"></span>
             
         </span>
     </h4>
@@ -160,84 +160,6 @@
 
 
 
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-<div class="table-container">
-    <table class="props table">
-        <thead>
-        <tr>
-            
-            <th>Name</th>
-            
-
-            <th>Type</th>
-
-            
-
-            
-
-            <th class="last">Description</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        
-            
-<tr class="deep-level-0">
-    
-        <td class="name"><code>label</code></td>
-    
-
-    <td class="type">
-    
-        
-<code class="param-type">StaticText</code>
-|
-
-<code class="param-type">CheckBox</code>
-
-
-    
-    </td>
-
-    
-
-    
-
-    <td class="description last">the label</td>
-</tr>
-
-        
-            
-<tr class="deep-level-0">
-    
-        <td class="name"><code>checkable</code></td>
-    
-
-    <td class="type">
-    
-        
-<code class="param-type">boolean</code>
-
-
-    
-    </td>
-
-    
-
-    
-
-    <td class="description last">Read-Only | true if a checkbox is displayed</td>
-</tr>
-
-        
-        </tbody>
-    </table>
-</div>
 
 
 
@@ -276,7 +198,7 @@
         <p class="tag-source">
             <a href="DuESF.jsxinc.html" class="button">View Source</a>
             <span>
-                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line12349">line 12349</a>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line14868">line 14868</a>
             </span>
         </p>
     
@@ -324,6 +246,341 @@
 
     
 
+    
+        <div class='vertical-section'>
+            <h1>Methods</h1>
+            <div class="members">
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id=".addutton">
+        <a class="href-link" href="#.addutton">#</a>
+        
+            
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            
+                addutton<span class="signature">(text, icon<span class="signature-attributes">opt</span>, helpTip<span class="signature-attributes">opt</span>, addOptions<span class="signature-attributes">opt</span>, optionsWithoutPanel<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Changes the background color of the button.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+            <th>Attributes</th>
+            
+
+            
+            <th>Default</th>
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>text</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">string</code>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+
+      
+
+      
+      </td>
+  
+
+  
+      <td class="default">
+      
+      </td>
+  
+
+  <td class="description last">The button text.</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>icon</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">string</code>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+          &lt;optional><br>
+      
+
+      
+
+      
+      </td>
+  
+
+  
+      <td class="default">
+      
+      </td>
+  
+
+  <td class="description last">The path to the icon</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>helpTip</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">string</code>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+          &lt;optional><br>
+      
+
+      
+
+      
+      </td>
+  
+
+  
+      <td class="default">
+      
+      </td>
+  
+
+  <td class="description last">The button help tip</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>addOptions</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Boolean</code>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+          &lt;optional><br>
+      
+
+      
+
+      
+      </td>
+  
+
+  
+      <td class="default">
+      
+          false
+      
+      </td>
+  
+
+  <td class="description last">Whether to add more options</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>optionsWithoutPanel</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Boolean</code>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+          &lt;optional><br>
+      
+
+      
+
+      
+      </td>
+  
+
+  
+      <td class="default">
+      
+          false
+      
+      </td>
+  
+
+  <td class="description last">Whether the options need a dedicated panel</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="DuESF.jsxinc.html" class="button">View Source</a>
+            <span>
+                <a href="DuESF.jsxinc.html">DuESF.jsxinc</a>, <a href="DuESF.jsxinc.html#line14879">line 14879</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+            </div>
+        </div>
     
 
     

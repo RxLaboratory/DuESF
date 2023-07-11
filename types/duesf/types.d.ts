@@ -3265,7 +3265,7 @@ declare namespace DuScriptUI {
      * @param [numCols] - The number of columns to use when adding the buttons.
      * @returns The toolbar, a ScriptUI Group
      */
-    function toolBar(container: Panel | Window | Group, numCols?: int): Group;
+    function toolBar(container: Panel | Window | Group, numCols?: number): Group;
     /**
      * Adds a new {@link DuLibrary} to the container.
      * @param container - The ScriptUI Object which will contain and display the library.
@@ -4279,6 +4279,25 @@ declare class DuProgressBar {
      * Closes the progress bar
      */
     close(): void;
+}
+
+/**
+ * For use with {@link DuScriptUI}.<br />
+A Tool Bar.<br />
+This is not a real class, and cannot be instanciated.<br />
+Use {@link DuScriptUI.toolBar} to create a Tool Bar.<br />
+The DuToolBar inherits the <code>Group</code> object from ScriptUI and has all of its properties and methods.
+ */
+declare class DuToolBar {
+    /**
+     * Changes the background color of the button.
+     * @param text - The button text.
+     * @param [icon] - The path to the icon
+     * @param [helpTip] - The button help tip
+     * @param [addOptions = false] - Whether to add more options
+     * @param [optionsWithoutPanel = false] - Whether the options need a dedicated panel
+     */
+    static addutton(text: string, icon?: string, helpTip?: string, addOptions?: boolean, optionsWithoutPanel?: boolean): void;
 }
 
 /**

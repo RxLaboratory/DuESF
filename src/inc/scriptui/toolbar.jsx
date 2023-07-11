@@ -1,7 +1,30 @@
 /**
+ * @class
+ * @name DuToolBar
+ * @classdesc For use with {@link DuScriptUI}.<br />
+ * A Tool Bar.<br />
+ * This is not a real class, and cannot be instanciated.<br />
+ * Use {@link DuScriptUI.toolBar} to create a Tool Bar.<br />
+ * The DuToolBar inherits the <code>Group</code> object from ScriptUI and has all of its properties and methods.
+ * @category DuScriptUI
+ */
+
+/**
+ * Changes the background color of the button.
+ * @method
+ * @memberof DuToolBar
+ * @name addutton
+ * @param {string} text The button text.
+ * @param {string} [icon] The path to the icon
+ * @param {string} [helpTip] The button help tip
+ * @param {Boolean} [addOptions=false] Whether to add more options
+ * @param {Boolean} [optionsWithoutPanel=false] Whether the options need a dedicated panel
+ */
+
+/**
  * Creates a toolbar with a lighter background
  * @param {Panel|Window|Group} container The ScriptUI Object which will contain and display the toolbar.
- * @param {int} [numCols] The number of columns to use when adding the buttons.
+ * @param {Number} [numCols] The number of columns to use when adding the buttons.
  * @returns {Group} The toolbar, a ScriptUI Group
  */
 DuScriptUI.toolBar = function( container, numCols )
