@@ -9,8 +9,8 @@ var DuMath = {};
  * Enum for locations.
  * @readonly
  * @static
- * @enum {int}
- */
+ * @enum {Number}
+ * @ts-ignore */
 DuMath.Location = {
     TOP: 1,
     TOP_RIGHT: 2,
@@ -500,7 +500,7 @@ DuMath.isInside = function(point, bounds) {
 /**
  * Checks the sign of a number
  * @param {Number} num The number to check
- * @returns {int} 1 if num is positive, -1 if negative, 0 in other cases (0, NaN...)
+ * @returns {Number} 1 if num is positive, -1 if negative, 0 in other cases (0, NaN...)
  */
 DuMath.sign = function(num) {
     if (num < 0) return -1;
