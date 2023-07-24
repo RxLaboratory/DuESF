@@ -815,26 +815,3 @@ DuList.isList = function(list) {
         list instanceof DuList
     );
 }
-
-    if (!DuList.isList(array1) && !DuList.isList(array2)) {
-        if (typeof array1 == 'number' && typeof array2 == 'number') {
-            return DuMath.equals(array1, array2, floatPrecision)
-        } else return array1 == array2;
-    }
-    if (DuList.isList(array1) && !DuList.isList(array2)) return false;
-    if (!DuList.isList(array1) && DuList.isList(array2)) return false;
-    if (array1.length != array2.length) return false;
-
-    var it = new DuList(array1);
-    var ok = true;
-    it.do(function(item1) {
-        var item2 = array2[it.current];
-        if (!DuList.compare(item1, item2, floatPrecision)) {
-            ok = false;
-            return;
-        }
-    });
-
-    return ok;
-}
-//*/
