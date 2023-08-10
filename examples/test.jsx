@@ -1,12 +1,9 @@
 (function (thisObj) {
     
-    // @ts-ignore
-    #include "DuESF.jsxinc"
+    #include "../src/DuESF.jsxinc"
 
-    new OCOConfig('X:/OCO.config');
-    //alert(OCO.config.librarySettingsAbsoluteURI());
-
-    // @ts-ignore
-    var file = File.saveDialog("Select the OCO.config file.", "OCO Config:*.config;YAML:*.yml,*.yaml;Text files:*.txt;All files:*.*");
+    var a = new DuVector([4,4]);
+    var b = new DuVector([1,1]);
+    alert(b.orientedAngle(a));
 
 })(this);
