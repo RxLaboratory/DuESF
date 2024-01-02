@@ -13,7 +13,7 @@
  * Changes the background color of the button.
  * @method
  * @memberof DuToolBar
- * @name addutton
+ * @name addButton
  * @param {string} text The button text.
  * @param {string} [icon] The path to the icon
  * @param {string} [helpTip] The button help tip
