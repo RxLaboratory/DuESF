@@ -363,6 +363,7 @@ DuDebugLog.prototype.log = function (message,level)
 			this.file,
 			'[' + currentDate.toString() + ']' + levelString + message,
 			true );
+	$.writeln('[' + currentDate.toString() + ']' + levelString + message,)
 }
 
 /**
