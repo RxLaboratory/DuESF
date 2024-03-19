@@ -1452,6 +1452,7 @@ DuDebugLog.prototype.log = function (message,level)
 			this.file,
 			'[' + currentDate.toString() + ']' + levelString + message,
 			true );
+	$.writeln('[' + currentDate.toString() + ']' + levelString + message,)
 }
 
 /**
@@ -2641,10 +2642,21 @@ DuColor.prototype.adjusted = function( )
 {
 	if (DuESF.host == DuESF.HostApplication.AFTER_EFFECTS)
 	{
+		var aeVersion = parseFloat(
+			app.version.split('x')[0]
+		);
+
 		//gets the main application color
-		var q = app.themeColor( 78 )[ 0 ];
-		//the darkest one is 0.15000000596046
-		q = q - 0.15000000596046;
+		var q = 0.113725;
+		if (aeVersion >= 24.4) {
+
+		}
+		else {
+			q = app.themeColor( 78 )[ 0 ];
+		}
+		
+		//the darkest one is 0.113725
+		q = q - 0.113725;
 		var newColor = this.floatRGBA() + [ q, q, q, 0 ];
 		return new DuColor( newColor );
 	}
@@ -9282,15 +9294,26 @@ DuXMP.initialized = false;
  * Loads the XMP library if it has not been loaded yet. There is no need to call this function as it's called automatically by DuESF methods if needed.&lt;br />
  * Call it once if you plan to use XMP without the methods in DuESF.&lt;br />
  * Note that the XMP library is added statically as &lt;code>ExternalObject.AdobeXMPScript&lt;/code>.
+ * @returns {Boolean} Init may fail, in this case the function returns false and the XMP lib can't be used.
  */
 DuXMP.init = function ()
 {
-    if (DuXMP.initialized) return;
+    if (DuXMP.initialized) return true;
     
     // load the library
-    ExternalObject.AdobeXMPScript = def ( ExternalObject.AdobeXMPScript, new ExternalObject( "lib:AdobeXMPScript") );
+    try {
+    ExternalObject.AdobeXMPScript = def (
+        ExternalObject.AdobeXMPScript,
+        new ExternalObject( "lib:AdobeXMPScript" )
+        );
+    } catch (e) {
+        $.writeln("Can't load the XMP library");
+        DuXMP.initialized = false;
+        return false;
+    }
 
     DuXMP.initialized = true;
+    return true;
 }
 
 // ==================== |-----| ====================
@@ -11845,19 +11868,19 @@ DuScriptUI.button = function(container, text, image, helpTip, addOptionsPanel, o
         e.stopPropagation();
         DuScriptUI.dimControls();
 
-        if (duButton.label &amp;&amp; !options.small) {
+        /*if (duButton.label &amp;&amp; !options.small) {
             DuScriptUI.setTextColor(duButton.label, DuColor.Color.APP_HIGHLIGHT_COLOR);
-        }
-        else {
+        }*/
+        //else {
             DuScriptUI.setBackgroundColor(mainGroup, DuColor.Color.APP_HIGHLIGHT_COLOR.darker());
-        }
+        //}
         
         DuScriptUI.highlightedControls.push(duButton);
     }
 
     duButton.dim = function() {
         DuScriptUI.setBackgroundColor(mainGroup, duButton.bgColor);
-        if (duButton.label) DuScriptUI.setTextColor(duButton.label, duButton.textColor);
+        //if (duButton.label) DuScriptUI.setTextColor(duButton.label, duButton.textColor);
     }
 
     duButton.setBackgroundColor = function(color) {

@@ -260,10 +260,21 @@ DuColor.prototype.adjusted = function( )
 {
 	if (DuESF.host == DuESF.HostApplication.AFTER_EFFECTS)
 	{
+		var aeVersion = parseFloat(
+			app.version.split('x')[0]
+		);
+
 		//gets the main application color
-		var q = app.themeColor( 78 )[ 0 ];
-		//the darkest one is 0.15000000596046
-		q = q - 0.15000000596046;
+		var q = 0.113725;
+		if (aeVersion >= 24.4) {
+
+		}
+		else {
+			q = app.themeColor( 78 )[ 0 ];
+		}
+		
+		//the darkest one is 0.113725
+		q = q - 0.113725;
 		var newColor = this.floatRGBA() + [ q, q, q, 0 ];
 		return new DuColor( newColor );
 	}
