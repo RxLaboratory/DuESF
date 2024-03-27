@@ -344,7 +344,7 @@ DuScriptUI.button = function(container, text, image, helpTip, addOptionsPanel, o
         e.stopPropagation();
         DuScriptUI.dimControls();
 
-        if (DuESF.scriptVersion.version < 24.4 && duButton.label && !options.small) {
+        if ((DuESF.hostVersion.version < 24.4 || DuESF.host != DuESF.HostApplication.AFTER_EFFECTS) && duButton.label && !options.small) {
             DuScriptUI.setTextColor(duButton.label, DuColor.Color.APP_HIGHLIGHT_COLOR);
         }
         else {

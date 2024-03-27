@@ -190,7 +190,7 @@ DuScriptUI.multiButton = function( container, text, image, helpTip, ignoreUIMode
     {
         e.stopPropagation();
         DuScriptUI.dimControls();
-        if (multiButton.label && DuESF.scriptVersion.version < 24.4)
+        if (multiButton.label && (DuESF.hostVersion.version < 24.4 || DuESF.host != DuESF.HostApplication.AFTER_EFFECTS))
         {
             DuScriptUI.setTextColor( multiButton.label, DuColor.Color.APP_HIGHLIGHT_COLOR );
         }
