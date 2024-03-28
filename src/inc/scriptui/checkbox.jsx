@@ -342,14 +342,14 @@ DuScriptUI.checkBox = function( container, text, image, helpTip, textChecked, im
     {
         if ( duCheckBox.checked )
         {
-            if (duCheckBox.hasLabel && !options.isTab) DuScriptUI.setTextColor( duCheckBox.labelChecked, DuColor.Color.APP_HIGHLIGHT_COLOR );
-            
-            if (!duCheckBox.hasLabel && !options.isTab) DuScriptUI.setBackgroundColor( duCheckBox.buttonGroup, DuColor.Color.TRANSPARENT );
-            // image
-            if (!options.isTab && duCheckBox.imageOnly) DuScriptUI.setBackgroundColor( duCheckBox.imageGroup, DuColor.Color.APP_HIGHLIGHT_COLOR.darker() );
-
+            if (!options.isTab) {
+                if (duCheckBox.hasLabel && (DuESF.hostVersion.version < 24.4 || DuESF.host != DuESF.HostApplication.AFTER_EFFECTS))
+                    DuScriptUI.setTextColor( duCheckBox.labelChecked, DuColor.Color.APP_HIGHLIGHT_COLOR );
+                else
+                    DuScriptUI.setBackgroundColor( duCheckBox.buttonGroup, DuColor.Color.TRANSPARENT );
+            }
             //outline
-            if ( options.isTab )
+            else
             {
                 DuScriptUI.setBackgroundColor( duCheckBox.outLine, DuColor.Color.APP_TEXT_COLOR );
                 if (duCheckBox.hasLabel) DuScriptUI.setTextColor( duCheckBox.label, duCheckBox.textColor );
@@ -357,14 +357,14 @@ DuScriptUI.checkBox = function( container, text, image, helpTip, textChecked, im
         }
         else 
         {
-            if (duCheckBox.hasLabel && !options.isTab) DuScriptUI.setTextColor( duCheckBox.label, duCheckBox.textColor );
-            
-            if (!duCheckBox.hasLabel && !options.isTab) DuScriptUI.setBackgroundColor( duCheckBox.buttonGroup, DuColor.Color.TRANSPARENT );
-            // image
-            if (!options.isTab && duCheckBox.imageOnly) DuScriptUI.setBackgroundColor( duCheckBox.imageGroup, DuColor.Color.TRANSPARENT );
-
+            if (!options.isTab) {
+                if (duCheckBox.hasLabel && (DuESF.hostVersion.version < 24.4 || DuESF.host != DuESF.HostApplication.AFTER_EFFECTS))
+                    DuScriptUI.setTextColor( duCheckBox.label, duCheckBox.textColor );
+                else
+                    DuScriptUI.setBackgroundColor( duCheckBox.buttonGroup, DuColor.Color.TRANSPARENT );
+            }
             //outline
-            if ( options.isTab )
+            else
             {
                 DuScriptUI.setBackgroundColor( duCheckBox.outLine, DuColor.Color.TRANSPARENT );
                 if (duCheckBox.hasLabel) DuScriptUI.setTextColor( duCheckBox.label, duCheckBox.textColor );

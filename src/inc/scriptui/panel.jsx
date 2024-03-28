@@ -198,7 +198,7 @@ DuScriptUI.popUp = function( title, alignment, modal )
         borderless: true
     } );
 
-    DuScriptUI.setBackgroundColor(popup, DuColor.Color.OBSIDIAN);
+    DuScriptUI.setBackgroundColor(popup, DuColor.Color.APP_BACKGROUND_COLOR.darker());
 
     popup.margins = 0;
     popup.spacing = 0;
@@ -536,12 +536,6 @@ DuScriptUI.showUI = function( ui, enterRunTime )
  */
 DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, scriptFile, bottomButtons )
 {
-    function testGroup( group )
-    {
-        group.add('statictext', undefined, "test");
-        DuScriptUI.setBackgroundColor( group, DuColor.Color.BLACK );
-    }
-
     bottomButtons = def(bottomButtons, []);
 
     addSettingsButton = def(addSettingsButton, true);

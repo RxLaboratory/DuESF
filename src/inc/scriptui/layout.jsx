@@ -68,11 +68,11 @@ DuScriptUI.separator = function( container, name, checkable, drawLine )
         if ( checkable ) separator.label = separator.add( 'checkbox', undefined, name );
         else separator.label = separator.add( 'statictext', undefined, name );
         separator.label.alignment = [ 'center', 'bottom' ];
-        if ( drawLine ) DuScriptUI.setBackgroundColor( separator, DuColor.Color.DARK_GREY );
+        if ( drawLine ) DuScriptUI.setBackgroundColor( separator, DuColor.Color.APP_BACKGROUND_COLOR.darker() );
     }
     else if ( drawLine )
     {
-        DuScriptUI.setBackgroundColor( separator, DuColor.Color.ABYSS_GREY );
+        DuScriptUI.setBackgroundColor( separator, DuColor.Color.APP_BACKGROUND_COLOR.darker(300) );
         var size = 1;
         if (DuESF.host == DuESF.HostApplication.AFTER_EFFECTS) size = 2;
         if (container.orientation == 'row')

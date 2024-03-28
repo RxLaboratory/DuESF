@@ -45,7 +45,7 @@ DuScriptUI.titleBar = function( container, title, closeButton, pinButton ) {
     titleBar.spacing = 0;
     titleBar.orientation = 'row';
     titleBar.alignment = ['fill','top'];
-    DuScriptUI.setBackgroundColor( titleBar, DuColor.Color.DARK_GREY );
+    DuScriptUI.setBackgroundColor( titleBar, DuColor.Color.APP_BACKGROUND_COLOR.darker() );
 
     titleBar.onClose = function() {};
     titleBar.onPin = function(p) {};

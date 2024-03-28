@@ -3,7 +3,7 @@
  * @class
  * @name DuColor
  * @classdesc A simple class to manage colors and convert them.
- * @param {float[]} [floatRGBA=[0,0,0,1]] An [R,G,B,A] float Array.<br />
+ * @param {Number[]} [floatRGBA=[0,0,0,1]] An [R,G,B,A] float Array.<br />
  * Negative values are clamped to 0.<br />
  * Alpha > 1 is clamped to 1.<br />
  * Colors are stored in 32 bit float to keep the maximum precision.
@@ -252,33 +252,19 @@ DuColor.prototype.toJSON = function ()
 }
 
 /**
- * Creates a color adjusted according to the brightness setting of the application.<br />
- * For now, works only in After Effects
+ * Creates a color adjusted according to the brightness setting of the application.
  * @return {DuColor} The new color
  */
 DuColor.prototype.adjusted = function( )
 {
-	if (DuESF.host == DuESF.HostApplication.AFTER_EFFECTS)
-	{
-		var aeVersion = parseFloat(
-			app.version.split('x')[0]
-		);
-
-		//gets the main application color
-		var q = 0.113725;
-		if (aeVersion >= 24.4) {
-
-		}
-		else {
-			q = app.themeColor( 78 )[ 0 ];
-		}
-		
-		//the darkest one is 0.113725
-		q = q - 0.113725;
-		var newColor = this.floatRGBA() + [ q, q, q, 0 ];
-		return new DuColor( newColor );
-	}
-    return this;
+	// gets the main application brightness
+	var q = DuColor.Color.APP_BACKGROUND_COLOR.red;
+	// the darkest one is 0.11328125
+	q = q - 0.11328125;
+	// Limit the adjustment
+	q *= .75;
+	var newColor = this.floatRGBA() + [ q, q, q, 0 ];
+	return new DuColor( newColor );
 }
 
 // ============== STATIC ===============

@@ -350,7 +350,7 @@ DuScriptUI.checkUpdate = function ( callback, ui, showAlert )
 
     var titleGroup = DuScriptUI.group( ui_updateGroup );
     titleGroup.alignment = ['fill', 'top'];
-    DuScriptUI.setBackgroundColor( titleGroup, DuColor.Color.DARK_GREY );
+    DuScriptUI.setBackgroundColor( titleGroup, DuColor.Color.APP_BACKGROUND_COLOR.darker() );
 
     DuScriptUI.staticText(
         titleGroup,
@@ -376,12 +376,12 @@ DuScriptUI.checkUpdate = function ( callback, ui, showAlert )
     var descriptionGroup = DuScriptUI.group( ui_updateGroup );
     descriptionGroup.margins = 2;
     descriptionGroup.alignment = ['fill','fill'];
-    DuScriptUI.setBackgroundColor( descriptionGroup, DuColor.Color.OBSIDIAN );
+    //DuScriptUI.setBackgroundColor( descriptionGroup, DuColor.Color.OBSIDIAN );
 
     var descriptionText = descriptionGroup.add("edittext", undefined, update.description, {multiline:true});
     descriptionText.alignment = ['fill','fill'];
     descriptionText.minimumSize = [-1,100];
-    DuScriptUI.setBackgroundColor( descriptionText, DuColor.Color.OBSIDIAN );
+    DuScriptUI.setBackgroundColor( descriptionText, DuColor.Color.APP_BACKGROUND_COLOR.darker() );
 
     DuScriptUI.staticText(
         ui_updateGroup,

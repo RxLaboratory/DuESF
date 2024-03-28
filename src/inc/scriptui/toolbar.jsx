@@ -40,7 +40,7 @@ DuScriptUI.toolBar = function( container, numCols )
     var toolsGroup = DuScriptUI.group( container, 'row' );
     toolsGroup.spacing = 3;
     toolsGroup.margins = 3;
-    DuScriptUI.setBackgroundColor(toolsGroup , DuColor.Color.DARK_GREY );
+    DuScriptUI.setBackgroundColor(toolsGroup , DuColor.Color.APP_BACKGROUND_COLOR.darker() );
 
     toolsGroup.columns = [];
 

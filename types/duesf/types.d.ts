@@ -813,7 +813,7 @@ Alpha > 1 is clamped to 1.<br />
 Colors are stored in 32 bit float to keep the maximum precision.
  */
 declare class DuColor {
-    constructor(floatRGBA?: float[]);
+    constructor(floatRGBA?: Number[]);
     /**
      * Returns the color as a float Array with alpha
      * @param [clamped = true] - Set to false to keep the values > 1.0
@@ -886,8 +886,7 @@ declare class DuColor {
      */
     toJSON(): string;
     /**
-     * Creates a color adjusted according to the brightness setting of the application.<br />
-    For now, works only in After Effects
+     * Creates a color adjusted according to the brightness setting of the application.
      * @returns The new color
      */
     adjusted(): DuColor;
@@ -3206,7 +3205,7 @@ declare namespace DuScriptUI {
      * @param color - The new color [R,V,B,A] Array
      * @param [adjusted = true] - lightens the color if the brightness setting of Ae is not set on the darkest one
      */
-    function setBackgroundColor(uiItem: ScriptUI, color: any[], adjusted?: boolean): void;
+    function setBackgroundColor(uiItem: ScriptUI, color: Number[] | DuColor, adjusted?: boolean): void;
     /**
      * Adds a group in a container, using  DuScriptUI default alignments, and DuScriptUI.defaultSpacing. Margins are set to 0.
      * @param container - Where to create the group

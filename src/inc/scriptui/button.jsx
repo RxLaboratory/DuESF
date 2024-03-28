@@ -492,7 +492,7 @@ DuScriptUI.smallbutton = function(container, text, helpTip, value) {
         DuScriptUI.dimControls();
 
         if (smallButton.label) DuScriptUI.setTextColor(smallButton.label, DuColor.Color.VERY_DARK_GREY);
-        DuScriptUI.setBackgroundColor(smallButton, DuColor.Color.LIGHT_GREY);
+        DuScriptUI.setBackgroundColor(smallButton, DuColor.Color.APP_TEXT_COLOR.darker());
 
         DuScriptUI.highlightedControls.push(smallButton);
     }

@@ -2267,7 +2267,7 @@ DuList.isList = function(list) {
  * @class
  * @name DuColor
  * @classdesc A simple class to manage colors and convert them.
- * @param {float[]} [floatRGBA=[0,0,0,1]] An [R,G,B,A] float Array.<br />
+ * @param {Number[]} [floatRGBA=[0,0,0,1]] An [R,G,B,A] float Array.<br />
  * Negative values are clamped to 0.<br />
  * Alpha > 1 is clamped to 1.<br />
  * Colors are stored in 32 bit float to keep the maximum precision.
@@ -2516,33 +2516,19 @@ DuColor.prototype.toJSON = function ()
 }
 
 /**
- * Creates a color adjusted according to the brightness setting of the application.<br />
- * For now, works only in After Effects
+ * Creates a color adjusted according to the brightness setting of the application.
  * @return {DuColor} The new color
  */
 DuColor.prototype.adjusted = function( )
 {
-	if (DuESF.host == DuESF.HostApplication.AFTER_EFFECTS)
-	{
-		var aeVersion = parseFloat(
-			app.version.split('x')[0]
-		);
-
-		//gets the main application color
-		var q = 0.113725;
-		if (aeVersion >= 24.4) {
-
-		}
-		else {
-			q = app.themeColor( 78 )[ 0 ];
-		}
-		
-		//the darkest one is 0.113725
-		q = q - 0.113725;
-		var newColor = this.floatRGBA() + [ q, q, q, 0 ];
-		return new DuColor( newColor );
-	}
-    return this;
+	// gets the main application brightness
+	var q = DuColor.Color.APP_BACKGROUND_COLOR.red;
+	// the darkest one is 0.11328125
+	q = q - 0.11328125;
+	// Limit the adjustment
+	q *= .75;
+	var newColor = this.floatRGBA() + [ q, q, q, 0 ];
+	return new DuColor( newColor );
 }
 
 // ============== STATIC ===============
@@ -10214,7 +10200,7 @@ DuScriptUI.titleBar = function( container, title, closeButton, pinButton ) {
     titleBar.spacing = 0;
     titleBar.orientation = 'row';
     titleBar.alignment = ['fill','top'];
-    DuScriptUI.setBackgroundColor( titleBar, DuColor.Color.DARK_GREY );
+    DuScriptUI.setBackgroundColor( titleBar, DuColor.Color.APP_BACKGROUND_COLOR.darker() );
 
     titleBar.onClose = function() {};
     titleBar.onPin = function(p) {};
@@ -10451,7 +10437,7 @@ DuScriptUI.popUp = function( title, alignment, modal )
         borderless: true
     } );
 
-    DuScriptUI.setBackgroundColor(popup, DuColor.Color.OBSIDIAN);
+    DuScriptUI.setBackgroundColor(popup, DuColor.Color.APP_BACKGROUND_COLOR.darker());
 
     popup.margins = 0;
     popup.spacing = 0;
@@ -10789,12 +10775,6 @@ DuScriptUI.showUI = function( ui, enterRunTime )
  */
 DuScriptUI.scriptPanel = function( container, addSettingsButton, addHelpButton, scriptFile, bottomButtons )
 {
-    function testGroup( group )
-    {
-        group.add('statictext', undefined, "test");
-        DuScriptUI.setBackgroundColor( group, DuColor.Color.BLACK );
-    }
-
     bottomButtons = def(bottomButtons, []);
 
     addSettingsButton = def(addSettingsButton, true);
@@ -11901,7 +11881,7 @@ DuScriptUI.smallbutton = function(container, text, helpTip, value) {
         DuScriptUI.dimControls();
 
         if (smallButton.label) DuScriptUI.setTextColor(smallButton.label, DuColor.Color.VERY_DARK_GREY);
-        DuScriptUI.setBackgroundColor(smallButton, DuColor.Color.LIGHT_GREY);
+        DuScriptUI.setBackgroundColor(smallButton, DuColor.Color.APP_TEXT_COLOR.darker());
 
         DuScriptUI.highlightedControls.push(smallButton);
     }
@@ -12283,7 +12263,7 @@ DuScriptUI.checkUpdate = function ( callback, ui, showAlert )
 
     var titleGroup = DuScriptUI.group( ui_updateGroup );
     titleGroup.alignment = ['fill', 'top'];
-    DuScriptUI.setBackgroundColor( titleGroup, DuColor.Color.DARK_GREY );
+    DuScriptUI.setBackgroundColor( titleGroup, DuColor.Color.APP_BACKGROUND_COLOR.darker() );
 
     DuScriptUI.staticText(
         titleGroup,
@@ -12309,12 +12289,12 @@ DuScriptUI.checkUpdate = function ( callback, ui, showAlert )
     var descriptionGroup = DuScriptUI.group( ui_updateGroup );
     descriptionGroup.margins = 2;
     descriptionGroup.alignment = ['fill','fill'];
-    DuScriptUI.setBackgroundColor( descriptionGroup, DuColor.Color.OBSIDIAN );
+    //DuScriptUI.setBackgroundColor( descriptionGroup, DuColor.Color.OBSIDIAN );
 
     var descriptionText = descriptionGroup.add("edittext", undefined, update.description, {multiline:true});
     descriptionText.alignment = ['fill','fill'];
     descriptionText.minimumSize = [-1,100];
-    DuScriptUI.setBackgroundColor( descriptionText, DuColor.Color.OBSIDIAN );
+    DuScriptUI.setBackgroundColor( descriptionText, DuColor.Color.APP_BACKGROUND_COLOR.darker() );
 
     DuScriptUI.staticText(
         ui_updateGroup,
@@ -12470,13 +12450,15 @@ DuScriptUI.setTextColor = function( text, color, adjusted )
 /**
  * Changes the color of the background of a ScriptUI Object
  * @param {ScriptUI} uiItem - The ScriptUI Object
- * @param {Array} color - The new color [R,V,B,A] Array
+ * @param {Number[]|DuColor} color - The new color [R,V,B,A] Array
  * @param {Boolean} [adjusted=true] - lightens the color if the brightness setting of Ae is not set on the darkest one
  */
 DuScriptUI.setBackgroundColor = function( uiItem, color, adjusted )
 {
     if ( !isdef( uiItem ) ) throw "You must provide a ScriptUI Control to change the color of the background";
     adjusted = def( adjusted, true );
+
+    if (color instanceof Array) color = new DuColor(color);
    
     var g = uiItem.graphics;
     var c;
@@ -12560,11 +12542,11 @@ DuScriptUI.separator = function( container, name, checkable, drawLine )
         if ( checkable ) separator.label = separator.add( 'checkbox', undefined, name );
         else separator.label = separator.add( 'statictext', undefined, name );
         separator.label.alignment = [ 'center', 'bottom' ];
-        if ( drawLine ) DuScriptUI.setBackgroundColor( separator, DuColor.Color.DARK_GREY );
+        if ( drawLine ) DuScriptUI.setBackgroundColor( separator, DuColor.Color.APP_BACKGROUND_COLOR.darker() );
     }
     else if ( drawLine )
     {
-        DuScriptUI.setBackgroundColor( separator, DuColor.Color.ABYSS_GREY );
+        DuScriptUI.setBackgroundColor( separator, DuColor.Color.APP_BACKGROUND_COLOR.darker(300) );
         var size = 1;
         if (DuESF.host == DuESF.HostApplication.AFTER_EFFECTS) size = 2;
         if (container.orientation == 'row')
@@ -12932,14 +12914,14 @@ DuScriptUI.checkBox = function( container, text, image, helpTip, textChecked, im
     {
         if ( duCheckBox.checked )
         {
-            if (duCheckBox.hasLabel && !options.isTab) DuScriptUI.setTextColor( duCheckBox.labelChecked, DuColor.Color.APP_HIGHLIGHT_COLOR );
-            
-            if (!duCheckBox.hasLabel && !options.isTab) DuScriptUI.setBackgroundColor( duCheckBox.buttonGroup, DuColor.Color.TRANSPARENT );
-            // image
-            if (!options.isTab && duCheckBox.imageOnly) DuScriptUI.setBackgroundColor( duCheckBox.imageGroup, DuColor.Color.APP_HIGHLIGHT_COLOR.darker() );
-
+            if (!options.isTab) {
+                if (duCheckBox.hasLabel && (DuESF.hostVersion.version < 24.4 || DuESF.host != DuESF.HostApplication.AFTER_EFFECTS))
+                    DuScriptUI.setTextColor( duCheckBox.labelChecked, DuColor.Color.APP_HIGHLIGHT_COLOR );
+                else
+                    DuScriptUI.setBackgroundColor( duCheckBox.buttonGroup, DuColor.Color.TRANSPARENT );
+            }
             //outline
-            if ( options.isTab )
+            else
             {
                 DuScriptUI.setBackgroundColor( duCheckBox.outLine, DuColor.Color.APP_TEXT_COLOR );
                 if (duCheckBox.hasLabel) DuScriptUI.setTextColor( duCheckBox.label, duCheckBox.textColor );
@@ -12947,14 +12929,14 @@ DuScriptUI.checkBox = function( container, text, image, helpTip, textChecked, im
         }
         else 
         {
-            if (duCheckBox.hasLabel && !options.isTab) DuScriptUI.setTextColor( duCheckBox.label, duCheckBox.textColor );
-            
-            if (!duCheckBox.hasLabel && !options.isTab) DuScriptUI.setBackgroundColor( duCheckBox.buttonGroup, DuColor.Color.TRANSPARENT );
-            // image
-            if (!options.isTab && duCheckBox.imageOnly) DuScriptUI.setBackgroundColor( duCheckBox.imageGroup, DuColor.Color.TRANSPARENT );
-
+            if (!options.isTab) {
+                if (duCheckBox.hasLabel && (DuESF.hostVersion.version < 24.4 || DuESF.host != DuESF.HostApplication.AFTER_EFFECTS))
+                    DuScriptUI.setTextColor( duCheckBox.label, duCheckBox.textColor );
+                else
+                    DuScriptUI.setBackgroundColor( duCheckBox.buttonGroup, DuColor.Color.TRANSPARENT );
+            }
             //outline
-            if ( options.isTab )
+            else
             {
                 DuScriptUI.setBackgroundColor( duCheckBox.outLine, DuColor.Color.TRANSPARENT );
                 if (duCheckBox.hasLabel) DuScriptUI.setTextColor( duCheckBox.label, duCheckBox.textColor );
@@ -15082,7 +15064,7 @@ DuScriptUI.toolBar = function( container, numCols )
     var toolsGroup = DuScriptUI.group( container, 'row' );
     toolsGroup.spacing = 3;
     toolsGroup.margins = 3;
-    DuScriptUI.setBackgroundColor(toolsGroup , DuColor.Color.DARK_GREY );
+    DuScriptUI.setBackgroundColor(toolsGroup , DuColor.Color.APP_BACKGROUND_COLOR.darker() );
 
     toolsGroup.columns = [];
 

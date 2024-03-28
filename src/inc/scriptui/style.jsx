@@ -34,13 +34,15 @@ DuScriptUI.setTextColor = function( text, color, adjusted )
 /**
  * Changes the color of the background of a ScriptUI Object
  * @param {ScriptUI} uiItem - The ScriptUI Object
- * @param {Array} color - The new color [R,V,B,A] Array
+ * @param {Number[]|DuColor} color - The new color [R,V,B,A] Array
  * @param {Boolean} [adjusted=true] - lightens the color if the brightness setting of Ae is not set on the darkest one
  */
 DuScriptUI.setBackgroundColor = function( uiItem, color, adjusted )
 {
     if ( !isdef( uiItem ) ) throw "You must provide a ScriptUI Control to change the color of the background";
     adjusted = def( adjusted, true );
+
+    if (color instanceof Array) color = new DuColor(color);
    
     var g = uiItem.graphics;
     var c;
