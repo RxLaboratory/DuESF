@@ -68,7 +68,7 @@ DuScriptUI.separator = function( container, name, checkable, drawLine )
         if ( checkable ) separator.label = separator.add( 'checkbox', undefined, name );
         else separator.label = separator.add( 'statictext', undefined, name );
         separator.label.alignment = [ 'center', 'bottom' ];
-        if ( drawLine ) DuScriptUI.setBackgroundColor( separator, DuColor.Color.APP_BACKGROUND_COLOR.darker() );
+        if ( drawLine ) DuScriptUI.setBackgroundColor( separator, DuColor.Color.APP_BACKGROUND_COLOR.lighter() );
     }
     else if ( drawLine )
     {
