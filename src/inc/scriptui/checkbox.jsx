@@ -346,7 +346,7 @@ DuScriptUI.checkBox = function( container, text, image, helpTip, textChecked, im
                 if (duCheckBox.hasLabel && (DuESF.hostVersion.version < 24.4 || DuESF.host != DuESF.HostApplication.AFTER_EFFECTS))
                     DuScriptUI.setTextColor( duCheckBox.labelChecked, DuColor.Color.APP_HIGHLIGHT_COLOR );
                 else
-                    DuScriptUI.setBackgroundColor( duCheckBox.buttonGroup, DuColor.Color.TRANSPARENT );
+                    DuScriptUI.setBackgroundColor( duCheckBox.buttonGroup, DuColor.Color.APP_HIGHLIGHT_COLOR.darker() );
             }
             //outline
             else
@@ -379,7 +379,7 @@ DuScriptUI.checkBox = function( container, text, image, helpTip, textChecked, im
         if ( e.altKey ) duCheckBox.altClicked();
         else duCheckBox.clicked(e);
     }, true );
-
+ 
 
     duCheckBox.addEventListener( "mouseover", duCheckBox.highlight );
     duCheckBox.buttonGroup.addEventListener( "mouseover", duCheckBox.highlight );
