@@ -103,7 +103,7 @@ DuScriptUI.selector = function( container, helpTip, iconOnly )
     selector.mainGroup.alignment = [ 'fill', 'fill' ];
     selector.mainGroup.alignChildren = [ 'center', 'center' ];
     selector.helpTip = helpTip;
-    DuScriptUI.setBackgroundColor( selector.mainGroup, DuColor.Color.OBSIDIAN );
+    //DuScriptUI.setBackgroundColor( selector.mainGroup, DuColor.Color.OBSIDIAN );
 
     //the menu button
     if (!iconOnly) {
@@ -312,13 +312,13 @@ DuScriptUI.selector = function( container, helpTip, iconOnly )
     {
         e.stopPropagation();
         DuScriptUI.dimControls();
-        DuScriptUI.setBackgroundColor( selector, DuColor.Color.APP_HIGHLIGHT_COLOR.darker() );
+        DuScriptUI.setTextColor( selector, DuColor.Color.APP_HIGHLIGHT_COLOR );
         DuScriptUI.highlightedControls.push( selector );
     }
 
     selector.dim = function( e )
     {
-        DuScriptUI.setBackgroundColor( selector, DuColor.Color.TRANSPARENT );
+        DuScriptUI.setTextColor( selector, DuColor.Color.APP_TEXT_COLOR );
         //if (!iconOnly) DuScriptUI.setTextColor( selector.label, DuColor.Color.APP_TEXT_COLOR );
     }
 
