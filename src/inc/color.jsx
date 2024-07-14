@@ -228,6 +228,42 @@ DuColor.prototype.lighter = function( ratio )
 }
 
 /**
+ * Creates a new color lighter or darker depending on the difference between the APP_TEXT_COLOR (foreground color) and the APP_BACKGROUND_COLOR
+ * @param {boolean} [more=false] Pulls 1.5 times
+ * @returns {DuColor} The new color
+ */
+DuColor.prototype.pull = function( more )
+{
+	var ratio = 200;
+	if (more) ratio = 300;
+
+	if (DuColor.isUsingDarkMode()) {
+		return this.lighter(ratio);
+	}
+	else {
+		return this.darker(ratio);
+	}
+}
+
+/**
+ * Creates a new color lighter or darker depending on the difference between the APP_TEXT_COLOR (foreground color) and the APP_BACKGROUND_COLOR
+ * @param {boolean} [more=false] Pushes 1.5 times
+ * @returns {DuColor} The new color
+ */
+DuColor.prototype.push = function( more )
+{
+	var ratio = 200;
+	if (more) ratio = 300;
+
+	if (DuColor.isUsingDarkMode()) {
+		return this.darker(ratio);
+	}
+	else {
+		return this.lighter(ratio);
+	}
+}
+
+/**
  * Compares two colors
  * @param {Boolean} [ignoreAlpha=false] Set to true to consider colors to be equal if they differ only by their alpha.
  * @param {int} [precision=4] The precision to use (the number of decimals to compare).
@@ -383,6 +419,13 @@ DuColor.init = function()
 	}
 }
 DuESF.initMethods.push(DuColor.init);
+
+/**
+ * Checks if the app is in "dark mode", i.e. the APP_TEXT_COLOR is lighter than the APP_BACKGROUND_COLOR
+ */
+DuColor.isUsingDarkMode = function() {
+	return DuColor.Color.APP_TEXT_COLOR.floatHSL()[2] > DuColor.Color.APP_BACKGROUND_COLOR.floatHSL()[2]
+}
 
 /**
 	* Creates a new DuColor from a hex code/array
