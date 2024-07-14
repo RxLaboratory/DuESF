@@ -1,6 +1,7 @@
 /**
  * @class
  * @name DuToolBar
+ * @augments Group
  * @classdesc For use with {@link DuScriptUI}.<br />
  * A Tool Bar.<br />
  * This is not a real class, and cannot be instanciated.<br />
