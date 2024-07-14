@@ -112,7 +112,7 @@ DuScriptUI.editText = function( container, text, prefix, suffix, placeHolder, he
     niceEditText.static = niceEditText.add( 'statictext', undefined, options.prefix + staticText + options.suffix );
     niceEditText.static.alignment = [ 'fill', 'center' ];
     niceEditText.static.helpTip = options.helpTip;
-    if ( options.text == "" && options.placeHolder != "" ) DuScriptUI.setTextColor( niceEditText.static, DuColor.Color.APP_HIGHLIGHT_COLOR.darker(150) );
+    if ( options.text == "" && options.placeHolder != "" ) DuScriptUI.setTextColor( niceEditText.static, DuColor.Color.APP_HIGHLIGHT_COLOR.push(150) );
     else DuScriptUI.setTextColor( niceEditText.static, DuColor.Color.APP_HIGHLIGHT_COLOR );
     niceEditText.edit = niceEditText.add( 'edittext', undefined, options.text );
     niceEditText.edit.visible = false;
@@ -157,7 +157,7 @@ DuScriptUI.editText = function( container, text, prefix, suffix, placeHolder, he
         var staticText = '';
         if ( niceEditText.edit.text == '' && niceEditText.placeHolder != '' )
         {
-            DuScriptUI.setTextColor( niceEditText.static, niceEditText.textColor.darker(200) );
+            DuScriptUI.setTextColor( niceEditText.static, niceEditText.textColor.push(150) );
             staticText = niceEditText.placeHolder;
         }
         else
@@ -287,7 +287,7 @@ DuScriptUI.staticText = function( container, text, color, multiLine )
     options.text = def(options.text, text);
 
     multiLine = def(multiLine, options.text.indexOf("\n") >= 0 )
-    color = def(color, DuColor.Color.APP_TEXT_COLOR.darker(130) );
+    color = def(color, DuColor.Color.APP_TEXT_COLOR.push(130) );
 
     options.color = def(options.color, color);
     options.multiLine = def(options.multiLine, multiLine);

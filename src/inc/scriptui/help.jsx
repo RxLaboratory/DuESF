@@ -350,12 +350,12 @@ DuScriptUI.checkUpdate = function ( callback, ui, showAlert )
 
     var titleGroup = DuScriptUI.group( ui_updateGroup );
     titleGroup.alignment = ['fill', 'top'];
-    DuScriptUI.setBackgroundColor( titleGroup, DuColor.Color.APP_BACKGROUND_COLOR.darker() );
+    DuScriptUI.setBackgroundColor( titleGroup, DuColor.Color.APP_BACKGROUND_COLOR.push() );
 
     DuScriptUI.staticText(
         titleGroup,
         DuString.args( "New {#}!", [ DuESF.scriptName ] ),
-        DuColor.Color.APP_TEXT_COLOR.lighter(130)
+        DuColor.Color.APP_TEXT_COLOR.pull(150)
         ).alignment = ['center','top'];
 
     var newVersionGroup = DuScriptUI.group( ui_updateGroup );
@@ -370,7 +370,7 @@ DuScriptUI.checkUpdate = function ( callback, ui, showAlert )
     DuScriptUI.staticText(
         newVersionGroup,
         update.version,
-        DuColor.Color.APP_TEXT_COLOR.lighter(115)
+        DuColor.Color.APP_TEXT_COLOR.pull(130)
         );
 
     var descriptionGroup = DuScriptUI.group( ui_updateGroup );
@@ -381,12 +381,12 @@ DuScriptUI.checkUpdate = function ( callback, ui, showAlert )
     var descriptionText = descriptionGroup.add("edittext", undefined, update.description, {multiline:true});
     descriptionText.alignment = ['fill','fill'];
     descriptionText.minimumSize = [-1,100];
-    DuScriptUI.setBackgroundColor( descriptionText, DuColor.Color.APP_BACKGROUND_COLOR.darker() );
+    DuScriptUI.setBackgroundColor( descriptionText, DuColor.Color.APP_BACKGROUND_COLOR.push() );
 
     DuScriptUI.staticText(
         ui_updateGroup,
         "Current version: " + DuESF.scriptVersion.fullVersion,
-        DuColor.Color.APP_TEXT_COLOR.darker(160)
+        DuColor.Color.APP_TEXT_COLOR.push(160)
         ).alignment = ['fill', 'bottom'];
 
     if (update.downloadURL)

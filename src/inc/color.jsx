@@ -229,13 +229,12 @@ DuColor.prototype.lighter = function( ratio )
 
 /**
  * Creates a new color lighter or darker depending on the difference between the APP_TEXT_COLOR (foreground color) and the APP_BACKGROUND_COLOR
- * @param {boolean} [more=false] Pulls 1.5 times
+ * @param {int} [ratio=200] Pull ratio
  * @returns {DuColor} The new color
  */
-DuColor.prototype.pull = function( more )
+DuColor.prototype.pull = function( ratio )
 {
-	var ratio = 200;
-	if (more) ratio = 300;
+	ratio = def(ratio,200);
 
 	if (DuColor.isUsingDarkMode()) {
 		return this.lighter(ratio);
@@ -247,13 +246,12 @@ DuColor.prototype.pull = function( more )
 
 /**
  * Creates a new color lighter or darker depending on the difference between the APP_TEXT_COLOR (foreground color) and the APP_BACKGROUND_COLOR
- * @param {boolean} [more=false] Pushes 1.5 times
+ * @param {int} [ratio=200] Push ratio
  * @returns {DuColor} The new color
  */
-DuColor.prototype.push = function( more )
+DuColor.prototype.push = function( ratio )
 {
-	var ratio = 200;
-	if (more) ratio = 300;
+	ratio = def(ratio,200);
 
 	if (DuColor.isUsingDarkMode()) {
 		return this.darker(ratio);

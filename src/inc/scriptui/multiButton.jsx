@@ -196,7 +196,7 @@ DuScriptUI.multiButton = function( container, text, image, helpTip, ignoreUIMode
         }
         else
         {
-            DuScriptUI.setBackgroundColor( multiButton, DuColor.Color.APP_HIGHLIGHT_COLOR.darker() );
+            DuScriptUI.setBackgroundColor( multiButton, DuColor.Color.APP_HIGHLIGHT_COLOR.push() );
         }
         
         DuScriptUI.highlightedControls.push( multiButton );

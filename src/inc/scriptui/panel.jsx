@@ -198,7 +198,7 @@ DuScriptUI.popUp = function( title, alignment, modal )
         borderless: true
     } );
 
-    DuScriptUI.setBackgroundColor(popup, DuColor.Color.APP_BACKGROUND_COLOR.darker());
+    DuScriptUI.setBackgroundColor(popup, DuColor.Color.APP_BACKGROUND_COLOR.push());
 
     popup.margins = 0;
     popup.spacing = 0;

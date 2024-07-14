@@ -230,7 +230,7 @@ DuScriptUI.checkBox = function( container, text, image, helpTip, textChecked, im
                     duCheckBox.image.visible = false;
                     if (duCheckBox.imageOnly)
                     {
-                        DuScriptUI.setBackgroundColor( duCheckBox.imageGroup, DuColor.Color.APP_HIGHLIGHT_COLOR.darker() );
+                        DuScriptUI.setBackgroundColor( duCheckBox.imageGroup, DuColor.Color.APP_HIGHLIGHT_COLOR.push() );
                     }
                 }
 
@@ -307,7 +307,7 @@ DuScriptUI.checkBox = function( container, text, image, helpTip, textChecked, im
         {
             if (!options.isTab) {
                 if (duCheckBox.hasLabel)
-                    DuScriptUI.setTextColor( duCheckBox.labelChecked, DuColor.Color.APP_HIGHLIGHT_COLOR.lighter(150) );
+                    DuScriptUI.setTextColor( duCheckBox.labelChecked, DuColor.Color.APP_HIGHLIGHT_COLOR.pull() );
                 else
                     DuScriptUI.setBackgroundColor( duCheckBox.buttonGroup, DuColor.Color.APP_HIGHLIGHT_COLOR );
             }
@@ -324,7 +324,7 @@ DuScriptUI.checkBox = function( container, text, image, helpTip, textChecked, im
                 if (duCheckBox.hasLabel)
                     DuScriptUI.setTextColor( duCheckBox.label, DuColor.Color.APP_HIGHLIGHT_COLOR );
                 else
-                    DuScriptUI.setBackgroundColor( duCheckBox.buttonGroup, DuColor.Color.APP_HIGHLIGHT_COLOR.darker() );
+                    DuScriptUI.setBackgroundColor( duCheckBox.buttonGroup, DuColor.Color.APP_HIGHLIGHT_COLOR.push() );
             }
             //outline
             else
@@ -346,7 +346,7 @@ DuScriptUI.checkBox = function( container, text, image, helpTip, textChecked, im
                 if (duCheckBox.hasLabel)
                     DuScriptUI.setTextColor( duCheckBox.labelChecked, DuColor.Color.APP_HIGHLIGHT_COLOR );
                 else
-                    DuScriptUI.setBackgroundColor( duCheckBox.buttonGroup, DuColor.Color.APP_HIGHLIGHT_COLOR.darker() );
+                    DuScriptUI.setBackgroundColor( duCheckBox.buttonGroup, DuColor.Color.APP_HIGHLIGHT_COLOR.push() );
             }
             //outline
             else
